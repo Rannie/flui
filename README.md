@@ -1,2 +1,2 @@
 # flui
-a flutter widgets &amp; components kit.
+A flutter widgets & components kit.
