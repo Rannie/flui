@@ -112,50 +112,52 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
     with MaterialButtonWithIconMixin {
   _FLRaisedButtonWithIcon({
     Key key,
-    @required this.onPressed,
     this.iconPosition = FLPosition.left,
     this.spacing = 8,
-    this.onHighlightChanged,
-    this.textTheme,
-    this.textColor,
-    this.disabledColor,
-    this.color,
-    this.disabledTextColor,
-    this.highlightColor,
-    this.splashColor,
-    this.colorBrightness,
-    this.elevation,
-    this.highlightElevation,
-    this.disabledElevation,
-    this.shape,
-    this.padding,
-    this.clipBehavior,
-    this.materialTapTargetSize,
-    this.animationDuration,
+    @required VoidCallback onPressed,
+    ValueChanged<bool> onHighlightChanged,
+    ButtonTextTheme textTheme,
+    Color textColor,
+    Color disabledTextColor,
+    Color color,
+    Color disabledColor,
+    Color highlightColor,
+    Color splashColor,
+    Brightness colorBrightness,
+    double elevation,
+    double highlightElevation,
+    double disabledElevation,
+    ShapeBorder shape,
+    EdgeInsetsGeometry padding,
+    Clip clipBehavior,
+    MaterialTapTargetSize materialTapTargetSize,
+    Duration animationDuration,
     @required this.icon,
     @required this.label,
-  });
+  }) : super(key: key,
+      onPressed: onPressed,
+      onHighlightChanged: onHighlightChanged,
+      textTheme: textTheme,
+      textColor: textColor,
+      disabledTextColor: disabledTextColor,
+      color: color,
+      disabledColor: disabledColor,
+      highlightColor: highlightColor,
+      splashColor: splashColor,
+      colorBrightness: colorBrightness,
+      elevation: elevation,
+      highlightElevation: highlightElevation,
+      disabledElevation: disabledElevation,
+      shape: shape,
+      padding: padding,
+      clipBehavior: clipBehavior,
+      materialTapTargetSize: materialTapTargetSize,
+      animationDuration: animationDuration,
+      child: null
+  );
 
   final FLPosition iconPosition;
   final double spacing;
-  final VoidCallback onPressed;
-  final ValueChanged<bool> onHighlightChanged;
-  final ButtonTextTheme textTheme;
-  final Color textColor;
-  final Color disabledTextColor;
-  final Color color;
-  final Color disabledColor;
-  final Color highlightColor;
-  final Color splashColor;
-  final Brightness colorBrightness;
-  final double elevation;
-  final double highlightElevation;
-  final double disabledElevation;
-  final ShapeBorder shape;
-  final EdgeInsetsGeometry padding;
-  final Clip clipBehavior;
-  final MaterialTapTargetSize materialTapTargetSize;
-  final Duration animationDuration;
   final Widget icon;
   final Widget label;
 

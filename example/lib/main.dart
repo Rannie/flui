@@ -1,3 +1,5 @@
+import 'package:example/gradient_button.dart';
+
 import 'common/defines.dart';
 import 'package:example/flat_button.dart';
 import 'package:example/raised_button.dart';
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: FLColors.primarySwatch,
         buttonTheme: ButtonThemeData(
-          colorScheme: ColorScheme.fromSwatch()
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
         )
       ),
       home: MyHomePage(title: 'FLUI'),
@@ -38,8 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ButtonThemeData buttonTheme = ButtonTheme.of(context);
-    logger.d(buttonTheme);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,17 +55,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 logger.d('expand button click');
               },
               child: Text('fl flat button', textAlign: TextAlign.center),
-              color: Theme.of(context).primaryColor,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            FLGradientButton.linear(
+              colors: [Colors.red, Colors.purple],
+              onPressed: () {
+                logger.d('click gradient button xxxxx');
+              },
+              child: Text('gradient button'),
               textColor: Colors.white,
             ),
             SizedBox(
               height: 10,
             ),
-            FlatButton(
-              onPressed: () {
-                logger.d('native flat clicked');
-              },
-              child: Text('native flatbutton'),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 80,
+              child: FLGradientButton.radial(
+                elevation: 10,
+                shape: CircleBorder(
+                  side: BorderSide(
+                    color: Colors.white,
+                  ),
+                ),
+                colors: [Theme.of(context).primaryColorLight, Theme.of(context).primaryColor],
+                onPressed: () {
+                  logger.d('click radial gradient button');
+                },
+                child: Text('radial'),
+                textColor: Colors.white,
+              ),
             ),
             SizedBox(
               height: 10,
@@ -74,8 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: ()  {
                 logger.d('icon click');
               },
-              spacing: 30,
-              iconPosition: FLPosition.right,
+              iconPosition: FLPosition.top,
               icon: Icon(Icons.access_time),
               label: Text('hello')
             ),
@@ -86,11 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   logger.d('click raised');
                 },
-                spacing: 30,
-                elevation: 40,
+                spacing: 10,
+                elevation: 10,
                 iconPosition: FLPosition.right,
                 icon: Icon(Icons.access_time),
-                label: Text('hello')
+                label: Text('hello'),
             )
           ],
         ),
