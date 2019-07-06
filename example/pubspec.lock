@@ -46,6 +46,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  logger:
+    dependency: "direct main"
+    description:
+      name: logger
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.0"
   matcher:
     dependency: transitive
     description:

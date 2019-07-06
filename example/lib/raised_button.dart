@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'button_defines.dart';
+import 'common/defines.dart';
 
-class FLRaisedIconButton extends StatelessWidget
-    with MaterialButtonWithIconMixin {
-  FLRaisedIconButton({
+class FLRaisedButton extends StatelessWidget {
+  FLRaisedButton({
     Key key,
-    this.iconPosition,
-    this.spacing,
     @required this.onPressed,
     this.onHighlightChanged,
     this.textTheme,
@@ -21,6 +18,117 @@ class FLRaisedIconButton extends StatelessWidget
     this.highlightElevation,
     this.disabledElevation,
     this.shape,
+    this.padding,
+    this.clipBehavior,
+    this.materialTapTargetSize,
+    this.animationDuration,
+    this.expanded = false,
+    @required this.child,
+  });
+
+  final VoidCallback onPressed;
+  final ValueChanged<bool> onHighlightChanged;
+  final ButtonTextTheme textTheme;
+  final Color textColor;
+  final Color disabledTextColor;
+  final Color color;
+  final Color disabledColor;
+  final Color highlightColor;
+  final Color splashColor;
+  final Brightness colorBrightness;
+  final double elevation;
+  final double highlightElevation;
+  final double disabledElevation;
+  final ShapeBorder shape;
+  final EdgeInsetsGeometry padding;
+  final Clip clipBehavior;
+  final MaterialTapTargetSize materialTapTargetSize;
+  final Duration animationDuration;
+  final bool expanded;
+  final Widget child;
+
+  factory FLRaisedButton.icon({
+    Key key,
+    @required VoidCallback onPressed,
+    ValueChanged<bool> onHighlightChanged,
+    ButtonTextTheme textTheme,
+    Color textColor,
+    Color disabledTextColor,
+    Color color,
+    Color disabledColor,
+    Color highlightColor,
+    Color splashColor,
+    Brightness colorBrightness,
+    double elevation,
+    double highlightElevation,
+    double disabledElevation,
+    ShapeBorder shape,
+    EdgeInsetsGeometry padding,
+    Clip clipBehavior,
+    MaterialTapTargetSize materialTapTargetSize,
+    Duration animationDuration,
+    FLPosition iconPosition,
+    double spacing,
+    @required Widget icon,
+    @required Widget label,
+  }) = _FLRaisedButtonWithIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget buttonChild = expanded ? Flex (
+      direction: Axis.horizontal,
+      children: <Widget>[
+        Expanded(
+          child: child,
+        )
+      ],
+    ) : child;
+
+    return RaisedButton(
+      onPressed: onPressed,
+      onHighlightChanged: onHighlightChanged,
+      textTheme: textTheme,
+      textColor: textColor,
+      disabledTextColor: disabledTextColor,
+      color: color,
+      disabledColor: disabledColor,
+      highlightColor: highlightColor,
+      splashColor: splashColor,
+      colorBrightness: colorBrightness,
+      elevation: elevation,
+      highlightElevation: highlightElevation,
+      disabledElevation: disabledElevation,
+      shape: shape,
+      padding: padding,
+      clipBehavior: clipBehavior,
+      materialTapTargetSize: materialTapTargetSize,
+      animationDuration: animationDuration,
+      child: buttonChild,
+    );
+  }
+}
+
+class _FLRaisedButtonWithIcon extends FLRaisedButton
+    with MaterialButtonWithIconMixin {
+  _FLRaisedButtonWithIcon({
+    Key key,
+    @required this.onPressed,
+    this.iconPosition = FLPosition.left,
+    this.spacing = 8,
+    this.onHighlightChanged,
+    this.textTheme,
+    this.textColor,
+    this.disabledColor,
+    this.color,
+    this.disabledTextColor,
+    this.highlightColor,
+    this.splashColor,
+    this.colorBrightness,
+    this.elevation,
+    this.highlightElevation,
+    this.disabledElevation,
+    this.shape,
+    this.padding,
     this.clipBehavior,
     this.materialTapTargetSize,
     this.animationDuration,
@@ -44,6 +152,7 @@ class FLRaisedIconButton extends StatelessWidget
   final double highlightElevation;
   final double disabledElevation;
   final ShapeBorder shape;
+  final EdgeInsetsGeometry padding;
   final Clip clipBehavior;
   final MaterialTapTargetSize materialTapTargetSize;
   final Duration animationDuration;
@@ -84,8 +193,10 @@ class FLRaisedIconButton extends StatelessWidget
       highlightElevation: highlightElevation,
       disabledElevation: disabledElevation,
       shape: shape,
+      padding: padding,
       clipBehavior: clipBehavior,
       materialTapTargetSize: materialTapTargetSize,
+      animationDuration: animationDuration,
       child: buttonChild,
     );
   }
