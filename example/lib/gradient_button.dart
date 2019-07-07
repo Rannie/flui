@@ -357,38 +357,42 @@ class _FLRawGradientButton extends MaterialButton {
     final double currentElevation = (enabled ? elevation : disabledElevation)
         ?? buttonTheme.getElevation(this);
 
-    return DecoratedBox(
-      decoration: ShapeDecoration(
-        gradient: gradient,
-        shape: buttonTheme.getShape(this),
-      ),
-      child: ConstrainedBox(
-        constraints: buttonTheme.getConstraints(this),
-        child: Material(
-          elevation: currentElevation,
-          textStyle: textStyle,
-          shape: buttonTheme.getShape(this),
-          type: MaterialType.transparency,
-          animationDuration: buttonTheme.getAnimationDuration(this),
-          clipBehavior: clipBehavior ?? Clip.none,
-          child: InkWell(
-            splashColor: buttonTheme.getSplashColor(this),
-            onTap: onPressed,
-            customBorder: buttonTheme.getShape(this),
-            child: IconTheme.merge(
-              data: IconThemeData(color: textStyle?.color),
-              child: Container(
-                padding: buttonTheme.getPadding(this),
-                child: Center(
-                    widthFactor: 1.0,
-                    heightFactor: 1.0,
-                    child: child,
-                  ),
-              )
-            )
+    return Semantics(
+      button: true,
+      container: true,
+      child: DecoratedBox(
+          decoration: ShapeDecoration(
+            gradient: gradient,
+            shape: buttonTheme.getShape(this),
           ),
-        ),
-      )
+          child: ConstrainedBox(
+            constraints: buttonTheme.getConstraints(this),
+            child: Material(
+              elevation: currentElevation,
+              textStyle: textStyle,
+              shape: buttonTheme.getShape(this),
+              type: MaterialType.transparency,
+              animationDuration: buttonTheme.getAnimationDuration(this),
+              clipBehavior: clipBehavior ?? Clip.none,
+              child: InkWell(
+                  splashColor: buttonTheme.getSplashColor(this),
+                  onTap: onPressed,
+                  customBorder: buttonTheme.getShape(this),
+                  child: IconTheme.merge(
+                      data: IconThemeData(color: textStyle?.color),
+                      child: Container(
+                        padding: buttonTheme.getPadding(this),
+                        child: Center(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: child,
+                        ),
+                      )
+                  )
+              ),
+            ),
+          )
+      ),
     );
   }
 

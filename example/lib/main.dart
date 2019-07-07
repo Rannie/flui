@@ -1,4 +1,5 @@
 import 'package:example/gradient_button.dart';
+import 'package:example/loading_button.dart';
 
 import 'common/defines.dart';
 import 'package:example/flat_button.dart';
@@ -37,6 +38,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  bool _loading = false;
+
+  _handleLoading() {
+    setState(() {
+      _loading = true;
+    });
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        _loading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +123,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   logger.d('click raised');
                 },
                 spacing: 10,
+                textColor: Colors.white,
                 elevation: 10,
                 iconPosition: FLPosition.right,
                 icon: Icon(Icons.access_time),
                 label: Text('hello'),
+            ),
+            SizedBox(height: 20),
+            FLLoadingButton(
+              color: Colors.blue,
+              disabledColor: Colors.blue.withAlpha(180),
+              disabledTextColor: Colors.white,
+              textColor: Colors.white,
+              indicatorColor: Colors.white,
+              loading: _loading,
+              onPressed: _handleLoading,
+              minWidth: 150,
+              child: Text('loading'),
             )
           ],
         ),
