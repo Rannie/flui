@@ -1,5 +1,6 @@
 import 'package:example/gradient_button.dart';
 import 'package:example/loading_button.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'common/defines.dart';
 import 'package:example/flat_button.dart';
@@ -52,9 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
+    _textEditingController.text = 'hello';
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -63,123 +71,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            FLFlatButton(
-              expanded: true,
-              onPressed: () {
-                logger.d('expand button click');
-              },
-              child: Text('fl flat button', textAlign: TextAlign.center),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FLGradientButton.linear(
-              colors: [Colors.red, Colors.purple],
-              onPressed: () {
-                logger.d('click gradient button xxxxx');
-              },
-              child: Text('gradient button'),
-              textColor: Colors.white,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 10,
-            ),
             Container(
-              height: 80,
-              child: FLGradientButton.radial(
-                elevation: 10,
-                shape: CircleBorder(
-                  side: BorderSide(
-                    color: Colors.white,
-                  ),
-                ),
-                colors: [Theme.of(context).primaryColorLight, Theme.of(context).primaryColor],
-                onPressed: () {
-                  logger.d('click radial gradient button');
-                },
-                child: Text('radial'),
-                textColor: Colors.white,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FLFlatButton.icon(
-              onPressed: ()  {
-                logger.d('icon click');
-              },
-              iconPosition: FLPosition.top,
-              icon: Icon(Icons.access_time),
-              label: Text('hello')
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FLRaisedButton.icon(
-                onPressed: () {
-                  logger.d('click raised');
-                },
-                spacing: 10,
-                textColor: Colors.white,
-                elevation: 10,
-                iconPosition: FLPosition.right,
-                icon: Icon(Icons.access_time),
-                label: Text('hello'),
-            ),
-            SizedBox(height: 20),
-            FLLoadingButton(
-              color: Colors.blue,
-              disabledColor: Colors.blue.withAlpha(180),
-              disabledTextColor: Colors.white,
-              textColor: Colors.white,
-              indicatorColor: Colors.white,
-              loading: _loading,
-              onPressed: _handleLoading,
-              indicatorOnly: false,
-              minWidth: 150,
-              child: Text('Login'),
-            ),
-            SizedBox(height: 20),
-            Tooltip(
-              message: 'copy text',
-              preferBelow: false,
-              child: Text(
-                'lalaldjflkasjdfklaslkj'
-              )
-            ),
-            SizedBox(height: 20),
-            PopupMenuButton(
-//              icon: Icon(Icons.home),
-              child: Text("dfasfdas abc"),
-              tooltip: "长按提示",
-              initialValue: "hot",
-              padding: EdgeInsets.all(0.0),
-              itemBuilder: (BuildContext context) {
-                return <PopupMenuItem<String>>[
-                  PopupMenuItem<String>(child: Text("热度"), value: "hot",),
-                  PopupMenuItem<String>(child: Text("最新"), value: "new",),
-                ];
-              },
-              onSelected: (String action) {
-                switch (action) {
-                  case "hot":
-                    print("热度");
-                    break;
-                  case "new":
-                    print("最新");
-                    break;
-                }
-              },
-              onCanceled: () {
-                print("onCanceled");
-              },
-            ),
-          ],
-        ),
-      ),
+                width: 300,
+                margin: EdgeInsets.all(20),
+                child: EditableText(
+                  controller: _textEditingController,
+                  focusNode: FocusNode(),
+                  cursorColor: Colors.lightBlue,
+                  backgroundCursorColor: Colors.lightBlue,
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  selectionControls: cupertinoTextSelectionControls,
+                )
+            )
+          ]
+        )
+      )
     );
   }
 }
