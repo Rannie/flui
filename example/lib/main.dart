@@ -141,7 +141,42 @@ class _MyHomePageState extends State<MyHomePage> {
               indicatorOnly: false,
               minWidth: 150,
               child: Text('Login'),
-            )
+            ),
+            SizedBox(height: 20),
+            Tooltip(
+              message: 'copy text',
+              preferBelow: false,
+              child: Text(
+                'lalaldjflkasjdfklaslkj'
+              )
+            ),
+            SizedBox(height: 20),
+            PopupMenuButton(
+//              icon: Icon(Icons.home),
+              child: Text("dfasfdas abc"),
+              tooltip: "长按提示",
+              initialValue: "hot",
+              padding: EdgeInsets.all(0.0),
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuItem<String>>[
+                  PopupMenuItem<String>(child: Text("热度"), value: "hot",),
+                  PopupMenuItem<String>(child: Text("最新"), value: "new",),
+                ];
+              },
+              onSelected: (String action) {
+                switch (action) {
+                  case "hot":
+                    print("热度");
+                    break;
+                  case "new":
+                    print("最新");
+                    break;
+                }
+              },
+              onCanceled: () {
+                print("onCanceled");
+              },
+            ),
           ],
         ),
       ),

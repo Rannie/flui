@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const _scale_height = 36; /// default indicator height
-const _scale_factor = 0.4;
+const _kScaleHeight = 36; /// default indicator height
+const _kScaleFactor = 0.4;
 
 class FLLoadingButton extends StatefulWidget {
   FLLoadingButton({
@@ -74,10 +74,10 @@ class _FLLoadingButtonState extends State<FLLoadingButton> {
     double scaleFactor;
     if (widget.indicatorSize != null
         && widget.indicatorSize > 0) {
-      scaleFactor = widget.indicatorSize / _scale_height;
+      scaleFactor = widget.indicatorSize / _kScaleHeight;
     } else {
       scaleFactor = (widget.height != null)
-          ? _scale_factor * (widget.height / _scale_height) : _scale_factor;
+          ? _kScaleFactor * (widget.height / _kScaleHeight) : _kScaleFactor;
     }
     // indicator area
     final Widget indicator = Transform.scale(
