@@ -1,10 +1,4 @@
-import 'package:example/gradient_button.dart';
-import 'package:example/loading_button.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'common/defines.dart';
-import 'package:example/flat_button.dart';
-import 'package:example/raised_button.dart';
 import 'package:example/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -61,8 +55,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _textEditingController.text = 'hello';
+    Future.delayed(Duration(seconds: 2), () {
+      showMenu(
+          context: context,
+          position: RelativeRect.fromLTRB(100, 100, 100, 400),
+          items: [
+            PopupMenuItem<String>(
+              value: '1',
+              child: const Text('Context menu item one'),
+            ),
+          ]
+      );
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
