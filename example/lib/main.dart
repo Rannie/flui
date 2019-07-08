@@ -138,8 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
               indicatorColor: Colors.white,
               loading: _loading,
               onPressed: _handleLoading,
+              indicatorOnly: false,
               minWidth: 150,
-              child: Text('loading'),
+              child: Text('Login'),
             )
           ],
         ),
