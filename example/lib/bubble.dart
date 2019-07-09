@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 const Color _kBubbleBackgroundColor = Color(0xFF2E2E2E);
-const Size _kBubbleTriangleSizeH = Size(9.0, 9.0);
 // normally, bubble view width is longer than its height,
 // so make the triangle smaller
+const Size _kBubbleTriangleSizeH = Size(9.0, 16.0);
 const Size _kBubbleTriangleSizeV = Size(18.0, 9.0);
 const BorderRadius _kBubbleBorderRadius = BorderRadius.all(Radius.circular(7.5));
 

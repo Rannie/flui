@@ -98,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FLBubbleWidget(
                 from: FLBubbleFrom.left,
+                backgroundColor: Colors.lightGreen,
                 child: Container(
                   width: 200,
-                  padding: EdgeInsets.all(8),
                   child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
                     style: TextStyle(color: Colors.white),
                   ),
@@ -109,7 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 20),
             Container(
               width: 200,
-              padding: EdgeInsets.all(8),
               child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
                 style: TextStyle(color: Colors.blue),
               ),
