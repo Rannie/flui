@@ -1,3 +1,4 @@
+import 'package:example/bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
 import 'package:flutter/material.dart';
@@ -62,18 +63,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     _textEditingController.text = 'hello';
-    Future.delayed(Duration(seconds: 2), () {
-      showMenu(
-          context: context,
-          position: RelativeRect.fromLTRB(100, 100, 100, 400),
-          items: [
-            PopupMenuItem<String>(
-              value: '1',
-              child: const Text('Context menu item one'),
-            ),
-          ]
-      );
-    });
+//    Future.delayed(Duration(seconds: 2), () {
+//      showMenu(
+//          context: context,
+//          position: RelativeRect.fromLTRB(100, 100, 100, 400),
+//          items: [
+//            PopupMenuItem<String>(
+//              value: '1',
+//              child: const Text('Context menu item one'),
+//            ),
+//          ]
+//      );
+//    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -93,6 +95,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 20, color: Colors.black),
                   selectionControls: cupertinoTextSelectionControls,
                 )
+            ),
+            FLBubbleWidget(
+                from: FLBubbleFrom.left,
+                child: Container(
+                  width: 200,
+                  padding: EdgeInsets.all(8),
+                  child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ),
+            SizedBox(height: 20),
+            Container(
+              width: 200,
+              padding: EdgeInsets.all(8),
+              child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
+                style: TextStyle(color: Colors.blue),
+              ),
             )
           ]
         )
