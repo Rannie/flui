@@ -19,6 +19,7 @@ abstract class FLGradientButton extends StatelessWidget {
     this.shape,
     this.clipBehavior,
     this.materialTapTargetSize,
+    this.focusNode,
     this.animationDuration,
     @required this.colors,
     this.stops
@@ -37,6 +38,7 @@ abstract class FLGradientButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final ShapeBorder shape;
   final Clip clipBehavior;
+  final FocusNode focusNode;
   final MaterialTapTargetSize materialTapTargetSize;
   final Duration animationDuration;
   final List<Color> colors;
@@ -56,6 +58,7 @@ abstract class FLGradientButton extends StatelessWidget {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -81,6 +84,7 @@ abstract class FLGradientButton extends StatelessWidget {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -106,6 +110,7 @@ abstract class FLGradientButton extends StatelessWidget {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -134,6 +139,7 @@ class _FLLinearGradientButton extends FLGradientButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -143,23 +149,24 @@ class _FLLinearGradientButton extends FLGradientButton {
     this.end = Alignment.centerRight,
     this.tileMode = TileMode.clamp
   }) : super(key: key,
-    onPressed: onPressed,
-    textTheme: textTheme,
-    textColor: textColor,
-    disabledTextColor: disabledTextColor,
-    splashColor: splashColor,
-    colorBrightness: colorBrightness,
-    elevation: elevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    padding: padding,
-    shape: shape,
-    clipBehavior: clipBehavior,
-    materialTapTargetSize: materialTapTargetSize,
-    animationDuration: animationDuration,
-    colors: colors,
-    stops: stops,
-    child: child
+      onPressed: onPressed,
+      textTheme: textTheme,
+      textColor: textColor,
+      disabledTextColor: disabledTextColor,
+      splashColor: splashColor,
+      colorBrightness: colorBrightness,
+      elevation: elevation,
+      highlightElevation: highlightElevation,
+      disabledElevation: disabledElevation,
+      padding: padding,
+      shape: shape,
+      clipBehavior: clipBehavior,
+      focusNode: focusNode,
+      materialTapTargetSize: materialTapTargetSize,
+      animationDuration: animationDuration,
+      colors: colors,
+      stops: stops,
+      child: child
   );
 
   final AlignmentGeometry begin;
@@ -169,11 +176,11 @@ class _FLLinearGradientButton extends FLGradientButton {
   @override
   Widget build(BuildContext context) {
     final LinearGradient gradient = LinearGradient(
-      colors: colors,
-      begin: begin,
-      end: end,
-      stops: stops,
-      tileMode: tileMode
+        colors: colors,
+        begin: begin,
+        end: end,
+        stops: stops,
+        tileMode: tileMode
     );
 
     return _FLRawGradientButton.buildGradientButton(gradient, this);
@@ -195,6 +202,7 @@ class _FLSweepGradientButton extends FLGradientButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -217,6 +225,7 @@ class _FLSweepGradientButton extends FLGradientButton {
       padding: padding,
       shape: shape,
       clipBehavior: clipBehavior,
+      focusNode: focusNode,
       materialTapTargetSize: materialTapTargetSize,
       animationDuration: animationDuration,
       colors: colors,
@@ -232,12 +241,12 @@ class _FLSweepGradientButton extends FLGradientButton {
   @override
   Widget build(BuildContext context) {
     final SweepGradient gradient = SweepGradient(
-      colors: colors,
-      stops: stops,
-      center: center,
-      startAngle: startAngle,
-      endAngle: endAngle,
-      tileMode: tileMode
+        colors: colors,
+        stops: stops,
+        center: center,
+        startAngle: startAngle,
+        endAngle: endAngle,
+        tileMode: tileMode
     );
     return _FLRawGradientButton.buildGradientButton(gradient, this);
   }
@@ -258,6 +267,7 @@ class _FLRadialGradientButton extends FLGradientButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -281,6 +291,7 @@ class _FLRadialGradientButton extends FLGradientButton {
       padding: padding,
       shape: shape,
       clipBehavior: clipBehavior,
+      focusNode: focusNode,
       materialTapTargetSize: materialTapTargetSize,
       animationDuration: animationDuration,
       colors: colors,
@@ -324,6 +335,7 @@ class _FLRawGradientButton extends MaterialButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     Widget child,
@@ -341,6 +353,7 @@ class _FLRawGradientButton extends MaterialButton {
       padding: padding,
       shape: shape,
       clipBehavior: clipBehavior,
+      focusNode: focusNode,
       materialTapTargetSize: materialTapTargetSize,
       animationDuration: animationDuration,
       child: child
@@ -358,39 +371,42 @@ class _FLRawGradientButton extends MaterialButton {
         ?? buttonTheme.getElevation(this);
 
     return Semantics(
-      button: true,
       container: true,
-      child: DecoratedBox(
-          decoration: ShapeDecoration(
-            gradient: gradient,
-            shape: buttonTheme.getShape(this),
-          ),
-          child: ConstrainedBox(
-            constraints: buttonTheme.getConstraints(this),
-            child: Material(
-              elevation: currentElevation,
-              textStyle: textStyle,
-              shape: buttonTheme.getShape(this),
-              type: MaterialType.transparency,
-              animationDuration: buttonTheme.getAnimationDuration(this),
-              clipBehavior: clipBehavior ?? Clip.none,
-              child: InkWell(
-                  splashColor: buttonTheme.getSplashColor(this),
-                  onTap: onPressed,
-                  customBorder: buttonTheme.getShape(this),
-                  child: IconTheme.merge(
-                      data: IconThemeData(color: textStyle?.color),
-                      child: Container(
-                        padding: buttonTheme.getPadding(this),
-                        child: Center(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: child,
-                        ),
-                      )
-                  )
+      button: true,
+      child: Focus(
+          focusNode: focusNode,
+          child: DecoratedBox(
+              decoration: ShapeDecoration(
+                gradient: gradient,
+                shape: buttonTheme.getShape(this),
               ),
-            ),
+              child: ConstrainedBox(
+                constraints: buttonTheme.getConstraints(this),
+                child: Material(
+                  elevation: currentElevation,
+                  textStyle: textStyle,
+                  shape: buttonTheme.getShape(this),
+                  type: MaterialType.transparency,
+                  animationDuration: buttonTheme.getAnimationDuration(this),
+                  clipBehavior: clipBehavior ?? Clip.none,
+                  child: InkWell(
+                      splashColor: buttonTheme.getSplashColor(this),
+                      onTap: onPressed,
+                      customBorder: buttonTheme.getShape(this),
+                      child: IconTheme.merge(
+                          data: IconThemeData(color: textStyle?.color),
+                          child: Container(
+                            padding: buttonTheme.getPadding(this),
+                            child: Center(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: child,
+                            ),
+                          )
+                      )
+                  ),
+                ),
+              )
           )
       ),
     );
@@ -411,6 +427,7 @@ class _FLRawGradientButton extends MaterialButton {
       padding: button.padding,
       shape: button.shape,
       clipBehavior: button.clipBehavior,
+      focusNode: button.focusNode,
       materialTapTargetSize: button.materialTapTargetSize,
       animationDuration: button.animationDuration,
       child: button.child,

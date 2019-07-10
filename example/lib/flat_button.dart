@@ -9,6 +9,8 @@ class FLFlatButton extends StatelessWidget {
     this.textTheme,
     this.textColor,
     this.disabledColor,
+    this.focusColor,
+    this.hoverColor,
     this.color,
     this.disabledTextColor,
     this.highlightColor,
@@ -18,6 +20,7 @@ class FLFlatButton extends StatelessWidget {
     this.shape,
     this.clipBehavior,
     this.materialTapTargetSize,
+    this.focusNode,
     this.expanded = false,
     @required this.child
   }) : super(key: key);
@@ -29,12 +32,15 @@ class FLFlatButton extends StatelessWidget {
   final Color disabledTextColor;
   final Color color;
   final Color disabledColor;
+  final Color focusColor;
+  final Color hoverColor;
   final Color highlightColor;
   final Color splashColor;
   final Brightness colorBrightness;
   final EdgeInsetsGeometry padding;
   final ShapeBorder shape;
   final Clip clipBehavior;
+  final FocusNode focusNode;
   final MaterialTapTargetSize materialTapTargetSize;
   final bool expanded;
   final Widget child;
@@ -48,12 +54,15 @@ class FLFlatButton extends StatelessWidget {
     Color disabledTextColor,
     Color color,
     Color disabledColor,
+    Color focusColor,
+    Color hoverColor,
     Color highlightColor,
     Color splashColor,
     Brightness colorBrightness,
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     FLPosition iconPosition,
     double spacing,
@@ -80,12 +89,15 @@ class FLFlatButton extends StatelessWidget {
         disabledTextColor: disabledTextColor,
         color: color,
         disabledColor: disabledColor,
+        hoverColor: hoverColor,
+        focusColor: focusColor,
         highlightColor: highlightColor,
         splashColor: splashColor,
         colorBrightness: colorBrightness,
         padding: padding,
         shape: shape,
         clipBehavior: clipBehavior,
+        focusNode: focusNode,
         materialTapTargetSize: materialTapTargetSize,
         child: buttonChild
     );
@@ -103,12 +115,15 @@ class _FLFlatButtonWithIcon extends FLFlatButton
     Color disabledTextColor,
     Color color,
     Color disabledColor,
+    Color hoverColor,
+    Color focusColor,
     Color highlightColor,
     Color splashColor,
     Brightness colorBrightness,
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     this.iconPosition,
     this.spacing,
@@ -122,12 +137,15 @@ class _FLFlatButtonWithIcon extends FLFlatButton
       disabledTextColor: disabledTextColor,
       color: color,
       disabledColor: disabledColor,
+      hoverColor: hoverColor,
+      focusColor: focusColor,
       highlightColor: highlightColor,
       splashColor: splashColor,
       colorBrightness: colorBrightness,
       padding: padding,
       shape: shape,
       clipBehavior: clipBehavior,
+      focusNode: focusNode,
       materialTapTargetSize: materialTapTargetSize,
       child: null);
 
@@ -163,12 +181,15 @@ class _FLFlatButtonWithIcon extends FLFlatButton
         disabledTextColor: disabledTextColor,
         color: color,
         disabledColor: disabledColor,
+        focusColor: focusColor,
+        hoverColor: hoverColor,
         highlightColor: highlightColor,
         splashColor: splashColor,
         colorBrightness: colorBrightness,
         padding: padding,
         shape: shape,
         clipBehavior: clipBehavior,
+        focusNode: focusNode,
         materialTapTargetSize: materialTapTargetSize,
         child: buttonChild
     );

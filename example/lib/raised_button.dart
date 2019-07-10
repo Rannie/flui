@@ -11,15 +11,20 @@ class FLRaisedButton extends StatelessWidget {
     this.disabledTextColor,
     this.color,
     this.disabledColor,
+    this.focusColor,
+    this.hoverColor,
     this.highlightColor,
     this.splashColor,
     this.colorBrightness,
     this.elevation,
+    this.hoverElevation,
+    this.focusElevation,
     this.highlightElevation,
     this.disabledElevation,
     this.shape,
     this.padding,
     this.clipBehavior,
+    this.focusNode,
     this.materialTapTargetSize,
     this.animationDuration,
     this.expanded = false,
@@ -33,15 +38,20 @@ class FLRaisedButton extends StatelessWidget {
   final Color disabledTextColor;
   final Color color;
   final Color disabledColor;
+  final Color focusColor;
+  final Color hoverColor;
   final Color highlightColor;
   final Color splashColor;
   final Brightness colorBrightness;
   final double elevation;
+  final double focusElevation;
+  final double hoverElevation;
   final double highlightElevation;
   final double disabledElevation;
   final ShapeBorder shape;
   final EdgeInsetsGeometry padding;
   final Clip clipBehavior;
+  final FocusNode focusNode;
   final MaterialTapTargetSize materialTapTargetSize;
   final Duration animationDuration;
   final bool expanded;
@@ -55,6 +65,8 @@ class FLRaisedButton extends StatelessWidget {
     Color textColor,
     Color disabledTextColor,
     Color color,
+    Color focusColor,
+    Color hoverColor,
     Color disabledColor,
     Color highlightColor,
     Color splashColor,
@@ -65,6 +77,7 @@ class FLRaisedButton extends StatelessWidget {
     ShapeBorder shape,
     EdgeInsetsGeometry padding,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     FLPosition iconPosition,
@@ -91,16 +104,21 @@ class FLRaisedButton extends StatelessWidget {
       textColor: textColor,
       disabledTextColor: disabledTextColor,
       color: color,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
       disabledColor: disabledColor,
       highlightColor: highlightColor,
       splashColor: splashColor,
       colorBrightness: colorBrightness,
       elevation: elevation,
+      focusElevation: focusElevation,
+      hoverElevation: hoverElevation,
       highlightElevation: highlightElevation,
       disabledElevation: disabledElevation,
       shape: shape,
       padding: padding,
       clipBehavior: clipBehavior,
+      focusNode: focusNode,
       materialTapTargetSize: materialTapTargetSize,
       animationDuration: animationDuration,
       child: buttonChild,
@@ -120,6 +138,8 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
     Color textColor,
     Color disabledTextColor,
     Color color,
+    Color focusColor,
+    Color hoverColor,
     Color disabledColor,
     Color highlightColor,
     Color splashColor,
@@ -130,6 +150,7 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
     ShapeBorder shape,
     EdgeInsetsGeometry padding,
     Clip clipBehavior,
+    FocusNode focusNode,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
     @required this.icon,
@@ -141,6 +162,8 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
       textColor: textColor,
       disabledTextColor: disabledTextColor,
       color: color,
+      hoverColor: hoverColor,
+      focusColor: focusColor,
       disabledColor: disabledColor,
       highlightColor: highlightColor,
       splashColor: splashColor,
@@ -151,6 +174,7 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
       shape: shape,
       padding: padding,
       clipBehavior: clipBehavior,
+      focusNode : focusNode,
       materialTapTargetSize: materialTapTargetSize,
       animationDuration: animationDuration,
       child: null
@@ -187,6 +211,8 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
       textColor: textColor,
       disabledTextColor: disabledTextColor,
       color: color,
+      hoverColor: hoverColor,
+      focusColor: focusColor,
       disabledColor: disabledColor,
       highlightColor: highlightColor,
       splashColor: splashColor,
@@ -197,6 +223,7 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
       shape: shape,
       padding: padding,
       clipBehavior: clipBehavior,
+      focusNode: focusNode,
       materialTapTargetSize: materialTapTargetSize,
       animationDuration: animationDuration,
       child: buttonChild,

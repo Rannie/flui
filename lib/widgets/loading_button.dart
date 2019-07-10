@@ -13,16 +13,21 @@ class FLLoadingButton extends StatefulWidget {
     this.color,
     this.onHighlightChanged,
     this.disabledColor,
+    this.focusColor,
+    this.hoverColor,
     this.highlightColor,
     this.disabledTextColor,
     this.splashColor,
     this.colorBrightness,
     this.elevation,
+    this.hoverElevation,
+    this.focusElevation,
     this.highlightElevation,
     this.disabledElevation,
     this.padding,
     this.shape,
     this.clipBehavior,
+    this.focusNode,
     this.materialTapTargetSize,
     this.animationDuration,
     this.minWidth,
@@ -39,16 +44,21 @@ class FLLoadingButton extends StatefulWidget {
   final Color textColor;
   final Color color;
   final Color disabledColor;
+  final Color focusColor;
+  final Color hoverColor;
   final Color highlightColor;
   final Color disabledTextColor;
   final Color splashColor;
   final Brightness colorBrightness;
   final double elevation;
+  final double focusElevation;
+  final double hoverElevation;
   final double highlightElevation;
   final double disabledElevation;
   final EdgeInsetsGeometry padding;
   final ShapeBorder shape;
   final Clip clipBehavior;
+  final FocusNode focusNode;
   final MaterialTapTargetSize materialTapTargetSize;
   final Duration animationDuration;
   final double minWidth;
@@ -125,17 +135,22 @@ class FLLoadingButtonState extends State<FLLoadingButton> {
       color: widget.color,
       onHighlightChanged: widget.onHighlightChanged,
       disabledColor: widget.disabledColor,
+      focusColor: widget.focusColor,
+      hoverColor: widget.hoverColor,
       highlightColor: widget.highlightColor,
       textColor: widget.textColor,
       disabledTextColor: widget.disabledTextColor,
       splashColor: widget.splashColor,
       colorBrightness: widget.colorBrightness,
       elevation: widget.elevation,
+      focusElevation: widget.focusElevation,
+      hoverElevation: widget.hoverElevation,
       highlightElevation: widget.highlightElevation,
       disabledElevation: widget.disabledElevation,
       padding: widget.padding,
       shape: widget.shape,
       clipBehavior: widget.clipBehavior,
+      focusNode: widget.focusNode,
       materialTapTargetSize: widget.materialTapTargetSize,
       animationDuration: widget.animationDuration,
       minWidth: widget.minWidth,
