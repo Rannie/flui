@@ -1,5 +1,6 @@
 import 'package:example/bubble.dart';
 import 'package:example/bubble_menu.dart';
+import 'package:example/copyable_label.dart';
 import 'package:example/loading_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
@@ -38,6 +39,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _textEditingController = TextEditingController();
   GlobalKey<FLLoadingButtonState> _loginKey = GlobalKey<FLLoadingButtonState>();
+  final GlobalKey<EditableTextState> _editableTextKey = GlobalKey<EditableTextState>();
+
+  EditableTextState get _editableText => _editableTextKey.currentState;
 
   @override
   void initState() {
@@ -79,6 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 20),
+                  FLCopyableLabel(
+                    afterCopyCallback: () {
+                      logger.d('copy done');
+                    },
+                    copyData: 'Hanran',
+                    child: Text('Hanran'),
+                  ),
                   SizedBox(height: 50),
                   FLBubbleMenuWidget(
                       interaction: FLBubbleMenuInteraction.longPress,
