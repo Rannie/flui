@@ -1,4 +1,5 @@
 import 'package:example/bubble.dart';
+import 'package:example/loading_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
 import 'package:flutter/material.dart';
@@ -34,30 +35,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  bool _loading = false;
-
-  _handleLoading() {
-    setState(() {
-      _loading = true;
-    });
-    Future.delayed(Duration(seconds: 3), () {
-      setState(() {
-        _loading = false;
-      });
-    });
-  }
-
   TextEditingController _textEditingController = TextEditingController();
+  GlobalKey<FLLoadingButtonState> _loginKey = GlobalKey<FLLoadingButtonState>();
 
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+  }
+
+  _handleLogin() {
+    _loginKey.currentState.startLoading();
+    Future.delayed(const Duration(seconds: 3), () {
+      _loginKey.currentState.stopLoading();
+    });
   }
 
   @override
@@ -84,18 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-                width: 300,
-                margin: EdgeInsets.all(20),
-                child: EditableText(
-                  controller: _textEditingController,
-                  focusNode: FocusNode(),
-                  cursorColor: Colors.lightBlue,
-                  backgroundCursorColor: Colors.lightBlue,
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                  selectionControls: cupertinoTextSelectionControls,
-                )
+            FLLoadingButton(
+              key: _loginKey,
+              onPressed: _handleLogin,
+              child: Text('Login'),
+              color: Colors.blue,
+              textColor: Colors.white,
+              disabledColor: Colors.blue.withAlpha(150),
+              indicatorColor: Colors.white,
+              disabledTextColor: Colors.white,
             ),
+            SizedBox(height: 20),
             FLBubbleWidget(
                 from: FLBubbleFrom.left,
                 backgroundColor: Colors.lightGreen,

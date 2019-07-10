@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const _scale_height = 36; /// default indicator height
-const _scale_factor = 0.4;
+const _kScaleHeight = 36; /// default indicator height
+const _kScaleFactor = 0.4;
 
 class FLLoadingButton extends StatefulWidget {
   FLLoadingButton({
@@ -27,7 +27,6 @@ class FLLoadingButton extends StatefulWidget {
     this.animationDuration,
     this.minWidth,
     this.height,
-    this.loading = false,
     this.indicatorOnly = false,
     this.indicatorColor,
     this.indicatorSize,
@@ -55,16 +54,31 @@ class FLLoadingButton extends StatefulWidget {
   final double minWidth;
   final double height;
 
-  final bool loading;
   final Color indicatorColor;
   final double indicatorSize;
   final bool indicatorOnly;
 
   @override
-  State<StatefulWidget> createState() => _FLLoadingButtonState();
+  State<FLLoadingButton> createState() => FLLoadingButtonState();
 }
 
-class _FLLoadingButtonState extends State<FLLoadingButton> {
+class FLLoadingButtonState extends State<FLLoadingButton> {
+  bool _loading = false;
+
+  startLoading() {
+    if (_loading) return;
+    setState(() {
+      _loading = true;
+    });
+  }
+
+  stopLoading() {
+    if (!_loading) return;
+    setState(() {
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // color
@@ -74,10 +88,10 @@ class _FLLoadingButtonState extends State<FLLoadingButton> {
     double scaleFactor;
     if (widget.indicatorSize != null
         && widget.indicatorSize > 0) {
-      scaleFactor = widget.indicatorSize / _scale_height;
+      scaleFactor = widget.indicatorSize / _kScaleHeight;
     } else {
       scaleFactor = (widget.height != null)
-          ? _scale_factor * (widget.height / _scale_height) : _scale_factor;
+          ? _kScaleFactor * (widget.height / _kScaleHeight) : _kScaleFactor;
     }
     // indicator area
     final Widget indicator = Transform.scale(
@@ -89,9 +103,9 @@ class _FLLoadingButtonState extends State<FLLoadingButton> {
     );
 
     Widget loadingChild;
-    if (widget.loading && widget.indicatorOnly) {
+    if (_loading && widget.indicatorOnly) {
       loadingChild = indicator;
-    } else if (widget.loading && !widget.indicatorOnly) {
+    } else if (_loading && !widget.indicatorOnly) {
       loadingChild = Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +120,7 @@ class _FLLoadingButtonState extends State<FLLoadingButton> {
     }
 
     return MaterialButton(
-      onPressed: widget.loading ? null : widget.onPressed,
+      onPressed: _loading ? null : widget.onPressed,
       textTheme: widget.textTheme,
       color: widget.color,
       onHighlightChanged: widget.onHighlightChanged,

@@ -27,7 +27,6 @@ class FLLoadingButton extends StatefulWidget {
     this.animationDuration,
     this.minWidth,
     this.height,
-    this.loading = false,
     this.indicatorOnly = false,
     this.indicatorColor,
     this.indicatorSize,
@@ -55,16 +54,31 @@ class FLLoadingButton extends StatefulWidget {
   final double minWidth;
   final double height;
 
-  final bool loading;
   final Color indicatorColor;
   final double indicatorSize;
   final bool indicatorOnly;
 
   @override
-  State<StatefulWidget> createState() => _FLLoadingButtonState();
+  State<FLLoadingButton> createState() => FLLoadingButtonState();
 }
 
-class _FLLoadingButtonState extends State<FLLoadingButton> {
+class FLLoadingButtonState extends State<FLLoadingButton> {
+  bool _loading = false;
+
+  startLoading() {
+    if (_loading) return;
+    setState(() {
+      _loading = true;
+    });
+  }
+
+  stopLoading() {
+    if (!_loading) return;
+    setState(() {
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // color
@@ -89,9 +103,9 @@ class _FLLoadingButtonState extends State<FLLoadingButton> {
     );
 
     Widget loadingChild;
-    if (widget.loading && widget.indicatorOnly) {
+    if (_loading && widget.indicatorOnly) {
       loadingChild = indicator;
-    } else if (widget.loading && !widget.indicatorOnly) {
+    } else if (_loading && !widget.indicatorOnly) {
       loadingChild = Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +120,7 @@ class _FLLoadingButtonState extends State<FLLoadingButton> {
     }
 
     return MaterialButton(
-      onPressed: widget.loading ? null : widget.onPressed,
+      onPressed: _loading ? null : widget.onPressed,
       textTheme: widget.textTheme,
       color: widget.color,
       onHighlightChanged: widget.onHighlightChanged,
