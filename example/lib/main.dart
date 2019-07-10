@@ -1,4 +1,5 @@
 import 'package:example/bubble.dart';
+import 'package:example/bubble_menu.dart';
 import 'package:example/loading_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
@@ -56,59 +57,86 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  handleMenuSelected(value) {
+    logger.d(value);
+  }
+
+  handleMenuCanceled() {
+    logger.d('menu canceled');
+  }
+
   @override
   Widget build(BuildContext context) {
     _textEditingController.text = 'hello';
-//    Future.delayed(Duration(seconds: 2), () {
-//      showMenu(
-//          context: context,
-//          position: RelativeRect.fromLTRB(100, 100, 100, 400),
-//          items: [
-//            PopupMenuItem<String>(
-//              value: '1',
-//              child: const Text('Context menu item one'),
-//            ),
-//          ]
-//      );
-//    });
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            FLLoadingButton(
-              key: _loginKey,
-              onPressed: _handleLogin,
-              child: Text('Login'),
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.blue.withAlpha(150),
-              indicatorColor: Colors.white,
-              disabledTextColor: Colors.white,
-            ),
-            SizedBox(height: 20),
-            FLBubbleWidget(
-                from: FLBubbleFrom.left,
-                backgroundColor: Colors.lightGreen,
-                child: Container(
-                  width: 200,
-                  child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
-                    style: TextStyle(color: Colors.white),
+      body: Container(
+        color: Colors.white,
+        child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 50),
+                  FLBubbleMenuWidget(
+                      interaction: FLBubbleMenuInteraction.longPress,
+                      child: Container(
+                        color: Colors.blue,
+                        child: Text('menu button'),
+                        padding: EdgeInsets.all(10),
+                      ),
+                      onSelected: handleMenuSelected,
+                      onCanceled: handleMenuCanceled,
+                      itemBuilder: (BuildContext context) => <FLBubbleMenuItem<String>>[
+                        FLBubbleMenuItem<String>(
+                          value: 'copy',
+                          text: ' Copy',
+                        ),
+                        FLBubbleMenuItem<String>(
+                          value: 'paste',
+                          text: 'Paste',
+                        ),
+                      ]
                   ),
-                )
-              ),
-            SizedBox(height: 20),
-            Container(
-              width: 200,
-              child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
-                style: TextStyle(color: Colors.blue),
-              ),
-            )
-          ]
+                  SizedBox(height: 20),
+                  FLLoadingButton(
+                    key: _loginKey,
+                    onPressed: _handleLogin,
+                    child: Text('Login'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    disabledColor: Colors.blue.withAlpha(150),
+                    indicatorColor: Colors.white,
+                    disabledTextColor: Colors.white,
+                  ),
+                  SizedBox(height: 20),
+                  FLBubbleWidget(
+                      from: FLBubbleFrom.left,
+                      backgroundColor: Colors.lightGreen,
+                      child: Container(
+                        width: 200,
+                        child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: 200,
+                    child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  FLBubbleWidget(
+                    child: Text('mdalfksdflkj'),
+                    backgroundColor: Colors.blue,
+                  ),
+                  SizedBox(height: 30)
+            ]
+          )
         )
       )
     );

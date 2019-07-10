@@ -20,12 +20,14 @@ class FLBubbleWidget extends StatelessWidget {
     Key key,
     this.backgroundColor = _kBubbleBackgroundColor,
     this.from = FLBubbleFrom.bottom,
+    this.padding = const EdgeInsets.all(8),
     @required this.child
   }) : super(key: key);
 
   final Color backgroundColor;
   final FLBubbleFrom from;
   final Widget child;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class FLBubbleWidget extends StatelessWidget {
           border: Border.all(color: backgroundColor, width: 0),
         ),
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: padding,
           child: child,
         ),
       ),
@@ -65,14 +67,14 @@ class FLBubbleWidget extends StatelessWidget {
         children: <Widget>[
           rect,
           triangle,
-          const Padding(padding: EdgeInsets.only(bottom: 10.0))
+          const Padding(padding: EdgeInsets.only(bottom: 8.0))
         ],
       );
     } else if (from == FLBubbleFrom.top) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Padding(padding: EdgeInsets.only(top: 10.0)),
+          const Padding(padding: EdgeInsets.only(top: 8.0)),
           triangle,
           rect
         ],
@@ -81,7 +83,7 @@ class FLBubbleWidget extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Padding(padding: EdgeInsets.only(left: 10)),
+          const Padding(padding: EdgeInsets.only(left: 8.0)),
           triangle,
           rect
         ],
@@ -89,11 +91,11 @@ class FLBubbleWidget extends StatelessWidget {
     } else { // FLBubbleFrom.right
       return Row(
         mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            rect,
-            triangle,
-            const Padding(padding: EdgeInsets.only(right: 10))
-          ],
+        children: <Widget>[
+          rect,
+          triangle,
+          const Padding(padding: EdgeInsets.only(right: 8.0))
+        ],
       );
     }
   }
@@ -112,39 +114,39 @@ class _FLBubbleNotchPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // paint
     final Paint paint = Paint()
-        ..color = backgroundColor
-        ..style = PaintingStyle.fill;
+      ..color = backgroundColor
+      ..style = PaintingStyle.fill;
     // triangle
     Path triangle;
-    if (pos == FLBubbleFrom.bottom) 
+    if (pos == FLBubbleFrom.bottom)
     {
       triangle = Path()
-          ..lineTo(size.width / 2, 0.0)
-          ..lineTo(0.0, size.height)
-          ..lineTo(-(size.width / 2), 0.0)
-          ..close();
-    } 
-    else if (pos == FLBubbleFrom.left) 
+        ..lineTo(size.width / 2, 0.0)
+        ..lineTo(0.0, size.height)
+        ..lineTo(-(size.width / 2), 0.0)
+        ..close();
+    }
+    else if (pos == FLBubbleFrom.left)
     {
       triangle = Path()
-          ..lineTo(size.width, size.height / 2)
-          ..lineTo(size.width, -(size.height / 2))
-          ..close();
-    } 
-    else if (pos == FLBubbleFrom.top) 
+        ..lineTo(size.width, size.height / 2)
+        ..lineTo(size.width, -(size.height / 2))
+        ..close();
+    }
+    else if (pos == FLBubbleFrom.top)
     {
       triangle = Path()
-          ..lineTo(size.width / 2, size.height)
-          ..lineTo(-(size.width / 2), size.height)
-          ..close();
-    } 
-    else 
+        ..lineTo(size.width / 2, size.height)
+        ..lineTo(-(size.width / 2), size.height)
+        ..close();
+    }
+    else
     { // FLBubbleFrom.right
       triangle = Path()
-          ..lineTo(0.0, size.height / 2)
-          ..lineTo(size.width, 0.0)
-          ..lineTo(0.0, -(size.height / 2))
-          ..close();
+        ..lineTo(0.0, size.height / 2)
+        ..lineTo(size.width, 0.0)
+        ..lineTo(0.0, -(size.height / 2))
+        ..close();
     }
     // draw
     canvas.drawPath(triangle, paint);

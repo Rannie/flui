@@ -5,13 +5,14 @@ import 'bubble.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 300);
 const Color _kMenuBackgroundColor = Color(0xFF2E2E2E);
-const EdgeInsets _kMenuButtonPadding = EdgeInsets.symmetric(vertical: 10.0, horizontal: 18.0);
+const EdgeInsets _kMenuButtonPadding = EdgeInsets.symmetric(vertical: 0.0, horizontal: 18.0);
 const double _kMenuScreenPadding = 8.0;
 const double _kMenuMaxWidth = 5.0 * _kMenuWidthStep;
 const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
 const double _kMenuWidthStep = 56.0;
 const double _kMenuCloseIntervalEnd = 2.0 / 3.0;
 const double _kMenuHeight = 36.0;
+const double _kMenuButtonMinHeight = 22;
 
 const TextStyle _kToolbarButtonFontStyle = TextStyle(
   inherit: false,
@@ -21,12 +22,86 @@ const TextStyle _kToolbarButtonFontStyle = TextStyle(
   color: CupertinoColors.white,
 );
 
-typedef FLBubbleMenuItemBuilder = List<FLBubbleMenuItem> Function(BuildContext context);
+typedef FLBubbleMenuItemBuilder<T> = List<FLBubbleMenuItem<T>> Function(BuildContext context);
+typedef FLBubbleMenuCanceled = void Function();
+typedef FLBubbleMenuItemSelected<T> = void Function(T value);
 
-Future showBubbleMenu({
+enum FLBubbleMenuInteraction {
+  tap,
+  longPress
+}
+
+class FLBubbleMenuWidget<T> extends StatefulWidget {
+  FLBubbleMenuWidget({
+    Key key,
+    @required this.itemBuilder,
+    this.onSelected,
+    this.onCanceled,
+    this.interaction = FLBubbleMenuInteraction.longPress,
+    @required this.child,
+    this.offset = Offset.zero
+  }) : assert(itemBuilder != null),
+        assert(child != null),
+        assert(offset != null),
+        super(key: key);
+
+  final FLBubbleMenuInteraction interaction;
+  final FLBubbleMenuItemBuilder itemBuilder;
+  final FLBubbleMenuItemSelected<T> onSelected;
+  final FLBubbleMenuCanceled onCanceled;
+  final Widget child;
+  final Offset offset;
+
+  @override
+  _FLBubbleMenuWidgetState<T> createState() => _FLBubbleMenuWidgetState();
+}
+
+class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
+  void showButtonMenu() {
+    final RenderBox button = context.findRenderObject();
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    final RelativeRect position = RelativeRect.fromRect(
+        Rect.fromPoints(
+          button.localToGlobal(widget.offset, ancestor: overlay),
+          button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
+        ),
+        Offset.zero & overlay.size
+    );
+
+    showBubbleMenu<T>(
+        context: context,
+        position: position,
+        items: widget.itemBuilder(context)
+    )
+        .then<void>((T value) {
+      if (!mounted)
+        return null;
+      if(value == null) {
+        if (widget.onCanceled != null)
+          widget.onCanceled();
+        return null;
+      }
+      if (widget.onSelected != null)
+        widget.onSelected(value);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: (widget.interaction == FLBubbleMenuInteraction.tap)
+            ? showButtonMenu : null,
+        onLongPress: (widget.interaction == FLBubbleMenuInteraction.longPress)
+            ? showButtonMenu : null,
+        child: widget.child
+    );
+  }
+}
+
+Future<T> showBubbleMenu<T>({
   @required BuildContext context,
   @required RelativeRect position,
-  @required List items,
+  @required List<FLBubbleMenuItem<T>> items,
   String semanticLabel,
 }) {
   assert(context != null);
@@ -43,7 +118,7 @@ Future showBubbleMenu({
       label = semanticLabel ?? MaterialLocalizations.of(context).popupMenuLabel;
   }
 
-  return Navigator.push(context, _FLBubblePopupRoute(
+  return Navigator.push(context, _FLBubblePopupRoute<T>(
     position: position,
     items: items,
     semanticLabel: label,
@@ -51,17 +126,17 @@ Future showBubbleMenu({
   ));
 }
 
-class FLBubbleMenuItem {
+class FLBubbleMenuItem<T> {
   FLBubbleMenuItem({
     @required this.text,
-    @required this.onPressed,
+    @required this.value
   });
 
   final String text;
-  final VoidCallback onPressed;
+  final T value;
 }
 
-class _FLBubbleMenu extends StatelessWidget {
+class _FLBubbleMenu<T> extends StatelessWidget {
   _FLBubbleMenu({
     Key key,
     this.route,
@@ -105,6 +180,8 @@ class _FLBubbleMenu extends StatelessWidget {
           explicitChildNodes: true,
           label: semanticLabel,
           child: FLBubbleWidget(
+            from: from,
+            padding: EdgeInsets.zero,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: children,
@@ -120,7 +197,7 @@ class _FLBubbleMenu extends StatelessWidget {
         return Opacity(
           opacity: opacity.evaluate(route.animation),
           child: Material(
-            type: MaterialType.card,
+            color: Colors.transparent,
             child: child,
           ),
         );
@@ -134,19 +211,18 @@ class _FLBubbleMenu extends StatelessWidget {
     return CupertinoButton(
       child: Text(menuItem.text, style: _kToolbarButtonFontStyle),
       color: _kMenuBackgroundColor,
-      minSize: _kMenuHeight,
+      minSize: _kMenuButtonMinHeight,
       padding: _kMenuButtonPadding,
       borderRadius: null,
       pressedOpacity: 0.7,
       onPressed: () {
-        menuItem.onPressed?.call();
-        Navigator.pop(context);
+        Navigator.pop(context, menuItem.value);
       },
     );
   }
 
-  Divider _divider() {
-    return Divider(height: _kMenuHeight, color: Colors.white);
+  Widget _divider() {
+    return Container(width: 1 / 2.0, height: _kMenuHeight, color: Colors.white);
   }
 
   Widget _transitionWrapper(Widget child, CurvedAnimation opacity) {
@@ -176,14 +252,12 @@ class _FLBubbleMenuRouteLayoutDelegate extends SingleChildLayoutDelegate {
   @override
   Offset getPositionForChild(Size size, Size childSize) {
     // vertical position
-    double y = position.top;
+    double y = (from == FLBubbleFrom.bottom)
+        ? position.top - childSize.height
+        : size.height - position.bottom;
     // horizontal position
-    double x;
-    if (position.left > position.right) {
-      x = size.width - position.right - childSize.width;
-    } else {
-      x = position.left;
-    }
+    double pW = size.width - position.right - position.left;
+    double x = position.left + (pW - childSize.width) / 2;
     // check horizontal edge
     if (x < _kMenuScreenPadding)
       x = _kMenuScreenPadding;
@@ -204,7 +278,7 @@ class _FLBubbleMenuRouteLayoutDelegate extends SingleChildLayoutDelegate {
   }
 }
 
-class _FLBubblePopupRoute extends PopupRoute {
+class _FLBubblePopupRoute<T> extends PopupRoute<T> {
   _FLBubblePopupRoute({
     this.position,
     this.items,
@@ -213,7 +287,7 @@ class _FLBubblePopupRoute extends PopupRoute {
   });
 
   final RelativeRect position;
-  final List<FLBubbleMenuItem> items;
+  final List<FLBubbleMenuItem<T>> items;
   final String semanticLabel;
 
   @override
@@ -243,7 +317,7 @@ class _FLBubblePopupRoute extends PopupRoute {
     // triangle direction
     FLBubbleFrom from = _determineBubbleFrom(position);
     // retrieve menu
-    Widget menu = _FLBubbleMenu(
+    Widget menu = _FLBubbleMenu<T>(
         route: this,
         semanticLabel: semanticLabel,
         from: from,
@@ -271,6 +345,8 @@ class _FLBubblePopupRoute extends PopupRoute {
   }
 
   FLBubbleFrom _determineBubbleFrom(RelativeRect position) {
-    return (position.top > 60) ? FLBubbleFrom.bottom : FLBubbleFrom.top;
+    return (position.top > (35 // estimated value
+        + kToolbarHeight + _kMenuHeight + _kMenuScreenPadding))
+        ? FLBubbleFrom.bottom : FLBubbleFrom.top;
   }
 }

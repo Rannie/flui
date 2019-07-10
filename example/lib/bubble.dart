@@ -20,12 +20,14 @@ class FLBubbleWidget extends StatelessWidget {
     Key key,
     this.backgroundColor = _kBubbleBackgroundColor,
     this.from = FLBubbleFrom.bottom,
+    this.padding = const EdgeInsets.all(8),
     @required this.child
   }) : super(key: key);
 
   final Color backgroundColor;
   final FLBubbleFrom from;
   final Widget child;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class FLBubbleWidget extends StatelessWidget {
           border: Border.all(color: backgroundColor, width: 0),
         ),
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: padding,
           child: child,
         ),
       ),
@@ -65,14 +67,14 @@ class FLBubbleWidget extends StatelessWidget {
         children: <Widget>[
           rect,
           triangle,
-          const Padding(padding: EdgeInsets.only(bottom: 10.0))
+          const Padding(padding: EdgeInsets.only(bottom: 8.0))
         ],
       );
     } else if (from == FLBubbleFrom.top) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Padding(padding: EdgeInsets.only(top: 10.0)),
+          const Padding(padding: EdgeInsets.only(top: 8.0)),
           triangle,
           rect
         ],
@@ -81,7 +83,7 @@ class FLBubbleWidget extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Padding(padding: EdgeInsets.only(left: 10)),
+          const Padding(padding: EdgeInsets.only(left: 8.0)),
           triangle,
           rect
         ],
@@ -92,7 +94,7 @@ class FLBubbleWidget extends StatelessWidget {
           children: <Widget>[
             rect,
             triangle,
-            const Padding(padding: EdgeInsets.only(right: 10))
+            const Padding(padding: EdgeInsets.only(right: 8.0))
           ],
       );
     }
