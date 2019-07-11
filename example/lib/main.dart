@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   SizedBox(height: 20),
                   FLCopyableLabel(
+                    showMenu: true,
                     afterCopyCallback: () {
                       logger.d('copy done');
                     },

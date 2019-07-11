@@ -5,7 +5,7 @@ import 'bubble.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 300);
 const Color _kMenuBackgroundColor = Color(0xFF2E2E2E);
-const EdgeInsets _kMenuButtonPadding = EdgeInsets.symmetric(vertical: 0.0, horizontal: 18.0);
+const EdgeInsets _kMenuButtonPadding = EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0);
 const double _kMenuScreenPadding = 8.0;
 const double _kMenuMaxWidth = 5.0 * _kMenuWidthStep;
 const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
