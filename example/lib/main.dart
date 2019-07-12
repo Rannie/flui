@@ -2,6 +2,7 @@ import 'package:example/bubble.dart';
 import 'package:example/bubble_menu.dart';
 import 'package:example/copyable_label.dart';
 import 'package:example/loading_button.dart';
+import 'package:example/marquee_label.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Text('dsfaasdfasdfasdfasdfads'),
+                        SizedBox(width: 100),
+                        Text('dsfaasdfasdfasdfasdfadsfdsafasdfsdfsdfdsa', overflow: TextOverflow.fade),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 20),
                   FLCopyableLabel(
                     showMenu: true,
@@ -147,7 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text('mdalfksdflkj'),
                     backgroundColor: Colors.blue,
                   ),
-                  SizedBox(height: 30)
+                  SizedBox(height: 30),
+                  FLMarqueeLabel(
+                    text: 'this is marquee',
+                    backgroundColor: Colors.amberAccent,
+                    space: 400,
+                    velocity: 1,
+                    style: TextStyle(color: Colors.white),
+                  )
             ]
           )
         )
