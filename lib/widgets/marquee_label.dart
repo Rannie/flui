@@ -52,13 +52,19 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
     _restart();
   }
 
+  @override
+  void dispose() {
+    _stop();
+    super.dispose();
+  }
+
   void _setup() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scheduleScroll();
     });
   }
 
-  void _cancel() {
+  void _stop() {
     if (_timer != null) {
       _timer.cancel();
       _timer = null;
@@ -66,7 +72,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   }
 
   void _restart() {
-    _cancel();
+    _stop();
     _scrollController.jumpTo(0);
     _setup();
   }
