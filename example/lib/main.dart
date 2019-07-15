@@ -3,6 +3,7 @@ import 'package:example/bubble_menu.dart';
 import 'package:example/copyable_label.dart';
 import 'package:example/loading_button.dart';
 import 'package:example/marquee_label.dart';
+import 'package:example/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
