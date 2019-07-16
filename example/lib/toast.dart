@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:collection';
 
 import 'package:example/main.dart';
 import 'package:flutter/gestures.dart';
@@ -48,7 +48,7 @@ class FLToast {
   }
 }
 
-BuildContext _toastProviderContext;
+LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap = LinkedHashMap();
 
 class FLToastDefaults {
   const FLToastDefaults({
@@ -86,124 +86,174 @@ class FLToastProvider extends StatefulWidget {
   State<FLToastProvider> createState() => _FLToastProviderState();
 }
 
-class _FLToastProviderState extends State<FLToastProvider> with SingleTickerProviderStateMixin {
-  static const EdgeInsetsGeometry _padding = EdgeInsets.symmetric(horizontal: 16.0);
-  static const Duration _fadeInDuration = Duration(milliseconds: 150);
-  static const Duration _fadeOutDuration = Duration(milliseconds: 75);
-
-  AnimationController _controller;
-  OverlayEntry _overlayEntry;
-  Timer _hideTimer;
-
+class _FLToastProviderState extends State<FLToastProvider> {
   @override
   void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: _fadeInDuration,
-      reverseDuration: _fadeOutDuration,
-      vsync: this,
-    )
-    ..addStatusListener(_handleStatusChanged);
     GestureBinding.instance.pointerRouter.addGlobalRoute(_handlePointerEvent);
-
-    Future.delayed(Duration(seconds: 5), _showToast);
-  }
-
-  void _handleStatusChanged(AnimationStatus status) {
-    if (status == AnimationStatus.dismissed) {
-      _hideToast(immediately: true);
-    }
+    super.initState();
   }
 
   void _handlePointerEvent(PointerEvent event) {
-    logger.d('pointer event');
-    logger.d(event);
-
-    if (_overlayEntry == null) {
-      return;
-    }
-
-    if (event is PointerUpEvent
-        || event is PointerCancelEvent
-        || event is PointerDownEvent) {
-      _hideToast();
-    }
-  }
-
-  void _hideToast({ bool immediately = false }) {
-    if (immediately) {
-      _removeEntry();
-      return;
-    }
-    _hideTimer ??= Timer(widget.defaults.showDuration, _controller.reverse);
-  }
-
-  void _showToast() {
-    _hideTimer?.cancel();
-    _hideTimer = null;
-    _ensureToastVisible();
-  }
-
-  bool _ensureToastVisible() {
-    if (_overlayEntry != null) {
-      _hideTimer?.cancel();
-      _hideTimer = null;
-      _controller.forward();
-      return false;
-    }
-    _createNewEntry();
-    _controller.forward();
-    return true;
-  }
-
-  void _createNewEntry() {
-    final Widget overlay = _FLToastView(
-      text: 'nihao',
-      padding: _padding,
-      animation: CurvedAnimation(
-        parent: _controller,
-        curve: Curves.fastOutSlowIn
-      ),
-    );
-
-    _overlayEntry = OverlayEntry(builder: (BuildContext context) {
-      return overlay;
-    });
-    Overlay.of(context).insert(_overlayEntry);
-    SemanticsService.tooltip('nihao');
-  }
-
-  void _removeEntry() {
-    _hideTimer?.cancel();
-    _hideTimer = null;
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-  }
-
-  @override
-  void deactivate() {
-    if (_overlayEntry != null) {
-      _hideToast(immediately: true);
-    }
-    super.deactivate();
+    // TODO: ask manager to check dismiss or not.
   }
 
   @override
   void dispose() {
-    _toastProviderContext = null;
+    _contextMap.remove(this);
     GestureBinding.instance.pointerRouter.removeGlobalRoute(_handlePointerEvent);
-    if (_overlayEntry != null)
-      _removeEntry();
-    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _toastProviderContext = context;
-    return widget.child;
+    Overlay overlay = Overlay(
+      initialEntries: [
+        OverlayEntry(
+          builder: (BuildContext context) {
+            _contextMap[this] = context;
+            return widget.child;
+          }
+        )
+      ],
+    );
+
+    Widget container = Stack(
+      children: <Widget>[
+        overlay,
+        Positioned.fill(
+            child: IgnorePointer(
+              child: Container(
+                color: Colors.black.withOpacity(0.0),
+              ),
+            )
+        )
+      ],
+    );
+
+    return _FLToastDefaultsWidget(
+      child: container,
+    );
   }
 }
+
+//class _FLToastProviderState extends State<FLToastProvider> with SingleTickerProviderStateMixin {
+//  static const EdgeInsetsGeometry _padding = EdgeInsets.symmetric(horizontal: 16.0);
+//  static const Duration _fadeInDuration = Duration(milliseconds: 150);
+//  static const Duration _fadeOutDuration = Duration(milliseconds: 75);
+//
+//  AnimationController _controller;
+//  OverlayEntry _overlayEntry;
+//  Timer _hideTimer;
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    _controller = AnimationController(
+//      duration: _fadeInDuration,
+//      reverseDuration: _fadeOutDuration,
+//      vsync: this,
+//    )
+//    ..addStatusListener(_handleStatusChanged);
+//    GestureBinding.instance.pointerRouter.addGlobalRoute(_handlePointerEvent);
+//
+//    Future.delayed(Duration(seconds: 5), _showToast);
+//  }
+//
+//  void _handleStatusChanged(AnimationStatus status) {
+//    if (status == AnimationStatus.dismissed) {
+//      _hideToast(immediately: true);
+//    }
+//  }
+//
+//  void _handlePointerEvent(PointerEvent event) {
+//    logger.d('pointer event');
+//    logger.d(event);
+//
+//    if (_overlayEntry == null) {
+//      return;
+//    }
+//
+//    if (event is PointerUpEvent
+//        || event is PointerCancelEvent
+//        || event is PointerDownEvent) {
+//      _hideToast();
+//    }
+//  }
+//
+//  void _hideToast({ bool immediately = false }) {
+//    if (immediately) {
+//      _removeEntry();
+//      return;
+//    }
+//    _hideTimer ??= Timer(widget.defaults.showDuration, _controller.reverse);
+//  }
+//
+//  void _showToast() {
+//    _hideTimer?.cancel();
+//    _hideTimer = null;
+//    _ensureToastVisible();
+//  }
+//
+//  bool _ensureToastVisible() {
+//    if (_overlayEntry != null) {
+//      _hideTimer?.cancel();
+//      _hideTimer = null;
+//      _controller.forward();
+//      return false;
+//    }
+//    _createNewEntry();
+//    _controller.forward();
+//    return true;
+//  }
+//
+//  void _createNewEntry() {
+//    final Widget overlay = _FLToastView(
+//      text: 'nihao',
+//      padding: _padding,
+//      animation: CurvedAnimation(
+//        parent: _controller,
+//        curve: Curves.fastOutSlowIn
+//      ),
+//    );
+//
+//    _overlayEntry = OverlayEntry(builder: (BuildContext context) {
+//      return overlay;
+//    });
+//    Overlay.of(context).insert(_overlayEntry);
+//    SemanticsService.tooltip('nihao');
+//  }
+//
+//  void _removeEntry() {
+//    _hideTimer?.cancel();
+//    _hideTimer = null;
+//    _overlayEntry?.remove();
+//    _overlayEntry = null;
+//  }
+//
+//  @override
+//  void deactivate() {
+//    if (_overlayEntry != null) {
+//      _hideToast(immediately: true);
+//    }
+//    super.deactivate();
+//  }
+//
+//  @override
+//  void dispose() {
+//    _toastProviderContext = null;
+//    GestureBinding.instance.pointerRouter.removeGlobalRoute(_handlePointerEvent);
+//    if (_overlayEntry != null)
+//      _removeEntry();
+//    _controller.dispose();
+//    super.dispose();
+//  }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    _toastProviderContext = context;
+//    return widget.child;
+//  }
+//}
 
 class _FLToastDefaultsWidget extends InheritedWidget {
   const _FLToastDefaultsWidget({
