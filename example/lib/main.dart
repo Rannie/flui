@@ -18,14 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FLUI',
-      theme: ThemeData(
-        primarySwatch: FLColors.primarySwatch,
-        buttonTheme: ButtonThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
-        )
-      ),
-      home: MyHomePage(title: 'FLUI'),
+        title: 'FLUI',
+        theme: ThemeData(
+            primarySwatch: FLColors.primarySwatch,
+            buttonTheme: ButtonThemeData(
+                colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
+            )
+        ),
+        home: MyHomePage(title: 'FLUI'),
     );
   }
 }
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     _textEditingController.text = 'hello';
 
-    return Scaffold(
+    return FLToastProvider(child: Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -171,6 +171,6 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         )
       )
-    );
+    ));
   }
 }
