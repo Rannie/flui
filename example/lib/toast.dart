@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:example/main.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,40 +17,6 @@ enum FLToastStyle {
   lightBlur
 }
 
-class FLToast {
-  static void loading(String text) => FLToast.showLoading(text);
-  static void showLoading(String text,
-      { FLToastPosition position, FLToastStyle style }) {
-
-  }
-
-  static void text(String text) => FLToast.showText(text);
-  static void showText(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) {
-
-  }
-
-  static void success(String text) => FLToast.showSuccess(text);
-  static void showSuccess(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) {
-
-  }
-
-  static void error(String text) => FLToast.showError(text);
-  static void showError(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) {
-
-  }
-
-  static void info(String text) => FLToast.showInfo(text);
-  static void showInfo(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) {
-
-  }
-}
-
-LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap = LinkedHashMap();
-
 class FLToastDefaults {
   const FLToastDefaults({
     this.showDuration = const Duration(milliseconds: 1500),
@@ -58,7 +25,9 @@ class FLToastDefaults {
     this.lightColor = Colors.black12,
     this.position = FLToastPosition.center,
     this.style = FLToastStyle.dark,
-    this.dismissOtherToast = true
+    this.dismissOtherToast = true,
+    this.hideWithTap = true,
+    this.trackOrientation = true
   });
 
   final Duration showDuration;
@@ -68,6 +37,8 @@ class FLToastDefaults {
   final FLToastPosition position;
   final FLToastStyle style;
   final bool dismissOtherToast;
+  final bool hideWithTap;
+  final bool trackOrientation;
 }
 
 class FLToastProvider extends StatefulWidget {
@@ -76,8 +47,8 @@ class FLToastProvider extends StatefulWidget {
     this.defaults = const FLToastDefaults(),
     @required this.child
   }) : assert(defaults != null),
-       assert(child != null),
-       super(key: key);
+        assert(child != null),
+        super(key: key);
 
   final FLToastDefaults defaults;
   final Widget child;
@@ -94,7 +65,15 @@ class _FLToastProviderState extends State<FLToastProvider> {
   }
 
   void _handlePointerEvent(PointerEvent event) {
-    // TODO: ask manager to check dismiss or not.
+    if (!widget.defaults.hideWithTap)
+      return;
+
+    if (!_toastManager.hasShowingToast())
+      return;
+
+    if (event is PointerUpEvent || event is PointerCancelEvent) {
+      _toastManager.dismissAllToast();
+    }
   }
 
   @override
@@ -109,10 +88,10 @@ class _FLToastProviderState extends State<FLToastProvider> {
     Overlay overlay = Overlay(
       initialEntries: [
         OverlayEntry(
-          builder: (BuildContext context) {
-            _contextMap[this] = context;
-            return widget.child;
-          }
+            builder: (BuildContext context) {
+              _contextMap[this] = context;
+              return widget.child;
+            }
         )
       ],
     );
@@ -131,129 +110,129 @@ class _FLToastProviderState extends State<FLToastProvider> {
     );
 
     return _FLToastDefaultsWidget(
-      child: container,
+        child: container
     );
   }
 }
 
-//class _FLToastProviderState extends State<FLToastProvider> with SingleTickerProviderStateMixin {
-//  static const EdgeInsetsGeometry _padding = EdgeInsets.symmetric(horizontal: 16.0);
-//  static const Duration _fadeInDuration = Duration(milliseconds: 150);
-//  static const Duration _fadeOutDuration = Duration(milliseconds: 75);
-//
-//  AnimationController _controller;
-//  OverlayEntry _overlayEntry;
-//  Timer _hideTimer;
-//
-//  @override
-//  void initState() {
-//    super.initState();
-//    _controller = AnimationController(
-//      duration: _fadeInDuration,
-//      reverseDuration: _fadeOutDuration,
-//      vsync: this,
-//    )
-//    ..addStatusListener(_handleStatusChanged);
-//    GestureBinding.instance.pointerRouter.addGlobalRoute(_handlePointerEvent);
-//
-//    Future.delayed(Duration(seconds: 5), _showToast);
-//  }
-//
-//  void _handleStatusChanged(AnimationStatus status) {
-//    if (status == AnimationStatus.dismissed) {
-//      _hideToast(immediately: true);
-//    }
-//  }
-//
-//  void _handlePointerEvent(PointerEvent event) {
-//    logger.d('pointer event');
-//    logger.d(event);
-//
-//    if (_overlayEntry == null) {
-//      return;
-//    }
-//
-//    if (event is PointerUpEvent
-//        || event is PointerCancelEvent
-//        || event is PointerDownEvent) {
-//      _hideToast();
-//    }
-//  }
-//
-//  void _hideToast({ bool immediately = false }) {
-//    if (immediately) {
-//      _removeEntry();
-//      return;
-//    }
-//    _hideTimer ??= Timer(widget.defaults.showDuration, _controller.reverse);
-//  }
-//
-//  void _showToast() {
-//    _hideTimer?.cancel();
-//    _hideTimer = null;
-//    _ensureToastVisible();
-//  }
-//
-//  bool _ensureToastVisible() {
-//    if (_overlayEntry != null) {
-//      _hideTimer?.cancel();
-//      _hideTimer = null;
-//      _controller.forward();
-//      return false;
-//    }
-//    _createNewEntry();
-//    _controller.forward();
-//    return true;
-//  }
-//
-//  void _createNewEntry() {
-//    final Widget overlay = _FLToastView(
-//      text: 'nihao',
-//      padding: _padding,
-//      animation: CurvedAnimation(
-//        parent: _controller,
-//        curve: Curves.fastOutSlowIn
-//      ),
-//    );
-//
-//    _overlayEntry = OverlayEntry(builder: (BuildContext context) {
-//      return overlay;
-//    });
-//    Overlay.of(context).insert(_overlayEntry);
-//    SemanticsService.tooltip('nihao');
-//  }
-//
-//  void _removeEntry() {
-//    _hideTimer?.cancel();
-//    _hideTimer = null;
-//    _overlayEntry?.remove();
-//    _overlayEntry = null;
-//  }
-//
-//  @override
-//  void deactivate() {
-//    if (_overlayEntry != null) {
-//      _hideToast(immediately: true);
-//    }
-//    super.deactivate();
-//  }
-//
-//  @override
-//  void dispose() {
-//    _toastProviderContext = null;
-//    GestureBinding.instance.pointerRouter.removeGlobalRoute(_handlePointerEvent);
-//    if (_overlayEntry != null)
-//      _removeEntry();
-//    _controller.dispose();
-//    super.dispose();
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    _toastProviderContext = context;
-//    return widget.child;
-//  }
-//}
+
+class FLToast {
+  static Function loading(String text) => FLToast.showLoading(text);
+  static Function showLoading(String text,
+      { FLToastPosition position, FLToastStyle style }) =>
+      _showLoadingToast(text, position: position, style: style);
+
+  static void text(String text) => FLToast.showText(text);
+  static void showText(String text,
+      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+      _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.text);
+
+  static void success(String text) => FLToast.showSuccess(text);
+  static void showSuccess(String text,
+      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+      _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.success);
+
+  static void error(String text) => FLToast.showError(text);
+  static void showError(String text,
+      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+      _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.error);
+
+  static void info(String text) => FLToast.showInfo(text);
+  static void showInfo(String text,
+      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+      _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.info);
+}
+
+LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap = LinkedHashMap();
+final _toastManager = _FLToastManager._();
+final EdgeInsetsGeometry _padding = EdgeInsets.symmetric(horizontal: 16.0);
+final _iconSize = 36.0;
+
+enum _FLToastType {
+  text,
+  loading,
+  success,
+  error,
+  info
+}
+
+Function _showLoadingToast(String text, { FLToastPosition position, FLToastStyle style }) {
+  return null;
+}
+
+void _showToast(String text, { Duration showDuration, FLToastPosition position, FLToastStyle style, _FLToastType type }) {
+  BuildContext context = _contextMap.values.first;
+  OverlayEntry entry;
+  FLToastDefaults defaults = _FLToastDefaultsWidget.of(context);
+
+  position ??= defaults.position;
+  showDuration ??= defaults.showDuration;
+  style ??= defaults.style;
+  Color color = defaults.darkColor;
+  Color backgroundColor = defaults.darkBackgroundColor;
+  ScaffoldState scaffoldState = Scaffold.of(context);
+  logger.d(scaffoldState.appBarMaxHeight);
+
+  GlobalKey<_FLToastViewState> key = GlobalKey();
+
+  entry = OverlayEntry(builder: (BuildContext context) {
+    return _FLToastView(
+      key: key,
+      color: color,
+      backgroundColor: backgroundColor,
+      text: text,
+      padding: _padding,
+      slotWidget: _typeWidget(type, color),
+    );
+  });
+}
+
+Widget _typeWidget(_FLToastType type, Color tintColor) {
+  if (type == _FLToastType.loading)
+  {
+    return CircularProgressIndicator(
+      strokeWidth: 3.0,
+      valueColor: AlwaysStoppedAnimation(tintColor),
+    );
+  }
+  else if (type == _FLToastType.success)
+  {
+    return Icon(
+      Icons.check_circle_outline,
+      size: _iconSize,
+    );
+  }
+  else if (type == _FLToastType.info)
+  {
+    return Icon(
+      Icons.error_outline,
+      size: _iconSize,
+    );
+  }
+  else if (type == _FLToastType.error)
+  {
+    return Icon(
+      Icons.highlight_off,
+      size: _iconSize,
+    );
+  }
+  return null;
+}
+
+class _FLToastManager {
+  _FLToastManager._();
+  Set _toastSet = Set();
+
+  bool hasShowingToast() => _toastSet.length > 0;
+
+  void dismissAllToast() {
+
+  }
+
+  void addToast(value) {
+    _toastSet.add(value);
+  }
+}
 
 class _FLToastDefaultsWidget extends InheritedWidget {
   const _FLToastDefaultsWidget({
@@ -275,63 +254,49 @@ class _FLToastDefaultsWidget extends InheritedWidget {
   }
 }
 
-class _FLToastView extends StatelessWidget {
+class _FLToastView extends StatefulWidget {
   _FLToastView({
     Key key,
     this.text,
     this.padding,
-    this.animation,
-    this.slotWidget
+    this.slotWidget,
+    this.color,
+    this.backgroundColor
   });
 
   final String text;
   final EdgeInsetsGeometry padding;
-  final CurvedAnimation animation;
   final Widget slotWidget;
+  final Color color;
+  final Color backgroundColor;
 
   @override
-  Widget build(BuildContext context) {
-    final RenderBox box = context.findRenderObject();
-    logger.d(box);
-    final Offset target = box.localToGlobal(box.size.center(Offset.zero));
-    final FLToastDefaults defaults = _FLToastDefaultsWidget.of(context);
-
-    return Positioned.fill(
-        child: IgnorePointer(
-          child: CustomSingleChildLayout(
-            delegate: _FLToastPositionDelegate(target: target),
-            child: FadeTransition(
-              opacity: animation,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: defaults.darkBackgroundColor.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(4.0)
-                ),
-                padding: padding,
-                child: Center(
-                  widthFactor: 1.0,
-                  heightFactor: 1.0,
-                  child: Text(text, style: TextStyle(color: defaults.darkColor))
-                ),
-              ),
-            ),
-          ),
-        ));
-  }
+  State<_FLToastView> createState() => _FLToastViewState();
 }
 
-class _FLToastPositionDelegate extends SingleChildLayoutDelegate {
-  _FLToastPositionDelegate({
-    @required this.target,
-  });
-
-  final Offset target;
-
+class _FLToastViewState extends State<_FLToastView> {
   @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) => constraints.loosen();
-
-  @override
-  bool shouldRelayout(_FLToastPositionDelegate oldDelegate) {
-    return target != oldDelegate.target;
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: null,
+      child: Container(
+        margin: const EdgeInsets.all(50.0),
+        decoration: BoxDecoration(
+            color: widget.backgroundColor.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(4.0)
+        ),
+        padding: widget.padding,
+        child: Center(
+            widthFactor: 1.0,
+            heightFactor: 1.0,
+            child: Column(
+              children: <Widget>[
+                widget.slotWidget,
+                Text(widget.text, style: TextStyle(color: widget.color))
+              ],
+            )
+        ),
+      ),
+    );
   }
 }
