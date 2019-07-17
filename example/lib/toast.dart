@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:async';
 
 import 'package:example/main.dart';
 import 'package:flutter/animation.dart';
@@ -27,7 +28,6 @@ class FLToastDefaults {
     this.style = FLToastStyle.dark,
     this.dismissOtherToast = true,
     this.hideWithTap = true,
-    this.trackOrientation = true
   });
 
   final Duration showDuration;
@@ -38,7 +38,6 @@ class FLToastDefaults {
   final FLToastStyle style;
   final bool dismissOtherToast;
   final bool hideWithTap;
-  final bool trackOrientation;
 }
 
 class FLToastProvider extends StatefulWidget {
@@ -175,16 +174,37 @@ void _showToast(String text, { Duration showDuration, FLToastPosition position, 
 
   GlobalKey<_FLToastViewState> key = GlobalKey();
 
-  entry = OverlayEntry(builder: (BuildContext context) {
-    return _FLToastView(
-      key: key,
-      color: color,
-      backgroundColor: backgroundColor,
-      text: text,
-      padding: _padding,
-      slotWidget: _typeWidget(type, color),
-    );
+  _FLToastView toastView = _FLToastView(
+    key: key,
+    color: color,
+    backgroundColor: backgroundColor,
+    text: text,
+    padding: _padding,
+    showDuration: showDuration,
+    slotWidget: _typeWidget(type, color),
+    onDismiss: () {
+      _toastManager.removeToast(key);
+    },
+  );
+  entry = OverlayEntry(builder: (BuildContext context) => toastView);
+
+  if (defaults.dismissOtherToast == true) {
+    _toastManager.dismissAllToast();
+  }
+
+  Overlay.of(context).insert(entry);
+  _toastManager.addToast(_FLToastPack(key: key, entry: entry));
+  SemanticsService.tooltip(text);
+}
+
+class _FLToastPack {
+  _FLToastPack({
+    this.key,
+    this.entry
   });
+
+  final Key key;
+  final OverlayEntry entry;
 }
 
 Widget _typeWidget(_FLToastType type, Color tintColor) {
@@ -221,16 +241,29 @@ Widget _typeWidget(_FLToastType type, Color tintColor) {
 
 class _FLToastManager {
   _FLToastManager._();
-  Set _toastSet = Set();
 
-  bool hasShowingToast() => _toastSet.length > 0;
+  Map<GlobalKey<_FLToastViewState>, _FLToastPack> _toastMap = Map();
+
+  bool hasShowingToast() => _toastMap.length > 0;
 
   void dismissAllToast() {
-
+    _toastMap.forEach((key, pack) {
+      key.currentState._dismiss();
+    });
   }
 
-  void addToast(value) {
-    _toastSet.add(value);
+  void addToast(_FLToastPack pack) {
+    _toastMap[pack.key] = pack;
+  }
+
+  void removeToast(Key key) {
+    if (!_toastMap.containsKey(key)) {
+      return;
+    }
+
+    _FLToastPack pack = _toastMap[key];
+    pack.entry?.remove();
+    _toastMap.remove(key);
   }
 }
 
@@ -261,7 +294,9 @@ class _FLToastView extends StatefulWidget {
     this.padding,
     this.slotWidget,
     this.color,
-    this.backgroundColor
+    this.backgroundColor,
+    this.onDismiss,
+    this.showDuration
   });
 
   final String text;
@@ -269,16 +304,77 @@ class _FLToastView extends StatefulWidget {
   final Widget slotWidget;
   final Color color;
   final Color backgroundColor;
+  final Duration showDuration;
+  final VoidCallback onDismiss;
 
   @override
   State<_FLToastView> createState() => _FLToastViewState();
 }
 
-class _FLToastViewState extends State<_FLToastView> {
+class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderStateMixin {
+  static const Duration _fadeInDuration = Duration(milliseconds: 150);
+  static const Duration _fadeOutDuration = Duration(milliseconds: 75);
+  static const Duration _waitDuration = Duration(milliseconds: 0);
+  AnimationController _controller;
+  Timer _showTimer;
+  Timer _hideTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: _fadeInDuration,
+      reverseDuration: _fadeOutDuration,
+      vsync: this
+    )
+    ..addStatusListener(_handleStatusChanged);
+    _show();
+  }
+
+  void _handleStatusChanged(AnimationStatus status) {
+    if (status == AnimationStatus.dismissed) {
+      _dismiss(immediately: true);
+    }
+  }
+
+  void _dismiss({ bool immediately = false }) {
+    _showTimer?.cancel();
+    _showTimer = null;
+    if (immediately) {
+      widget.onDismiss?.call();
+      return;
+    }
+    _controller.reverse();
+  }
+
+  void _show() {
+    _hideTimer?.cancel();
+    _hideTimer = null;
+    _showTimer ??= Timer(_waitDuration, () {
+      _showTimer?.cancel();
+      _showTimer = null;
+      _controller.forward();
+      _hideTimer = Timer(widget.showDuration, _dismiss);
+    });
+  }
+
+  @override
+  void deactivate() {
+    _dismiss(immediately: true);
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    logger.d('toast dispose');
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: null,
+      opacity: _controller,
       child: Container(
         margin: const EdgeInsets.all(50.0),
         decoration: BoxDecoration(
