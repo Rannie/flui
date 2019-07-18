@@ -26,8 +26,8 @@ class FLToastDefaults {
     this.lightColor = Colors.black12,
     this.position = FLToastPosition.center,
     this.style = FLToastStyle.dark,
-    this.dismissOtherToast = false,
-    this.hideWithTap = false,
+    this.dismissOtherToast = true,
+    this.hideWithTap = true,
     this.textDirection = TextDirection.ltr
   });
 
@@ -73,7 +73,6 @@ class _FLToastProviderState extends State<FLToastProvider> {
       return;
 
     if (event is PointerUpEvent || event is PointerCancelEvent) {
-      logger.d('tap to dismiss');
       _toastManager.dismissAllToast();
     }
   }
@@ -123,35 +122,30 @@ class _FLToastProviderState extends State<FLToastProvider> {
 
 
 class FLToast {
-  static Function loading(String text) => FLToast.showLoading(text);
-  static Function showLoading(String text,
-      { FLToastPosition position, FLToastStyle style }) =>
+  static Function loading({ String text }) => FLToast.showLoading(text: text);
+  static Function showLoading({ String text, FLToastPosition position, FLToastStyle style }) =>
       _showLoadingToast(text, position: position, style: style);
 
-  static void text(String text) => FLToast.showText(text);
-  static void showText(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+  static void text({ String text }) => FLToast.showText(text: text);
+  static void showText({ String text, Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
       _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.text);
 
-  static void success(String text) => FLToast.showSuccess(text);
-  static void showSuccess(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+  static void success({ String text }) => FLToast.showSuccess(text: text);
+  static void showSuccess({ String text, Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
       _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.success);
 
-  static void error(String text) => FLToast.showError(text);
-  static void showError(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+  static void error({ String text }) => FLToast.showError(text: text);
+  static void showError({ String text, Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
       _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.error);
 
-  static void info(String text) => FLToast.showInfo(text);
-  static void showInfo(String text,
-      { Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
+  static void info({ String text }) => FLToast.showInfo(text: text);
+  static void showInfo({ String text, Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
       _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.info);
 }
 
 LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap = LinkedHashMap();
 final _toastManager = _FLToastManager._();
-final EdgeInsetsGeometry _padding = const EdgeInsets.all(20);
+final EdgeInsetsGeometry _padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 13);
 final _iconSize = 36.0;
 
 enum _FLToastType {
@@ -187,9 +181,6 @@ void _showToast(String text, { Duration showDuration, FLToastPosition position, 
     padding: _padding,
     showDuration: showDuration,
     slotWidget: _typeWidget(type, color),
-    onDismiss: () {
-      logger.d('on dismiss');
-    },
   );
   entry = OverlayEntry(builder: (BuildContext context) => toastView);
 
@@ -276,7 +267,6 @@ class _FLToastManager {
       return;
     }
 
-    logger.d('remove toast');
     _toastMap.remove(key);
   }
 
@@ -285,7 +275,6 @@ class _FLToastManager {
       return;
     }
 
-    logger.d('remove entry');
     _FLToastPack pack = _toastMap[key];
     pack.entry?.remove();
   }
@@ -319,9 +308,9 @@ class _FLToastView extends StatefulWidget {
     this.slotWidget,
     this.color,
     this.backgroundColor,
-    this.onDismiss,
     this.showDuration
-  }) : super(key: key);
+  }) : assert(slotWidget != null || text != null),
+       super(key: key);
 
   final String text;
   final EdgeInsetsGeometry padding;
@@ -329,7 +318,6 @@ class _FLToastView extends StatefulWidget {
   final Color color;
   final Color backgroundColor;
   final Duration showDuration;
-  final VoidCallback onDismiss;
 
   @override
   State<_FLToastView> createState() => _FLToastViewState();
@@ -397,7 +385,6 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
 
   @override
   void dispose() {
-    logger.d('toast dispose');
     _hideTimer?.cancel();
     _hideTimer = null;
     _showTimer?.cancel();
@@ -408,6 +395,20 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = <Widget>[];
+    // add custom slot
+    if (widget.slotWidget != null) {
+      children.add(widget.slotWidget);
+      if (widget.text != null) {
+        children.add(SizedBox(height: 6.0));
+      }
+    }
+    // add text
+    if (widget.text != null) {
+      children.add(Text(
+          widget.text, style: TextStyle(color: widget.color, fontSize: 17)));
+    }
+
     return FadeTransition(
       opacity: _controller,
         child: Column(
@@ -415,17 +416,13 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
           children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  color: widget.backgroundColor.withOpacity(0.76),
-                  borderRadius: BorderRadius.circular(4.0)
+                  color: widget.backgroundColor.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(5.0)
                 ),
                 padding: widget.padding,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    widget.slotWidget,
-                    SizedBox(height: 8.0),
-                    Text(widget.text, style: TextStyle(color: widget.color))
-                  ],
+                  children: children
                   )
               )
           ],

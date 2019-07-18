@@ -151,18 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    width: 200,
-                    child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  FLBubbleWidget(
-                    child: Text('mdalfksdflkj'),
-                    backgroundColor: Colors.blue,
-                  ),
-                  SizedBox(height: 30),
                   FLMarqueeLabel(
                     text: 'this is marquee',
                     backgroundColor: Colors.amberAccent,
@@ -176,7 +164,34 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.blue,
                     textColor: Colors.white,
                     onPressed: () {
-                      FLToast.showInfo('show info');
+                      FLToast.showInfo(text: 'show info');
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  FLRaisedButton(
+                    child: Text('show success'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      FLToast.showSuccess(text: 'show success');
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  FLRaisedButton(
+                    child: Text('show error'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      FLToast.showError();
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  FLRaisedButton(
+                    child: Text('show text'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      FLToast.showText(text: 'show text');
                     },
                   )
             ]
