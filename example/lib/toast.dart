@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:example/main.dart';
 import 'package:flutter/animation.dart';
@@ -166,7 +167,8 @@ Function _showToast(String text, { Duration showDuration, FLToastPosition positi
   Color color = defaults.darkColor;
   Color backgroundColor = defaults.darkBackgroundColor;
   showDuration ??= defaults.showDuration;
-  if (type == _FLToastType.loading) showDuration = null;
+  if (type == _FLToastType.loading)
+    showDuration = null;
 
   GlobalKey<_FLToastViewState> key = GlobalKey();
 
@@ -330,7 +332,7 @@ class _FLToastView extends StatefulWidget {
   State<_FLToastView> createState() => _FLToastViewState();
 }
 
-class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderStateMixin {
+class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   // duration follow tooltip
   static const Duration _fadeInDuration = Duration(milliseconds: 150);
   static const Duration _fadeOutDuration = Duration(milliseconds: 75);
@@ -349,6 +351,7 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
       vsync: this
     )
     ..addStatusListener(_handleStatusChanged);
+    WidgetsBinding.instance.addObserver(this);
     _show();
   }
 
@@ -384,6 +387,12 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
   }
 
   @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    setState(() {});
+  }
+
+  @override
   void deactivate() {
     if (_showing) {
       _dismiss(immediately: true);
@@ -399,11 +408,15 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
     _showTimer?.cancel();
     _showTimer = null;
     _controller.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    var mediaQueryData = MediaQueryData.fromWindow(ui.window);
+    logger.d(mediaQueryData.viewPadding);
+
     List<Widget> children = <Widget>[];
     // add custom slot
     if (widget.slotWidget != null) {
