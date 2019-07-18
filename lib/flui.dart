@@ -8,3 +8,4 @@ export 'package:flui/widgets/loading_button.dart';
 export 'package:flui/widgets/bubble.dart';
 export 'package:flui/widgets/bubble_menu.dart';
 export 'package:flui/widgets/copyable_label.dart';
+export 'package:flui/widgets/toast.dart';

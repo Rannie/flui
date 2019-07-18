@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    FLToastDefaults defaults = FLToastDefaults();
     return FLToastProvider(
+      defaults: defaults,
       child: MaterialApp(
         title: 'FLUI',
         theme: ThemeData(
@@ -128,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SizedBox(height: 20),
                   FLMarqueeLabel(
-                    text: 'this is marquee',
+                    text: 'this is marquee, round & round & round & round & round & round',
                     backgroundColor: Colors.amberAccent,
                     space: 400,
                     velocity: 1,
@@ -140,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.blue,
                     textColor: Colors.white,
                     onPressed: () {
-                      FLToast.showInfo(text: 'show info');
+                      FLToast.showInfo(text: 'show info', position: FLToastPosition.bottom);
                     },
                   ),
                   SizedBox(height: 20),
@@ -167,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.blue,
                     textColor: Colors.white,
                     onPressed: () {
-                      FLToast.showText(text: 'show text');
+                      FLToast.showText(text: 'show text', position: FLToastPosition.top);
                     },
                   ),
                   SizedBox(height: 20),

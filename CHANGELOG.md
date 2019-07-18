@@ -17,5 +17,3 @@
 * bubble widget
 * bubble menu
 * bubble menu popup
-
-

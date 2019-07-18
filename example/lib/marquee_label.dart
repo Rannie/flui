@@ -73,7 +73,6 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
 
   void _restart() {
     _stop();
-    _scrollController.jumpTo(0);
     _setup();
   }
 
