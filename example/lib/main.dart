@@ -73,6 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
     logger.d('menu canceled');
   }
 
+  _handleLoadingToast() {
+    Function hideToast = FLToast.loading(text: 'loading...');
+    Future.delayed(Duration(seconds: 2),() {
+      hideToast();
+      FLToast.success(text: 'success!');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _textEditingController.text = 'hello';
@@ -87,18 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Text('dsfaasdfasdfasdfasdfads'),
-                        SizedBox(width: 100),
-                        Text('dsfaasdfasdfasdfasdfadsfdsafasdfsdfsdfdsa', overflow: TextOverflow.fade),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20),
                   FLCopyableLabel(
                     showMenu: true,
                     afterCopyCallback: () {
@@ -106,27 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     copyData: 'Hanran',
                     child: Text('Hanran'),
-                  ),
-                  SizedBox(height: 50),
-                  FLBubbleMenuWidget(
-                      interaction: FLBubbleMenuInteraction.longPress,
-                      child: Container(
-                        color: Colors.blue,
-                        child: Text('menu button'),
-                        padding: EdgeInsets.all(10),
-                      ),
-                      onSelected: handleMenuSelected,
-                      onCanceled: handleMenuCanceled,
-                      itemBuilder: (BuildContext context) => <FLBubbleMenuItem<String>>[
-                        FLBubbleMenuItem<String>(
-                          value: 'copy',
-                          text: ' Copy',
-                        ),
-                        FLBubbleMenuItem<String>(
-                          value: 'paste',
-                          text: 'Paste',
-                        ),
-                      ]
                   ),
                   SizedBox(height: 20),
                   FLLoadingButton(
@@ -193,6 +168,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       FLToast.showText(text: 'show text');
                     },
+                  ),
+                  SizedBox(height: 20),
+                  FLRaisedButton(
+                    child: Text('show loading'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: _handleLoadingToast,
                   )
             ]
           )

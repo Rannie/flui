@@ -124,7 +124,7 @@ class _FLToastProviderState extends State<FLToastProvider> {
 class FLToast {
   static Function loading({ String text }) => FLToast.showLoading(text: text);
   static Function showLoading({ String text, FLToastPosition position, FLToastStyle style }) =>
-      _showLoadingToast(text, position: position, style: style);
+      _showToast(text, position: position, style: style, type: _FLToastType.loading);
 
   static void text({ String text }) => FLToast.showText(text: text);
   static void showText({ String text, Duration showDuration, FLToastPosition position, FLToastStyle style }) =>
@@ -156,20 +156,17 @@ enum _FLToastType {
   info
 }
 
-Function _showLoadingToast(String text, { FLToastPosition position, FLToastStyle style }) {
-  return null;
-}
-
-void _showToast(String text, { Duration showDuration, FLToastPosition position, FLToastStyle style, _FLToastType type }) {
+Function _showToast(String text, { Duration showDuration, FLToastPosition position, FLToastStyle style, _FLToastType type }) {
   BuildContext context = _contextMap.values.first;
   OverlayEntry entry;
   FLToastDefaults defaults = _FLToastDefaultsWidget.of(context);
 
   position ??= defaults.position;
-  showDuration ??= defaults.showDuration;
   style ??= defaults.style;
   Color color = defaults.darkColor;
   Color backgroundColor = defaults.darkBackgroundColor;
+  showDuration ??= defaults.showDuration;
+  if (type == _FLToastType.loading) showDuration = null;
 
   GlobalKey<_FLToastViewState> key = GlobalKey();
 
@@ -181,6 +178,7 @@ void _showToast(String text, { Duration showDuration, FLToastPosition position, 
     padding: _padding,
     showDuration: showDuration,
     slotWidget: _typeWidget(type, color),
+    canBeAutoClear: type != _FLToastType.loading,
   );
   entry = OverlayEntry(builder: (BuildContext context) => toastView);
 
@@ -191,6 +189,10 @@ void _showToast(String text, { Duration showDuration, FLToastPosition position, 
   Overlay.of(context).insert(entry);
   _toastManager.addToast(_FLToastPack(key: key, entry: entry));
   SemanticsService.tooltip(text);
+
+  return () {
+    key.currentState._dismiss();
+  };
 }
 
 class _FLToastPack {
@@ -239,7 +241,6 @@ Widget _typeWidget(_FLToastType type, Color tintColor) {
 }
 
 class _FLToastManager {
-
   _FLToastManager._();
 
   Map<GlobalKey<_FLToastViewState>, _FLToastPack> _toastMap = Map();
@@ -253,10 +254,14 @@ class _FLToastManager {
 
     _toastMap.forEach((key, pack) {
       if (key.currentState != null && key.currentState._showing) {
-        key.currentState._dismiss(immediately: immediately);
+        _FLToastView toastView = key.currentWidget;
+        if (toastView.canBeAutoClear) {
+          key.currentState._dismiss(immediately: immediately);
+        }
       }
     });
   }
+
 
   void addToast(_FLToastPack pack) {
     _toastMap[pack.key] = pack;
@@ -308,7 +313,8 @@ class _FLToastView extends StatefulWidget {
     this.slotWidget,
     this.color,
     this.backgroundColor,
-    this.showDuration
+    this.showDuration,
+    this.canBeAutoClear = true,
   }) : assert(slotWidget != null || text != null),
        super(key: key);
 
@@ -318,6 +324,7 @@ class _FLToastView extends StatefulWidget {
   final Color color;
   final Color backgroundColor;
   final Duration showDuration;
+  final bool canBeAutoClear;
 
   @override
   State<_FLToastView> createState() => _FLToastViewState();
@@ -370,7 +377,9 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
       _showTimer = null;
       _controller.forward();
       _showing = true;
-      _hideTimer = Timer(widget.showDuration, _dismiss);
+      if (widget.showDuration != null) {
+        _hideTimer = Timer(widget.showDuration, _dismiss);
+      }
     });
   }
 
@@ -400,7 +409,7 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
     if (widget.slotWidget != null) {
       children.add(widget.slotWidget);
       if (widget.text != null) {
-        children.add(SizedBox(height: 6.0));
+        children.add(SizedBox(height: 8.0));
       }
     }
     // add text
@@ -409,24 +418,26 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
           widget.text, style: TextStyle(color: widget.color, fontSize: 17)));
     }
 
-    return FadeTransition(
-      opacity: _controller,
+    return AbsorbPointer(
+      child: FadeTransition(
+        opacity: _controller,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-              Container(
+            Container(
                 decoration: BoxDecoration(
-                  color: widget.backgroundColor.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(5.0)
+                    color: widget.backgroundColor.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(5.0)
                 ),
                 padding: widget.padding,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: children
-                  )
-              )
+                    mainAxisSize: MainAxisSize.min,
+                    children: children
+                )
+            )
           ],
         ),
+      ),
     );
   }
 }
