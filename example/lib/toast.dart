@@ -26,8 +26,9 @@ class FLToastDefaults {
     this.lightColor = Colors.black12,
     this.position = FLToastPosition.center,
     this.style = FLToastStyle.dark,
-    this.dismissOtherToast = true,
-    this.hideWithTap = true,
+    this.dismissOtherToast = false,
+    this.hideWithTap = false,
+    this.textDirection = TextDirection.ltr
   });
 
   final Duration showDuration;
@@ -38,6 +39,7 @@ class FLToastDefaults {
   final FLToastStyle style;
   final bool dismissOtherToast;
   final bool hideWithTap;
+  final TextDirection textDirection;
 }
 
 class FLToastProvider extends StatefulWidget {
@@ -71,6 +73,7 @@ class _FLToastProviderState extends State<FLToastProvider> {
       return;
 
     if (event is PointerUpEvent || event is PointerCancelEvent) {
+      logger.d('tap to dismiss');
       _toastManager.dismissAllToast();
     }
   }
@@ -95,20 +98,24 @@ class _FLToastProviderState extends State<FLToastProvider> {
       ],
     );
 
-    Widget container = Stack(
-      children: <Widget>[
-        overlay,
-        Positioned.fill(
-            child: IgnorePointer(
-              child: Container(
-                color: Colors.black.withOpacity(0.0),
-              ),
-            )
-        )
-      ],
+    Widget container = Directionality(
+      textDirection: widget.defaults.textDirection,
+      child: Stack(
+        children: <Widget>[
+          overlay,
+          Positioned.fill(
+              child: IgnorePointer(
+                child: Container(
+                  color: Colors.black.withOpacity(0.0),
+                ),
+              )
+          )
+        ],
+      ),
     );
 
     return _FLToastDefaultsWidget(
+        defaults: widget.defaults,
         child: container
     );
   }
@@ -144,7 +151,7 @@ class FLToast {
 
 LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap = LinkedHashMap();
 final _toastManager = _FLToastManager._();
-final EdgeInsetsGeometry _padding = EdgeInsets.symmetric(horizontal: 16.0);
+final EdgeInsetsGeometry _padding = const EdgeInsets.all(20);
 final _iconSize = 36.0;
 
 enum _FLToastType {
@@ -169,8 +176,6 @@ void _showToast(String text, { Duration showDuration, FLToastPosition position, 
   style ??= defaults.style;
   Color color = defaults.darkColor;
   Color backgroundColor = defaults.darkBackgroundColor;
-  ScaffoldState scaffoldState = Scaffold.of(context);
-  logger.d(scaffoldState.appBarMaxHeight);
 
   GlobalKey<_FLToastViewState> key = GlobalKey();
 
@@ -183,13 +188,13 @@ void _showToast(String text, { Duration showDuration, FLToastPosition position, 
     showDuration: showDuration,
     slotWidget: _typeWidget(type, color),
     onDismiss: () {
-      _toastManager.removeToast(key);
+      logger.d('on dismiss');
     },
   );
   entry = OverlayEntry(builder: (BuildContext context) => toastView);
 
   if (defaults.dismissOtherToast == true) {
-    _toastManager.dismissAllToast();
+    _toastManager.dismissAllToast(immediately: true);
   }
 
   Overlay.of(context).insert(entry);
@@ -220,6 +225,7 @@ Widget _typeWidget(_FLToastType type, Color tintColor) {
     return Icon(
       Icons.check_circle_outline,
       size: _iconSize,
+      color: tintColor,
     );
   }
   else if (type == _FLToastType.info)
@@ -227,6 +233,7 @@ Widget _typeWidget(_FLToastType type, Color tintColor) {
     return Icon(
       Icons.error_outline,
       size: _iconSize,
+      color: tintColor,
     );
   }
   else if (type == _FLToastType.error)
@@ -234,21 +241,29 @@ Widget _typeWidget(_FLToastType type, Color tintColor) {
     return Icon(
       Icons.highlight_off,
       size: _iconSize,
+      color: tintColor,
     );
   }
   return null;
 }
 
 class _FLToastManager {
+
   _FLToastManager._();
 
   Map<GlobalKey<_FLToastViewState>, _FLToastPack> _toastMap = Map();
 
   bool hasShowingToast() => _toastMap.length > 0;
 
-  void dismissAllToast() {
+  void dismissAllToast({ bool immediately = false }) {
+    if (_toastMap.length == 0) {
+      return;
+    }
+
     _toastMap.forEach((key, pack) {
-      key.currentState._dismiss();
+      if (key.currentState != null && key.currentState._showing) {
+        key.currentState._dismiss(immediately: immediately);
+      }
     });
   }
 
@@ -261,9 +276,18 @@ class _FLToastManager {
       return;
     }
 
+    logger.d('remove toast');
+    _toastMap.remove(key);
+  }
+
+  void removeEntry(Key key) {
+    if (!_toastMap.containsKey(key)) {
+      return;
+    }
+
+    logger.d('remove entry');
     _FLToastPack pack = _toastMap[key];
     pack.entry?.remove();
-    _toastMap.remove(key);
   }
 }
 
@@ -297,7 +321,7 @@ class _FLToastView extends StatefulWidget {
     this.backgroundColor,
     this.onDismiss,
     this.showDuration
-  });
+  }) : super(key: key);
 
   final String text;
   final EdgeInsetsGeometry padding;
@@ -312,12 +336,14 @@ class _FLToastView extends StatefulWidget {
 }
 
 class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderStateMixin {
+  // duration follow tooltip
   static const Duration _fadeInDuration = Duration(milliseconds: 150);
   static const Duration _fadeOutDuration = Duration(milliseconds: 75);
   static const Duration _waitDuration = Duration(milliseconds: 0);
   AnimationController _controller;
   Timer _showTimer;
   Timer _hideTimer;
+  bool _showing = false;
 
   @override
   void initState() {
@@ -341,7 +367,8 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
     _showTimer?.cancel();
     _showTimer = null;
     if (immediately) {
-      widget.onDismiss?.call();
+      _toastManager.removeEntry(widget.key);
+      _showing = false;
       return;
     }
     _controller.reverse();
@@ -354,19 +381,27 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
       _showTimer?.cancel();
       _showTimer = null;
       _controller.forward();
+      _showing = true;
       _hideTimer = Timer(widget.showDuration, _dismiss);
     });
   }
 
   @override
   void deactivate() {
-    _dismiss(immediately: true);
+    if (_showing) {
+      _dismiss(immediately: true);
+    }
+    _toastManager.removeToast(widget.key);
     super.deactivate();
   }
 
   @override
   void dispose() {
     logger.d('toast dispose');
+    _hideTimer?.cancel();
+    _hideTimer = null;
+    _showTimer?.cancel();
+    _showTimer = null;
     _controller.dispose();
     super.dispose();
   }
@@ -375,24 +410,26 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _controller,
-      child: Container(
-        margin: const EdgeInsets.all(50.0),
-        decoration: BoxDecoration(
-            color: widget.backgroundColor.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(4.0)
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.backgroundColor.withOpacity(0.76),
+                  borderRadius: BorderRadius.circular(4.0)
+                ),
+                padding: widget.padding,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    widget.slotWidget,
+                    SizedBox(height: 8.0),
+                    Text(widget.text, style: TextStyle(color: widget.color))
+                  ],
+                  )
+              )
+          ],
         ),
-        padding: widget.padding,
-        child: Center(
-            widthFactor: 1.0,
-            heightFactor: 1.0,
-            child: Column(
-              children: <Widget>[
-                widget.slotWidget,
-                Text(widget.text, style: TextStyle(color: widget.color))
-              ],
-            )
-        ),
-      ),
     );
   }
 }

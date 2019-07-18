@@ -3,6 +3,7 @@ import 'package:example/bubble_menu.dart';
 import 'package:example/copyable_label.dart';
 import 'package:example/loading_button.dart';
 import 'package:example/marquee_label.dart';
+import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return FLToastProvider(
+      child: MaterialApp(
         title: 'FLUI',
         theme: ThemeData(
             primarySwatch: FLColors.primarySwatch,
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
             )
         ),
         home: MyHomePage(title: 'FLUI'),
+      ),
     );
   }
 }
@@ -74,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     _textEditingController.text = 'hello';
 
-    return FLToastProvider(child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -166,11 +169,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     space: 400,
                     velocity: 1,
                     style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(height: 20),
+                  FLRaisedButton(
+                    child: Text('show info'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      FLToast.showInfo('show info');
+                    },
                   )
             ]
           )
         )
       )
-    ));
+    );
   }
 }
