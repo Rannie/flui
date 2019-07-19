@@ -15,7 +15,7 @@ enum FLToastPosition {
 
 enum FLToastStyle {
   dark,
-  lightBlur
+  light
 }
 
 class FLToastDefaults {
@@ -23,7 +23,9 @@ class FLToastDefaults {
     this.showDuration = const Duration(milliseconds: 1500),
     this.darkColor = Colors.white,
     this.darkBackgroundColor = Colors.black87,
-    this.lightColor = Colors.black12,
+    this.backgroundOpacity = 0.8,
+    this.lightColor = const Color(0xFF2F2F2F),
+    this.lightBackgroundColor = const Color(0xFFE0E0E0),
     this.position = FLToastPosition.center,
     this.style = FLToastStyle.dark,
     this.dismissOtherToast = true,
@@ -36,7 +38,9 @@ class FLToastDefaults {
   final Duration showDuration;
   final Color darkColor; // include text & icon
   final Color darkBackgroundColor;
+  final double backgroundOpacity;
   final Color lightColor; // include text & icon
+  final Color lightBackgroundColor;
   final FLToastPosition position;
   final FLToastStyle style;
   final bool dismissOtherToast;
@@ -101,25 +105,23 @@ class _FLToastProviderState extends State<FLToastProvider> {
       ],
     );
 
-    Widget container = Directionality(
-      textDirection: widget.defaults.textDirection,
-      child: Stack(
-        children: <Widget>[
-          overlay,
-          Positioned.fill(
-              child: IgnorePointer(
-                child: Container(
-                  color: Colors.black.withOpacity(0.0),
-                ),
-              )
-          )
-        ],
-      ),
-    );
-
     return _FLToastDefaultsWidget(
         defaults: widget.defaults,
-        child: container
+        child: Directionality(
+          textDirection: widget.defaults.textDirection,
+          child: Stack(
+            children: <Widget>[
+              overlay,
+              Positioned.fill(
+                  child: IgnorePointer(
+                    child: Container(
+                      color: Colors.black.withOpacity(0.0),
+                    ),
+                  )
+              )
+            ],
+          ),
+        )
     );
   }
 }
@@ -147,10 +149,12 @@ class FLToast {
       _showToast(text, showDuration: showDuration, position: position, style: style, type: _FLToastType.info);
 }
 
+
 LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap = LinkedHashMap();
-final _toastManager = _FLToastManager._();
+final _FLToastManager _toastManager = _FLToastManager._();
 final EdgeInsetsGeometry _padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 13);
-final _iconSize = 36.0;
+final double _iconSize = 36.0;
+final double _toastMarginHorizontal = 10;
 
 enum _FLToastType {
   text,
@@ -160,6 +164,7 @@ enum _FLToastType {
   info
 }
 
+
 Function _showToast(String text, { Duration showDuration, FLToastPosition position, FLToastStyle style, _FLToastType type }) {
   BuildContext context = _contextMap.values.first;
   OverlayEntry entry;
@@ -167,8 +172,9 @@ Function _showToast(String text, { Duration showDuration, FLToastPosition positi
 
   position ??= defaults.position;
   style ??= defaults.style;
-  Color color = defaults.darkColor;
-  Color backgroundColor = defaults.darkBackgroundColor;
+  Color color = (style == FLToastStyle.dark) ? defaults.darkColor : defaults.lightColor;
+  Color backgroundColor = (style == FLToastStyle.dark) ? defaults.darkBackgroundColor : defaults.lightBackgroundColor;
+  double backgroundOpacity = defaults.backgroundOpacity;
   double topOffset = defaults.topOffset;
   double bottomOffset = defaults.bottomOffset;
   showDuration ??= defaults.showDuration;
@@ -181,12 +187,14 @@ Function _showToast(String text, { Duration showDuration, FLToastPosition positi
     key: key,
     color: color,
     backgroundColor: backgroundColor,
+    backgroundOpacity: backgroundOpacity,
     text: text,
     padding: _padding,
     showDuration: showDuration,
     slotWidget: _typeWidget(type, color),
     canBeAutoClear: type != _FLToastType.loading,
     position: position,
+    style: style,
     topOffset: topOffset,
     bottomOffset: bottomOffset,
   );
@@ -322,9 +330,11 @@ class _FLToastView extends StatefulWidget {
     this.slotWidget,
     this.color,
     this.backgroundColor,
+    this.backgroundOpacity,
     this.showDuration,
     this.canBeAutoClear = true,
     this.position,
+    this.style,
     this.topOffset,
     this.bottomOffset
   }) : assert(slotWidget != null || text != null),
@@ -335,9 +345,11 @@ class _FLToastView extends StatefulWidget {
   final Widget slotWidget;
   final Color color;
   final Color backgroundColor;
+  final double backgroundOpacity;
   final Duration showDuration;
   final bool canBeAutoClear;
   final FLToastPosition position;
+  final FLToastStyle style;
   final double topOffset;
   final double bottomOffset;
 
@@ -447,7 +459,11 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
     // add text
     if (widget.text != null) {
       children.add(Text(
-          widget.text, style: TextStyle(color: widget.color, fontSize: 17)));
+          widget.text,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: widget.color, fontSize: 17
+          )
+      ));
     }
 
     return AbsorbPointer(
@@ -456,18 +472,18 @@ class _FLToastViewState extends State<_FLToastView> with SingleTickerProviderSta
         child: Column(
           mainAxisAlignment: alignment,
           children: <Widget>[
-            Container(
-                margin: EdgeInsets.only(top: marginTop, bottom: marginBottom),
+             Container(
+                margin: EdgeInsets.only(top: marginTop, bottom: marginBottom, left: _toastMarginHorizontal, right: _toastMarginHorizontal),
                 decoration: BoxDecoration(
-                    color: widget.backgroundColor.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(5.0)
+                  color: widget.backgroundColor.withOpacity(widget.backgroundOpacity),
+                  borderRadius: BorderRadius.circular(5.0)
                 ),
                 padding: widget.padding,
                 child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: children
-                )
-            )
+                  mainAxisSize: MainAxisSize.min,
+                  children: children
+                ),
+             ),
           ],
         ),
       ),

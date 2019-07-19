@@ -17,3 +17,9 @@
 * bubble widget
 * bubble menu
 * bubble menu popup
+
+### [0.2.0] -- 2019/07/19
+
+##### Toast
+
+* toast with text, success, error, info, loading

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    FLToastDefaults defaults = FLToastDefaults();
+    FLToastDefaults defaults = FLToastDefaults(style: FLToastStyle.dark);
     return FLToastProvider(
       defaults: defaults,
       child: MaterialApp(
