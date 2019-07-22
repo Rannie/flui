@@ -9,3 +9,4 @@ export 'package:flui/widgets/bubble.dart';
 export 'package:flui/widgets/bubble_menu.dart';
 export 'package:flui/widgets/copyable_label.dart';
 export 'package:flui/widgets/toast.dart';
+export 'package:flui/widgets/primary_color_override.dart';

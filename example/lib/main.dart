@@ -3,6 +3,7 @@ import 'package:example/bubble_menu.dart';
 import 'package:example/copyable_label.dart';
 import 'package:example/loading_button.dart';
 import 'package:example/marquee_label.dart';
+import 'package:example/primary_color_override.dart';
 import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
 import 'package:flutter/cupertino.dart';
@@ -98,90 +99,18 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  FLCopyableLabel(
-                    showMenu: true,
-                    afterCopyCallback: () {
-                      logger.d('copy done');
-                    },
-                    copyData: 'Hanran',
-                    child: Text('Hanran'),
-                  ),
-                  SizedBox(height: 20),
-                  FLLoadingButton(
-                    key: _loginKey,
-                    onPressed: _handleLogin,
-                    child: Text('Login'),
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    disabledColor: Colors.blue.withAlpha(150),
-                    indicatorColor: Colors.white,
-                    disabledTextColor: Colors.white,
-                  ),
-                  SizedBox(height: 20),
-                  FLBubbleWidget(
-                      from: FLBubbleFrom.left,
-                      backgroundColor: Colors.lightGreen,
-                      child: Container(
-                        width: 200,
-                        child: Text('bubble widget dfasdfasdfasfasdfasdfsdfasdfasd',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                  ),
-                  SizedBox(height: 20),
-                  FLMarqueeLabel(
-                    text: 'this is marquee, round & round & round & round & round & round',
-                    backgroundColor: Colors.amberAccent,
-                    space: 400,
-                    velocity: 1,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(height: 20),
-                  FLRaisedButton(
-                    child: Text('show info'),
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      FLToast.showInfo(text: 'show info', position: FLToastPosition.bottom);
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  FLRaisedButton(
-                    child: Text('show success'),
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      FLToast.showSuccess(text: 'show success');
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  FLRaisedButton(
-                    child: Text('show error'),
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      FLToast.showError();
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  FLRaisedButton(
-                    child: Text('show text'),
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      FLToast.showText(text: 'show text', position: FLToastPosition.top);
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  FLRaisedButton(
-                    child: Text('show loading'),
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    onPressed: _handleLoadingToast,
+                  FLPrimaryColorOverride(
+                    color: Colors.black12,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Username',
+                          border: InputBorder.none
+                      ),
+                    ),
                   )
-            ]
+                ]
+            )
           )
-        )
       )
     );
   }
