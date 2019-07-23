@@ -47,26 +47,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _textEditingController = TextEditingController();
-  GlobalKey<FLLoadingButtonState> _loginKey = GlobalKey<FLLoadingButtonState>();
   final GlobalKey<EditableTextState> _editableTextKey = GlobalKey<EditableTextState>();
-
-  EditableTextState get _editableText => _editableTextKey.currentState;
 
   @override
   void initState() {
     super.initState();
+
+    _textEditingController.addListener(_handleValueChanged);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
+    Future.delayed(Duration(seconds: 2), () {
+      _textEditingController.text = 'hello';
+    });
   }
 
-  _handleLogin() {
-    _loginKey.currentState.startLoading();
-    Future.delayed(const Duration(seconds: 3), () {
-      _loginKey.currentState.stopLoading();
-    });
+  void _handleValueChanged() {
+    logger.d(_textEditingController.text);
   }
 
   handleMenuSelected(value) {
@@ -77,18 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
     logger.d('menu canceled');
   }
 
-  _handleLoadingToast() {
-    Function hideToast = FLToast.loading(text: 'loading...');
-    Future.delayed(Duration(seconds: 2),() {
-      hideToast();
-      FLToast.success(text: 'success!');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    _textEditingController.text = 'hello';
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -102,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   FLPrimaryColorOverride(
                     color: Colors.black12,
                     child: TextField(
+                      controller: _textEditingController,
                       decoration: InputDecoration(
                           labelText: 'Username',
                           border: InputBorder.none
