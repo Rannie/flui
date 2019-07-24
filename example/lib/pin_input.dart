@@ -1,23 +1,11 @@
+import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// detect backspace related issue: https://github.com/flutter/flutter/issues/14809
 class FLPinEditController extends TextEditingController {
   FLPinEditController.fromValue(String text) : super(text: text);
   FLPinEditController({ String text }) : super(text : text);
-}
-
-class FLPinBoxDecoration {
-  FLPinBoxDecoration({
-    this.radius = const Radius.circular(2),
-    this.strokeWidth = 2.0,
-    this.solidColor,
-    this.enteredColor
-  });
-
-  final Radius radius;
-  final double strokeWidth;
-  final Color solidColor;
-  final Color enteredColor;
 }
 
 class FLPinCodeTextField extends StatefulWidget {
@@ -44,12 +32,13 @@ class FLPinCodeTextField extends StatefulWidget {
     this.boxWidth,
     this.boxHeight,
     this.minSpace
-  }) : super(key : key);
+  }) : assert(pinLength > 0),
+       super(key : key);
 
   final int pinLength;
   final FLPinEditController controller;
   final FocusNode focusNode;
-  final FLPinBoxDecoration decoration;
+  final InputDecoration decoration;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final TextStyle textStyle;
@@ -62,8 +51,8 @@ class FLPinCodeTextField extends StatefulWidget {
   final List<TextInputFormatter> inputFormatters;
   final bool enabled;
   final double cursorWidth;
-  final double cursorRadius;
-  final double cursorColor;
+  final Radius cursorRadius;
+  final Color cursorColor;
   final double boxWidth;
   final double boxHeight;
   final double minSpace;
@@ -80,14 +69,16 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
   FocusNode _focusNode;
   FocusNode get _effectiveFocusNode => widget.focusNode ?? (_focusNode ??= FocusNode());
 
-  List<TextEditingController> editingControllerList = <TextEditingController>[];
-  List<FocusNode> focusNodeList = <FocusNode>[];
+  List<TextEditingController> _editingControllerList = <TextEditingController>[];
+  List<FocusNode> _focusNodeList = <FocusNode>[];
   
   @override
   void initState() {
     super.initState();
     if (widget.controller == null)
       _controller = FLPinEditController();
+    _assembleEditControllers();
+    _assembleFocusNodes();
   }
   
   @override
@@ -97,12 +88,156 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
     else if (widget.controller != null && oldWidget.controller == null) {
       _controller = null;
     }
+
+    final bool isEnabled = widget.enabled ?? widget.decoration?.enabled ?? true;
+    final bool wasEnabled = oldWidget.enabled ?? oldWidget.decoration?.enabled ?? true;
+    if (wasEnabled && !isEnabled) {
+      _unfocus();
+    }
+
+    if (widget.pinLength != oldWidget.pinLength) {
+      _assembleEditControllers();
+      _assembleFocusNodes();
+    }
     super.didUpdateWidget(oldWidget);
+  }
+
+  void _unfocus() {
+    _focusNodeList.forEach((FocusNode focusNode) {
+      if (focusNode.hasFocus) {
+        focusNode.unfocus();
+      }
+    });
+    _effectiveFocusNode.unfocus();
+  }
+
+  void _assembleEditControllers() {
+    _uninstallEditControllers();
+    for (int index = 0; index < widget.pinLength; index++) {
+      TextEditingController textEditingController = TextEditingController();
+//      textEditingController.addListener(() {
+//        print('$index -- edit controller -- ${textEditingController.text}');
+//      });
+      _editingControllerList.add(textEditingController);
+    }
+  }
+
+  void _uninstallEditControllers() {
+    _editingControllerList.forEach((TextEditingController controller) {
+      controller.dispose();
+    });
+    _editingControllerList.clear();
+  }
+
+  void _assembleFocusNodes() {
+    _uninstallFocusNodes();
+    for (int index = 0; index < widget.pinLength; index++) {
+      FocusNode focusNode = FocusNode();
+      focusNode.addListener(() {
+        print('$index -- focus node -- ${focusNode.hasFocus}');
+        _checkFocusStatus();
+      });
+      _focusNodeList.add(focusNode);
+    }
+  }
+
+  void _checkFocusStatus() {
+    bool hasFocus = false;
+    _focusNodeList.forEach((FocusNode focusNode) {
+      hasFocus |= focusNode.hasFocus;
+    });
+
+    if (hasFocus && !_effectiveFocusNode.hasFocus) {
+      _effectiveFocusNode.requestFocus();
+    } else if (!hasFocus && _effectiveFocusNode.hasFocus) {
+      _effectiveFocusNode.unfocus();
+    }
+  }
+
+  void _uninstallFocusNodes() {
+    _focusNodeList.forEach((FocusNode focusNode) {
+      focusNode.dispose();
+    });
+    _focusNodeList.clear();
+  }
+
+  void _moveNext(int index) {
+    print('next');
+    if (index < widget.pinLength - 1) {
+      FocusNode nextFocusNode = _focusNodeList[++index];
+      nextFocusNode.requestFocus();
+    }
+  }
+
+  void _movePrevious(int index) {
+    print('previous');
+    if (index > 0) {
+      FocusNode previousNode = _focusNodeList[--index];
+      previousNode.requestFocus();
+    }
+  }
+
+  @override
+  void dispose() {
+    _uninstallFocusNodes();
+    _uninstallEditControllers();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = <Widget>[];
+    for(int i = 0; i < widget.pinLength; i++) {
+      FocusNode focusNode = _focusNodeList[i];
+      TextEditingController editingController = _editingControllerList[i];
+      List<TextInputFormatter> formatterList = widget.inputFormatters ?? <TextInputFormatter>[];
+      formatterList.add(LengthLimitingTextInputFormatter(1));
+      children.add(Container(
+          width: widget.boxWidth,
+          height: widget.boxHeight,
+          child: TextField(
+            focusNode: focusNode,
+            controller: editingController,
+            decoration: widget.decoration,
+            keyboardType: widget.keyboardType,
+            textInputAction: widget.textInputAction,
+            style: widget.textStyle,
+            textAlign: TextAlign.center,
+            autofocus: (i > 0) ? widget.autofocus : false,
+            obscureText: widget.obscure,
+            showCursor: widget.showCursor,
+            onChanged: (String text) {
+              print('change text -- $i -- $text');
+              if (text.length == 1) {
+                _moveNext(i);
+              } else {
+                _movePrevious(i);
+              }
+            },
+            onEditingComplete: () {
+              print('edit complete -- $i');
+            },
+            onSubmitted: (String text) {
+              print('submit -- $i -- $text');
+            },
+            inputFormatters: formatterList, // TODO: check all, not each single field
+            cursorColor: widget.cursorColor,
+            cursorRadius: widget.cursorRadius,
+            cursorWidth: widget.cursorWidth,
+          ),
+        ),
+      );
+      if (i != widget.pinLength - 1) {
+        children.add(SizedBox(
+          width: widget.minSpace ?? 8,
+        ));
+      }
+    }
 
-    return null;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: children,
+    );
   }
 }

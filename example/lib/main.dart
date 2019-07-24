@@ -3,13 +3,12 @@ import 'package:example/bubble_menu.dart';
 import 'package:example/copyable_label.dart';
 import 'package:example/loading_button.dart';
 import 'package:example/marquee_label.dart';
+import 'package:example/pin_input.dart';
 import 'package:example/primary_color_override.dart';
 import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:example/style/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:logger/logger.dart';
 
 void main() => runApp(MyApp());
@@ -46,35 +45,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController _textEditingController = TextEditingController();
-  final GlobalKey<EditableTextState> _editableTextKey = GlobalKey<EditableTextState>();
 
   @override
   void initState() {
     super.initState();
-
-    _textEditingController.addListener(_handleValueChanged);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    Future.delayed(Duration(seconds: 2), () {
-      _textEditingController.text = 'hello';
-    });
-  }
-
-  void _handleValueChanged() {
-    logger.d(_textEditingController.text);
-  }
-
-  handleMenuSelected(value) {
-    logger.d(value);
-  }
-
-  handleMenuCanceled() {
-    logger.d('menu canceled');
   }
 
   @override
@@ -89,14 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  FLPrimaryColorOverride(
-                    color: Colors.black12,
-                    child: TextField(
-                      controller: _textEditingController,
+                    SizedBox(height: 20),
+                    FLPinCodeTextField(
+                      boxWidth: 35,
+                      boxHeight: 35,
+                      pinLength: 4,
                       decoration: InputDecoration(
-                          labelText: 'Username',
-                          border: InputBorder.none
-                      ),
+                        border: UnderlineInputBorder(),
                     ),
                   )
                 ]
