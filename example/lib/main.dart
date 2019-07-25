@@ -8,6 +8,7 @@ import 'package:example/primary_color_override.dart';
 import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
 import 'package:example/style/style.dart';
+import 'package:example/widget_page.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -30,13 +31,18 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
             )
         ),
-        home: MyHomePage(title: 'FLUI'),
+        routes: {
+          MyHomePage.routeName: (context) => MyHomePage(),
+          WidgetPage.routeName: (context) => WidgetPage()
+        },
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  static const String routeName = '/';
+
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -60,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('home'),
       ),
       body: Container(
         color: Colors.white,
@@ -69,13 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                     SizedBox(height: 20),
-                    FLPinCodeTextField(
-                      boxWidth: 35,
-                      boxHeight: 35,
-                      pinLength: 4,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                    ),
+                    FLRaisedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, WidgetPage.routeName);
+                      },
+                      child: Text('widget page'),
                   )
                 ]
             )
