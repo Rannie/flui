@@ -1,5 +1,6 @@
 import 'package:example/pin_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class WidgetPage extends StatefulWidget {
   static const String routeName = '/widget';
@@ -10,18 +11,11 @@ class WidgetPage extends StatefulWidget {
 
 class _WidgetPageState extends State<WidgetPage> {
   final TextEditingController _controller = TextEditingController();
-  final FLPinEditController _pinController = FLPinEditController();
+  final TextEditingController _pinController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
-      print('ctrller -- ${_controller.text}');
-    });
-
-    _pinController.addListener(() {
-      print('pin -- ${_pinController.text}');
-    });
   }
 
   @override
@@ -57,20 +51,12 @@ class _WidgetPageState extends State<WidgetPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      TextField(
-                        controller: _controller,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder()
-                        ),
-                        onChanged: (text) {
-                          print('sys - $text');
-                        },
-                        onSubmitted: (text) {
-                          print('submit');
-                        },
-                        onEditingComplete: () {
-                          print('complete');
-                        },
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+
+                        )
                       )
                     ]
                 )

@@ -1,13 +1,7 @@
-import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// detect backspace related issue: https://github.com/flutter/flutter/issues/14809
-class FLPinEditController extends TextEditingController {
-  FLPinEditController.fromValue(String text) : super(text: text);
-  FLPinEditController({ String text }) : super(text : text);
-}
-
+// TODO: change to combine custom views and a small textfield (for open keyboard)
 class FLPinCodeTextField extends StatefulWidget {
   FLPinCodeTextField({
     Key key,
@@ -21,16 +15,15 @@ class FLPinCodeTextField extends StatefulWidget {
     this.onChanged,
     this.onEditingComplete,
     this.onSubmitted,
-    this.inputFormatters,
     this.enabled,
     this.boxWidth,
     this.boxHeight,
     this.minSpace
   }) : assert(pinLength > 0),
-       super(key : key);
+        super(key : key);
 
   final int pinLength;
-  final FLPinEditController controller;
+  final TextEditingController controller;
   final FocusNode focusNode;
   final InputDecoration decoration;
   final TextStyle textStyle;
@@ -39,7 +32,6 @@ class FLPinCodeTextField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final VoidCallback onEditingComplete;
   final ValueChanged<String> onSubmitted;
-  final List<TextInputFormatter> inputFormatters;
   final bool enabled;
   final double boxWidth;
   final double boxHeight;
@@ -51,28 +43,28 @@ class FLPinCodeTextField extends StatefulWidget {
 
 class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
 
-  FLPinEditController _controller;
-  FLPinEditController get _effectiveController => widget.controller ?? _controller;
+  TextEditingController _controller;
+  TextEditingController get _effectiveController => widget.controller ?? _controller;
 
   FocusNode _focusNode;
   FocusNode get _effectiveFocusNode => widget.focusNode ?? (_focusNode ??= FocusNode());
 
   List<TextEditingController> _editingControllerList = <TextEditingController>[];
   List<FocusNode> _focusNodeList = <FocusNode>[];
-  
+
   @override
   void initState() {
     super.initState();
     if (widget.controller == null)
-      _controller = FLPinEditController();
+      _controller = TextEditingController();
     _assembleEditControllers();
     _assembleFocusNodes();
   }
-  
+
   @override
   void didUpdateWidget(FLPinCodeTextField oldWidget) {
     if (widget.controller == null && oldWidget.controller != null)
-      _controller = FLPinEditController.fromValue(oldWidget.controller.text);
+      _controller = TextEditingController.fromValue(oldWidget.controller.value);
     else if (widget.controller != null && oldWidget.controller == null) {
       _controller = null;
     }
@@ -191,31 +183,31 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
       FocusNode focusNode = _focusNodeList[i];
       TextEditingController editingController = _editingControllerList[i];
       children.add(Container(
-          width: widget.boxWidth,
-          height: widget.boxHeight,
-          child: _FLTraceDeleteTextField(
-            focusNode: focusNode,
-            controller: editingController,
-            decoration: widget.decoration,
-            textInputAction: (i != widget.pinLength - 1) ? TextInputAction.next : TextInputAction.done,
-            keyboardType: TextInputType.number,
-            textStyle: widget.textStyle,
-            textAlign: TextAlign.center,
-            autofocus: (i == 0) ? widget.autofocus : false,
-            obscure: widget.obscure,
-            onChanged: (String text) {
-              if (text.length == 1) {
-                _moveNext(i);
-              }
-            },
-            onSubmitted: (String text) {
+        width: widget.boxWidth,
+        height: widget.boxHeight,
+        child: _FLTraceDeleteTextField(
+          focusNode: focusNode,
+          controller: editingController,
+          decoration: widget.decoration,
+          textInputAction: (i != widget.pinLength - 1) ? TextInputAction.next : TextInputAction.done,
+          keyboardType: TextInputType.number,
+          textStyle: widget.textStyle,
+          textAlign: TextAlign.center,
+          autofocus: (i == 0) ? widget.autofocus : false,
+          obscure: widget.obscure,
+          onChanged: (String text) {
+            if (text.length == 1) {
               _moveNext(i);
-            },
-            onDeleted: () {
-              _movePrevious(i);
-            },
-          ),
+            }
+          },
+          onSubmitted: (String text) {
+            _moveNext(i);
+          },
+          onDeleted: () {
+            _movePrevious(i);
+          },
         ),
+      ),
       );
       if (i != widget.pinLength - 1) {
         children.add(SizedBox(
@@ -232,6 +224,7 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
   }
 }
 
+/// detect backspace related issue: https://github.com/flutter/flutter/issues/14809
 class _FLTraceDeleteTextField extends StatefulWidget {
   _FLTraceDeleteTextField({
     Key key,
@@ -296,11 +289,16 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
         if (_userValue)
           _userValue = false;
 
-        widget.controller.text = _nullString;
-        _controller.text = _sign;
-        widget.onChanged?.call(_nullString);
+        _clearControllerState();
       }
     });
+  }
+
+  void _clearControllerState() {
+    widget.controller.text = _nullString;
+    _controller..text = _sign
+      ..selection = TextSelection.collapsed(offset: _controller.text.length);
+    widget.onChanged?.call(_nullString);
   }
 
   bool _validPopText() {
@@ -325,27 +323,36 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = !_userValue ? TextStyle(color: Colors.transparent) : widget.textStyle;
-    List<TextInputFormatter> formatterList = widget.inputFormatters ?? <TextInputFormatter>[];
-    formatterList.add(LengthLimitingTextInputFormatter(2));
+    EdgeInsetsGeometry inputPadding = widget.decoration.contentPadding ?? EdgeInsets.symmetric(vertical: 10);
     return TextField(
       controller: _controller,
       focusNode: widget.focusNode,
-      decoration: widget.decoration,
+      decoration: widget.decoration.copyWith(contentPadding: inputPadding),
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       style: textStyle,
       autofocus: widget.autofocus,
       obscureText: widget.obscure,
       textAlign: widget.textAlign,
-      inputFormatters: formatterList,
+      inputFormatters: [
+        WhitelistingTextInputFormatter(RegExp("[.0-9]")),
+        LengthLimitingTextInputFormatter(2)
+      ],
       showCursor: false,
       onChanged: (text) {
-        if (text.startsWith(_sign)) {
+        if (text.startsWith(_sign))
+        {
           String newText = _controller.text[1];
-          _setText(newText);
+          if (newText == _sign) {
+            _clearControllerState();
+            return;
+          }
           _userValue = true;
+          _setText(newText);
           widget.onChanged?.call(newText);
-        } else {
+        }
+        else
+        {
           if (text.isEmpty) {
             _setText(_nullString);
             _userValue = false;
