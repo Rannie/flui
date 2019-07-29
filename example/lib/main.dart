@@ -1,14 +1,7 @@
-import 'package:example/bubble.dart';
-import 'package:example/bubble_menu.dart';
-import 'package:example/copyable_label.dart';
-import 'package:example/loading_button.dart';
-import 'package:example/marquee_label.dart';
-import 'package:example/pin_input.dart';
-import 'package:example/primary_color_override.dart';
 import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
 import 'package:example/style/style.dart';
-import 'package:example/widget_page.dart';
+import 'package:example/pages/input_page.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -33,7 +26,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           MyHomePage.routeName: (context) => MyHomePage(),
-          WidgetPage.routeName: (context) => WidgetPage()
+          InputPage.routeName: (context) => InputPage()
         },
       ),
     );
@@ -77,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(height: 20),
                     FLRaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, WidgetPage.routeName);
+                        Navigator.pushNamed(context, InputPage.routeName);
                       },
                       child: Text('widget page'),
                   )

@@ -1,17 +1,18 @@
+import 'package:example/auto_complete.dart';
 import 'package:example/pin_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class WidgetPage extends StatefulWidget {
-  static const String routeName = '/widget';
+class InputPage extends StatefulWidget {
+  static const String routeName = '/inputs';
 
   @override
-  State<StatefulWidget> createState() => _WidgetPageState();
+  State<StatefulWidget> createState() => _InputPageState();
 }
 
-class _WidgetPageState extends State<WidgetPage> {
-  final TextEditingController _controller = TextEditingController();
+class _InputPageState extends State<InputPage> {
   final TextEditingController _pinController = TextEditingController();
+  final GlobalKey<FLAutoCompleteState> _key = GlobalKey<FLAutoCompleteState>();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -51,12 +52,25 @@ class _WidgetPageState extends State<WidgetPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-
-                        )
+                      FLAutoComplete(
+                        key: _key,
+                        focusNode: _focusNode,
+                        itemBuilder: (context, suggestion) => Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: ListTile(
+                            title: Text(suggestion),
+                          ),
+                        ),
+                        onSelectedSuggestion: (suggestion) {
+                          print('select $suggestion');
+                        },
+                        child: TextField(
+                          focusNode: _focusNode,
+                          onChanged: (text) {
+                            print(text.split(''));
+                            _key.currentState.updateSuggestionList(text.split(''));
+                          },
+                        ),
                       )
                     ]
                 )
