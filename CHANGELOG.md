@@ -12,7 +12,7 @@
 * copyable label
 * marquee label
 
-##### Other widget
+##### Bubble (widget & popup)
 
 * bubble widget
 * bubble menu
@@ -23,3 +23,10 @@
 ##### Toast
 
 * toast with text, success, error, info, loading
+
+### [0.3.0] -- 2019/07/29
+
+##### Inputs
+
+* pin code input
+* auto complete wrap widget
