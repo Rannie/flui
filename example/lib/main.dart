@@ -1,3 +1,4 @@
+import 'package:example/pages/empty_page.dart';
 import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
 import 'package:example/style/style.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           MyHomePage.routeName: (context) => MyHomePage(),
-          InputPage.routeName: (context) => InputPage()
+          InputPage.routeName: (context) => InputPage(),
+          EmptyPage.routeName: (context) => EmptyPage()
         },
       ),
     );
@@ -70,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(height: 20),
                     FLRaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, InputPage.routeName);
+                        Navigator.pushNamed(context, EmptyPage.routeName);
                       },
                       child: Text('widget page'),
                   )

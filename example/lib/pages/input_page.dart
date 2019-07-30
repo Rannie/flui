@@ -23,7 +23,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Widget Page'),
+          title: Text('Input Page'),
         ),
         body: Container(
             color: Colors.white,
