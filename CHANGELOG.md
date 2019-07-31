@@ -32,9 +32,3 @@
 
 * pin code input
 * auto complete wrap widget
-
-## [0.3.2] -- 2019/07/31
-
-### scripts
-
-release and commit msg check
