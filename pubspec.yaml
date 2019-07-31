@@ -1,17 +1,13 @@
 name: flui
 description: A flutter widgets and components kit.
-version: 0.3.0
+version: 0.3.2
 author: Rannie
-homepage:
-
+homepage: null
 environment:
-  sdk: ">=2.1.0 <3.0.0"
-
+  sdk: '>=2.1.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
-
-dev_dependencies:
-
+dev_dependencies: null
 flutter:
   uses-material-design: true
