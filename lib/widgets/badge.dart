@@ -29,7 +29,7 @@ class FLBadge extends StatefulWidget {
     this.text,
     @required this.child
   }) : assert(child != null),
-       super(key: key);
+        super(key: key);
 
   final Color color;
   final FLBadgeShape shape;
@@ -95,19 +95,19 @@ class FLBadgeState extends State<FLBadge> {
     }
 
     Widget badge = Positioned(
-      left: left,
-      top: top,
-      bottom: bottom,
-      right: right,
-      width: size,
-      height: size,
-      child: Container(
-          decoration: BoxDecoration(
-              color: widget.color,
-              borderRadius: _borderRadius(shape)
-          ),
-          child: textChild
-      )
+        left: left,
+        top: top,
+        bottom: bottom,
+        right: right,
+        width: size,
+        height: size,
+        child: Container(
+            decoration: BoxDecoration(
+                color: widget.color,
+                borderRadius: _borderRadius(shape)
+            ),
+            child: textChild
+        )
     );
 
     return Stack(

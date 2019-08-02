@@ -23,7 +23,8 @@ class _BadgePageState extends State<BadgePage> {
         body: Container(
           padding: EdgeInsets.all(10),
           child: FLBadge(
-            text: '5',
+            position: FLBadgePosition.topRight,
+            text: '2',
             child: Container(
               width: 44,
               height: 44,
