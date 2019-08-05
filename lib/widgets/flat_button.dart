@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flui/common/defines.dart';
+import 'package:flui/widgets/defines.dart';
 
 class FLFlatButton extends StatelessWidget {
   const FLFlatButton({

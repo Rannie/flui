@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-const double _kDefaultHeight = 36;
+const double FLMarqueeDefaultHeight = 36;
 const double _kDefaultDistance = 8.0;
 const int _kTimerGap = 100;
 
@@ -11,22 +12,26 @@ class FLMarqueeLabel extends StatefulWidget {
     Key key,
     @required this.text,
     this.style,
-    this.space = 0.0,
+    this.space,
     this.velocity = 0.4,
-    this.blurEdge = false,
-    this.infinity = true,
-    this.height = _kDefaultHeight,
-    this.backgroundColor = Colors.white
+    this.loop = true,
+    this.height = FLMarqueeDefaultHeight,
+    this.padding,
+    this.backgroundColor = Colors.transparent
   }) : assert(text != null),
-       super(key: key);
+        super(key: key);
 
   final String text;
   final TextStyle style;
+  /// The space between text & 'the next same text'
+  /// If not set, it will be the screen width.
   final double space;
+  /// The scroll velocity, if it is zero, will not scroll.
+  /// The value range is [0-1]
   final double velocity;
-  final bool blurEdge;
-  final bool infinity;
+  final bool loop;
   final double height;
+  final EdgeInsetsGeometry padding;
   final Color backgroundColor;
 
   @override
@@ -39,6 +44,8 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   final GlobalKey _listViewKey = GlobalKey();
   Timer _timer;
   double _pos = 0.0;
+  double _velocity;
+  double _space;
 
   @override
   void initState() {
@@ -47,8 +54,17 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _velocity = min(1, max(0, widget.velocity));
+    _space = widget.space ?? MediaQuery.of(context).size.width;
+  }
+
+  @override
   void didUpdateWidget(FLMarqueeLabel oldWidget) {
     super.didUpdateWidget(oldWidget);
+    _velocity = min(1, max(0, widget.velocity));
+    _space = widget.space ?? MediaQuery.of(context).size.width;
     _restart();
   }
 
@@ -60,7 +76,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
 
   void _setup() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scheduleScroll();
+      Future.delayed(Duration(seconds: 1), _scheduleScroll);
     });
   }
 
@@ -73,48 +89,63 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
 
   void _restart() {
     _stop();
-    _scrollController.jumpTo(0);
     _setup();
   }
 
   void _scheduleScroll() {
+    if (_velocity == 0)
+      return;
+
     double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
-    double maxScrollExtent = _scrollController.position.maxScrollExtent;
-    double moveOffset = _kDefaultDistance * widget.velocity;
-    double textWidth = (maxScrollExtent + widgetWidth - widget.space) / 2;
+    double moveOffset = _kDefaultDistance * _velocity;
 
     _timer = Timer.periodic(Duration(milliseconds: _kTimerGap), (_) {
+      double maxScrollExtent = _scrollController.position.maxScrollExtent;
+      double textWidth = (maxScrollExtent + widgetWidth - _space) / 2;
       double pixels = _scrollController.position.pixels;
-      if(pixels + moveOffset >= maxScrollExtent) {
+      if (pixels + moveOffset >= maxScrollExtent) {
         _pos = pixels - maxScrollExtent - widgetWidth + textWidth;
         _scrollController.jumpTo(_pos);
       }
       _pos += moveOffset;
+
+      bool stop = false;
+      if (widget.loop == false && _pos >= textWidth + _space) {
+        _pos = textWidth + _space;
+        stop = true;
+      }
       _scrollController.animateTo(_pos, duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
+
+      if (stop)
+        _stop();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final EdgeInsetsGeometry padding = widget.padding ?? EdgeInsets.zero;
+    final Widget textChild = Align(
+        alignment: Alignment.center,
+        child: Text(widget.text, style: widget.style)
+    );
+
+    final List<Widget> children = <Widget>[];
+    children.add(textChild);
+    if (_velocity > 0) {
+      children.add(SizedBox(width: _space));
+      children.add(textChild);
+    }
+
     return Container(
       color: widget.backgroundColor,
       height: widget.height,
+      padding: padding,
       child: ListView(
         key: _listViewKey,
         scrollDirection: Axis.horizontal,
         controller: _scrollController,
         physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          Align(
-            alignment: Alignment.center,
-            child: Text(widget.text, style: widget.style),
-          ),
-          SizedBox(width: widget.space),
-          Align(
-            alignment: Alignment.center,
-            child: Text(widget.text, style: widget.style),
-          )
-        ],
+        children: children,
       ),
     );
   }

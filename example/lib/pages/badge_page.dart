@@ -18,7 +18,7 @@ class _BadgePageState extends State<BadgePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Empty Page'),
+          title: Text('Badge'),
         ),
         body: Container(
           padding: EdgeInsets.all(10),
