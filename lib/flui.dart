@@ -13,3 +13,4 @@ export 'package:flui/widgets/primary_color_override.dart';
 export 'package:flui/widgets/auto_complete.dart';
 export 'package:flui/widgets/empty.dart';
 export 'package:flui/widgets/notice_bar.dart';
+export 'package:flui/widgets/skeleton.dart';

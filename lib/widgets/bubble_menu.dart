@@ -179,7 +179,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
           namesRoute: true,
           explicitChildNodes: true,
           label: semanticLabel,
-          child: FLBubbleWidget(
+          child: FLBubble(
               from: from,
               padding: EdgeInsets.zero,
               child: Row(

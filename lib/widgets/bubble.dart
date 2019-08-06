@@ -15,8 +15,8 @@ enum FLBubbleFrom {
   right
 }
 
-class FLBubbleWidget extends StatelessWidget {
-  FLBubbleWidget({
+class FLBubble extends StatelessWidget {
+  FLBubble({
     Key key,
     this.backgroundColor = _kBubbleBackgroundColor,
     this.from = FLBubbleFrom.bottom,
