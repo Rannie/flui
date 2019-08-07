@@ -4,7 +4,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "node scripts/verifyCommitMsg.js"
+      "commit-msg": "flutter analyze && node scripts/verifyCommitMsg.js"
     }
   },
   "devDependencies": {

@@ -5,6 +5,7 @@ const inquirer = require('inquirer')
 const yaml = require('node-yaml')
 const silly = require('silly-datetime')
 const ora = require('ora')
+const chalk = require('chalk')
 const yamlPath = path.resolve(__dirname, '../pubspec.yaml')
 const changelogPath = path.resolve(__dirname, '../CHANGELOG.md')
 
@@ -13,11 +14,22 @@ const validateVersion = input => {
 }
 
 const release = async () => {
+  // static analyze
+  let indicator = ora('flutter analyzing...')
+  indicator.start()
+  try {
+    await execa('flutter', ['analyze'])
+  } catch (e) {
+    promptError(e)
+  }
+  
+  indicator.succeed()
+
   // load version
   const res = JSON.parse(JSON.stringify(yaml.readSync(yamlPath)))
   const currentVersion = res.version
 
-  // input release version & description 
+  // input release version & description
   const { newVersion } = await inquirer.prompt([
     {
       name: 'newVersion',
@@ -67,21 +79,37 @@ const release = async () => {
   changeLog += changeStr
   fs.writeFileSync(changelogPath, changeLog)
   // commit changes
-  let indicator = ora('git commit & push')
+  indicator = ora('git commit & push')
   indicator.start()
-  await execa('git', ['add', '-A'])
-  await execa('git', ['commit', '-m', 'chore: pre release sync'])
-  await execa('git', ['push'])
+  try {
+    await execa('git', ['add', '-A'])
+    await execa('git', ['commit', '-m', 'chore: pre release sync'])
+    await execa('git', ['push'])
+  } catch(e) {
+    promptError(e)
+  }
+
   indicator.succeed()
   // tag & push
   indicator = ora('git tag & push tag')
   indicator.start()
   const newTag = `v${newVersion}`
-  await execa('git', ['tag', newTag])
-  await execa('git', ['push', 'origin', newTag])
+  try {
+    await execa('git', ['tag', newTag])
+    await execa('git', ['push', 'origin', newTag])
+  } catch (e) {
+    promptError(e)
+  }
   indicator.succeed()
   // TODO: publish to flutter pub
 }
+
+const promptError = (e) => {
+  console.log()
+  console.error(`\n\n${e.stdout}\n\n${chalk.red(e.stderr)}\n\n`)
+  process.exit(1)
+} 
+
 release().catch(err => {
   console.error(err)
   process.exit(1)
