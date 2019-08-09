@@ -1,3 +1,4 @@
+import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/label_page.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
           BadgePage.routeName: (context) => BadgePage(),
           LabelPage.routeName: (context) => LabelPage(),
           NoticeBarPage.routeName: (context) => NoticeBarPage(),
-          SkeletonPage.routeName: (context) => SkeletonPage()
+          SkeletonPage.routeName: (context) => SkeletonPage(),
+          ActionSheetPage.routeName: (context) => ActionSheetPage()
         },
       ),
     );
@@ -80,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(height: 20),
                     FLRaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, SkeletonPage.routeName);
+                        Navigator.pushNamed(context, ActionSheetPage.routeName);
                       },
                       child: Text('widget page'),
                   )
