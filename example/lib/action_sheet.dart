@@ -19,7 +19,7 @@ const double _kCancelButtonPadding = 8.0;
 const double _kCornerRadius = 14.0;
 
 enum FLCupertinoActionSheetStyle {
-  rounded,
+  roundedCard,
   filled
 }
 
@@ -27,7 +27,8 @@ class FLCupertinoActionSheet extends StatelessWidget {
   FLCupertinoActionSheet({
     Key key,
     this.backgroundColor = _kBackgroundColor,
-    this.style = FLCupertinoActionSheetStyle.rounded,
+    this.style = FLCupertinoActionSheetStyle.roundedCard,
+    this.borderRadius,
     @required this.child,
     this.cancelButton
   }) : assert(child != null),
@@ -36,9 +37,12 @@ class FLCupertinoActionSheet extends StatelessWidget {
   final Color backgroundColor;
   final Widget child;
 
+  /// Customized border radius, both two styles use this value first.
+  final BorderRadius borderRadius;
+
   /// The style of the action sheet, currently support
-  /// [FLCupertinoActionSheetStyle.rounded] & [FLCupertinoActionSheetStyle.filled].
-  /// Default value is [FLCupertinoActionSheetStyle.rounded], like iOS style.
+  /// [FLCupertinoActionSheetStyle.roundedCard] & [FLCupertinoActionSheetStyle.filled].
+  /// Default value is [FLCupertinoActionSheetStyle.roundedCard], like iOS style.
   final FLCupertinoActionSheetStyle style;
 
   /// The optional cancel button that is grouped separately from the other
@@ -48,11 +52,12 @@ class FLCupertinoActionSheet extends StatelessWidget {
   final CupertinoActionSheetAction cancelButton;
 
   bool _isRound() {
-    return style == FLCupertinoActionSheetStyle.rounded;
+    return style == FLCupertinoActionSheetStyle.roundedCard;
   }
 
   Widget _buildMainContent() {
-    BorderRadius radius = _isRound() ? BorderRadius.circular(_kCornerRadius): null;
+    BorderRadius radius = this.borderRadius ??
+        _isRound() ? BorderRadius.circular(_kCornerRadius): null;
     final Widget blurContent = BackdropFilter(
       filter: ImageFilter.blur(sigmaX: _kBlurAmount, sigmaY: _kBlurAmount),
       child: Container(
