@@ -1,4 +1,5 @@
 import 'package:example/action_sheet.dart';
+import 'package:example/operation_sheet.dart';
 import 'package:example/raised_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,83 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                       });
                 },
                 child: Text('action sheet'),
+              ),
+              SizedBox(height: 20),
+              FLRaisedButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Text('operation sheet'),
+                onPressed: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return FLCupertinoOperationSheet(
+                          cancelButton: CupertinoActionSheetAction(
+                            child: const Text('Cancel'),
+                            isDefaultAction: true,
+                            onPressed: () {
+                              Navigator.pop(context, 'Cancel');
+                            },
+                          ),
+                          itemList: [
+                            [
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Friends',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              ),
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Wechat',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              ),
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Wechat',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              ),
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Wechat',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              ),
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Wechat',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              )
+                            ],
+                            [
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Friends',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              ),
+                              FLCupertinoOperationSheetItem(
+                                imagePath: 'assets/share_friend.png',
+                                title: 'Wechat',
+                                onPressed: () {
+                                  print('click wechat');
+                                },
+                              )
+                            ]
+                          ],
+                        );
+                      }
+                  );
+                },
               )
             ],
           ),
