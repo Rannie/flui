@@ -1,5 +1,5 @@
-import 'package:example/action_sheet.dart';
-import 'package:example/image.dart';
+import 'image.dart';
+import 'action_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -54,9 +54,9 @@ class FLCupertinoOperationSheet extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: _kSectionInsetVertical, horizontal: _kSectionInsetVertical),
         scrollDirection: Axis.horizontal,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          mainAxisSpacing: _kItemSpacing,
-          childAspectRatio: 6/5
+            crossAxisCount: 1,
+            mainAxisSpacing: _kItemSpacing,
+            childAspectRatio: 6/5
         ),
         children: list,
       ),
@@ -66,16 +66,16 @@ class FLCupertinoOperationSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FLCupertinoActionSheet(
-      style: sheetStyle ?? FLCupertinoActionSheetStyle.roundedCard,
-      borderRadius: borderRadius,
-      backgroundColor: backgroundColor ?? Color(0xD1F8F8F8),
-      cancelButton: cancelButton,
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: _buildAllSections(),
-        ),
-      )
+        style: sheetStyle ?? FLCupertinoActionSheetStyle.roundedCard,
+        borderRadius: borderRadius,
+        backgroundColor: backgroundColor ?? Color(0xD1F8F8F8),
+        cancelButton: cancelButton,
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: _buildAllSections(),
+          ),
+        )
     );
   }
 }
@@ -90,7 +90,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
     this.customChild,
   }) : assert((imagePath != null && title != null && onPressed != null)
       || customChild != null),
-       super(key: key);
+        super(key: key);
 
   final String imagePath;
   final String highlightImagePath;
@@ -135,7 +135,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
     final child = this.customChild ?? _buildImageTitleItem();
     return ClipRect(
       child: Container(
-        child: child
+          child: child
       ),
     );
   }

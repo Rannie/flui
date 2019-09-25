@@ -77,35 +77,35 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Friends',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               ),
                               FLCupertinoOperationSheetItem(
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Wechat',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               ),
                               FLCupertinoOperationSheetItem(
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Wechat',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               ),
                               FLCupertinoOperationSheetItem(
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Wechat',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               ),
                               FLCupertinoOperationSheetItem(
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Wechat',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               )
                             ],
@@ -114,14 +114,14 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Friends',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               ),
                               FLCupertinoOperationSheetItem(
                                 imagePath: 'assets/share_friend.png',
                                 title: 'Wechat',
                                 onPressed: () {
-                                  print('click wechat');
+                                  Navigator.pop(context, 'Cancel');
                                 },
                               )
                             ]

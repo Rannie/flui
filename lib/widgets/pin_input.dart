@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// TODO: change to combine custom views and a small textfield (for open keyboard)
 class FLPinCodeTextField extends StatefulWidget {
   FLPinCodeTextField({
     Key key,
