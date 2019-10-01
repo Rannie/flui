@@ -2,6 +2,7 @@ import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/label_page.dart';
+import 'package:example/pages/navi_title_page.dart';
 import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/raised_button.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
           LabelPage.routeName: (context) => LabelPage(),
           NoticeBarPage.routeName: (context) => NoticeBarPage(),
           SkeletonPage.routeName: (context) => SkeletonPage(),
-          ActionSheetPage.routeName: (context) => ActionSheetPage()
+          ActionSheetPage.routeName: (context) => ActionSheetPage(),
+          NaviTitlePage.routeName: (context) => NaviTitlePage()
         },
       ),
     );
@@ -71,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('home'),
+        title: Text('Home'),
       ),
       body: Container(
         color: Colors.white,
@@ -82,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(height: 20),
                     FLRaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, ActionSheetPage.routeName);
+                        Navigator.pushNamed(context, NaviTitlePage.routeName);
                       },
                       child: Text('widget page'),
                   )
