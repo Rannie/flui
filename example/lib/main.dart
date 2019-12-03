@@ -9,6 +9,7 @@ import 'package:example/raised_button.dart';
 import 'package:example/toast.dart';
 import 'package:example/style/style.dart';
 import 'package:example/pages/input_page.dart';
+import 'package:example/pages/static_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: FLColors.primarySwatch,
             buttonTheme: ButtonThemeData(
                 colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
-            )
+            ),
         ),
         routes: {
           MyHomePage.routeName: (context) => MyHomePage(),
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
           NoticeBarPage.routeName: (context) => NoticeBarPage(),
           SkeletonPage.routeName: (context) => SkeletonPage(),
           ActionSheetPage.routeName: (context) => ActionSheetPage(),
-          NaviTitlePage.routeName: (context) => NaviTitlePage()
+          NaviTitlePage.routeName: (context) => NaviTitlePage(),
+          StaticListViewPage.routeName: (context) => StaticListViewPage(),
         },
       ),
     );
@@ -84,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(height: 20),
                     FLRaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, NaviTitlePage.routeName);
+                        Navigator.pushNamed(context, StaticListViewPage.routeName);
                       },
                       child: Text('widget page'),
                   )

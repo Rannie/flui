@@ -21,3 +21,4 @@ export 'package:flui/widgets/image.dart';
 export 'package:flui/widgets/action_sheet.dart';
 export 'package:flui/widgets/operation_sheet.dart';
 export 'package:flui/widgets/appbar_title.dart';
+export 'package:flui/widgets/static_list.dart';
