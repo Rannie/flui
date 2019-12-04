@@ -21,13 +21,9 @@ class FLCupertinoOperationSheet extends StatelessWidget {
     @required this.itemList,
   }) : super(key: key);
 
-  /// {@macro FLCupertinoOperationSheet.borderRadius}
   final BorderRadius borderRadius;
-  /// {@macro FLCupertinoOperationSheet.sheetStyle}
   final FLCupertinoActionSheetStyle sheetStyle;
-  /// {@macro FLCupertinoOperationSheet.backgroundColor}
   final Color backgroundColor;
-  /// {@macro FLCupertinoOperationSheet.cancelButton}
   final CupertinoActionSheetAction cancelButton;
 
   final List<List<FLCupertinoOperationSheetItem>> itemList;

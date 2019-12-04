@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:example/list_tile.dart';
 
 enum FLStaticListCellAccessoryType {
   accNone,
@@ -127,7 +128,7 @@ class FLStaticListView extends StatelessWidget {
     final Widget trailingWidget = accesssoryWidget ?? itemData.customTrailing;
     return Container(
       color: itemData.cellColor,
-      child: ListTile(
+      child: FLListTile(
         leading: itemData.leading,
         title: titleText,
         subtitle: subtitleText,
