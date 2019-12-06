@@ -10,7 +10,7 @@
   "devDependencies": {
     "chalk": "^2.4.2",
     "execa": "^2.0.3",
-    "husky": "^3.0.2",
+    "husky": "^3.1.0",
     "inquirer": "^6.5.0",
     "node-yaml": "^4.0.1",
     "ora": "^3.4.0",
