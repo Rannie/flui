@@ -13,7 +13,7 @@ module.exports = {
     }
   },
   themeConfig: {
-    logo: '/assets/img/logo.png',
+    logo: '/assets/img/flui_logo.png',
     repo: 'Rannie/flui',
     smoothScroll: true,
     locales: {
