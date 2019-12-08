@@ -3,17 +3,15 @@ module.exports = {
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: 'FLUI',
       description: '一个 Google Flutter 的组件扩展集'
     },
     '/en/': {
       lang: 'en-US',
-      title: 'FLUI',
       description: 'A widget kit of Google Flutter'
     }
   },
   themeConfig: {
-    logo: '/assets/img/flui_logo.png',
+    logo: '/assets/img/flui_logo_withtext.png',
     repo: 'Rannie/flui',
     smoothScroll: true,
     locales: {
