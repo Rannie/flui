@@ -1,3 +1,4 @@
+import 'package:example/flat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:example/list_tile.dart';
 
@@ -186,11 +187,12 @@ class FLStaticListView extends StatelessWidget {
     return Container(
       color: itemData.cellColor,
       height: kStaticButtonHeight,
-      child: FlatButton(
+      child: FLFlatButton(
         color: itemData.buttonColor,
         textColor: itemData.buttonTitleColor,
-        child: Text(itemData.buttonTitle),
+        child: Text(itemData.buttonTitle, textAlign: TextAlign.center),
         onPressed: itemData.onButtonPressed,
+        expanded: true,
       ),
     );
   }
@@ -232,6 +234,16 @@ class FLStaticListView extends StatelessWidget {
     }
   }
 
+  Widget _appendCellSeparator(Widget cell, ThemeData themeData) {
+    return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            cell,
+            Divider(color: themeData.dividerColor, height: 1),
+          ],
+    );
+  }
+
   List<Widget> _buildCells(ThemeData themeData) {
     final List<Widget> cellList = [];
     for (FLStaticSectionData sectionData in sections) {
@@ -248,6 +260,11 @@ class FLStaticListView extends StatelessWidget {
         } else { // customization
           itemCell = itemData.customizeContent;
         }
+        // add last cell's bottom divider
+        if (sectionData == sections.last && itemData == sectionData.itemList.last) {
+          itemCell = _appendCellSeparator(itemCell, themeData);
+        }
+
         cellList.add(itemCell);
       }
     }
