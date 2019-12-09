@@ -19,7 +19,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
   List<FLStaticSectionData> _buildList() {
     return [
       FLStaticSectionData(
-        headerTitle: 'Section 1',
+        headerHeight: 0,
         itemList: [
           FLStaticItemData(
             title: '账号管理',
@@ -34,10 +34,12 @@ class _StaticListViewState extends State<StaticListViewPage> {
         ]
       ),
       FLStaticSectionData(
+        headerTitle: 'Section 1',
         itemList: [
           FLStaticItemData(
               title: '推送通知设置',
               accessoryType: FLStaticListCellAccessoryType.accDetail,
+              accessoryString: '全部通知',
               onTap: handleTap
           ),
           FLStaticItemData(
@@ -50,7 +52,8 @@ class _StaticListViewState extends State<StaticListViewPage> {
               title: '自动清理缓存',
               subtitle: '每 10 天清理一次',
               accessoryType: FLStaticListCellAccessoryType.accCheckmark,
-              onTap: handleTap
+              onTap: handleTap,
+              selected: true,
           )
         ]
       )
