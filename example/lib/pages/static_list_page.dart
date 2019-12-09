@@ -56,6 +56,26 @@ class _StaticListViewState extends State<StaticListViewPage> {
               selected: true,
           )
         ]
+      ),
+      FLStaticSectionData(
+        itemList: [
+          FLStaticItemData(
+              cellType: FLStaticListCellType.button,
+              buttonTitle: 'Apply',
+              buttonTitleColor: Colors.blue,
+              onButtonPressed: () {
+                print('button pressed');
+              }
+          ),
+          FLStaticItemData(
+              cellType: FLStaticListCellType.button,
+              buttonTitle: 'Delete',
+              buttonTitleColor: Colors.red,
+              onButtonPressed: () {
+                print('button pressed');
+              }
+          )
+        ]
       )
     ];
   }

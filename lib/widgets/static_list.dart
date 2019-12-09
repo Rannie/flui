@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flui/widgets/list_tile.dart';
 
+enum FLStaticListCellType {
+  normal,
+  button,
+  customization
+}
+
 enum FLStaticListCellAccessoryType {
   accNone,
   accCheckmark,
@@ -12,6 +18,7 @@ const Color kStaticBackgroundColor = Color.fromRGBO(246, 246, 246, 1);
 const double kStaticHeaderHeight = 56;
 const double kStaticHeaderHeightNormal = 40;
 const double kStaticHeaderTitleIntent = 20;
+const double kStaticButtonHeight = 44;
 
 class FLStaticSectionData {
   const FLStaticSectionData({
@@ -32,6 +39,7 @@ class FLStaticSectionData {
 
 class FLStaticItemData {
   FLStaticItemData({
+    this.cellType = FLStaticListCellType.normal,
     this.leading,
     this.title,
     this.titleStyle,
@@ -45,21 +53,40 @@ class FLStaticItemData {
     this.switchValue = false,
     this.selected = false,
     this.onChanged,
-  }) : assert(leading != null || title != null || subtitle != null),
-        assert(() {
-          if (customTrailing != null && accessoryType != FLStaticListCellAccessoryType.accNone) {
-            throw AssertionError(
-                'Could not set trailing widget when accessory type != none'
-            );
-          }
-          if (accessoryString != null && accessoryType != FLStaticListCellAccessoryType.accDetail) {
-            throw AssertionError(
-                'Accessory string only can be shown when cell\'s accessory type is accDetail'
-            );
-          }
-          return true;
-        }()),
+    this.buttonTitle,
+    this.buttonTitleColor,
+    this.buttonColor,
+    this.onButtonPressed,
+    this.customizeContent,
+  }) : assert(() {
+    if (cellType == FLStaticListCellType.normal
+        && (leading == null && title == null && subtitle == null)) {
+      throw AssertionError(
+        'List cell must have a leading or title or subtitle',
+      );
+    }
+
+    if (cellType == FLStaticListCellType.customization && customizeContent == null) {
+      throw AssertionError(
+        'Must specify the content when cell\s type is customization',
+      );
+    }
+
+    if (customTrailing != null && accessoryType != FLStaticListCellAccessoryType.accNone) {
+      throw AssertionError(
+          'Could not set trailing widget when accessory type != none'
+      );
+    }
+    if (accessoryString != null && accessoryType != FLStaticListCellAccessoryType.accDetail) {
+      throw AssertionError(
+          'Accessory string only can be shown when cell\'s accessory type is accDetail'
+      );
+    }
+    return true;
+  }()),
         super();
+
+  final FLStaticListCellType cellType;
 
   final Widget leading;
   final String title;
@@ -74,6 +101,13 @@ class FLStaticItemData {
   final bool selected;
   final bool switchValue;
   final ValueChanged<bool> onChanged;
+
+  final String buttonTitle;
+  final Color buttonColor;
+  final Color buttonTitleColor;
+  final VoidCallback onButtonPressed;
+
+  final Widget customizeContent;
 }
 
 class FLStaticListView extends StatelessWidget {
@@ -148,6 +182,19 @@ class FLStaticListView extends StatelessWidget {
     );
   }
 
+  Widget _buildButtonCell(FLStaticItemData itemData, ThemeData themeData) {
+    return Container(
+      color: itemData.cellColor,
+      height: kStaticButtonHeight,
+      child: FlatButton(
+        color: itemData.buttonColor,
+        textColor: itemData.buttonTitleColor,
+        child: Text(itemData.buttonTitle),
+        onPressed: itemData.onButtonPressed,
+      ),
+    );
+  }
+
   Widget _getAccessoryWidget(FLStaticItemData itemData, ThemeData themeData) {
     switch(itemData.accessoryType) {
       case FLStaticListCellAccessoryType.accCheckmark:
@@ -193,7 +240,14 @@ class FLStaticListView extends StatelessWidget {
       cellList.add(sectionHeader);
       // add section cells
       for (FLStaticItemData itemData in sectionData.itemList) {
-        Widget itemCell = _buildItemCell(itemData, themeData);
+        Widget itemCell;
+        if (itemData.cellType == FLStaticListCellType.normal) {
+          itemCell = _buildItemCell(itemData, themeData);
+        } else if (itemData.cellType == FLStaticListCellType.button) {
+          itemCell = _buildButtonCell(itemData, themeData);
+        } else { // customization
+          itemCell = itemData.customizeContent;
+        }
         cellList.add(itemCell);
       }
     }
