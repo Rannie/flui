@@ -53,11 +53,11 @@ class _ButtonPageState extends State<ButtonPage> {
       children: <Widget>[
         SizedBox(height: 10),
         Container(
-          width: screenWidth,
           child: FLFlatButton(
+            expanded: true,
             color: mainColor,
             textColor: Colors.white,
-            child: Text('Extended Button'),
+            child: Text('Extended Button', textAlign: TextAlign.center),
             onPressed: () => FLToast.info(text: 'Extended Button'),
           ),
         ),
@@ -81,10 +81,10 @@ class _ButtonPageState extends State<ButtonPage> {
       children: <Widget>[
         SizedBox(height: 10),
         Container(
-          width: screenWidth,
           child: FLRaisedButton(
+            expanded: true,
             textColor: Colors.white,
-            child: Text('Extended Button'),
+            child: Text('Extended Button', textAlign: TextAlign.center),
             onPressed: () => FLToast.info(text: 'Extended Button'),
           ),
         ),
