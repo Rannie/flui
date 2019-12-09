@@ -1,6 +1,6 @@
 library flui;
 
-export 'package:flui/widgets/defines.dart';
+export 'package:flui/common/defines.dart';
 export 'package:flui/widgets/flat_button.dart';
 export 'package:flui/widgets/raised_button.dart';
 export 'package:flui/widgets/gradient_button.dart';
