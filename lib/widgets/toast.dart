@@ -242,7 +242,7 @@ Widget _typeWidget(_FLToastType type, Color tintColor) {
   else if (type == _FLToastType.info)
   {
     return Icon(
-      Icons.error_outline,
+      Icons.info_outline,
       size: _iconSize,
       color: tintColor,
     );
