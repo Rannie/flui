@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<_FLDemoListData> get _demoList {
     return [
       _FLDemoListData(title: 'Buttons', picPath: '', targetRouteName: ButtonPage.routeName),
+      _FLDemoListData(title: 'Labels', picPath: '', targetRouteName: LabelPage.routeName),
     ];
   }
 

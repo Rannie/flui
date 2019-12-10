@@ -76,7 +76,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
 
   void _setup() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(Duration(seconds: 1), _scheduleScroll);
+      _scheduleScroll();
     });
   }
 
@@ -98,26 +98,33 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
 
     double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
     double moveOffset = _kDefaultDistance * _velocity;
+    double maxScrollExtent = _scrollController.position.maxScrollExtent;
+    double textWidth = (maxScrollExtent + widgetWidth - _space) / 2;
+
+    double targetDistance = 0;
+    double totalDistance = 0;
+    if (widget.loop == false) {
+      targetDistance = textWidth + _space;
+    }
 
     _timer = Timer.periodic(Duration(milliseconds: _kTimerGap), (_) {
-      double maxScrollExtent = _scrollController.position.maxScrollExtent;
-      double textWidth = (maxScrollExtent + widgetWidth - _space) / 2;
       double pixels = _scrollController.position.pixels;
       if (pixels + moveOffset >= maxScrollExtent) {
         _pos = pixels - maxScrollExtent - widgetWidth + textWidth;
         _scrollController.jumpTo(_pos);
       }
-      _pos += moveOffset;
 
-      bool stop = false;
-      if (widget.loop == false && _pos >= textWidth + _space) {
-        _pos = textWidth + _space;
-        stop = true;
+      if (widget.loop == false) {
+        if (totalDistance + moveOffset >= targetDistance) {
+          _stop();
+          moveOffset = totalDistance + moveOffset - targetDistance;
+        } else {
+          totalDistance += moveOffset;
+        }
       }
-      _scrollController.animateTo(_pos, duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
 
-      if (stop)
-        _stop();
+      _pos += moveOffset;
+      _scrollController.animateTo(_pos, duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
     });
   }
 
