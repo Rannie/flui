@@ -42,6 +42,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
     with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _listViewKey = GlobalKey();
+  final GlobalKey _textKey = GlobalKey();
   Timer _timer;
   double _pos = 0.0;
   double _velocity;
@@ -75,9 +76,8 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   }
 
   void _setup() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scheduleScroll();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        Future.delayed(Duration(milliseconds: 200), () => _scheduleScroll()));
   }
 
   void _stop() {
@@ -96,34 +96,25 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
     if (_velocity == 0)
       return;
 
-    double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
+//    double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
     double moveOffset = _kDefaultDistance * _velocity;
-    double maxScrollExtent = _scrollController.position.maxScrollExtent;
-    double textWidth = (maxScrollExtent + widgetWidth - _space) / 2;
-
-    double targetDistance = 0;
-    double totalDistance = 0;
-    if (widget.loop == false) {
-      targetDistance = textWidth + _space;
-    }
+    double textWidth = _textKey.currentContext.findRenderObject().paintBounds.size.width;
 
     _timer = Timer.periodic(Duration(milliseconds: _kTimerGap), (_) {
       double pixels = _scrollController.position.pixels;
-      if (pixels + moveOffset >= maxScrollExtent) {
-        _pos = pixels - maxScrollExtent - widgetWidth + textWidth;
-        _scrollController.jumpTo(_pos);
-      }
-
-      if (widget.loop == false) {
-        if (totalDistance + moveOffset >= targetDistance) {
-          _stop();
-          moveOffset = totalDistance + moveOffset - targetDistance;
+      if (pixels + moveOffset >= textWidth + _space) {
+        if (widget.loop == true) {
+          _pos = pixels - textWidth - _space;
+          _scrollController.jumpTo(_pos);
+          _pos += moveOffset;
         } else {
-          totalDistance += moveOffset;
+          _stop();
+          _pos = textWidth + _space;
         }
+      } else {
+        _pos += moveOffset;
       }
 
-      _pos += moveOffset;
       _scrollController.animateTo(_pos, duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
     });
   }
@@ -131,16 +122,23 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   @override
   Widget build(BuildContext context) {
     final EdgeInsetsGeometry padding = widget.padding ?? EdgeInsets.zero;
-    final Widget textChild = Align(
+    final Widget mainTextChild = Align(
+      key: _textKey,
       alignment: Alignment.center,
       child: Text(widget.text, style: widget.style)
     );
+    final Widget slaveTextChild = Align(
+        alignment: Alignment.center,
+        child: Text(widget.text, style: widget.style)
+    );
+
 
     final List<Widget> children = <Widget>[];
-    children.add(textChild);
+    children.add(mainTextChild);
     if (_velocity > 0) {
       children.add(SizedBox(width: _space));
-      children.add(textChild);
+      children.add(slaveTextChild);
+      children.add(SizedBox(width: _space));
     }
 
     return Container(
