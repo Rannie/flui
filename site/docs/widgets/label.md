@@ -22,7 +22,57 @@ Label 为扩展 Text 功能的组件。
 
 #### 使用
 
+<br />
+<p align="left">
+    <img width="400" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-10-export-1.gif" />
+</p>
 
+```dart
+FLMarqueeLabel(
+    text: 'Notice: For Flutter 1.9 or above, you can use SelectableText to support copy function',
+)
+```
+
+#### space & velocity
+
+*space* 为滚动文字间隔的距离， *velocity* 控制滚动速度，区间为 0 - 1 。
+
+<br />
+<p align="left">
+    <img width="400" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-10-velocity.gif" />
+</p>
+
+```dart
+FLMarqueeLabel(
+    text: 'Notice: FLUI is a widget kit for Google Flutter',
+    style: TextStyle(
+        color: Colors.blueAccent,
+        fontSize: 16
+    ),
+    velocity: 1,
+    space: 150,
+)
+```
+
+::: warning 注意
+不要把 *space* 的值设置的过小，需要满足文字宽度 + space 的宽度大于该组件的展示宽度。
+:::
+
+#### loop
+
+*loop* 默认为 true， 滚动会无限循环，如果想只滚动一次则可以设置为 false 。
+
+```dart
+FLMarqueeLabel(
+    text: 'Notice: This is a notification',
+    style: TextStyle(
+        color: Colors.lightGreen,
+        fontSize: 16
+    ),
+    loop: false,
+    velocity: 0.7,
+),
+```
 
 
 

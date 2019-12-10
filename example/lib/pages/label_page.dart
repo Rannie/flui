@@ -63,10 +63,6 @@ class _LabelPageState extends State<LabelPage> {
           SizedBox(height: 10),
           FLMarqueeLabel(
             text: 'Notice: For Flutter 1.9 or above, you can use SelectableText to support copy function',
-            style: TextStyle(
-                color: Colors.redAccent,
-                fontSize: 16
-            ),
           ),
           SizedBox(height: 10),
           FLMarqueeLabel(
