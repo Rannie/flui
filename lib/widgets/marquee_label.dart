@@ -96,9 +96,15 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
     if (_velocity == 0)
       return;
 
-//    double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
+    double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
     double moveOffset = _kDefaultDistance * _velocity;
     double textWidth = _textKey.currentContext.findRenderObject().paintBounds.size.width;
+
+    if (textWidth + _space < widgetWidth) {
+      throw(AssertionError(
+          'FLMarqueeLabel\'s text width add space value must greater than widget\'s width')
+      );
+    }
 
     _timer = Timer.periodic(Duration(milliseconds: _kTimerGap), (_) {
       double pixels = _scrollController.position.pixels;
