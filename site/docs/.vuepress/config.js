@@ -12,8 +12,7 @@ module.exports = {
     }
   },
   head:[
-    ['link', { rel: 'icon', href: 'assets/img/flui_logo.png' }],
-    ['meta', { name: 'theme-color', content: '#0F4C81' }]
+    ['link', { rel: 'icon', href: 'assets/img/flui_logo_trans.png' }]
   ],
   themeConfig: {
     logo: '/assets/img/flui_logo_withtext.png',
@@ -34,15 +33,13 @@ module.exports = {
             'label',
             'appbar-title',
             'bubble',
-            'badge',
             'toast',
-            'pin-input',
-            'auto-complete',
+            'input',
+            'badge',
             'empty',
             'notice-bar',
             'skeleton',
-            'action-sheet',
-            'operation-sheet',
+            'bottom-sheet',
             'other',
           ]
         },
@@ -63,15 +60,13 @@ module.exports = {
             'label',
             'appbar-title',
             'bubble',
-            'badge',
             'toast',
-            'pin-input',
-            'auto-complete',
+            'input',
+            'badge',
             'empty',
             'notice-bar',
             'skeleton',
-            'action-sheet',
-            'operation-sheet',
+            'bottom-sheet',
             'other',
           ]
         },
