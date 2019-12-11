@@ -1,1 +1,1 @@
-# Notice Bar
+# NoticeBar
