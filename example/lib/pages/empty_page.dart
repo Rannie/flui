@@ -13,14 +13,6 @@ class _EmptyPageState extends State<EmptyPage> {
   GlobalKey<FLEmptyContainerState> _emptyKey = GlobalKey<FLEmptyContainerState>();
 
   @override
-  void initState() {
-//    Future.delayed(Duration(seconds: 2), () {
-//      _emptyKey.currentState.switchToContent();
-//    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

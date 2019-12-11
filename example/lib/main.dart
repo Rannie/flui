@@ -1,3 +1,4 @@
+import 'package:example/event.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/button_page.dart';
@@ -6,6 +7,7 @@ import 'package:example/pages/label_page.dart';
 import 'package:example/pages/app_bar_page.dart';
 import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
+import 'package:example/pages/toast_page.dart';
 import 'package:example/toast.dart';
 import 'package:example/style/style.dart';
 import 'package:example/pages/input_page.dart';
@@ -17,21 +19,40 @@ void main() => runApp(MyApp());
 
 Logger logger = Logger();
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  FLToastDefaults _toastDefaults = FLToastDefaults();
+
+  @override
+  void initState() {
+    super.initState();
+    eventBus.on().listen((event) {
+      if (event.runtimeType == FLToastDefaults) {
+        setState(() => _toastDefaults = event);
+      }
+
+      if (event == 'reset') {
+        setState(() => _toastDefaults = FLToastDefaults());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    FLToastDefaults defaults = FLToastDefaults(style: FLToastStyle.dark);
     return FLToastProvider(
-      defaults: defaults,
+      defaults: _toastDefaults,
       child: MaterialApp(
         title: 'FLUI',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primarySwatch: FLColors.primarySwatch,
-            buttonTheme: ButtonThemeData(
-                colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
-            ),
+          primarySwatch: FLColors.primarySwatch,
+          buttonTheme: ButtonThemeData(
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
+          ),
         ),
         routes: {
           MyHomePage.routeName: (context) => MyHomePage(),
@@ -44,7 +65,8 @@ class MyApp extends StatelessWidget {
           ActionSheetPage.routeName: (context) => ActionSheetPage(),
           AppBarPage.routeName: (context) => AppBarPage(),
           StaticListViewPage.routeName: (context) => StaticListViewPage(),
-          ButtonPage.routeName: (context) => ButtonPage()
+          ButtonPage.routeName: (context) => ButtonPage(),
+          ToastPage.routeName: (context) => ToastPage()
         },
       ),
     );
@@ -67,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'Buttons', picPath: '', targetRouteName: ButtonPage.routeName),
       _FLDemoListData(title: 'Labels', picPath: '', targetRouteName: LabelPage.routeName),
       _FLDemoListData(title: 'AppBar', picPath: '', targetRouteName: AppBarPage.routeName),
+      _FLDemoListData(title: 'Toast', picPath: '', targetRouteName: ToastPage.routeName),
     ];
   }
 
