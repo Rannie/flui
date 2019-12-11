@@ -1,4 +1,4 @@
-# Bottom Sheets
+# BottomSheets
 
 ## Action Sheet
 
