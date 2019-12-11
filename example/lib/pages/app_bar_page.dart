@@ -11,7 +11,7 @@ class AppBarPage extends StatefulWidget {
 
 class _AppBarPageState extends State<AppBarPage> {
   String _barTitle = 'AppBar';
-  String _subTitle = 'subtitle';
+  String _subTitle = '(subtitle)';
   FLAppBarTitleLayout _barLayout = FLAppBarTitleLayout.horizontal;
   bool _showLoading = false;
   FLAppBarPosition _loadingPos = FLAppBarPosition.right;

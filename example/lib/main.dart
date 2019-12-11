@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       defaults: defaults,
       child: MaterialApp(
         title: 'FLUI',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: FLColors.primarySwatch,
             buttonTheme: ButtonThemeData(

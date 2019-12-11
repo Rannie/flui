@@ -30,7 +30,7 @@ module.exports = {
           '/widgets/': [
             '',
             'button',
-            'appbar-title',
+            'appbar',
             'toast',
             'label',
             'bubble',
@@ -57,7 +57,7 @@ module.exports = {
           '/en/widgets/': [
             '',
             'button',
-            'appbar-title',
+            'appbar',
             'toast',
             'label',
             'bubble',
