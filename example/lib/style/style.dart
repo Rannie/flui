@@ -23,4 +23,5 @@ class FLColors {
   );
 
   static const int textWhite = 0xFFFFFFFF;
+  static const Color primaryColor = Color(primaryValue);
 }

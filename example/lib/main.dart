@@ -3,7 +3,7 @@ import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/button_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/label_page.dart';
-import 'package:example/pages/navi_title_page.dart';
+import 'package:example/pages/app_bar_page.dart';
 import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/toast.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           NoticeBarPage.routeName: (context) => NoticeBarPage(),
           SkeletonPage.routeName: (context) => SkeletonPage(),
           ActionSheetPage.routeName: (context) => ActionSheetPage(),
-          NaviTitlePage.routeName: (context) => NaviTitlePage(),
+          AppBarPage.routeName: (context) => AppBarPage(),
           StaticListViewPage.routeName: (context) => StaticListViewPage(),
           ButtonPage.routeName: (context) => ButtonPage()
         },
@@ -65,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       _FLDemoListData(title: 'Buttons', picPath: '', targetRouteName: ButtonPage.routeName),
       _FLDemoListData(title: 'Labels', picPath: '', targetRouteName: LabelPage.routeName),
+      _FLDemoListData(title: 'AppBar', picPath: '', targetRouteName: AppBarPage.routeName),
     ];
   }
 
