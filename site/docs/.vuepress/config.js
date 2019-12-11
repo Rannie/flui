@@ -24,7 +24,8 @@ module.exports = {
         label: '简体中文',
         nav: [
           { text: '指南', link: '/guide/' },
-          { text: '组件', link: '/widgets/' }
+          { text: '组件', link: '/widgets/' },
+          { text: '示例', link: '/demo/' }
         ],
         sidebar: {
           '/widgets/': [
@@ -51,7 +52,8 @@ module.exports = {
         ariaLabel: 'Languages',
         nav: [
           { text: 'Guide', link: '/en/guide/' },
-          { text: 'Widgets', link: '/en/widgets/' }
+          { text: 'Widgets', link: '/en/widgets/' },
+          { text: 'Demo', link: '/en/demo/' }
         ],
         sidebar: {
           '/en/widgets/': [

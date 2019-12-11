@@ -4,7 +4,7 @@ AppBar is the navigation bar at the top of the App.
 
 ## FLAppBarTitle
 
-**FLAppBarTitle** Supports the display of subtitle, supports loading animation and custom accessory widget.
+**FLAppBarTitle** supports the display of subtitle, supports loading animation and custom accessory widget.
 
 #### subtitle
 

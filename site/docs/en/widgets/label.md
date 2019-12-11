@@ -1,6 +1,6 @@
 # Labels
 
-Label is a component that extends the functionality of Text.
+Label is a widget that extends the functionality of Text.
 
 ## FLCopyableLabel
 
@@ -13,12 +13,12 @@ Label is a component that extends the functionality of Text.
 <br />
 
 ::: tip Tips
-In Flutter 1.9 and above version, you can use the official component **SelectableText**, which can support selecting part of content to copy on Android.
+In Flutter 1.9 and above version, you can use the official widget **SelectableText**, which can support selecting part of content to copy on Android.
 :::
 
 ## FLMarqueeLabel
 
-**FLMarqueeLabel** supports text scrolling effects, often used as notifications or other scenes to be displayed. **FLNoticeBar** is a component used as a scrolling notification, you can set leading component and it also is closable, you can see [FLNoticeBar](https://flui.xin/en/widgets/notice-bar.html).
+**FLMarqueeLabel** supports text scrolling effects, often used as notifications or other scenes to be displayed. **FLNoticeBar** is a widget used as a scrolling notification, you can set leading widget and it also is closable, you can see [FLNoticeBar](https://flui.xin/en/widgets/notice-bar.html).
 
 #### usage
 
