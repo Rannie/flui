@@ -70,7 +70,8 @@ class _MyAppState extends State<MyApp> {
           ButtonPage.routeName: (context) => ButtonPage(),
           ToastPage.routeName: (context) => ToastPage(),
           BubblePage.routeName: (context) => BubblePage(),
-          AvatarPage.routeName: (context) => AvatarPage()
+          AvatarPage.routeName: (context) => AvatarPage(),
+          InputPage.routeName: (context) => InputPage()
         },
       ),
     );
@@ -96,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'Toast', picPath: '', targetRouteName: ToastPage.routeName),
       _FLDemoListData(title: 'Bubble', picPath: '', targetRouteName: BubblePage.routeName),
       _FLDemoListData(title: 'Avatar', picPath: '', targetRouteName: AvatarPage.routeName),
+      _FLDemoListData(title: 'Input', picPath: '', targetRouteName: InputPage.routeName),
     ];
   }
 
