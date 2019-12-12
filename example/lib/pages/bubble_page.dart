@@ -1,3 +1,4 @@
+import 'package:example/avatar.dart';
 import 'package:example/bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -107,16 +108,12 @@ class _BubblePageState extends State<BubblePage> {
   }
 
   Widget _buildRoundedAvatar(String alpha) {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(25)),
-      child: Container(
-        width: 50,
-        height: 50,
-        color: Color(0xFF4F6BED),
-        child: Center(
-          child: Text(alpha, style: TextStyle(color: Colors.white, fontSize: 16)),
-        ),
-      ),
+    return FLAvatar(
+      text: alpha,
+      textStyle: TextStyle(color: Colors.white, fontSize: 18),
+      width: 50,
+      height: 50,
+      color: Color(0xFF4F6BED),
     );
   }
 
@@ -129,6 +126,8 @@ class _BubblePageState extends State<BubblePage> {
       ),
       body: Container(
         color: Color(0xFFDEEEEEE),
+        width: double.infinity,
+        height: double.infinity,
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
