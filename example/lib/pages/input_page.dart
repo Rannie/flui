@@ -1,5 +1,6 @@
 import 'package:example/auto_complete.dart';
 import 'package:example/pin_input.dart';
+import 'package:example/toast.dart';
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -8,6 +9,13 @@ class InputPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _InputPageState();
 }
+
+const acData = [
+  'Asenal',
+  'Chelsea',
+  'ManCity',
+  'ManUnited',
+];
 
 class _InputPageState extends State<InputPage> {
   final TextEditingController _pinController = TextEditingController();
@@ -41,9 +49,10 @@ class _InputPageState extends State<InputPage> {
           boxWidth: 45,
           boxHeight: 60,
           pinLength: 6,
+          obscure: true,
           minSpace: 20,
           autofocus: false,
-          textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+          textStyle: TextStyle(fontSize: 22),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 20),
             border: UnderlineInputBorder(),
@@ -61,6 +70,7 @@ class _InputPageState extends State<InputPage> {
         SizedBox(height: 30),
         FLPinCodeTextField(
           controller: _pinController,
+          obscure: false,
           boxWidth: 55,
           boxHeight: 55,
           pinLength: 4,
@@ -102,13 +112,20 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             onSelectedSuggestion: (suggestion) {
-              print('select $suggestion');
+              FLToast.text(text: 'Select - $suggestion');
             },
             child: TextField(
               focusNode: _focusNode,
               onChanged: (text) {
-                print(text.split(''));
-                _key.currentState.updateSuggestionList(text.split(''));
+                List<String> sugList = [];
+                if (text != null && text.isNotEmpty) {
+                  for (String option in acData) {
+                    if (option.toLowerCase().contains(text.toLowerCase())) {
+                      sugList.add(option);
+                    }
+                  }
+                }
+                _key.currentState.updateSuggestionList(sugList);
               },
             ),
           ),
