@@ -1,5 +1,6 @@
 import 'package:example/event.dart';
 import 'package:example/pages/action_sheet_page.dart';
+import 'package:example/pages/avatar_page.dart';
 import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/bubble_page.dart';
 import 'package:example/pages/button_page.dart';
@@ -69,6 +70,7 @@ class _MyAppState extends State<MyApp> {
           ButtonPage.routeName: (context) => ButtonPage(),
           ToastPage.routeName: (context) => ToastPage(),
           BubblePage.routeName: (context) => BubblePage(),
+          AvatarPage.routeName: (context) => AvatarPage()
         },
       ),
     );
@@ -93,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'AppBar', picPath: '', targetRouteName: AppBarPage.routeName),
       _FLDemoListData(title: 'Toast', picPath: '', targetRouteName: ToastPage.routeName),
       _FLDemoListData(title: 'Bubble', picPath: '', targetRouteName: BubblePage.routeName),
+      _FLDemoListData(title: 'Avatar', picPath: '', targetRouteName: AvatarPage.routeName),
     ];
   }
 

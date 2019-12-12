@@ -7,6 +7,7 @@ export 'package:flui/widgets/gradient_button.dart';
 export 'package:flui/widgets/loading_button.dart';
 export 'package:flui/widgets/bubble.dart';
 export 'package:flui/widgets/bubble_menu.dart';
+export 'package:flui/widgets/avatar.dart';
 export 'package:flui/widgets/badge.dart';
 export 'package:flui/widgets/copyable_label.dart';
 export 'package:flui/widgets/toast.dart';
