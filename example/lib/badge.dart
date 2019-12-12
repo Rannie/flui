@@ -25,6 +25,7 @@ class FLBadge extends StatefulWidget {
     this.shape = FLBadgeShape.circle,
     this.textStyle = const TextStyle(color: Colors.white, fontSize: 10),
     this.position = FLBadgePosition.topRight,
+    this.hidden = false,
     this.radius = _kDefaultRadius,
     this.text,
     @required this.child
@@ -35,6 +36,7 @@ class FLBadge extends StatefulWidget {
   final FLBadgeShape shape;
   final TextStyle textStyle;
   final FLBadgePosition position;
+  final bool hidden;
   /// Each shape will have a default radius.
   /// If u set this value, the [shape] property will be meaningless.
   final double radius;
@@ -110,13 +112,12 @@ class FLBadgeState extends State<FLBadge> {
       )
     );
 
+    List<Widget> children = widget.hidden ? [widget.child] : [widget.child, badge];
+
     return Stack(
       alignment: alignment,
       overflow: Overflow.visible,
-      children: <Widget>[
-        widget.child,
-        badge
-      ],
+      children: children
     );
   }
 }

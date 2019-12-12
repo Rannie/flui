@@ -98,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'Bubble', picPath: '', targetRouteName: BubblePage.routeName),
       _FLDemoListData(title: 'Avatar', picPath: '', targetRouteName: AvatarPage.routeName),
       _FLDemoListData(title: 'Input', picPath: '', targetRouteName: InputPage.routeName),
+      _FLDemoListData(title: 'Badge', picPath: '', targetRouteName: BadgePage.routeName),
     ];
   }
 

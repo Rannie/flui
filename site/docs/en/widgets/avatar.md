@@ -5,7 +5,7 @@
 **FLAvatar** supports displaying image or color + text.
 
 ::: tip Tips
-When both the image and color are specified, the image will be displayed in preference to the color or text.
+When both the image and color are specified, the image will be displayed in preference.
 :::
 
 <br />

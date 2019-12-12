@@ -9,10 +9,7 @@ class BadgePage extends StatefulWidget {
 }
 
 class _BadgePageState extends State<BadgePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  bool _showBadge = true;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +18,51 @@ class _BadgePageState extends State<BadgePage> {
           title: Text('Badge'),
         ),
         body: Container(
-          padding: EdgeInsets.all(10),
-          child: FLBadge(
-            position: FLBadgePosition.topRight,
-            text: '2',
-            child: Container(
-              width: 44,
-              height: 44,
-              color: Colors.blue,
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('show badges: '),
+                  SizedBox(width: 4),
+                  Checkbox(
+                    value: _showBadge,
+                    onChanged: (value) => setState(() => _showBadge = value),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+                icon: FLBadge(
+                  child: Icon(Icons.home),
+                  text: '2',
+                  hidden: !_showBadge,
+                ),
+                title: Text('home')
             ),
-          )
+            BottomNavigationBarItem(
+                icon: FLBadge(
+                  child: Icon(Icons.chat),
+                  hidden: !_showBadge,
+                  text: '99',
+                ),
+                title: Text('add')
+            ),
+            BottomNavigationBarItem(
+                icon: FLBadge(
+                  child: Icon(Icons.shopping_cart),
+                  hidden: !_showBadge,
+                  position: FLBadgePosition.topLeft,
+                ),
+                title: Text('cart'),
+            )
+          ],
         ),
     );
   }
