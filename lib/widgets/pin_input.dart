@@ -322,17 +322,17 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = !_userValue ? TextStyle(color: Colors.transparent) : widget.textStyle;
-    EdgeInsetsGeometry inputPadding = widget.decoration.contentPadding ?? EdgeInsets.symmetric(vertical: 10);
     return TextField(
       controller: _controller,
       focusNode: widget.focusNode,
-      decoration: widget.decoration.copyWith(contentPadding: inputPadding),
+      decoration: widget.decoration,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       style: textStyle,
       autofocus: widget.autofocus,
       obscureText: widget.obscure,
       textAlign: widget.textAlign,
+      textAlignVertical: TextAlignVertical.center,
       inputFormatters: [
         WhitelistingTextInputFormatter(RegExp("[.0-9]")),
         LengthLimitingTextInputFormatter(2)
