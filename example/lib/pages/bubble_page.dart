@@ -152,8 +152,8 @@ class _BubblePageState extends State<BubblePage> {
                 ),
               ];
             },
-            onSelected: (value) => FLToast.text(text: 'Select - $value'),
-            onCanceled: () => FLToast.text(text: 'Canceled'),
+            onSelected: (value) => FLToast.showText(text: 'Select - $value', position: FLToastPosition.bottom),
+            onCanceled: () => FLToast.showText(text: 'Canceled', position: FLToastPosition.bottom),
           ),
           SizedBox(height: 20),
           FLBubbleMenuWidget(
@@ -181,8 +181,8 @@ class _BubblePageState extends State<BubblePage> {
                 ),
               ];
             },
-            onSelected: (value) => FLToast.text(text: 'Select - $value'),
-            onCanceled: () => FLToast.text(text: 'Canceled'),
+            onSelected: (value) => FLToast.showText(text: 'Select - $value', position: FLToastPosition.bottom),
+            onCanceled: () => FLToast.showText(text: 'Canceled', position: FLToastPosition.bottom),
           ),
         ],
       ),
