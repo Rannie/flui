@@ -40,7 +40,7 @@ FLAutoComplete(
 )
 ```
 
-你可以通过 itemBuilder 来自定义展示框的样式。另外注意这里 **FLAutoComplete** 和 TextField 传入了同一个 *FocusNode* 对象来保证焦点行为的一致。
+你可以通过 *itemBuilder* 来自定义展示框的样式。另外注意这里 **FLAutoComplete** 和 TextField 传入了同一个 *FocusNode* 对象来保证焦点行为的一致。
 
 
 ## FLPinInput
