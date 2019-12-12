@@ -1,5 +1,7 @@
 import 'package:example/avatar.dart';
 import 'package:example/bubble.dart';
+import 'package:example/bubble_menu.dart';
+import 'package:example/toast.dart';
 import 'package:flutter/material.dart';
 
 class BubblePage extends StatefulWidget {
@@ -10,7 +12,6 @@ class BubblePage extends StatefulWidget {
 }
 
 class _BubblePageState extends State<BubblePage> {
-
   Widget _buildSection(String title, Widget content) {
     return Column(
       children: <Widget>[
@@ -117,6 +118,77 @@ class _BubblePageState extends State<BubblePage> {
     );
   }
 
+  Widget _buildBubbleMenuContent() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          FLBubbleMenuWidget(
+            interaction: FLBubbleMenuInteraction.tap,
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Color(0xFF0F4C81)
+              ),
+              width: 240,
+              height: 40,
+              child: Center(
+                child: Text('Tap to show menu', style: TextStyle(fontSize: 17, color: Colors.white)),
+              ),
+            ),
+            itemBuilder: (BuildContext context) {
+              return [
+                FLBubbleMenuItem(
+                  text: 'item 1',
+                  value: 'item 1',
+                ),
+                FLBubbleMenuItem(
+                  text: 'item 2',
+                  value: 'item 2',
+                ),
+                FLBubbleMenuItem(
+                  text: 'item 3',
+                  value: 'item 3',
+                ),
+              ];
+            },
+            onSelected: (value) => FLToast.text(text: 'Select - $value'),
+            onCanceled: () => FLToast.text(text: 'Canceled'),
+          ),
+          SizedBox(height: 20),
+          FLBubbleMenuWidget(
+            offset: Offset(100, 0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Color(0xFF0F4C81)
+              ),
+              width: 240,
+              height: 40,
+              child: Center(
+                child: Text('Long press to show menu', style: TextStyle(fontSize: 17, color: Colors.white)),
+              ),
+            ),
+            itemBuilder: (BuildContext context) {
+              return [
+                FLBubbleMenuItem(
+                  text: 'item 1',
+                  value: 'item 1',
+                ),
+                FLBubbleMenuItem(
+                  text: 'item 2',
+                  value: 'item 2',
+                ),
+              ];
+            },
+            onSelected: (value) => FLToast.text(text: 'Select - $value'),
+            onCanceled: () => FLToast.text(text: 'Canceled'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -132,6 +204,7 @@ class _BubblePageState extends State<BubblePage> {
           shrinkWrap: true,
           children: <Widget>[
             _buildSection('Bubble', _buildBubbleContent(width)),
+            _buildSection('Bubble Menu', _buildBubbleMenuContent()),
           ],
         ),
       ),
