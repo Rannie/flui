@@ -14,7 +14,7 @@ enum FLBadgePosition {
 }
 
 const double _kSquareRadius  = 1;
-const double _kSpotRadius    = 6;
+const double _kSpotRadius    = 4;
 const double _kBadgeSize     = 18;
 const double _kDefaultRadius = -1;
 
@@ -23,7 +23,7 @@ class FLBadge extends StatefulWidget {
     Key key,
     this.color = Colors.red,
     this.shape = FLBadgeShape.circle,
-    this.textStyle = const TextStyle(color: Colors.white, fontSize: 10),
+    this.textStyle = const TextStyle(color: Colors.white, fontSize: 8),
     this.position = FLBadgePosition.topRight,
     this.hidden = false,
     this.radius = _kDefaultRadius,
