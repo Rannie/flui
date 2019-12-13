@@ -11,10 +11,9 @@ class FLEmptyContainer extends StatefulWidget {
     this.titleStyle,
     this.detailText,
     this.detailTextStyle,
+    this.space = 8.0,
     this.actionButton,
-    @required this.content,
-  }) : assert(content != null),
-       super(key: key);
+  }) : super(key: key);
 
   final Color backgroundColor;
   final Widget customLoadingWidget;
@@ -26,47 +25,25 @@ class FLEmptyContainer extends StatefulWidget {
   final TextStyle titleStyle;
   final String detailText;
   final TextStyle detailTextStyle;
+  final double space;
   /// custom action button
   final Widget actionButton;
-  /// when call [FLEmptyContainerState.switchToContent], it will switch to this widget.
-  final Widget content;
 
   @override
   State<FLEmptyContainer> createState() => FLEmptyContainerState();
 }
 
 class FLEmptyContainerState extends State<FLEmptyContainer> {
-  bool _showContent = false;
-
-  void switchToContent() {
-    if (_showContent)
-      return;
-
-    _showContent = true;
-    setState(() {});
-  }
-
-  void switchToEmpty() {
-    if (_showContent == false)
-      return;
-
-    _showContent = false;
-    setState(() {});
-  }
-
   void _addChildAndSpacingIfNeeded(List<Widget> list, Widget newChild) {
     if (list.length > 0) {
-      list.add(SizedBox(height: 8.0));
+      list.add(SizedBox(height: widget.space));
     }
     list.add(newChild);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_showContent)
-      return widget.content;
-
-    List<Widget> children = <Widget>[];
+    final List<Widget> children = <Widget>[];
     if (widget.customLoadingWidget != null) {
       _addChildAndSpacingIfNeeded(children, widget.customLoadingWidget);
     }
@@ -85,14 +62,14 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
     }
 
     if (widget.title != null && widget.title.isNotEmpty) {
-      TextStyle textStyle = widget.titleStyle ?? TextStyle(fontSize: 15.0, color: Color.fromARGB(255, 93, 100, 110));
-      Widget title = Text(widget.title, style: textStyle);
+      TextStyle textStyle = widget.titleStyle ?? TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 93, 100, 110));
+      Widget title = Text(widget.title, style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, title);
     }
 
     if (widget.detailText != null && widget.detailText.isNotEmpty) {
       TextStyle textStyle = widget.detailTextStyle ?? TextStyle(fontSize: 14.0, color: Color.fromARGB(255, 133, 140, 150));
-      Widget detailText = Text(widget.detailText, style: textStyle);
+      Widget detailText = Text(widget.detailText, style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, detailText);
     }
 
@@ -101,14 +78,14 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
     }
 
     return Container(
-      color: widget.backgroundColor,
-      padding: EdgeInsets.all(8.0),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: children,
-        ),
-      )
+        color: widget.backgroundColor,
+        padding: EdgeInsets.all(40.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: children,
+          ),
+        )
     );
   }
 }
