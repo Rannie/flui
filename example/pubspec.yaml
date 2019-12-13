@@ -47,6 +47,7 @@ flutter:
     - assets/share_friend.png
     - assets/share_weibo.png
     - assets/avatar.jpg
+    - assets/nodata.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

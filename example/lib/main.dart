@@ -5,8 +5,12 @@ import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/bubble_page.dart';
 import 'package:example/pages/button_page.dart';
 import 'package:example/pages/empty_page.dart';
+import 'package:example/pages/hints_action_empty_page.dart';
+import 'package:example/pages/hints_empty_page.dart';
+import 'package:example/pages/image_hints_empty_page.dart';
 import 'package:example/pages/label_page.dart';
 import 'package:example/pages/app_bar_page.dart';
+import 'package:example/pages/loading_empty_page.dart';
 import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
@@ -60,6 +64,10 @@ class _MyAppState extends State<MyApp> {
           MyHomePage.routeName: (context) => MyHomePage(),
           InputPage.routeName: (context) => InputPage(),
           EmptyPage.routeName: (context) => EmptyPage(),
+          LoadingEmptyPage.routeName: (context) => LoadingEmptyPage(),
+          HintsEmptyPage.routeName: (context) => HintsEmptyPage(),
+          HintsActionEmptyPage.routeName: (context) => HintsActionEmptyPage(),
+          ImageHintsEmptyPage.routeName: (context) => ImageHintsEmptyPage(),
           BadgePage.routeName: (context) => BadgePage(),
           LabelPage.routeName: (context) => LabelPage(),
           NoticeBarPage.routeName: (context) => NoticeBarPage(),
@@ -99,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'Avatar', picPath: '', targetRouteName: AvatarPage.routeName),
       _FLDemoListData(title: 'Input', picPath: '', targetRouteName: InputPage.routeName),
       _FLDemoListData(title: 'Badge', picPath: '', targetRouteName: BadgePage.routeName),
+      _FLDemoListData(title: 'Empty', picPath: '', targetRouteName: EmptyPage.routeName),
     ];
   }
 
