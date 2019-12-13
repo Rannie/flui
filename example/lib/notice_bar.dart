@@ -9,7 +9,7 @@ class FLNoticeBar extends StatelessWidget {
     this.backgroundColor = const Color(0xFFFEFCEC),
     this.textStyle = const TextStyle(color: FLNoticeBarTintColor),
     this.loop = true,
-    this.velocity,
+    this.velocity = 0.4,
     this.padding,
     this.textPadding,
     this.prefix,
