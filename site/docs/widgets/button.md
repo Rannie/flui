@@ -1,4 +1,4 @@
-# Buttons
+# Button
 
 按钮对已有的 FlatButton 以及 RaisedButton 做了一些扩展，也新增了支持渐变背景的 **FLGradientButton** 和支持加载动画的 **FLLoadingButton** 。
 

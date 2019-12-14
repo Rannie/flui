@@ -1,18 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
-
-const BoxDecoration _kAlertBlurOverlayDecoration = BoxDecoration(
-  color: CupertinoColors.white,
-  backgroundBlendMode: BlendMode.overlay,
-);
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Translucent, very light gray that is painted on top of the blurred backdrop
 // as the action sheet's background color.
 const Color _kBackgroundColor = Color(0xD1F8F8F8);
 const Color _kCancelButtonPressedColor = Color(0xFFEAEAEA);
 
-const double _kBlurAmount = 20.0;
 const double _kEdgeHorizontalPadding = 8.0;
 const double _kEdgeVerticalPadding = 10.0;
 const double _kCancelButtonPadding = 8.0;
@@ -21,6 +17,19 @@ const double _kCornerRadius = 14.0;
 enum FLCupertinoActionSheetStyle {
   roundedCard,
   filled
+}
+
+/// Don't use [showCupertinoModalPopup], in iOS it will blur the content,
+/// related issue: https://bugs.chromium.org/p/skia/issues/detail?id=7898
+Future<T> showFLBottomSheet<T>({
+  @required BuildContext context,
+  @required WidgetBuilder builder
+}) {
+  return showModalBottomSheet(
+      context: context,
+      builder: builder,
+      backgroundColor: Colors.transparent
+  );
 }
 
 class FLCupertinoActionSheet extends StatelessWidget {
@@ -55,23 +64,50 @@ class FLCupertinoActionSheet extends StatelessWidget {
     return style == FLCupertinoActionSheetStyle.roundedCard;
   }
 
+  Widget _wrapWithBackground({
+    Color backgroundColor,
+    Widget child,
+    bool updateSystemUiOverlay = true,
+  }) {
+    Widget result = child;
+    if (updateSystemUiOverlay) {
+      final bool darkBackground = backgroundColor.computeLuminance() < 0.179;
+      final SystemUiOverlayStyle overlayStyle = darkBackground
+          ? SystemUiOverlayStyle.light
+          : SystemUiOverlayStyle.dark;
+      result = AnnotatedRegion<SystemUiOverlayStyle>(
+        value: overlayStyle,
+        sized: true,
+        child: result,
+      );
+    }
+    final DecoratedBox childWithBackground = DecoratedBox(
+      decoration: BoxDecoration(
+        color: backgroundColor,
+      ),
+      child: result,
+    );
+
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+        child: childWithBackground,
+      ),
+    );
+  }
+
   Widget _buildMainContent() {
     BorderRadius radius = this.borderRadius ??
         _isRound() ? BorderRadius.circular(_kCornerRadius): null;
-    final Widget blurContent = BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: _kBlurAmount, sigmaY: _kBlurAmount),
-      child: Container(
-          decoration: _kAlertBlurOverlayDecoration,
-          child: Container(
-            color: backgroundColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Flexible(child: child)
-              ],
-            ),
-          )
+    final Widget blurContent = _wrapWithBackground(
+      backgroundColor: backgroundColor,
+      updateSystemUiOverlay: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Flexible(child: child)
+        ],
       ),
     );
 

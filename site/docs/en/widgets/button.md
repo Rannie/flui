@@ -1,4 +1,4 @@
-# Buttons
+# Button
 
 Buttons include some widgets that based on existing FlatButton & RaisedButton, and also added **FLGradientButton** which supports gradient background and **FLLoadingButton** which supports loading animation.
 
