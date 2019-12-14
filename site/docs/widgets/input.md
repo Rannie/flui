@@ -1,4 +1,4 @@
-# Inputs
+# Input
 
 Input 包含一些业务场景中需要的输入组件。
 
