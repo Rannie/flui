@@ -1,6 +1,7 @@
 import 'package:example/action_sheet.dart';
 import 'package:example/operation_sheet.dart';
 import 'package:example/raised_button.dart';
+import 'package:example/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,162 +12,201 @@ class ActionSheetPage extends StatefulWidget {
 }
 
 class _ActionSheetPageState extends State<ActionSheetPage> {
+  Widget _buildActionSheetContent() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Image.asset('assets/poster.png'),
+          SizedBox(height: 25),
+          Text(
+            'Flutter Interact is here! Check out the livestream.\nFlutter 1.12 is live! Check out the latest announcement and see what\'s new on the site.\nTime is ticking: Enter the Flutter Clock Challenge!',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Aciont Sheet'),
+        title: Text('BottomSheet'),
       ),
       body: Container(
         child: Center(
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              FLRaisedButton(
-                textColor: Colors.white,
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      builder: (BuildContext context) {
-                        return FLCupertinoActionSheet(
-                          style: FLCupertinoActionSheetStyle.filled,
-                          child: Container(
-                            height: 150,
-                            child: Text('action sheet test',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13, decoration: TextDecoration.none
-                                )
+              Container(
+                width: 200,
+                child: FLRaisedButton(
+                  textColor: Colors.white,
+                  onPressed: () {
+                    showFLBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FLCupertinoActionSheet(
+                            style: FLCupertinoActionSheetStyle.filled,
+                            child: _buildActionSheetContent(),
+                            cancelButton: CupertinoActionSheetAction(
+                              child: const Text('Cancel'),
+                              isDefaultAction: true,
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancel');
+                              },
                             ),
-                          ),
-                          cancelButton: CupertinoActionSheetAction(
-                            child: const Text('Cancel'),
-                            isDefaultAction: true,
-                            onPressed: () {
-                              Navigator.pop(context, 'Cancel');
-                            },
-                          ),
-                        );
-                      }).then((value) {
-                        print(value);
-                      });
-                },
-                child: Text('action sheet'),
+                          );
+                        }).then((value) {
+                      print(value);
+                    });
+                  },
+                  child: Text('ActionSheet - Filled'),
+                ),
               ),
               SizedBox(height: 20),
-              FLRaisedButton(
-                textColor: Colors.white,
-                child: Text('operation sheet'),
-                onPressed: () {
-                  showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return FLCupertinoOperationSheet(
-                          cancelButton: CupertinoActionSheetAction(
-                            child: const Text('Cancel'),
-                            isDefaultAction: true,
-                            onPressed: () {
-                              Navigator.pop(context, 'Cancel');
-                            },
-                          ),
-                          itemList: [
-                            [
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Friends',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              ),
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Wechat',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              ),
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Wechat',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              ),
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Wechat',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              ),
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Wechat',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              )
+              Container(
+                width: 200,
+                child: FLRaisedButton(
+                  textColor: Colors.white,
+                  onPressed: () {
+                    showFLBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FLCupertinoActionSheet(
+                            child: _buildActionSheetContent(),
+                            cancelButton: CupertinoActionSheetAction(
+                              child: const Text('Cancel'),
+                              isDefaultAction: true,
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancel');
+                              },
+                            ),
+                          );
+                        }).then((value) {
+                      print(value);
+                    });
+                  },
+                  child: Text('ActionSheet - Rounded'),
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                width: 200,
+                child: FLRaisedButton(
+                  textColor: Colors.white,
+                  child: Text('OperationSheet'),
+                  onPressed: () {
+                    showFLBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FLCupertinoOperationSheet(
+                            backgroundColor: Color(0xFFFAFAFA),
+                            sheetStyle: FLCupertinoActionSheetStyle.filled,
+                            cancelButton: CupertinoActionSheetAction(
+                              child: const Text('Cancel'),
+                              isDefaultAction: true,
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancel');
+                              },
+                            ),
+                            header: Container(
+                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                              child: Text('Share', style: TextStyle(color: Colors.blueGrey, fontSize: 18)),
+                            ),
+                            itemList: [
+                              [
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/google.png',
+                                  title: 'Google',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Google');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/share_friend.png',
+                                  title: 'Wechat',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Wechat');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/instagram.png',
+                                  title: 'Instagram',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Instagram');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/twitter.png',
+                                  title: 'Twitter',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Twitter');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/whatsapp.png',
+                                  title: 'Whatsapp',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Whatsapp');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/word.png',
+                                  title: 'Office',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Office');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/share_weibo.png',
+                                  title: 'Weibo',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Weibo');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/omnifocus.png',
+                                  title: 'Omni',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Omni');
+                                  },
+                                ),
+                              ],
+                              [
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/messages.png',
+                                  title: 'Messages',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Messages');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/mail.png',
+                                  title: 'Mail',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Mail');
+                                  },
+                                ),
+                                FLCupertinoOperationSheetItem(
+                                  imagePath: 'assets/keynote.png',
+                                  title: 'Keynote',
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Keynote');
+                                  },
+                                ),
+                              ]
                             ],
-                            [
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Friends',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              ),
-                              FLCupertinoOperationSheetItem(
-                                imagePath: 'assets/share_friend.png',
-                                title: 'Wechat',
-                                onPressed: () {
-                                  Navigator.pop(context, 'Cancel');
-                                },
-                              )
-                            ]
-                          ],
-                        );
-                      }
-                  );
-                },
+                          );
+                        }
+                    ).then((value) => FLToast.info(text: value));
+                  },
+                ),
               ),
               SizedBox(height: 20),
-              RaisedButton(
-                textColor: Colors.white,
-                child: Text('show cupertino action sheet'),
-                onPressed: () {
-                  showCupertinoModalPopup(
-                    context: context,
-                    builder: (context) {
-                      return CupertinoActionSheet(
-                        title: Text('提示', style: TextStyle(fontSize: 22),), //标题
-                        message: Text('麻烦抽出几分钟对该软件进行评价，谢谢!'), //提示内容
-                        actions: <Widget>[ //操作按钮集合
-                          CupertinoActionSheetAction(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
-                            child: Text('给个好评'),
-                          ),
-                          CupertinoActionSheetAction(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
-                            child: Text('我要吐槽'),
-                          ),
-                        ],
-                        cancelButton: CupertinoActionSheetAction( //取消按钮
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text('取消'),
-                        ),
-                      );
-                    },
-                  );
-                },
-              )
             ],
           ),
         ),

@@ -48,6 +48,17 @@ flutter:
     - assets/share_weibo.png
     - assets/avatar.jpg
     - assets/nodata.png
+    - assets/poster.png
+    - assets/google.png
+    - assets/instagram.png
+    - assets/keynote.png
+    - assets/mail.png
+    - assets/messages.png
+    - assets/omnifocus.png
+    - assets/poster.png
+    - assets/twitter.png
+    - assets/whatsapp.png
+    - assets/word.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

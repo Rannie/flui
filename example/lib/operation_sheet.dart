@@ -18,24 +18,32 @@ class FLCupertinoOperationSheet extends StatelessWidget {
     this.sheetStyle,
     this.backgroundColor,
     this.cancelButton,
+    this.header,
     @required this.itemList,
-  }) : super(key: key);
+  }) : assert(itemList != null && itemList.length > 0),
+       super(key: key);
 
   final BorderRadius borderRadius;
   final FLCupertinoActionSheetStyle sheetStyle;
   final Color backgroundColor;
   final CupertinoActionSheetAction cancelButton;
 
+  final Widget header;
   final List<List<FLCupertinoOperationSheetItem>> itemList;
 
   List<Widget> _buildAllSections() {
     List<Widget> children = [];
+    // add header
+    if (header != null) {
+      children.add(header);
+      children.add(Divider(height: 1));
+    }
+    // add items
     int sectionCount = itemList.length;
     for (int i = 0; i < sectionCount; i++) {
       List list = itemList[i];
       Widget section = _buildSection(list);
       children.add(section);
-
       if (i != sectionCount - 1) {
         children.add(Divider(height: 1));
       }
@@ -69,6 +77,7 @@ class FLCupertinoOperationSheet extends StatelessWidget {
       child: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: _buildAllSections(),
         ),
       )
@@ -116,7 +125,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
           style: TextStyle(
             color: _kTextColor,
             decoration: TextDecoration.none,
-            fontSize: 11,
+            fontSize: 12,
           ),
           textAlign: TextAlign.center,
           maxLines: 1,
