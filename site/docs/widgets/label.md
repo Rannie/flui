@@ -1,4 +1,4 @@
-# Labels
+# Label
 
 Label 为扩展 Text 功能的组件。
 

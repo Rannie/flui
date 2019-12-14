@@ -1,4 +1,4 @@
-# Labels
+# Label
 
 Label is a widget that extends the functionality of Text.
 

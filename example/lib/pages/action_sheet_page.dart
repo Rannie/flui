@@ -23,11 +23,11 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
             children: <Widget>[
               SizedBox(height: 20),
               FLRaisedButton(
-                color: Colors.blue,
                 textColor: Colors.white,
                 onPressed: () {
-                  showCupertinoModalPopup(
+                  showModalBottomSheet(
                       context: context,
+                      backgroundColor: Colors.transparent,
                       builder: (BuildContext context) {
                         return FLCupertinoActionSheet(
                           style: FLCupertinoActionSheetStyle.filled,
@@ -56,11 +56,11 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
               ),
               SizedBox(height: 20),
               FLRaisedButton(
-                color: Colors.blue,
                 textColor: Colors.white,
                 child: Text('operation sheet'),
                 onPressed: () {
-                  showCupertinoModalPopup(
+                  showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
                       context: context,
                       builder: (BuildContext context) {
                         return FLCupertinoOperationSheet(
@@ -128,6 +128,42 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                           ],
                         );
                       }
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              RaisedButton(
+                textColor: Colors.white,
+                child: Text('show cupertino action sheet'),
+                onPressed: () {
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoActionSheet(
+                        title: Text('提示', style: TextStyle(fontSize: 22),), //标题
+                        message: Text('麻烦抽出几分钟对该软件进行评价，谢谢!'), //提示内容
+                        actions: <Widget>[ //操作按钮集合
+                          CupertinoActionSheetAction(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            },
+                            child: Text('给个好评'),
+                          ),
+                          CupertinoActionSheetAction(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            },
+                            child: Text('我要吐槽'),
+                          ),
+                        ],
+                        cancelButton: CupertinoActionSheetAction( //取消按钮
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('取消'),
+                        ),
+                      );
+                    },
                   );
                 },
               )

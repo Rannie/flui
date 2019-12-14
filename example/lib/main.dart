@@ -18,6 +18,7 @@ import 'package:example/toast.dart';
 import 'package:example/style/style.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -79,7 +80,7 @@ class _MyAppState extends State<MyApp> {
           ToastPage.routeName: (context) => ToastPage(),
           BubblePage.routeName: (context) => BubblePage(),
           AvatarPage.routeName: (context) => AvatarPage(),
-          InputPage.routeName: (context) => InputPage()
+          InputPage.routeName: (context) => InputPage(),
         },
       ),
     );
@@ -110,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'Empty', picPath: '', targetRouteName: EmptyPage.routeName),
       _FLDemoListData(title: 'NoticeBar', picPath: '', targetRouteName: NoticeBarPage.routeName),
       _FLDemoListData(title: 'Skeleton', picPath: '', targetRouteName: SkeletonPage.routeName),
+      _FLDemoListData(title: 'BottomSheet', picPath: '', targetRouteName: ActionSheetPage.routeName)
     ];
   }
 
