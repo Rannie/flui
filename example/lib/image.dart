@@ -8,21 +8,33 @@ class FLImage extends StatefulWidget {
     @required this.image,
     this.highlightImage,
     this.borderRadius,
-    this.imageWidth,
-    this.imageHeight,
+    this.width,
+    this.height,
     this.fit,
+    this.loadingBuilder,
+    this.frameBuilder,
+    this.alignment = Alignment.center,
+    this.imageRepeat = ImageRepeat.noRepeat,
+    this.colorBlendMode,
+    this.filterQuality = FilterQuality.low,
     this.splashColor,
     this.highlightColor,
     this.onPressed,
   }) : assert(image != null),
-       super(key: key);
+        super(key: key);
 
   final ImageProvider image;
   final ImageProvider highlightImage;
   final BorderRadius borderRadius;
-  final double imageWidth;
-  final double imageHeight;
+  final double width;
+  final double height;
   final BoxFit fit;
+  final ImageLoadingBuilder loadingBuilder;
+  final ImageFrameBuilder frameBuilder;
+  final AlignmentGeometry alignment;
+  final ImageRepeat imageRepeat;
+  final BlendMode colorBlendMode;
+  final FilterQuality filterQuality;
   final Color splashColor;
   final Color highlightColor;
   final VoidCallback onPressed;
@@ -60,16 +72,22 @@ class _FLImageState extends State<FLImage> {
     return ClipRRect(
       borderRadius: widget.borderRadius,
       child: Container(
-        width: widget.imageWidth,
-        height: widget.imageHeight,
+        width: widget.width,
+        height: widget.height,
         child: Stack(
           children: <Widget>[
             Positioned.fill(
                 child: Image(
                   image: _contentImage,
-                  width: widget.imageWidth,
-                  height: widget.imageHeight,
+                  width: widget.width,
+                  height: widget.height,
                   fit: widget.fit,
+                  loadingBuilder: widget.loadingBuilder,
+                  frameBuilder: widget.frameBuilder,
+                  alignment: widget.alignment,
+                  repeat: widget.imageRepeat,
+                  colorBlendMode: widget.colorBlendMode,
+                  filterQuality: widget.filterQuality,
                 )
             ),
             Positioned.fill(

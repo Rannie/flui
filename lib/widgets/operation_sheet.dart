@@ -103,8 +103,8 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
         FLImage(
           borderRadius: BorderRadius.circular(10),
           image: AssetImage(imagePath),
-          imageWidth: _kItemImageSize,
-          imageHeight: _kItemImageSize,
+          width: _kItemImageSize,
+          height: _kItemImageSize,
           fit: BoxFit.fill,
           onPressed: onPressed,
         ),
