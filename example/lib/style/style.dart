@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FLColors {
   static const int primaryLightestValue = 0xFFA0DFFC;
   static const int primaryLightValue = 0xFF63C9F8;
-  static const int primaryValue = 0xFF0F4C81;
+  static const int primaryValue = 0xFF345B9A;
   static const int primaryDarkValue = 0xFF1D5B9A;
 
   static const MaterialColor primarySwatch = const MaterialColor(
