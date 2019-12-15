@@ -112,7 +112,6 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
         FLImage(
           borderRadius: BorderRadius.circular(10),
           image: AssetImage(imagePath),
-          highlightImage: AssetImage('assets/google+.png'),
           width: _kItemImageSize,
           height: _kItemImageSize,
           fit: BoxFit.fill,
