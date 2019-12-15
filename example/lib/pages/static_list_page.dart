@@ -19,7 +19,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
   List<FLStaticSectionData> _buildList() {
     return [
       FLStaticSectionData(
-        headerHeight: 0,
+        headerTitle: '账号',
         itemList: [
           FLStaticItemData(
             title: '账号管理',
@@ -34,7 +34,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
         ]
       ),
       FLStaticSectionData(
-        headerTitle: 'Section 1',
+        headerTitle: '设置',
         itemList: [
           FLStaticItemData(
               title: '推送通知设置',
@@ -61,7 +61,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
         itemList: [
           FLStaticItemData(
               cellType: FLStaticListCellType.button,
-              buttonTitle: 'Apply',
+              buttonTitle: '提交',
               buttonTitleColor: Colors.blue,
               onButtonPressed: () {
                 print('button pressed');
@@ -69,7 +69,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
           ),
           FLStaticItemData(
               cellType: FLStaticListCellType.button,
-              buttonTitle: 'Delete',
+              buttonTitle: '删除并退出登录',
               buttonTitleColor: Colors.red,
               onButtonPressed: () {
                 print('button pressed');

@@ -111,7 +111,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _FLDemoListData(title: 'Empty', picPath: '', targetRouteName: EmptyPage.routeName),
       _FLDemoListData(title: 'NoticeBar', picPath: '', targetRouteName: NoticeBarPage.routeName),
       _FLDemoListData(title: 'Skeleton', picPath: '', targetRouteName: SkeletonPage.routeName),
-      _FLDemoListData(title: 'BottomSheet', picPath: '', targetRouteName: ActionSheetPage.routeName)
+      _FLDemoListData(title: 'BottomSheet', picPath: '', targetRouteName: ActionSheetPage.routeName),
+      _FLDemoListData(title: 'List', picPath: '', targetRouteName: StaticListViewPage.routeName)
     ];
   }
 
