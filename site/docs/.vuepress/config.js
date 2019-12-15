@@ -12,10 +12,10 @@ module.exports = {
     }
   },
   head:[
-    ['link', { rel: 'icon', href: 'assets/img/flui_logo_trans.png' }]
+    ['link', { rel: 'icon', href: 'assets/img/flui_logo.png' }]
   ],
   themeConfig: {
-    logo: '/assets/img/flui_logo_withtext.png',
+    logo: '/assets/img/logot_s.png',
     repo: 'Rannie/flui',
     smoothScroll: true,
     locales: {
