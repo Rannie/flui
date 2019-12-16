@@ -1,4 +1,5 @@
 import 'package:example/event.dart';
+import 'package:example/pages/about_page.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
 import 'package:example/pages/badge_page.dart';
@@ -7,6 +8,7 @@ import 'package:example/pages/button_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/hints_action_empty_page.dart';
 import 'package:example/pages/hints_empty_page.dart';
+import 'package:example/pages/home_page.dart';
 import 'package:example/pages/image_hints_empty_page.dart';
 import 'package:example/pages/label_page.dart';
 import 'package:example/pages/app_bar_page.dart';
@@ -62,7 +64,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         routes: {
-          MyHomePage.routeName: (context) => MyHomePage(),
+          HomeTab.routeName: (context) => HomeTab(),
           InputPage.routeName: (context) => InputPage(),
           EmptyPage.routeName: (context) => EmptyPage(),
           LoadingEmptyPage.routeName: (context) => LoadingEmptyPage(),
@@ -87,112 +89,41 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class HomeTab extends StatefulWidget {
   static const String routeName = '/';
 
-  MyHomePage({Key key, this.title}) : super(key: key);
+  HomeTab({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomeTabState createState() => _HomeTabState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  List<_FLDemoListData> get _demoList {
-    return [
-      _FLDemoListData(title: 'Buttons', picPath: '', targetRouteName: ButtonPage.routeName),
-      _FLDemoListData(title: 'Labels', picPath: '', targetRouteName: LabelPage.routeName),
-      _FLDemoListData(title: 'AppBar', picPath: '', targetRouteName: AppBarPage.routeName),
-      _FLDemoListData(title: 'Toast', picPath: '', targetRouteName: ToastPage.routeName),
-      _FLDemoListData(title: 'Bubble', picPath: '', targetRouteName: BubblePage.routeName),
-      _FLDemoListData(title: 'Avatar', picPath: '', targetRouteName: AvatarPage.routeName),
-      _FLDemoListData(title: 'Input', picPath: '', targetRouteName: InputPage.routeName),
-      _FLDemoListData(title: 'Badge', picPath: '', targetRouteName: BadgePage.routeName),
-      _FLDemoListData(title: 'Empty', picPath: '', targetRouteName: EmptyPage.routeName),
-      _FLDemoListData(title: 'NoticeBar', picPath: '', targetRouteName: NoticeBarPage.routeName),
-      _FLDemoListData(title: 'Skeleton', picPath: '', targetRouteName: SkeletonPage.routeName),
-      _FLDemoListData(title: 'BottomSheet', picPath: '', targetRouteName: ActionSheetPage.routeName),
-      _FLDemoListData(title: 'List', picPath: '', targetRouteName: StaticListViewPage.routeName)
-    ];
-  }
-
-  List<Widget> get _demoCards {
-    List<Widget> list = [ SizedBox(height: 15) ];
-    for (_FLDemoListData demoData in _demoList) {
-      Widget card = Column(
-        children: <Widget>[
-          SizedBox(
-            height: 80,
-            child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
-                elevation: 2,
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, demoData.targetRouteName);
-                    },
-                    splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                    // Generally, material cards do not have a highlight overlay.
-                    highlightColor: Colors.transparent,
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          left: 15,
-                          top: 26,
-                          child: Text(demoData.title, style: TextStyle(fontSize: 18)),
-                        ),
-                        Positioned(
-                          right: 15,
-                          top: 10,
-                          bottom: 10,
-                          child: Container(
-                            width: 100,
-                            color: Color(0xFF0F4C81),
-                          ),
-                        )
-                      ],
-                    )
-                )
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(bottom: 15))
-        ],
-      );
-      list.add(card);
-    }
-    return list;
-  }
+class _HomeTabState extends State<HomeTab> {
+  int _currentIndex = 0;
+  List pages = [
+    HomePage(),
+    AboutPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('FLUI'),
-        centerTitle: true,
+      body: pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.apps),
+            title: Text('home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            title: Text('about'),
+          )
+        ],
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
       ),
-      body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Center(
-            child: ListView(
-              children: _demoCards,
-            )
-        )
-      )
     );
   }
-}
-
-class _FLDemoListData {
-  const _FLDemoListData({
-    this.title,
-    this.picPath,
-    this.targetRouteName,
-  });
-
-  final String title;
-  final String picPath;
-  final String targetRouteName;
 }

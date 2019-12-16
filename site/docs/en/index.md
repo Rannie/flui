@@ -27,6 +27,6 @@ import 'package:flui.dart'
 ```
 
 ::: tip Tips
-Please make sure Flutter version> = v1.7.8 + hotfix.1
+Please make sure Flutter version >= v1.7.8 + hotfix.1
 :::
 
