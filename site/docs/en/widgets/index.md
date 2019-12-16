@@ -1,7 +1,5 @@
 # Overview
 
-![overview](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-15-components_overview.png)
-
 **FLUI** has a relatively fine granularity of widgets, which is a supplement to the already very rich Flutter widgets. There are currently 15 categories and they are still constantly increasing.
 
 Each widget is almost independent (a few have dependencies, such as *FLListTile* to be imported in *FLStaticListView* to get the ability of showing click effect), you can either use `import 'package:flui.dart'` or `import 'package:flui/widgets/avatar.dart'`, tree-shaking will take over the optimization process of dependencies when packaging.
