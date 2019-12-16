@@ -60,6 +60,19 @@ flutter:
     - assets/whatsapp.png
     - assets/word.png
     - assets/google+.png
+    - assets/button.png
+    - assets/label.png
+    - assets/navi.png
+    - assets/toast.png
+    - assets/bubble.png
+    - assets/avatar.png
+    - assets/input.png
+    - assets/badge.png
+    - assets/empty.png
+    - assets/notice.png
+    - assets/skeleton.png
+    - assets/sheet.png
+    - assets/list.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
