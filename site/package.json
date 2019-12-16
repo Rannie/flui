@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Home page and documentations of FLUI.",
   "scripts": {
-	"docs:dev": "vuepress dev docs",
-	"docs:build": "vuepress build docs"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "keywords": [
     "flui",
@@ -13,5 +13,8 @@
     "vuepress"
   ],
   "author": "Rann",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.2.0"
+  }
 }
