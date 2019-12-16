@@ -43,9 +43,9 @@ FLAutoComplete(
 你可以通过 *itemBuilder* 来自定义展示框的样式。另外注意这里 **FLAutoComplete** 和 TextField 传入了同一个 *FocusNode* 对象来保证焦点行为的一致。
 
 
-## FLPinInput
+## FLPinCodeTextField
 
-**FLPinInput** 适用于输入数字验证码的场景。
+**FLPinCodeTextField** 适用于输入数字验证码的场景。
 
 <p align="left">
     <img width="300" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-12-pin-input.gif" />

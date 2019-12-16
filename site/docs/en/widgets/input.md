@@ -41,9 +41,9 @@ FLAutoComplete(
 You can customize the style of the display list with *itemBuilder*. Also note that **FLAutoComplete** and TextField use the same *FocusNode* object to ensure consistent focus behavior.
 
 
-## FLPinInput
+## FLPinCodeTextField
 
-**FLPinInput** is applicable to the scenario of inputting digital verification code.
+**FLPinCodeTextField** is applicable to the scenario of inputting digital verification code.
 
 <p align="left">
     <img width="300" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-12-pin-input.gif" />
