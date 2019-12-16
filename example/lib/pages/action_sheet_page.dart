@@ -14,14 +14,14 @@ class ActionSheetPage extends StatefulWidget {
 class _ActionSheetPageState extends State<ActionSheetPage> {
   Widget _buildActionSheetContent() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Image.asset('assets/poster.png'),
-          SizedBox(height: 25),
+          SizedBox(height: 15),
           Text(
-            'Flutter Interact is here! Check out the livestream.\nFlutter 1.12 is live! Check out the latest announcement and see what\'s new on the site.\nTime is ticking: Enter the Flutter Clock Challenge!',
+            'Flutter Interact is here! Check out the livestream.\nFlutter 1.12 is live! Check out the latest announcement and see what\'s new on the site.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 16),
           )

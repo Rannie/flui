@@ -114,7 +114,7 @@ class _HomeTabState extends State<HomeTab> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.apps),
-            title: Text('home'),
+            title: Text('widgets'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),

@@ -102,13 +102,17 @@ class FLCupertinoActionSheet extends StatelessWidget {
     final Widget blurContent = _wrapWithBackground(
       backgroundColor: backgroundColor,
       updateSystemUiOverlay: true,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Flexible(child: child)
-        ],
-      ),
+      child: CupertinoScrollbar(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Flexible(child: child)
+            ],
+          ),
+        ),
+      )
     );
 
     final Widget mainChild = _isRound() ? ClipRRect(
@@ -119,7 +123,7 @@ class FLCupertinoActionSheet extends StatelessWidget {
     );
 
     return Flexible(
-      child: mainChild,
+        child: mainChild,
     );
   }
 
