@@ -48,8 +48,8 @@ For more usage, please refer to:
 
 **FLUI** also needs more widgets and functions, so everyone is welcome to submit code or issue referring to the following principles:
 
-* Branches that submit new widgets should be named 'feature-' + widget name. Fixing issues need to be prefixed with 'bugfix-'
-* The submitted widgets need to be general. If the widget is rare or you uncertain if it need to be added to **FLUI**, you can mention a [issue](https://github.com/Rannie/flui/issues) that starts with \[feature\] for discussion
+* Branches that submit new widgets should be named *'feature-'* + widget name. Fixing issues need to be prefixed with *'bugfix-'*
+* The submitted widgets need to be general. If the widget is rare or you uncertain if it need to be added to **FLUI**, you can mention a [issue](https://github.com/Rannie/flui/issues) that starts with *\[feature\]* for discussion
 * The API design of the new widget is as standard and readable as possible, following the naming and usage rules of Flutter's official widgets.
 * Please comment above properties and methods how to use it so that I can add to the documentation and examples.
 

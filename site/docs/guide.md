@@ -48,8 +48,8 @@ hide();
 
 **FLUI** 还需要更多的组件以及功能，所以欢迎大家来一起来参照下面的原则提交代码或者 issue:
 
-* 提交新组件的分支请以 'feature-' + 组件名称命名，修复问题的则需要以 'bugfix-' 为前缀
-* 尽可能是通用的组件，如果组件很少见或者不确定需不需要可以在 [FLUI issue](https://github.com/Rannie/flui/issues) 中提一个以 \[feature\] 开头的 issue 进行讨论
+* 提交新组件的分支请以 *'feature-'* + 组件名称命名，修复问题的则需要以 *'bugfix-'* 为前缀
+* 尽可能是通用的组件，如果组件很少见或者不确定需不需要可以在 [FLUI issue](https://github.com/Rannie/flui/issues) 中提一个以 *\[feature\]* 开头的 issue 进行讨论
 * 新组件的 API 设计尽可能规范易读，贴合 Flutter 自带组件的命名，使用规则。
 * 请在属性和方法上注释表明如何使用，以便于我可以补充到文档和示例中。
 
