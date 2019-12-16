@@ -50,7 +50,7 @@ class AboutPageState extends State<AboutPage> {
               return FLListTile(
                 title: Text('GitHub'),
                 trailing: Icon(Icons.keyboard_arrow_right),
-                onTap:  () {
+                onTap: () {
                   const siteUrl = 'https://github.com/Rannie/flui';
                   canLaunch(siteUrl).then((canOpen) {
                     launch(siteUrl);

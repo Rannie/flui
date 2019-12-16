@@ -143,14 +143,11 @@ class _InputPageState extends State<InputPage> {
         ),
         body: Container(
             color: Colors.white,
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      _buildSection('Auto Complete', _buildAutoComplete()),
-                      _buildSection('Pin Input', _buildPinInputsContent())
-                    ]
-                )
+            child: ListView(
+              children: <Widget>[
+                _buildSection('Auto Complete', _buildAutoComplete()),
+                _buildSection('Pin Input', _buildPinInputsContent())
+              ],
             )
         )
     );

@@ -100,15 +100,19 @@ class FLCupertinoActionSheet extends StatelessWidget {
     BorderRadius radius = this.borderRadius ??
         _isRound() ? BorderRadius.circular(_kCornerRadius): null;
     final Widget blurContent = _wrapWithBackground(
-      backgroundColor: backgroundColor,
-      updateSystemUiOverlay: true,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Flexible(child: child)
-        ],
-      ),
+        backgroundColor: backgroundColor,
+        updateSystemUiOverlay: true,
+        child: CupertinoScrollbar(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Flexible(child: child)
+              ],
+            ),
+          ),
+        )
     );
 
     final Widget mainChild = _isRound() ? ClipRRect(
