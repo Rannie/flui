@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
   logger: ^0.6.0
   event_bus: ^1.1.0
+  url_launcher: ^3.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -73,6 +74,7 @@ flutter:
     - assets/skeleton.png
     - assets/sheet.png
     - assets/list.png
+    - assets/logop.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
