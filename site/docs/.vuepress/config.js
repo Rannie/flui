@@ -25,7 +25,6 @@ module.exports = {
         nav: [
           { text: '指南', link: '/guide/' },
           { text: '组件', link: '/widgets/' },
-          { text: '示例', link: '/demo/' }
         ],
         sidebar: {
           '/widgets/': [
@@ -56,7 +55,6 @@ module.exports = {
         nav: [
           { text: 'Guide', link: '/en/guide/' },
           { text: 'Widgets', link: '/en/widgets/' },
-          { text: 'Demo', link: '/en/demo/' }
         ],
         sidebar: {
           '/en/widgets/': [

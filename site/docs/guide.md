@@ -29,7 +29,7 @@ dependencies:
 
 #### 使用
 
-依赖安装完成后就可以直接引入组件了。
+依赖安装完成后直接引入组件。
 
 ```dart
 import 'package:flui/widgets/toast.dart';
@@ -42,16 +42,19 @@ hide();
 更多使用方式可以参照：
 
 * [组件文档](https://flui.xin/widgets/)
-* [App 示例](https://flui.xin/demo.html)
+* [下载 App 示例](https://flui.xin/app/flui.apk)
+<p align="left">
+    <img width="150" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-17-1576575626.png" />
+</p>
 
 ## 如何贡献
 
-**FLUI** 还需要更多的组件以及功能，所以欢迎大家来一起来参照下面的原则提交代码或者 issue:
+**FLUI** 还需要更多的组件以及功能，欢迎大家参照下面的原则提交代码或者 issue:
 
 * 提交新组件的分支请以 *'feature-'* + 组件名称命名，修复问题的则需要以 *'bugfix-'* 为前缀
 * 尽可能是通用的组件，如果组件很少见或者不确定需不需要可以在 [FLUI issue](https://github.com/Rannie/flui/issues) 中提一个以 *\[feature\]* 开头的 issue 进行讨论
-* 新组件的 API 设计尽可能规范易读，贴合 Flutter 自带组件的命名，使用规则。
-* 请在属性和方法上注释表明如何使用，以便于我可以补充到文档和示例中。
+* 新组件的 API 设计尽可能规范易读，贴合 Flutter 自带组件的命名，使用规则
+* 请在属性和方法上注释表明如何使用，以便于更新到文档和示例中
 
 Git 开发提交前，请在根目录下运行 `npm install`，这样在每次提交时会 hook 检查提交文案。文案请以 `feat|fix|docs|style|refactor|perf|test|workflow|ci|chore|types:` 为前缀。
 
