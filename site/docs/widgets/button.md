@@ -44,7 +44,7 @@ FLFlatButton.icon(
 
 ## FLRaisedButton
 
-**FLRaisedButton** 基于 RaisedButton，同样新增了 extend 属性和 icon 的工厂方法用于指定 icon 位于 Button 中的位置，用法同 [FLFlatButton](https://flui.xin/widgets/button.html#flflatbutton)。
+**FLRaisedButton** 基于 RaisedButton，同样新增了 extend 属性和 icon 的工厂方法用于指定 icon 位于 Button 中的位置，用法同 [FLFlatButton](https://www.flui.xin/widgets/button.html#flflatbutton)。
 
 ## FLGradientButton
 

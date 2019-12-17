@@ -18,7 +18,7 @@ In Flutter 1.9 and above version, you can use the official widget **SelectableTe
 
 ## FLMarqueeLabel
 
-**FLMarqueeLabel** supports text scrolling effects, often used as notifications or other scenes to be displayed. **FLNoticeBar** is a widget used as a scrolling notification, you can set leading widget and it is also closable, you can see [FLNoticeBar](https://flui.xin/en/widgets/notice-bar.html).
+**FLMarqueeLabel** supports text scrolling effects, often used as notifications or other scenes to be displayed. **FLNoticeBar** is a widget used as a scrolling notification, you can set leading widget and it is also closable, you can see [FLNoticeBar](https://www.flui.xin/en/widgets/notice-bar.html).
 
 #### usage
 

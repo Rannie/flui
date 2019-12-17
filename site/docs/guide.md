@@ -41,10 +41,10 @@ hide();
 
 更多使用方式可以参照：
 
-* [组件文档](https://flui.xin/widgets/)
-* [下载 App 示例](https://flui.xin/app/flui.apk)
+* 组件文档
+* [下载示例 apk](https://www.flui.xin/app/flui.apk)
 <p align="left">
-    <img width="150" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-17-1576575626.png" />
+    <img width="150" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-17-apk_qr.png" />
 </p>
 
 ## 如何贡献

@@ -39,7 +39,7 @@ class AboutPageState extends State<AboutPage> {
                 title: Text('Site'),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
-                  const siteUrl = 'https://flui.xin/en/';
+                  const siteUrl = 'https://www.flui.xin/en/';
                   canLaunch(siteUrl).then((canOpen) {
                     launch(siteUrl);
                   });
