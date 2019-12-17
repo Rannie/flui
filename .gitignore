@@ -67,6 +67,9 @@ build/
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/*.ipa
+**/ios/*.dSYM.zip
+**/ios/fastlane/report.xml
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
