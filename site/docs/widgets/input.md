@@ -84,7 +84,7 @@ FLPinCodeTextField(
 你可以通过 *pinLength* 来控制需要的输入框的个数，*obsure* 来控制是否为加密输入。
 
 ::: warning 注意
-由于 TextField 类本身并不能设置高度，所以需要通过 *boxHeight*， InputDecoration 的 contentPadding 和字体大小一起调整.
+由于 TextField 类本身并不能设置高度，所以需要通过 *boxHeight*， InputDecoration 的 contentPadding 和字体大小一起调整。
 :::
 
 

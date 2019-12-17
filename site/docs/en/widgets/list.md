@@ -20,7 +20,7 @@ FLListTile(
 
 ## FLStaticListView
 
-**FLStaticListView** can bind some static configuration data models, it is usually used in setting pages and setting sub-menus. The models involved are:
+**FLStaticListView** can bind some static configuration data models, it is usually used in setting pages. The models involved are:
 
 * **FLStaticSectionData** is the area object model for static lists. Each section area has a default header. You can set the height and title, or you can hide it by setting the height of the header to 0.
 * **FLItemData** is the data object model bound to each table cell in the static list. You can set the type (normal, button, custom), title, subtitle, accessory view (arrow, check mark, Switch widget etc.), the text next to the accessory view, or directly customize the accessory view.

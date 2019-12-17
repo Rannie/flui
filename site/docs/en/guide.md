@@ -29,7 +29,7 @@ Then run `flutter pub get` to download the dependencies.
 
 #### Usage
 
-After the dependency installation is complete, you can directly import the widget.
+After the dependency installation is completed, you can directly import the widget.
 
 ```dart
 import 'package:flui/widgets/toast.dart';
@@ -42,14 +42,17 @@ hide();
 For more usage, please refer to:
 
 * [Widget Documentation](https://flui.xin/en/widgets/)
-* [App Demo](https://flui.xin/en/demo.html)
+* [App Demo](https://flui.xin/app/flui.apk)
+<p align="left">
+    <img width="150" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-17-1576575626.png" />
+</p>
 
 ## How to Contribute
 
 **FLUI** also needs more widgets and functions, so everyone is welcome to submit code or issue referring to the following principles:
 
 * Branches that submit new widgets should be named *'feature-'* + widget name. Fixing issues need to be prefixed with *'bugfix-'*
-* The submitted widgets need to be general. If the widget is rare or you uncertain if it need to be added to **FLUI**, you can mention a [issue](https://github.com/Rannie/flui/issues) that starts with *\[feature\]* for discussion
+* The submitted widgets need to be general. If the widget is rare or not sure whether it needs to be added to **FLUI**, you can raise a [issue](https://github.com/Rannie/flui/issues) which starts with *\[feature\]* for discussion
 * The API design of the new widget is as standard and readable as possible, following the naming and usage rules of Flutter's official widgets.
 * Please comment above properties and methods how to use it so that I can add to the documentation and examples.
 

@@ -107,7 +107,7 @@ Container(
 
 #### no animation
 
-You only need to set the *active* property to false to not show the animation.
+You only need to set the *active* property to false and not show the animation.
 
 <p align="left">
     <img width="400" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-13-%E6%88%AA%E5%B1%8F2019-12-13%E4%B8%8B%E5%8D%884.53.04.png" />
