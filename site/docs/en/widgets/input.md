@@ -43,6 +43,10 @@ You can customize the style of the display list with *itemBuilder*. Also note th
 
 ## FLPinCodeTextField
 
+::: warning  
+After Flutter v1.10, attach assertion is added, which will cause an assert exception when modifying the state of a non-current input. The relevant [issue#40755](https://github.com/flutter/flutter/issues/40755). So if you see the exception when using this control, you can consider commenting out the line of attatch assertion or do not use this control. I will continue to track the official update on this issue.
+:::
+
 **FLPinCodeTextField** is applicable to the scenario of inputting digital verification code.
 
 <p align="left">

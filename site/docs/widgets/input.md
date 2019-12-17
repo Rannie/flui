@@ -45,6 +45,10 @@ FLAutoComplete(
 
 ## FLPinCodeTextField
 
+::: warning 注意 
+Flutter v1.10 以后添加了 attach 的判断，这样会导致修改非当前连接的 Input 状态时报 assert exception，相关的 [Issue](https://github.com/flutter/flutter/issues/40755), 所以如果你的 Flutter 版本在使用此控件报异常，可以考虑注释掉 attatch 判断或者不要使用此控件，我也会继续跟踪官方对于这个问题的更新。
+:::
+
 **FLPinCodeTextField** 适用于输入数字验证码的场景。
 
 <p align="left">
