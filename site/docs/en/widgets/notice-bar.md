@@ -4,7 +4,7 @@ Widget to display a system message, event notice and so on.
 
 ## FLNoticeBar
 
-**FLNoticeBar** is based on [FLMarqueeLabel](https://flui.xin/en/widgets/label.html#flmarqueelabel), adding default styles and factory methods.
+**FLNoticeBar** is based on [FLMarqueeLabel](https://www.flui.xin/en/widgets/label.html#flmarqueelabel), adding default styles and factory methods.
 
 <p align="left">
     <img width="400" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-13-bar_normal-1.gif" />

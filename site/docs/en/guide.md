@@ -41,10 +41,10 @@ hide();
 
 For more usage, please refer to:
 
-* [Widget Documentation](https://flui.xin/en/widgets/)
-* [App Demo](https://flui.xin/app/flui.apk)
+* Widget Documentation
+* [App Demo - apk](https://www.flui.xin/app/flui.apk)
 <p align="left">
-    <img width="150" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-17-1576575626.png" />
+    <img width="150" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-17-apk_qr.png" />
 </p>
 
 ## How to Contribute

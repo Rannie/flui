@@ -4,7 +4,7 @@ NoticeBar 一般用作系统提醒、活动提醒等通知。
 
 ## FLNoticeBar
 
-**FLNoticeBar** 基于 [FLMarqueeLabel](https://flui.xin/widgets/label.html#flmarqueelabel), 增加了默认样式以及快捷的工厂方法。
+**FLNoticeBar** 基于 [FLMarqueeLabel](https://www.flui.xin/widgets/label.html#flmarqueelabel), 增加了默认样式以及快捷的工厂方法。
 
 <p align="left">
     <img width="400" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-13-bar_normal-1.gif" />

@@ -18,7 +18,7 @@ Label 为扩展 Text 功能的组件。
 
 ## FLMarqueeLabel
 
-**FLMarqueeLabel** 支持文字的滚动效果，经常用来作为通知或其他需要展示的场景。**FLNoticeBar** 则是用于作为滚动通知的组件，支持前置组件以及可关闭等其他功能，具体使用可见 [FLNoticeBar](https://flui.xin/widgets/notice-bar.html)。
+**FLMarqueeLabel** 支持文字的滚动效果，经常用来作为通知或其他需要展示的场景。**FLNoticeBar** 则是用于作为滚动通知的组件，支持前置组件以及可关闭等其他功能，具体使用可见 [FLNoticeBar](https://www.flui.xin/widgets/notice-bar.html)。
 
 #### 使用
 

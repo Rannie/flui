@@ -44,7 +44,7 @@ FLFlatButton.icon(
 
 ## FLRaisedButton
 
-**FLRaisedButton** is based on RaisedButton, it also adds 'extend' and 'icon'. The usage is the same as [FLFlatButton](https://flui.xin/en/widgets/button.html#flflatbutton).
+**FLRaisedButton** is based on RaisedButton, it also adds 'extend' and 'icon'. The usage is the same as [FLFlatButton](https://www.flui.xin/en/widgets/button.html#flflatbutton).
 
 ## FLGradientButton
 
