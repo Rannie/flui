@@ -96,7 +96,7 @@ class FLFlatButton extends StatelessWidget {
         colorBrightness: colorBrightness,
         padding: padding,
         shape: shape,
-        clipBehavior: clipBehavior,
+        clipBehavior: clipBehavior ?? Clip.none,
         focusNode: focusNode,
         materialTapTargetSize: materialTapTargetSize,
         child: buttonChild
@@ -188,7 +188,7 @@ class _FLFlatButtonWithIcon extends FLFlatButton
         colorBrightness: colorBrightness,
         padding: padding,
         shape: shape,
-        clipBehavior: clipBehavior,
+        clipBehavior: clipBehavior ?? Clip.none,
         focusNode: focusNode,
         materialTapTargetSize: materialTapTargetSize,
         child: buttonChild

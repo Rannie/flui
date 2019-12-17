@@ -17,7 +17,7 @@ abstract class FLGradientButton extends StatelessWidget {
     this.disabledElevation,
     this.padding,
     this.shape,
-    this.clipBehavior,
+    this.clipBehavior = Clip.none,
     this.materialTapTargetSize,
     this.focusNode,
     this.animationDuration,
@@ -149,24 +149,24 @@ class _FLLinearGradientButton extends FLGradientButton {
     this.end = Alignment.centerRight,
     this.tileMode = TileMode.clamp
   }) : super(key: key,
-    onPressed: onPressed,
-    textTheme: textTheme,
-    textColor: textColor,
-    disabledTextColor: disabledTextColor,
-    splashColor: splashColor,
-    colorBrightness: colorBrightness,
-    elevation: elevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    padding: padding,
-    shape: shape,
-    clipBehavior: clipBehavior,
-    focusNode: focusNode,
-    materialTapTargetSize: materialTapTargetSize,
-    animationDuration: animationDuration,
-    colors: colors,
-    stops: stops,
-    child: child
+      onPressed: onPressed,
+      textTheme: textTheme,
+      textColor: textColor,
+      disabledTextColor: disabledTextColor,
+      splashColor: splashColor,
+      colorBrightness: colorBrightness,
+      elevation: elevation,
+      highlightElevation: highlightElevation,
+      disabledElevation: disabledElevation,
+      padding: padding,
+      shape: shape,
+      clipBehavior: clipBehavior,
+      focusNode: focusNode,
+      materialTapTargetSize: materialTapTargetSize,
+      animationDuration: animationDuration,
+      colors: colors,
+      stops: stops,
+      child: child
   );
 
   final AlignmentGeometry begin;
@@ -176,11 +176,11 @@ class _FLLinearGradientButton extends FLGradientButton {
   @override
   Widget build(BuildContext context) {
     final LinearGradient gradient = LinearGradient(
-      colors: colors,
-      begin: begin,
-      end: end,
-      stops: stops,
-      tileMode: tileMode
+        colors: colors,
+        begin: begin,
+        end: end,
+        stops: stops,
+        tileMode: tileMode
     );
 
     return _FLRawGradientButton.buildGradientButton(gradient, this);
@@ -241,12 +241,12 @@ class _FLSweepGradientButton extends FLGradientButton {
   @override
   Widget build(BuildContext context) {
     final SweepGradient gradient = SweepGradient(
-      colors: colors,
-      stops: stops,
-      center: center,
-      startAngle: startAngle,
-      endAngle: endAngle,
-      tileMode: tileMode
+        colors: colors,
+        stops: stops,
+        center: center,
+        startAngle: startAngle,
+        endAngle: endAngle,
+        tileMode: tileMode
     );
     return _FLRawGradientButton.buildGradientButton(gradient, this);
   }
@@ -426,7 +426,7 @@ class _FLRawGradientButton extends MaterialButton {
       disabledElevation: button.disabledElevation,
       padding: button.padding,
       shape: button.shape,
-      clipBehavior: button.clipBehavior,
+      clipBehavior: button.clipBehavior ?? Clip.none,
       focusNode: button.focusNode,
       materialTapTargetSize: button.materialTapTargetSize,
       animationDuration: button.animationDuration,

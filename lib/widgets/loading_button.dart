@@ -26,7 +26,7 @@ class FLLoadingButton extends StatefulWidget {
     this.disabledElevation,
     this.padding,
     this.shape,
-    this.clipBehavior,
+    this.clipBehavior = Clip.none,
     this.focusNode,
     this.materialTapTargetSize,
     this.animationDuration,

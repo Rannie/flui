@@ -317,6 +317,8 @@ class _FLToastDefaultsWidget extends InheritedWidget {
   }
 
   static FLToastDefaults of(BuildContext context) {
+    // TODO: change to new method when upgrade to 1.12
+    // ignore: deprecated_member_use
     _FLToastDefaultsWidget defaultsWidget = context.inheritFromWidgetOfExactType(_FLToastDefaultsWidget);
     return defaultsWidget.defaults;
   }
