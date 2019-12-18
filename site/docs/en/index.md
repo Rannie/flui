@@ -23,7 +23,7 @@ flui: ^0.7.0
 $ flutter pub get
 
 # Use FLUI now
-import 'package:flui.dart'
+import 'package:flui/flui.dart'
 ```
 
 ::: tip Tips
