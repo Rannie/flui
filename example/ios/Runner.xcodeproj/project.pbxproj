@@ -387,7 +387,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = flui_release;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 arm64e armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7s x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Profile;
@@ -521,7 +521,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = flui_dev;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 arm64e armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7s x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -550,7 +550,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = flui_release;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 arm64e armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7s x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
