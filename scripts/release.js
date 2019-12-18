@@ -64,7 +64,12 @@ const release = async () => {
   }
   indicator.succeed()
 
-  // TODO: publish to flutter pub
+  // publish to flutter pub
+  try {
+    await execa('flutter pub publish')
+  } catch (e) {
+    promptError(e)
+  }
 }
 
 const promptError = (e) => {
