@@ -16,7 +16,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
 
 <br/>
-<img src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png" width="80%">
+<img src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png" width="80%" />
 
 </div>
 
@@ -39,7 +39,7 @@
 
 ```yaml
 dependencies:
-  flui: 0.7.0
+  flui: 0.7.4
 ```
 
 然后运行 `flutter pub get` 下载依赖。
