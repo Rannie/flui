@@ -14,7 +14,7 @@ class AboutPageState extends State<AboutPage> {
         SizedBox(height: 60),
         Image.asset('assets/logop.png'),
         SizedBox(height: 20),
-        Text('version: 0.7.0', style: TextStyle(fontSize: 16, color: Colors.black.withAlpha(160)), textAlign: TextAlign.center),
+        Text('version: 0.7.4', style: TextStyle(fontSize: 16, color: Colors.black.withAlpha(160)), textAlign: TextAlign.center),
         SizedBox(height: 40),
       ],
     );
