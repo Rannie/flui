@@ -86,13 +86,5 @@ module.exports = {
         '@image': '/assets/img'
       }
     }
-  },
-  plugins: [
-    [
-      '@vuepress/google-analytics',
-      {
-        'ga': 'UA-153993474-1'
-      }
-    ]
-  ]
+  }
 };

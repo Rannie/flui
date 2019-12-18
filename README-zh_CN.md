@@ -14,8 +14,9 @@
 一个 Google Flutter 的组件扩展集 <a href="https://www.flui.xin/app/flui.apk">示例 apk</a>
 
 [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
+
 <br/>
-![overview](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png)
+<img src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png" width="80%">
 
 </div>
 

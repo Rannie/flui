@@ -13,8 +13,5 @@
     "vuepress"
   ],
   "author": "Rann",
-  "license": "MIT",
-  "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.2.0"
-  }
+  "license": "MIT"
 }
