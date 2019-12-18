@@ -1,6 +1,4 @@
-import 'package:example/auto_complete.dart';
-import 'package:example/pin_input.dart';
-import 'package:example/toast.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {

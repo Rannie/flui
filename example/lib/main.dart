@@ -16,7 +16,7 @@ import 'package:example/pages/loading_empty_page.dart';
 import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
-import 'package:example/toast.dart';
+import 'package:flui/flui.dart';
 import 'package:example/style/style.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';

@@ -1,5 +1,5 @@
-import 'package:example/avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:flui/flui.dart';
 
 class AvatarPage extends StatefulWidget {
   static const String routeName = '/avatar';

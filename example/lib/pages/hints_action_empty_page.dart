@@ -1,5 +1,5 @@
-import 'package:example/empty.dart';
 import 'package:flutter/material.dart';
+import 'package:flui/flui.dart';
 
 class HintsActionEmptyPage extends StatefulWidget {
   static const String routeName = '/hints-action-empty';

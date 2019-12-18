@@ -1,5 +1,5 @@
-import 'package:example/list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flui/flui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget {

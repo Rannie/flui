@@ -1,9 +1,4 @@
-import 'package:example/common/defines.dart';
-import 'package:example/flat_button.dart';
-import 'package:example/gradient_button.dart';
-import 'package:example/loading_button.dart';
-import 'package:example/raised_button.dart';
-import 'package:example/toast.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 import 'package:example/style/style.dart';
 import 'dart:math' as math;

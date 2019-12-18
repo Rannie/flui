@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:example/static_list.dart';
+import 'package:flui/flui.dart';
 
 class StaticListViewPage extends StatefulWidget {
   static const String routeName = '/static-list-view';

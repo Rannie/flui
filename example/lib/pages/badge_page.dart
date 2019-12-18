@@ -1,4 +1,4 @@
-import 'package:example/badge.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
 class BadgePage extends StatefulWidget {

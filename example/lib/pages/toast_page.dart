@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:example/toast.dart';
-import 'package:example/appbar_title.dart';
+import 'package:flui/flui.dart';
 import 'package:example/style/style.dart';
 import 'package:example/event.dart';
 

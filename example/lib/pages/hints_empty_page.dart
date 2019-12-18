@@ -1,4 +1,4 @@
-import 'package:example/empty.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
 class HintsEmptyPage extends StatefulWidget {

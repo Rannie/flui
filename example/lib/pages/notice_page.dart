@@ -1,5 +1,4 @@
-import 'package:example/notice_bar.dart';
-import 'package:example/toast.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
 class NoticeBarPage extends StatefulWidget {
