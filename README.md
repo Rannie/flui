@@ -9,12 +9,14 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 
 <h1 align="center">FLUI</h1>
 
-<div align="center">A widget kit for Google Flutter <a href="https://www.flui.xin/app/flui.apk">Demo apk</a>
-<br />
+<div align="center">
+A widget kit for Google Flutter <a href="https://www.flui.xin/app/flui.apk">Demo apk</a>
+
+
 [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
 
-<br/>
-<img src="https://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png" width="80%">
+
+<img src="https://raw.githubusercontent.com/Rannie/Rannie.github.io/master/images/2019-12-18-overview-2.png" width="80%" />
 
 </div>
 
@@ -36,7 +38,7 @@ Currently supports *v1.7.8 + hotfix.1* and above.
 
 ```yaml
 dependencies:
-  flui: 0.7.0
+  flui: 0.7.4
 ```
 
 Then run `flutter pub get` to download the dependencies.

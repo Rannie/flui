@@ -1,6 +1,10 @@
+#0.7.4
+
+- fix some doc issue.
+
 # 0.7.3
 
-- [FLNoticeBar] fix velocity null issue.
+- [FLNoticeBar] fix null velocity issue.
  
 # 0.7.2 
 
