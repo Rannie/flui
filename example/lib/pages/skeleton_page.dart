@@ -1,4 +1,4 @@
-import 'package:example/skeleton.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
 class SkeletonPage extends StatefulWidget {

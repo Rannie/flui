@@ -2,8 +2,8 @@ import 'package:example/pages/hints_action_empty_page.dart';
 import 'package:example/pages/hints_empty_page.dart';
 import 'package:example/pages/image_hints_empty_page.dart';
 import 'package:example/pages/loading_empty_page.dart';
-import 'package:example/static_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flui/flui.dart';
 
 class EmptyPage extends StatefulWidget {
   static const String routeName = '/empty';

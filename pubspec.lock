@@ -5,7 +5,7 @@ packages:
     dependency: transitive
     description:
       name: collection
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.14.11"
   flutter:
@@ -17,9 +17,9 @@ packages:
     dependency: transitive
     description:
       name: meta
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.8"
+    version: "1.1.6"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -29,14 +29,14 @@ packages:
     dependency: transitive
     description:
       name: typed_data
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.6"
   vector_math:
     dependency: transitive
     description:
       name: vector_math
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.8"
 sdks:

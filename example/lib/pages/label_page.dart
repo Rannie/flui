@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:example/copyable_label.dart';
-import 'package:example/marquee_label.dart';
+import 'package:flui/flui.dart';
 
 class LabelPage extends StatefulWidget {
   static const String routeName = '/label';

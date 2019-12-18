@@ -1,7 +1,4 @@
-import 'package:example/avatar.dart';
-import 'package:example/bubble.dart';
-import 'package:example/bubble_menu.dart';
-import 'package:example/toast.dart';
+import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
 class BubblePage extends StatefulWidget {
@@ -42,7 +39,7 @@ class _BubblePageState extends State<BubblePage> {
             children: <Widget>[
               _buildRoundedAvatar('T'),
               insetH,
-              FLBubbleWidget(
+              FLBubble(
                 from: FLBubbleFrom.left,
                 backgroundColor: Colors.white,
                 child: Container(
@@ -57,7 +54,7 @@ class _BubblePageState extends State<BubblePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              FLBubbleWidget(
+              FLBubble(
                   from: FLBubbleFrom.right,
                   backgroundColor: Color.fromRGBO(160, 231, 90, 1),
                   child: Container(
@@ -75,7 +72,7 @@ class _BubblePageState extends State<BubblePage> {
             children: <Widget>[
               _buildRoundedAvatar('T'),
               insetH,
-              FLBubbleWidget(
+              FLBubble(
                   from: FLBubbleFrom.left,
                   backgroundColor: Colors.white,
                   child: Container(
@@ -90,7 +87,7 @@ class _BubblePageState extends State<BubblePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              FLBubbleWidget(
+              FLBubble(
                   from: FLBubbleFrom.right,
                   backgroundColor: Color.fromRGBO(160, 231, 90, 1),
                   child: Container(
