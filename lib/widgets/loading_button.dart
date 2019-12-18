@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-const _kScaleHeight = 36; /// default indicator height
+const _kScaleHeight = 36;
+
+/// default indicator height
 const _kScaleFactor = 0.4;
 
 class FLLoadingButton extends StatefulWidget {
@@ -78,16 +80,16 @@ class FLLoadingButtonState extends State<FLLoadingButton> {
   @override
   Widget build(BuildContext context) {
     // color
-    final Color indColor = widget.indicatorColor ??
-        Theme.of(context).accentColor;
+    final Color indColor =
+        widget.indicatorColor ?? Theme.of(context).accentColor;
     // indicator size
     double scaleFactor;
-    if (widget.indicatorSize != null
-        && widget.indicatorSize > 0) {
+    if (widget.indicatorSize != null && widget.indicatorSize > 0) {
       scaleFactor = widget.indicatorSize / _kScaleHeight;
     } else {
       scaleFactor = (widget.height != null)
-          ? _kScaleFactor * (widget.height / _kScaleHeight) : _kScaleFactor;
+          ? _kScaleFactor * (widget.height / _kScaleHeight)
+          : _kScaleFactor;
     }
     // indicator area
     final Widget indicator = Transform.scale(
@@ -95,8 +97,7 @@ class FLLoadingButtonState extends State<FLLoadingButton> {
         child: CircularProgressIndicator(
           strokeWidth: 3.0,
           valueColor: AlwaysStoppedAnimation(indColor),
-        )
-    );
+        ));
 
     Widget loadingChild;
     if (widget.loading && widget.indicatorOnly) {

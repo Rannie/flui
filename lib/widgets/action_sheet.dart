@@ -14,33 +14,25 @@ const double _kEdgeVerticalPadding = 10.0;
 const double _kCancelButtonPadding = 8.0;
 const double _kCornerRadius = 14.0;
 
-enum FLCupertinoActionSheetStyle {
-  roundedCard,
-  filled
-}
+enum FLCupertinoActionSheetStyle { roundedCard, filled }
 
 /// Don't use [showCupertinoModalPopup], in iOS it will blur the content,
 /// related issue: https://bugs.chromium.org/p/skia/issues/detail?id=7898
-Future<T> showFLBottomSheet<T>({
-  @required BuildContext context,
-  @required WidgetBuilder builder
-}) {
+Future<T> showFLBottomSheet<T>(
+    {@required BuildContext context, @required WidgetBuilder builder}) {
   return showModalBottomSheet(
-      context: context,
-      builder: builder,
-      backgroundColor: Colors.transparent
-  );
+      context: context, builder: builder, backgroundColor: Colors.transparent);
 }
 
 class FLCupertinoActionSheet extends StatelessWidget {
-  FLCupertinoActionSheet({
-    Key key,
-    this.backgroundColor = _kBackgroundColor,
-    this.style = FLCupertinoActionSheetStyle.roundedCard,
-    this.borderRadius,
-    @required this.child,
-    this.cancelButton
-  }) : assert(child != null),
+  FLCupertinoActionSheet(
+      {Key key,
+      this.backgroundColor = _kBackgroundColor,
+      this.style = FLCupertinoActionSheetStyle.roundedCard,
+      this.borderRadius,
+      @required this.child,
+      this.cancelButton})
+      : assert(child != null),
         super(key: key);
 
   final Color backgroundColor;
@@ -97,8 +89,9 @@ class FLCupertinoActionSheet extends StatelessWidget {
   }
 
   Widget _buildMainContent() {
-    BorderRadius radius = this.borderRadius ??
-        _isRound() ? BorderRadius.circular(_kCornerRadius): null;
+    BorderRadius radius = this.borderRadius ?? _isRound()
+        ? BorderRadius.circular(_kCornerRadius)
+        : null;
     final Widget blurContent = _wrapWithBackground(
         backgroundColor: backgroundColor,
         updateSystemUiOverlay: true,
@@ -107,20 +100,19 @@ class FLCupertinoActionSheet extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Flexible(child: child)
-              ],
+              children: <Widget>[Flexible(child: child)],
             ),
           ),
-        )
-    );
+        ));
 
-    final Widget mainChild = _isRound() ? ClipRRect(
-      borderRadius: radius,
-      child: blurContent,
-    ) : ClipRect(
-      child: blurContent,
-    );
+    final Widget mainChild = _isRound()
+        ? ClipRRect(
+            borderRadius: radius,
+            child: blurContent,
+          )
+        : ClipRect(
+            child: blurContent,
+          );
 
     return Flexible(
       child: mainChild,
@@ -141,13 +133,14 @@ class FLCupertinoActionSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EdgeInsets margin = _isRound()
-        ? EdgeInsets.symmetric(horizontal: _kEdgeHorizontalPadding, vertical: _kEdgeVerticalPadding)
+        ? EdgeInsets.symmetric(
+            horizontal: _kEdgeHorizontalPadding,
+            vertical: _kEdgeVerticalPadding)
         : EdgeInsets.only(top: _kEdgeVerticalPadding);
     List<Widget> children = <Widget>[];
     children.add(_buildMainContent());
 
-    if (cancelButton != null)
-      children.add(_buildCancelButton());
+    if (cancelButton != null) children.add(_buildCancelButton());
 
     final Orientation orientation = MediaQuery.of(context).orientation;
     double preferWidth;
@@ -170,28 +163,27 @@ class FLCupertinoActionSheet extends StatelessWidget {
               children: children,
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-            )
-        ),
+            )),
       ),
     );
   }
 }
 
 class _FLCupertinoActionSheetCancelButton extends StatefulWidget {
-  const _FLCupertinoActionSheetCancelButton({
-    Key key,
-    this.child,
-    this.isRound = true
-  }) : super(key: key);
+  const _FLCupertinoActionSheetCancelButton(
+      {Key key, this.child, this.isRound = true})
+      : super(key: key);
 
   final Widget child;
   final bool isRound;
 
   @override
-  _FLCupertinoActionSheetCancelButtonState createState() => _FLCupertinoActionSheetCancelButtonState();
+  _FLCupertinoActionSheetCancelButtonState createState() =>
+      _FLCupertinoActionSheetCancelButtonState();
 }
 
-class _FLCupertinoActionSheetCancelButtonState extends State<_FLCupertinoActionSheetCancelButton> {
+class _FLCupertinoActionSheetCancelButtonState
+    extends State<_FLCupertinoActionSheetCancelButton> {
   Color _backgroundColor;
 
   @override
@@ -220,8 +212,8 @@ class _FLCupertinoActionSheetCancelButtonState extends State<_FLCupertinoActionS
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius = widget.isRound
-        ? BorderRadius.circular(_kCornerRadius) : null;
+    BorderRadius borderRadius =
+        widget.isRound ? BorderRadius.circular(_kCornerRadius) : null;
     return GestureDetector(
       excludeFromSemantics: true,
       onTapDown: _onTapDown,

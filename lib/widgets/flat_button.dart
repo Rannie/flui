@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flui/common/defines.dart';
 
 class FLFlatButton extends StatelessWidget {
-  const FLFlatButton({
-    Key key,
-    @required this.onPressed,
-    this.onHighlightChanged,
-    this.textTheme,
-    this.textColor,
-    this.disabledColor,
-    this.focusColor,
-    this.hoverColor,
-    this.color,
-    this.disabledTextColor,
-    this.highlightColor,
-    this.splashColor,
-    this.colorBrightness,
-    this.padding,
-    this.shape,
-    this.clipBehavior,
-    this.materialTapTargetSize,
-    this.focusNode,
-    this.expanded = false,
-    @required this.child
-  }) : super(key: key);
+  const FLFlatButton(
+      {Key key,
+      @required this.onPressed,
+      this.onHighlightChanged,
+      this.textTheme,
+      this.textColor,
+      this.disabledColor,
+      this.focusColor,
+      this.hoverColor,
+      this.color,
+      this.disabledTextColor,
+      this.highlightColor,
+      this.splashColor,
+      this.colorBrightness,
+      this.padding,
+      this.shape,
+      this.clipBehavior,
+      this.materialTapTargetSize,
+      this.focusNode,
+      this.expanded = false,
+      @required this.child})
+      : super(key: key);
 
   final VoidCallback onPressed;
   final ValueChanged<bool> onHighlightChanged;
@@ -72,14 +72,16 @@ class FLFlatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget buttonChild = expanded ? Flex (
-      direction: Axis.horizontal,
-      children: <Widget>[
-        Expanded(
-          child: child,
-        )
-      ],
-    ) : child;
+    final Widget buttonChild = expanded
+        ? Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                child: child,
+              )
+            ],
+          )
+        : child;
 
     return FlatButton(
         onPressed: onPressed,
@@ -99,8 +101,7 @@ class FLFlatButton extends StatelessWidget {
         clipBehavior: clipBehavior ?? Clip.none,
         focusNode: focusNode,
         materialTapTargetSize: materialTapTargetSize,
-        child: buttonChild
-    );
+        child: buttonChild);
   }
 }
 
@@ -129,25 +130,26 @@ class _FLFlatButtonWithIcon extends FLFlatButton
     this.spacing,
     @required this.icon,
     @required this.label,
-  }) : super(key : key,
-      onPressed: onPressed,
-      onHighlightChanged: onHighlightChanged,
-      textTheme: textTheme,
-      textColor: textColor,
-      disabledTextColor: disabledTextColor,
-      color: color,
-      disabledColor: disabledColor,
-      hoverColor: hoverColor,
-      focusColor: focusColor,
-      highlightColor: highlightColor,
-      splashColor: splashColor,
-      colorBrightness: colorBrightness,
-      padding: padding,
-      shape: shape,
-      clipBehavior: clipBehavior,
-      focusNode: focusNode,
-      materialTapTargetSize: materialTapTargetSize,
-      child: null);
+  }) : super(
+            key: key,
+            onPressed: onPressed,
+            onHighlightChanged: onHighlightChanged,
+            textTheme: textTheme,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
+            color: color,
+            disabledColor: disabledColor,
+            hoverColor: hoverColor,
+            focusColor: focusColor,
+            highlightColor: highlightColor,
+            splashColor: splashColor,
+            colorBrightness: colorBrightness,
+            padding: padding,
+            shape: shape,
+            clipBehavior: clipBehavior,
+            focusNode: focusNode,
+            materialTapTargetSize: materialTapTargetSize,
+            child: null);
 
   final FLPosition iconPosition;
   final double spacing;
@@ -156,22 +158,24 @@ class _FLFlatButtonWithIcon extends FLFlatButton
 
   @override
   Widget build(BuildContext context) {
-    final bool isHorizontal = (iconPosition == FLPosition.left
-        || iconPosition == FLPosition.right);
-    final SizedBox spaceBox = isHorizontal ? SizedBox(width: spacing)
-        : SizedBox(height: spacing);
-    final List<Widget> children = (iconPosition == FLPosition.left
-        || iconPosition == FLPosition.top)
-        ? [icon, spaceBox, label]
-        : [label, spaceBox, icon];
+    final bool isHorizontal =
+        (iconPosition == FLPosition.left || iconPosition == FLPosition.right);
+    final SizedBox spaceBox =
+        isHorizontal ? SizedBox(width: spacing) : SizedBox(height: spacing);
+    final List<Widget> children =
+        (iconPosition == FLPosition.left || iconPosition == FLPosition.top)
+            ? [icon, spaceBox, label]
+            : [label, spaceBox, icon];
 
-    final Widget buttonChild = isHorizontal ? Row (
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    ) : Column(
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    );
+    final Widget buttonChild = isHorizontal
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: children,
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: children,
+          );
 
     return FlatButton(
         onPressed: onPressed,
@@ -191,7 +195,6 @@ class _FLFlatButtonWithIcon extends FLFlatButton
         clipBehavior: clipBehavior ?? Clip.none,
         focusNode: focusNode,
         materialTapTargetSize: materialTapTargetSize,
-        child: buttonChild
-    );
+        child: buttonChild);
   }
 }

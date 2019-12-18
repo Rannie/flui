@@ -17,6 +17,7 @@ class FLEmptyContainer extends StatefulWidget {
 
   final Color backgroundColor;
   final Widget customLoadingWidget;
+
   /// show loading or not, default is false.
   /// if [showLoading] is true & no custom loading widget, it will show a [CircularProgressIndicator].
   final bool showLoading;
@@ -26,6 +27,7 @@ class FLEmptyContainer extends StatefulWidget {
   final String detailText;
   final TextStyle detailTextStyle;
   final double space;
+
   /// custom action button
   final Widget actionButton;
 
@@ -62,14 +64,18 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
     }
 
     if (widget.title != null && widget.title.isNotEmpty) {
-      TextStyle textStyle = widget.titleStyle ?? TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 93, 100, 110));
-      Widget title = Text(widget.title, style: textStyle, textAlign: TextAlign.center);
+      TextStyle textStyle = widget.titleStyle ??
+          TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 93, 100, 110));
+      Widget title =
+          Text(widget.title, style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, title);
     }
 
     if (widget.detailText != null && widget.detailText.isNotEmpty) {
-      TextStyle textStyle = widget.detailTextStyle ?? TextStyle(fontSize: 14.0, color: Color.fromARGB(255, 133, 140, 150));
-      Widget detailText = Text(widget.detailText, style: textStyle, textAlign: TextAlign.center);
+      TextStyle textStyle = widget.detailTextStyle ??
+          TextStyle(fontSize: 14.0, color: Color.fromARGB(255, 133, 140, 150));
+      Widget detailText = Text(widget.detailText,
+          style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, detailText);
     }
 
@@ -85,7 +91,6 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: children,
           ),
-        )
-    );
+        ));
   }
 }

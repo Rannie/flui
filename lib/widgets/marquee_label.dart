@@ -8,24 +8,26 @@ const double _kDefaultDistance = 8.0;
 const int _kTimerGap = 100;
 
 class FLMarqueeLabel extends StatefulWidget {
-  FLMarqueeLabel({
-    Key key,
-    @required this.text,
-    this.style,
-    this.space,
-    this.velocity = 0.4,
-    this.loop = true,
-    this.height = FLMarqueeDefaultHeight,
-    this.padding,
-    this.backgroundColor = Colors.transparent
-  }) : assert(text != null),
+  FLMarqueeLabel(
+      {Key key,
+      @required this.text,
+      this.style,
+      this.space,
+      this.velocity = 0.4,
+      this.loop = true,
+      this.height = FLMarqueeDefaultHeight,
+      this.padding,
+      this.backgroundColor = Colors.transparent})
+      : assert(text != null),
         super(key: key);
 
   final String text;
   final TextStyle style;
+
   /// The space between text & 'the next same text'
   /// If not set, it will be the screen width.
   final double space;
+
   /// The scroll velocity, if it is zero, will not scroll.
   /// The value range is [0-1]
   final double velocity;
@@ -93,17 +95,17 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   }
 
   void _scheduleScroll() {
-    if (_velocity == 0)
-      return;
+    if (_velocity == 0) return;
 
-    double widgetWidth = _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
+    double widgetWidth =
+        _listViewKey.currentContext.findRenderObject().paintBounds.size.width;
     double moveOffset = _kDefaultDistance * _velocity;
-    double textWidth = _textKey.currentContext.findRenderObject().paintBounds.size.width;
+    double textWidth =
+        _textKey.currentContext.findRenderObject().paintBounds.size.width;
 
     if (textWidth + _space < widgetWidth) {
-      throw(AssertionError(
-          'FLMarqueeLabel\'s text width add space value must greater than widget\'s width')
-      );
+      throw (AssertionError(
+          'FLMarqueeLabel\'s text width add space value must greater than widget\'s width'));
     }
 
     _timer = Timer.periodic(Duration(milliseconds: _kTimerGap), (_) {
@@ -121,7 +123,8 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
         _pos += moveOffset;
       }
 
-      _scrollController.animateTo(_pos, duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
+      _scrollController.animateTo(_pos,
+          duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
     });
   }
 
@@ -131,13 +134,10 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
     final Widget mainTextChild = Align(
         key: _textKey,
         alignment: Alignment.center,
-        child: Text(widget.text, style: widget.style)
-    );
+        child: Text(widget.text, style: widget.style));
     final Widget slaveTextChild = Align(
         alignment: Alignment.center,
-        child: Text(widget.text, style: widget.style)
-    );
-
+        child: Text(widget.text, style: widget.style));
 
     final List<Widget> children = <Widget>[];
     children.add(mainTextChild);

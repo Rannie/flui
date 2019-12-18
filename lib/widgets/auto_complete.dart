@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 
-typedef Widget FLAutoCompleteItemBuilder<T> (BuildContext context, T suggestion);
+typedef Widget FLAutoCompleteItemBuilder<T>(BuildContext context, T suggestion);
 
 class FLAutoComplete<T> extends StatefulWidget {
   /// must same as the child's focus node;
   final FocusNode focusNode;
 
   final ValueChanged<T> onSelectedSuggestion;
+
   /// hide suggestions overlay automatically after select suggestion.
   /// default is true.
   final bool hideAfterSelection;
+
   /// hide suggestions overlay when focus node unfocus.
   /// default is true.
   final bool hideWhenUnfocus;
 
   final FLAutoCompleteItemBuilder<T> itemBuilder;
+
   /// complete widget, such as a TextField.
   final Widget child;
 
-  FLAutoComplete({
-    Key key,
-    this.focusNode,
-    this.onSelectedSuggestion,
-    this.hideAfterSelection = true,
-    this.hideWhenUnfocus = true,
-    @required this.itemBuilder,
-    @required this.child
-  }) : assert(itemBuilder != null),
-       assert(child != null),
-       super(key: key);
+  FLAutoComplete(
+      {Key key,
+      this.focusNode,
+      this.onSelectedSuggestion,
+      this.hideAfterSelection = true,
+      this.hideWhenUnfocus = true,
+      @required this.itemBuilder,
+      @required this.child})
+      : assert(itemBuilder != null),
+        assert(child != null),
+        super(key: key);
 
   @override
   State<FLAutoComplete> createState() => FLAutoCompleteState();
@@ -47,11 +50,9 @@ class FLAutoCompleteState<T> extends State<FLAutoComplete> {
   }
 
   void _handleNodeUnfocus() {
-    if (!widget.hideWhenUnfocus)
-      return;
+    if (!widget.hideWhenUnfocus) return;
 
-    if (widget.focusNode == null)
-      return;
+    if (widget.focusNode == null) return;
 
     if (!widget.focusNode.hasFocus) {
       hideAutoComplete();
@@ -114,8 +115,7 @@ class FLAutoCompleteState<T> extends State<FLAutoComplete> {
   }
 
   void hideAutoComplete() {
-    if (!_display)
-      return;
+    if (!_display) return;
 
     _suggestionsEntry.remove();
     _suggestionsEntry = null;

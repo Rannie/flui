@@ -8,13 +8,13 @@ import 'package:flutter/services.dart';
 final _kCopyValue = Random();
 
 class FLCopyableLabel extends StatelessWidget {
-  FLCopyableLabel({
-    Key key,
-    @required this.copyData,
-    this.showMenu = false,
-    @required this.child,
-    this.afterCopyCallback
-  }) : super(key: key);
+  FLCopyableLabel(
+      {Key key,
+      @required this.copyData,
+      this.showMenu = false,
+      @required this.child,
+      this.afterCopyCallback})
+      : super(key: key);
 
   final String copyData;
   final bool showMenu;
@@ -22,11 +22,8 @@ class FLCopyableLabel extends StatelessWidget {
   final VoidCallback afterCopyCallback;
 
   void _performCopyAction() {
-    Clipboard.setData(ClipboardData(
-        text: copyData
-    ));
-    if (this.afterCopyCallback != null)
-      this.afterCopyCallback();
+    Clipboard.setData(ClipboardData(text: copyData));
+    if (this.afterCopyCallback != null) this.afterCopyCallback();
   }
 
   Widget _buildGestureWidget() {
@@ -50,11 +47,9 @@ class FLCopyableLabel extends StatelessWidget {
             return <FLBubbleMenuItem>[
               FLBubbleMenuItem(
                   text: CupertinoLocalizations.of(context).copyButtonLabel,
-                  value: _kCopyValue
-              )
+                  value: _kCopyValue)
             ];
-          }
-      );
+          });
     } else {
       return _buildGestureWidget();
     }

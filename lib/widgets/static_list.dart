@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flui/widgets/flat_button.dart';
 import 'package:flui/widgets/list_tile.dart';
 
-enum FLStaticListCellType {
-  normal,
-  button,
-  customization
-}
+enum FLStaticListCellType { normal, button, customization }
 
 enum FLStaticListCellAccessoryType {
   accNone,
@@ -28,7 +24,7 @@ class FLStaticSectionData {
     this.headerTitleIntent = kStaticHeaderTitleIntent,
     this.itemList,
     this.headerBackgroundColor = kStaticBackgroundColor,
-  }): assert(itemList != null && itemList.length > 0),
+  })  : assert(itemList != null && itemList.length > 0),
         super();
 
   final String headerTitle;
@@ -59,32 +55,33 @@ class FLStaticItemData {
     this.buttonColor,
     this.onButtonPressed,
     this.customizeContent,
-  }) : assert(() {
-    if (cellType == FLStaticListCellType.normal
-        && (leading == null && title == null && subtitle == null)) {
-      throw AssertionError(
-        'List cell must have a leading or title or subtitle',
-      );
-    }
+  })  : assert(() {
+          if (cellType == FLStaticListCellType.normal &&
+              (leading == null && title == null && subtitle == null)) {
+            throw AssertionError(
+              'List cell must have a leading or title or subtitle',
+            );
+          }
 
-    if (cellType == FLStaticListCellType.customization && customizeContent == null) {
-      throw AssertionError(
-        'Must specify the content when cell\s type is customization',
-      );
-    }
+          if (cellType == FLStaticListCellType.customization &&
+              customizeContent == null) {
+            throw AssertionError(
+              'Must specify the content when cell\s type is customization',
+            );
+          }
 
-    if (customTrailing != null && accessoryType != FLStaticListCellAccessoryType.accNone) {
-      throw AssertionError(
-          'Could not set trailing widget when accessory type != none'
-      );
-    }
-    if (accessoryString != null && accessoryType != FLStaticListCellAccessoryType.accDetail) {
-      throw AssertionError(
-          'Accessory string only can be shown when cell\'s accessory type is accDetail'
-      );
-    }
-    return true;
-  }()),
+          if (customTrailing != null &&
+              accessoryType != FLStaticListCellAccessoryType.accNone) {
+            throw AssertionError(
+                'Could not set trailing widget when accessory type != none');
+          }
+          if (accessoryString != null &&
+              accessoryType != FLStaticListCellAccessoryType.accDetail) {
+            throw AssertionError(
+                'Accessory string only can be shown when cell\'s accessory type is accDetail');
+          }
+          return true;
+        }()),
         super();
 
   final FLStaticListCellType cellType;
@@ -118,7 +115,7 @@ class FLStaticListView extends StatelessWidget {
     this.padding,
     this.separatorBuilder,
     @required this.sections,
-  }) : assert(sections != null && sections.length > 0),
+  })  : assert(sections != null && sections.length > 0),
         super(key: key);
 
   final bool shrinkWrap;
@@ -128,7 +125,7 @@ class FLStaticListView extends StatelessWidget {
 
   int _preCalItemCount() {
     int count = sections.length;
-    for (int i = 0; i < sections.length; i+= 1) {
+    for (int i = 0; i < sections.length; i += 1) {
       FLStaticSectionData sectionData = sections[i];
       int itemCount = sectionData.itemList.length;
       count += itemCount;
@@ -136,25 +133,27 @@ class FLStaticListView extends StatelessWidget {
     return count;
   }
 
-  Widget _buildSectionHeader(FLStaticSectionData sectionData, ThemeData themeData) {
-    final Widget titleWidget = sectionData.headerTitle == null ? null : Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-            sectionData.headerTitle,
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: themeData.textTheme.subhead.fontSize
-            )
-        )
-      ],
-    );
+  Widget _buildSectionHeader(
+      FLStaticSectionData sectionData, ThemeData themeData) {
+    final Widget titleWidget = sectionData.headerTitle == null
+        ? null
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(sectionData.headerTitle,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: themeData.textTheme.subhead.fontSize))
+            ],
+          );
     final EdgeInsetsGeometry padding = sectionData.headerTitleIntent != null
         ? EdgeInsets.only(left: sectionData.headerTitleIntent)
         : EdgeInsets.zero;
-    final headerHeight = sectionData.headerHeight
-        ?? (sectionData.headerTitle != null ? kStaticHeaderHeight : kStaticHeaderHeightNormal);
+    final headerHeight = sectionData.headerHeight ??
+        (sectionData.headerTitle != null
+            ? kStaticHeaderHeight
+            : kStaticHeaderHeightNormal);
     return Container(
       color: sectionData.headerBackgroundColor,
       height: headerHeight,
@@ -164,9 +163,11 @@ class FLStaticListView extends StatelessWidget {
   }
 
   Widget _buildItemCell(FLStaticItemData itemData, ThemeData themeData) {
-    final Text titleText = itemData.title == null ? null
+    final Text titleText = itemData.title == null
+        ? null
         : Text(itemData.title, style: itemData.titleStyle);
-    final Text subtitleText = itemData.subtitle == null ? null
+    final Text subtitleText = itemData.subtitle == null
+        ? null
         : Text(itemData.subtitle, style: itemData.subtitleStyle);
     final Widget accesssoryWidget = _getAccessoryWidget(itemData, themeData);
     final Widget trailingWidget = accesssoryWidget ?? itemData.customTrailing;
@@ -179,8 +180,7 @@ class FLStaticListView extends StatelessWidget {
           trailing: trailingWidget,
           onTap: itemData.onTap,
           selected: itemData.selected,
-        )
-    );
+        ));
   }
 
   Widget _buildButtonCell(FLStaticItemData itemData, ThemeData themeData) {
@@ -198,30 +198,33 @@ class FLStaticListView extends StatelessWidget {
   }
 
   Widget _getAccessoryWidget(FLStaticItemData itemData, ThemeData themeData) {
-    switch(itemData.accessoryType) {
+    switch (itemData.accessoryType) {
       case FLStaticListCellAccessoryType.accCheckmark:
         return Icon(Icons.check);
-      case FLStaticListCellAccessoryType.accDetail: {
-        final icon = Container(
-          padding: EdgeInsets.only(top: 4), // fix not align with accessory text
-          child: Icon(Icons.navigate_next),
-        );
-        if (itemData.accessoryString != null && itemData.accessoryString.length > 0) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(itemData.accessoryString, style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: themeData.textTheme.subhead.fontSize
-              )),
-              icon
-            ],
+      case FLStaticListCellAccessoryType.accDetail:
+        {
+          final icon = Container(
+            padding:
+                EdgeInsets.only(top: 4), // fix not align with accessory text
+            child: Icon(Icons.navigate_next),
           );
+          if (itemData.accessoryString != null &&
+              itemData.accessoryString.length > 0) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(itemData.accessoryString,
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: themeData.textTheme.subhead.fontSize)),
+                icon
+              ],
+            );
+          }
+          return icon;
         }
-        return icon;
-      }
       case FLStaticListCellAccessoryType.accSwitch:
         return Switch(
           value: itemData.switchValue,
@@ -257,11 +260,13 @@ class FLStaticListView extends StatelessWidget {
           itemCell = _buildItemCell(itemData, themeData);
         } else if (itemData.cellType == FLStaticListCellType.button) {
           itemCell = _buildButtonCell(itemData, themeData);
-        } else { // customization
+        } else {
+          // customization
           itemCell = itemData.customizeContent;
         }
         // add last cell's bottom divider
-        if (sectionData == sections.last && itemData == sectionData.itemList.last) {
+        if (sectionData == sections.last &&
+            itemData == sectionData.itemList.last) {
           itemCell = _appendCellSeparator(itemCell, themeData);
         }
 
@@ -275,9 +280,10 @@ class FLStaticListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final Color sepColor = themeData.dividerColor;
-    final IndexedWidgetBuilder sepBuilder = separatorBuilder ?? (BuildContext context, int index) {
-      return Divider(color: sepColor, height: 1);
-    };
+    final IndexedWidgetBuilder sepBuilder = separatorBuilder ??
+        (BuildContext context, int index) {
+          return Divider(color: sepColor, height: 1);
+        };
     final List<Widget> cells = _buildCells(themeData);
     return Container(
       color: kStaticBackgroundColor,
@@ -288,8 +294,7 @@ class FLStaticListView extends StatelessWidget {
             return cells[index];
           },
           separatorBuilder: sepBuilder,
-          itemCount: _preCalItemCount()
-      ),
+          itemCount: _preCalItemCount()),
     );
   }
 }

@@ -88,14 +88,16 @@ class FLRaisedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget buttonChild = expanded ? Flex (
-      direction: Axis.horizontal,
-      children: <Widget>[
-        Expanded(
-          child: child,
-        )
-      ],
-    ) : child;
+    Widget buttonChild = expanded
+        ? Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                child: child,
+              )
+            ],
+          )
+        : child;
 
     return RaisedButton(
       onPressed: onPressed,
@@ -155,30 +157,30 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
     Duration animationDuration,
     @required this.icon,
     @required this.label,
-  }) : super(key: key,
-      onPressed: onPressed,
-      onHighlightChanged: onHighlightChanged,
-      textTheme: textTheme,
-      textColor: textColor,
-      disabledTextColor: disabledTextColor,
-      color: color,
-      hoverColor: hoverColor,
-      focusColor: focusColor,
-      disabledColor: disabledColor,
-      highlightColor: highlightColor,
-      splashColor: splashColor,
-      colorBrightness: colorBrightness,
-      elevation: elevation,
-      highlightElevation: highlightElevation,
-      disabledElevation: disabledElevation,
-      shape: shape,
-      padding: padding,
-      clipBehavior: clipBehavior,
-      focusNode : focusNode,
-      materialTapTargetSize: materialTapTargetSize,
-      animationDuration: animationDuration,
-      child: null
-  );
+  }) : super(
+            key: key,
+            onPressed: onPressed,
+            onHighlightChanged: onHighlightChanged,
+            textTheme: textTheme,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
+            color: color,
+            hoverColor: hoverColor,
+            focusColor: focusColor,
+            disabledColor: disabledColor,
+            highlightColor: highlightColor,
+            splashColor: splashColor,
+            colorBrightness: colorBrightness,
+            elevation: elevation,
+            highlightElevation: highlightElevation,
+            disabledElevation: disabledElevation,
+            shape: shape,
+            padding: padding,
+            clipBehavior: clipBehavior,
+            focusNode: focusNode,
+            materialTapTargetSize: materialTapTargetSize,
+            animationDuration: animationDuration,
+            child: null);
 
   final FLPosition iconPosition;
   final double spacing;
@@ -187,22 +189,24 @@ class _FLRaisedButtonWithIcon extends FLRaisedButton
 
   @override
   Widget build(BuildContext context) {
-    bool isHorizontal = (iconPosition == FLPosition.left
-        || iconPosition == FLPosition.right);
-    SizedBox spaceBox = isHorizontal ? SizedBox(width: spacing)
-        : SizedBox(height: spacing);
-    List<Widget> children = (iconPosition == FLPosition.left
-        || iconPosition == FLPosition.top)
-        ? [icon, spaceBox, label]
-        : [label, spaceBox, icon];
+    bool isHorizontal =
+        (iconPosition == FLPosition.left || iconPosition == FLPosition.right);
+    SizedBox spaceBox =
+        isHorizontal ? SizedBox(width: spacing) : SizedBox(height: spacing);
+    List<Widget> children =
+        (iconPosition == FLPosition.left || iconPosition == FLPosition.top)
+            ? [icon, spaceBox, label]
+            : [label, spaceBox, icon];
 
-    Widget buttonChild = isHorizontal ? Row (
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    ) : Column(
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    );
+    Widget buttonChild = isHorizontal
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: children,
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: children,
+          );
 
     return RaisedButton(
       onPressed: onPressed,
