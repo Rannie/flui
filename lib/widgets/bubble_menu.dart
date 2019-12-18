@@ -5,7 +5,8 @@ import 'bubble.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 300);
 const Color _kMenuBackgroundColor = Color(0xFF2E2E2E);
-const EdgeInsets _kMenuButtonPadding = EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0);
+const EdgeInsets _kMenuButtonPadding =
+    EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0);
 const double _kMenuScreenPadding = 8.0;
 const double _kMenuMaxWidth = 5.0 * _kMenuWidthStep;
 const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
@@ -22,25 +23,23 @@ const TextStyle _kToolbarButtonFontStyle = TextStyle(
   color: CupertinoColors.white,
 );
 
-typedef FLBubbleMenuItemBuilder<T> = List<FLBubbleMenuItem<T>> Function(BuildContext context);
+typedef FLBubbleMenuItemBuilder<T> = List<FLBubbleMenuItem<T>> Function(
+    BuildContext context);
 typedef FLBubbleMenuCanceled = void Function();
 typedef FLBubbleMenuItemSelected<T> = void Function(T value);
 
-enum FLBubbleMenuInteraction {
-  tap,
-  longPress
-}
+enum FLBubbleMenuInteraction { tap, longPress }
 
 class FLBubbleMenuWidget<T> extends StatefulWidget {
-  FLBubbleMenuWidget({
-    Key key,
-    @required this.itemBuilder,
-    this.onSelected,
-    this.onCanceled,
-    this.interaction = FLBubbleMenuInteraction.longPress,
-    @required this.child,
-    this.offset = Offset.zero
-  }) : assert(itemBuilder != null),
+  FLBubbleMenuWidget(
+      {Key key,
+      @required this.itemBuilder,
+      this.onSelected,
+      this.onCanceled,
+      this.interaction = FLBubbleMenuInteraction.longPress,
+      @required this.child,
+      this.offset = Offset.zero})
+      : assert(itemBuilder != null),
         assert(child != null),
         assert(offset != null),
         super(key: key);
@@ -63,26 +62,22 @@ class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
     final RelativeRect position = RelativeRect.fromRect(
         Rect.fromPoints(
           button.localToGlobal(widget.offset, ancestor: overlay),
-          button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
+          button.localToGlobal(button.size.bottomRight(Offset.zero),
+              ancestor: overlay),
         ),
-        Offset.zero & overlay.size
-    );
+        Offset.zero & overlay.size);
 
     showBubbleMenu<T>(
-        context: context,
-        position: position,
-        items: widget.itemBuilder(context)
-    )
+            context: context,
+            position: position,
+            items: widget.itemBuilder(context))
         .then<void>((T value) {
-      if (!mounted)
-        return null;
-      if(value == null) {
-        if (widget.onCanceled != null)
-          widget.onCanceled();
+      if (!mounted) return null;
+      if (value == null) {
+        if (widget.onCanceled != null) widget.onCanceled();
         return null;
       }
-      if (widget.onSelected != null)
-        widget.onSelected(value);
+      if (widget.onSelected != null) widget.onSelected(value);
     });
   }
 
@@ -90,11 +85,12 @@ class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: (widget.interaction == FLBubbleMenuInteraction.tap)
-            ? showButtonMenu : null,
+            ? showButtonMenu
+            : null,
         onLongPress: (widget.interaction == FLBubbleMenuInteraction.longPress)
-            ? showButtonMenu : null,
-        child: widget.child
-    );
+            ? showButtonMenu
+            : null,
+        child: widget.child);
   }
 }
 
@@ -109,7 +105,7 @@ Future<T> showBubbleMenu<T>({
   assert(items != null && items.isNotEmpty);
   assert(debugCheckHasMaterialLocalizations(context));
   String label = semanticLabel;
-  switch(defaultTargetPlatform) {
+  switch (defaultTargetPlatform) {
     case TargetPlatform.iOS:
       label = semanticLabel;
       break;
@@ -118,32 +114,31 @@ Future<T> showBubbleMenu<T>({
       label = semanticLabel ?? MaterialLocalizations.of(context).popupMenuLabel;
   }
 
-  return Navigator.push(context, _FLBubblePopupRoute<T>(
-      position: position,
-      items: items,
-      semanticLabel: label,
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel
-  ));
+  return Navigator.push(
+      context,
+      _FLBubblePopupRoute<T>(
+          position: position,
+          items: items,
+          semanticLabel: label,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel));
 }
 
 class FLBubbleMenuItem<T> {
-  FLBubbleMenuItem({
-    @required this.text,
-    @required this.value
-  });
+  FLBubbleMenuItem({@required this.text, @required this.value});
 
   final String text;
   final T value;
 }
 
 class _FLBubbleMenu<T> extends StatelessWidget {
-  _FLBubbleMenu({
-    Key key,
-    this.route,
-    this.semanticLabel,
-    this.from = FLBubbleFrom.bottom,
-    @required this.items
-  }) : super(key: key);
+  _FLBubbleMenu(
+      {Key key,
+      this.route,
+      this.semanticLabel,
+      this.from = FLBubbleFrom.bottom,
+      @required this.items})
+      : super(key: key);
 
   final _FLBubblePopupRoute route;
   final String semanticLabel;
@@ -155,9 +150,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < route.items.length; i += 1) {
       final CurvedAnimation opacity = CurvedAnimation(
-          parent: route.animation,
-          curve: Interval(0.0, 1.0 / 3.0)
-      );
+          parent: route.animation, curve: Interval(0.0, 1.0 / 3.0));
       FLBubbleMenuItem item = route.items[i];
       Widget itemWidget = _buildMenuButton(context, item);
       children.add(_transitionWrapper(itemWidget, opacity));
@@ -166,7 +159,8 @@ class _FLBubbleMenu<T> extends StatelessWidget {
       }
     }
 
-    final CurveTween opacity = CurveTween(curve: const Interval(0.0, 1.0 / 3.0));
+    final CurveTween opacity =
+        CurveTween(curve: const Interval(0.0, 1.0 / 3.0));
     final Widget child = ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: _kMenuMinWidth,
@@ -185,8 +179,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: children,
-              )
-          ),
+              )),
         ),
       ),
     );
@@ -206,8 +199,8 @@ class _FLBubbleMenu<T> extends StatelessWidget {
     );
   }
 
-  CupertinoButton _buildMenuButton(BuildContext context,
-      FLBubbleMenuItem menuItem) {
+  CupertinoButton _buildMenuButton(
+      BuildContext context, FLBubbleMenuItem menuItem) {
     return CupertinoButton(
       child: Text(menuItem.text, style: _kToolbarButtonFontStyle),
       color: _kMenuBackgroundColor,
@@ -226,27 +219,21 @@ class _FLBubbleMenu<T> extends StatelessWidget {
   }
 
   Widget _transitionWrapper(Widget child, CurvedAnimation opacity) {
-    return FadeTransition(
-        opacity: opacity,
-        child: child
-    );
+    return FadeTransition(opacity: opacity, child: child);
   }
 }
 
 // Positioning of the menu
 class _FLBubbleMenuRouteLayoutDelegate extends SingleChildLayoutDelegate {
-  _FLBubbleMenuRouteLayoutDelegate({
-    this.position,
-    this.from
-  });
+  _FLBubbleMenuRouteLayoutDelegate({this.position, this.from});
 
   final RelativeRect position;
   final FLBubbleFrom from; // only support top/bottom
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return BoxConstraints.loose(constraints.biggest
-        - const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0));
+    return BoxConstraints.loose(constraints.biggest -
+        const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0));
   }
 
   @override
@@ -292,11 +279,10 @@ class _FLBubblePopupRoute<T> extends PopupRoute<T> {
 
   @override
   Animation<double> createAnimation() {
-    return CurvedAnimation (
+    return CurvedAnimation(
         parent: super.createAnimation(),
         curve: Curves.linear,
-        reverseCurve: const Interval(0.0, _kMenuCloseIntervalEnd)
-    );
+        reverseCurve: const Interval(0.0, _kMenuCloseIntervalEnd));
   }
 
   @override
@@ -334,19 +320,21 @@ class _FLBubblePopupRoute<T> extends PopupRoute<T> {
           builder: (BuildContext context) {
             return CustomSingleChildLayout(
               delegate: _FLBubbleMenuRouteLayoutDelegate(
-                  position: position,
-                  from: from
-              ),
+                  position: position, from: from),
               child: menu,
             );
           },
-        )
-    );
+        ));
   }
 
   FLBubbleFrom _determineBubbleFrom(RelativeRect position) {
-    return (position.top > (35 // estimated value
-        + kToolbarHeight + _kMenuHeight + _kMenuScreenPadding))
-        ? FLBubbleFrom.bottom : FLBubbleFrom.top;
+    return (position.top >
+            (35 // estimated value
+                +
+                kToolbarHeight +
+                _kMenuHeight +
+                _kMenuScreenPadding))
+        ? FLBubbleFrom.bottom
+        : FLBubbleFrom.top;
   }
 }

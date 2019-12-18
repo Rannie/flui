@@ -5,24 +5,20 @@ const Color _kBubbleBackgroundColor = Color(0xFF2E2E2E);
 // so make the triangle smaller
 const Size _kBubbleTriangleSizeH = Size(9.0, 16.0);
 const Size _kBubbleTriangleSizeV = Size(18.0, 9.0);
-const BorderRadius _kBubbleBorderRadius = BorderRadius.all(Radius.circular(7.5));
+const BorderRadius _kBubbleBorderRadius =
+    BorderRadius.all(Radius.circular(7.5));
 
 /// triangle position
-enum FLBubbleFrom {
-  bottom,
-  top,
-  left,
-  right
-}
+enum FLBubbleFrom { bottom, top, left, right }
 
 class FLBubble extends StatelessWidget {
-  FLBubble({
-    Key key,
-    this.backgroundColor = _kBubbleBackgroundColor,
-    this.from = FLBubbleFrom.bottom,
-    this.padding = const EdgeInsets.all(8),
-    @required this.child
-  }) : super(key: key);
+  FLBubble(
+      {Key key,
+      this.backgroundColor = _kBubbleBackgroundColor,
+      this.from = FLBubbleFrom.bottom,
+      this.padding = const EdgeInsets.all(8),
+      @required this.child})
+      : super(key: key);
 
   final Color backgroundColor;
   final FLBubbleFrom from;
@@ -32,17 +28,15 @@ class FLBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // triangle
-    final bool isHorizontal =  (from == FLBubbleFrom.left
-        || from == FLBubbleFrom.right);
-    final Size triangleSize = isHorizontal ? _kBubbleTriangleSizeH
-        : _kBubbleTriangleSizeV;
+    final bool isHorizontal =
+        (from == FLBubbleFrom.left || from == FLBubbleFrom.right);
+    final Size triangleSize =
+        isHorizontal ? _kBubbleTriangleSizeH : _kBubbleTriangleSizeV;
     final Widget triangle = SizedBox.fromSize(
       size: triangleSize,
       child: CustomPaint(
-        painter: _FLBubbleNotchPainter(
-            pos: from,
-            backgroundColor: backgroundColor
-        ),
+        painter:
+            _FLBubbleNotchPainter(pos: from, backgroundColor: backgroundColor),
       ),
     );
     //main rect
@@ -88,7 +82,8 @@ class FLBubble extends StatelessWidget {
           rect
         ],
       );
-    } else { // FLBubbleFrom.right
+    } else {
+      // FLBubbleFrom.right
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -102,10 +97,7 @@ class FLBubble extends StatelessWidget {
 }
 
 class _FLBubbleNotchPainter extends CustomPainter {
-  _FLBubbleNotchPainter({
-    this.pos,
-    this.backgroundColor
-  });
+  _FLBubbleNotchPainter({this.pos, this.backgroundColor});
 
   final FLBubbleFrom pos;
   final Color backgroundColor;
@@ -118,30 +110,24 @@ class _FLBubbleNotchPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
     // triangle
     Path triangle;
-    if (pos == FLBubbleFrom.bottom)
-    {
+    if (pos == FLBubbleFrom.bottom) {
       triangle = Path()
         ..lineTo(size.width / 2, 0.0)
         ..lineTo(0.0, size.height)
         ..lineTo(-(size.width / 2), 0.0)
         ..close();
-    }
-    else if (pos == FLBubbleFrom.left)
-    {
+    } else if (pos == FLBubbleFrom.left) {
       triangle = Path()
         ..lineTo(size.width, size.height / 2)
         ..lineTo(size.width, -(size.height / 2))
         ..close();
-    }
-    else if (pos == FLBubbleFrom.top)
-    {
+    } else if (pos == FLBubbleFrom.top) {
       triangle = Path()
         ..lineTo(size.width / 2, size.height)
         ..lineTo(-(size.width / 2), size.height)
         ..close();
-    }
-    else
-    { // FLBubbleFrom.right
+    } else {
+      // FLBubbleFrom.right
       triangle = Path()
         ..lineTo(0.0, size.height / 2)
         ..lineTo(size.width, 0.0)

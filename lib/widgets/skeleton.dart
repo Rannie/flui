@@ -2,26 +2,23 @@ import 'package:flutter/material.dart';
 
 const int _kDefaultMS = 1000;
 
-enum FLSkeletonAnimationType {
-  shimmer,
-  stretch
-}
+enum FLSkeletonAnimationType { shimmer, stretch }
 
 class FLSkeleton extends StatefulWidget {
-  FLSkeleton({
-    Key key,
-    this.shape,
-    this.padding,
-    this.color,
-    this.width,
-    this.height,
-    this.margin,
-    this.borderRadius,
-    this.duration,
-    this.active = true,
-    this.type = FLSkeletonAnimationType.shimmer,
-    this.stretchWidth
-  }) : super (key: key);
+  FLSkeleton(
+      {Key key,
+      this.shape,
+      this.padding,
+      this.color,
+      this.width,
+      this.height,
+      this.margin,
+      this.borderRadius,
+      this.duration,
+      this.active = true,
+      this.type = FLSkeletonAnimationType.shimmer,
+      this.stretchWidth})
+      : super(key: key);
 
   final BoxShape shape;
   final EdgeInsetsGeometry padding;
@@ -46,18 +43,17 @@ class FLSkeleton extends StatefulWidget {
   State<FLSkeleton> createState() => _FLSkeletonState();
 }
 
-class _FLSkeletonState extends State<FLSkeleton> with SingleTickerProviderStateMixin {
+class _FLSkeletonState extends State<FLSkeleton>
+    with SingleTickerProviderStateMixin {
   Animation<double> _animation;
   AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    final Duration duration = widget.duration ?? const Duration(milliseconds: _kDefaultMS);
-    _controller = AnimationController(
-        vsync: this,
-        duration: duration
-    );
+    final Duration duration =
+        widget.duration ?? const Duration(milliseconds: _kDefaultMS);
+    _controller = AnimationController(vsync: this, duration: duration);
     _setupAnimationAndStart();
   }
 
@@ -68,8 +64,8 @@ class _FLSkeletonState extends State<FLSkeleton> with SingleTickerProviderStateM
   }
 
   void _setupAnimationAndStart() {
-    _animation = _genTween().animate(
-        CurvedAnimation(curve: Curves.linear, parent: _controller));
+    _animation = _genTween()
+        .animate(CurvedAnimation(curve: Curves.linear, parent: _controller));
 
     if (widget.type == FLSkeletonAnimationType.shimmer)
       _animation.addStatusListener(_handleShimmerAnimationStatus);
@@ -101,18 +97,15 @@ class _FLSkeletonState extends State<FLSkeleton> with SingleTickerProviderStateM
   }
 
   void _controllerReverse() {
-    if (widget.active)
-      _controller.reverse();
+    if (widget.active) _controller.reverse();
   }
 
   void _controllerRepeat() {
-    if (widget.active)
-      _controller.repeat();
+    if (widget.active) _controller.repeat();
   }
 
   void _controllerForward() {
-    if (widget.active)
-      _controller.forward();
+    if (widget.active) _controller.forward();
   }
 
   @override
@@ -127,40 +120,41 @@ class _FLSkeletonState extends State<FLSkeleton> with SingleTickerProviderStateM
         animation: _animation,
         builder: (context, child) {
           /// config style
-          final BoxShape shape = widget.shape ??  BoxShape.rectangle;
+          final BoxShape shape = widget.shape ?? BoxShape.rectangle;
           final Color color = widget.color ?? const Color(0xFFE8E8E8);
-          final Gradient gradient = widget.type == FLSkeletonAnimationType.shimmer ? LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                color,
-                color.withAlpha(80),
-                color
-              ],
-              stops: [
-                _animation.value - 0.4,
-                _animation.value,
-                _animation.value + 0.4
-              ]
-          ) : null;
+          final Gradient gradient =
+              widget.type == FLSkeletonAnimationType.shimmer
+                  ? LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                          color,
+                          color.withAlpha(80),
+                          color
+                        ],
+                      stops: [
+                          _animation.value - 0.4,
+                          _animation.value,
+                          _animation.value + 0.4
+                        ])
+                  : null;
           final double width = widget.type == FLSkeletonAnimationType.shimmer
-              ? widget.width : _animation.value;
-          final decColor = widget.type == FLSkeletonAnimationType.stretch
-              ? color : null;
+              ? widget.width
+              : _animation.value;
+          final decColor =
+              widget.type == FLSkeletonAnimationType.stretch ? color : null;
 
           return Container(
             decoration: BoxDecoration(
                 shape: shape,
                 borderRadius: widget.borderRadius,
                 color: decColor,
-                gradient: gradient
-            ),
+                gradient: gradient),
             padding: widget.padding,
             width: width,
             height: widget.height,
             margin: widget.margin,
           );
-        }
-    );
+        });
   }
 }

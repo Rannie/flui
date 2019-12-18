@@ -1,6 +1,7 @@
 name: flui
-description: A flutter widgets and components kit.
-version: 0.7.0
+description:
+  FLUI has a relatively fine granularity of widgets, which is a supplement to the kinds of Flutter widgets. There are currently 15 categories and they are still constantly increasing.
+version: 0.7.1
 author: Rannie <rannstudio@outlook.com>
 homepage: 'https://www.flui.xin/en/'
 environment:

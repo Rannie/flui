@@ -47,13 +47,14 @@ class FLCupertinoOperationSheet extends StatelessWidget {
     return Container(
       height: _kSectionHeight,
       child: GridView(
-        padding: EdgeInsets.symmetric(vertical: _kSectionInsetVertical, horizontal: _kSectionInsetVertical),
+        padding: EdgeInsets.symmetric(
+            vertical: _kSectionInsetVertical,
+            horizontal: _kSectionInsetVertical),
         scrollDirection: Axis.horizontal,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
             mainAxisSpacing: _kItemSpacing,
-            childAspectRatio: 6/5
-        ),
+            childAspectRatio: 6 / 5),
         children: list,
       ),
     );
@@ -71,8 +72,7 @@ class FLCupertinoOperationSheet extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: _buildAllSections(),
           ),
-        )
-    );
+        ));
   }
 }
 
@@ -84,8 +84,8 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
     this.title,
     this.onPressed,
     this.customChild,
-  }) : assert((imagePath != null && title != null && onPressed != null)
-      || customChild != null),
+  })  : assert((imagePath != null && title != null && onPressed != null) ||
+            customChild != null),
         super(key: key);
 
   final String imagePath;
@@ -130,9 +130,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = this.customChild ?? _buildImageTitleItem();
     return ClipRect(
-      child: Container(
-          child: child
-      ),
+      child: Container(child: child),
     );
   }
 }

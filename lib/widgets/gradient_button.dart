@@ -3,27 +3,27 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 abstract class FLGradientButton extends StatelessWidget {
-  FLGradientButton({
-    Key key,
-    this.child,
-    @required this.onPressed,
-    this.textTheme,
-    this.textColor,
-    this.disabledTextColor,
-    this.splashColor,
-    this.colorBrightness,
-    this.elevation,
-    this.highlightElevation,
-    this.disabledElevation,
-    this.padding,
-    this.shape,
-    this.clipBehavior = Clip.none,
-    this.materialTapTargetSize,
-    this.focusNode,
-    this.animationDuration,
-    @required this.colors,
-    this.stops
-  }) : super(key: key);
+  FLGradientButton(
+      {Key key,
+      this.child,
+      @required this.onPressed,
+      this.textTheme,
+      this.textColor,
+      this.disabledTextColor,
+      this.splashColor,
+      this.colorBrightness,
+      this.elevation,
+      this.highlightElevation,
+      this.disabledElevation,
+      this.padding,
+      this.shape,
+      this.clipBehavior = Clip.none,
+      this.materialTapTargetSize,
+      this.focusNode,
+      this.animationDuration,
+      @required this.colors,
+      this.stops})
+      : super(key: key);
 
   final Widget child;
   final VoidCallback onPressed;
@@ -44,130 +44,127 @@ abstract class FLGradientButton extends StatelessWidget {
   final List<Color> colors;
   final List<double> stops;
 
-  factory FLGradientButton.linear({
-    Key key,
-    VoidCallback onPressed,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    double elevation,
-    double highlightElevation,
-    double disabledElevation,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
-    Duration animationDuration,
-    Widget child,
-    List<Color> colors,
-    List<double> stops,
-    AlignmentGeometry begin,
-    AlignmentGeometry end,
-    TileMode tileMode
-  }) = _FLLinearGradientButton;
+  factory FLGradientButton.linear(
+      {Key key,
+      VoidCallback onPressed,
+      ButtonTextTheme textTheme,
+      Color textColor,
+      Color disabledTextColor,
+      Color splashColor,
+      Brightness colorBrightness,
+      double elevation,
+      double highlightElevation,
+      double disabledElevation,
+      EdgeInsetsGeometry padding,
+      ShapeBorder shape,
+      Clip clipBehavior,
+      FocusNode focusNode,
+      MaterialTapTargetSize materialTapTargetSize,
+      Duration animationDuration,
+      Widget child,
+      List<Color> colors,
+      List<double> stops,
+      AlignmentGeometry begin,
+      AlignmentGeometry end,
+      TileMode tileMode}) = _FLLinearGradientButton;
 
   /// shape of []
-  factory FLGradientButton.sweep({
-    Key key,
-    VoidCallback onPressed,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    double elevation,
-    double highlightElevation,
-    double disabledElevation,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
-    Duration animationDuration,
-    Widget child,
-    List<Color> colors,
-    List<double> stops,
-    AlignmentGeometry center,
-    double startAngle,
-    double endAngle,
-    TileMode tileMode
-  }) = _FLSweepGradientButton;
+  factory FLGradientButton.sweep(
+      {Key key,
+      VoidCallback onPressed,
+      ButtonTextTheme textTheme,
+      Color textColor,
+      Color disabledTextColor,
+      Color splashColor,
+      Brightness colorBrightness,
+      double elevation,
+      double highlightElevation,
+      double disabledElevation,
+      EdgeInsetsGeometry padding,
+      ShapeBorder shape,
+      Clip clipBehavior,
+      FocusNode focusNode,
+      MaterialTapTargetSize materialTapTargetSize,
+      Duration animationDuration,
+      Widget child,
+      List<Color> colors,
+      List<double> stops,
+      AlignmentGeometry center,
+      double startAngle,
+      double endAngle,
+      TileMode tileMode}) = _FLSweepGradientButton;
 
-  factory FLGradientButton.radial({
-    Key key,
-    VoidCallback onPressed,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    double elevation,
-    double highlightElevation,
-    double disabledElevation,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
-    Duration animationDuration,
-    Widget child,
-    List<Color> colors,
-    List<double> stops,
-    AlignmentGeometry center,
-    double radius,
-    TileMode tileMode,
-    AlignmentGeometry focal,
-    double focalRadius
-  }) = _FLRadialGradientButton;
+  factory FLGradientButton.radial(
+      {Key key,
+      VoidCallback onPressed,
+      ButtonTextTheme textTheme,
+      Color textColor,
+      Color disabledTextColor,
+      Color splashColor,
+      Brightness colorBrightness,
+      double elevation,
+      double highlightElevation,
+      double disabledElevation,
+      EdgeInsetsGeometry padding,
+      ShapeBorder shape,
+      Clip clipBehavior,
+      FocusNode focusNode,
+      MaterialTapTargetSize materialTapTargetSize,
+      Duration animationDuration,
+      Widget child,
+      List<Color> colors,
+      List<double> stops,
+      AlignmentGeometry center,
+      double radius,
+      TileMode tileMode,
+      AlignmentGeometry focal,
+      double focalRadius}) = _FLRadialGradientButton;
 }
 
 class _FLLinearGradientButton extends FLGradientButton {
-  _FLLinearGradientButton({
-    Key key,
-    @required VoidCallback onPressed,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    double elevation,
-    double highlightElevation,
-    double disabledElevation,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
-    Duration animationDuration,
-    Widget child,
-    List<Color> colors,
-    List<double> stops,
-    this.begin = Alignment.centerLeft,
-    this.end = Alignment.centerRight,
-    this.tileMode = TileMode.clamp
-  }) : super(key: key,
-      onPressed: onPressed,
-      textTheme: textTheme,
-      textColor: textColor,
-      disabledTextColor: disabledTextColor,
-      splashColor: splashColor,
-      colorBrightness: colorBrightness,
-      elevation: elevation,
-      highlightElevation: highlightElevation,
-      disabledElevation: disabledElevation,
-      padding: padding,
-      shape: shape,
-      clipBehavior: clipBehavior,
-      focusNode: focusNode,
-      materialTapTargetSize: materialTapTargetSize,
-      animationDuration: animationDuration,
-      colors: colors,
-      stops: stops,
-      child: child
-  );
+  _FLLinearGradientButton(
+      {Key key,
+      @required VoidCallback onPressed,
+      ButtonTextTheme textTheme,
+      Color textColor,
+      Color disabledTextColor,
+      Color splashColor,
+      Brightness colorBrightness,
+      double elevation,
+      double highlightElevation,
+      double disabledElevation,
+      EdgeInsetsGeometry padding,
+      ShapeBorder shape,
+      Clip clipBehavior,
+      FocusNode focusNode,
+      MaterialTapTargetSize materialTapTargetSize,
+      Duration animationDuration,
+      Widget child,
+      List<Color> colors,
+      List<double> stops,
+      this.begin = Alignment.centerLeft,
+      this.end = Alignment.centerRight,
+      this.tileMode = TileMode.clamp})
+      : super(
+            key: key,
+            onPressed: onPressed,
+            textTheme: textTheme,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
+            splashColor: splashColor,
+            colorBrightness: colorBrightness,
+            elevation: elevation,
+            highlightElevation: highlightElevation,
+            disabledElevation: disabledElevation,
+            padding: padding,
+            shape: shape,
+            clipBehavior: clipBehavior,
+            focusNode: focusNode,
+            materialTapTargetSize: materialTapTargetSize,
+            animationDuration: animationDuration,
+            colors: colors,
+            stops: stops,
+            child: child);
 
   final AlignmentGeometry begin;
   final AlignmentGeometry end;
@@ -180,58 +177,57 @@ class _FLLinearGradientButton extends FLGradientButton {
         begin: begin,
         end: end,
         stops: stops,
-        tileMode: tileMode
-    );
+        tileMode: tileMode);
 
     return _FLRawGradientButton.buildGradientButton(gradient, this);
   }
 }
 
 class _FLSweepGradientButton extends FLGradientButton {
-  _FLSweepGradientButton({
-    Key key,
-    @required VoidCallback onPressed,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    double elevation,
-    double highlightElevation,
-    double disabledElevation,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
-    Duration animationDuration,
-    Widget child,
-    List<Color> colors,
-    List<double> stops,
-    this.center = Alignment.center,
-    this.startAngle = 0.0,
-    this.endAngle = math.pi * 2,
-    this.tileMode = TileMode.clamp
-  }) : super(key: key,
-      onPressed: onPressed,
-      textTheme: textTheme,
-      textColor: textColor,
-      disabledTextColor: disabledTextColor,
-      splashColor: splashColor,
-      colorBrightness: colorBrightness,
-      elevation: elevation,
-      highlightElevation: highlightElevation,
-      disabledElevation: disabledElevation,
-      padding: padding,
-      shape: shape,
-      clipBehavior: clipBehavior,
-      focusNode: focusNode,
-      materialTapTargetSize: materialTapTargetSize,
-      animationDuration: animationDuration,
-      colors: colors,
-      stops: stops,
-      child: child
-  );
+  _FLSweepGradientButton(
+      {Key key,
+      @required VoidCallback onPressed,
+      ButtonTextTheme textTheme,
+      Color textColor,
+      Color disabledTextColor,
+      Color splashColor,
+      Brightness colorBrightness,
+      double elevation,
+      double highlightElevation,
+      double disabledElevation,
+      EdgeInsetsGeometry padding,
+      ShapeBorder shape,
+      Clip clipBehavior,
+      FocusNode focusNode,
+      MaterialTapTargetSize materialTapTargetSize,
+      Duration animationDuration,
+      Widget child,
+      List<Color> colors,
+      List<double> stops,
+      this.center = Alignment.center,
+      this.startAngle = 0.0,
+      this.endAngle = math.pi * 2,
+      this.tileMode = TileMode.clamp})
+      : super(
+            key: key,
+            onPressed: onPressed,
+            textTheme: textTheme,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
+            splashColor: splashColor,
+            colorBrightness: colorBrightness,
+            elevation: elevation,
+            highlightElevation: highlightElevation,
+            disabledElevation: disabledElevation,
+            padding: padding,
+            shape: shape,
+            clipBehavior: clipBehavior,
+            focusNode: focusNode,
+            materialTapTargetSize: materialTapTargetSize,
+            animationDuration: animationDuration,
+            colors: colors,
+            stops: stops,
+            child: child);
 
   final AlignmentGeometry center;
   final double startAngle;
@@ -246,58 +242,57 @@ class _FLSweepGradientButton extends FLGradientButton {
         center: center,
         startAngle: startAngle,
         endAngle: endAngle,
-        tileMode: tileMode
-    );
+        tileMode: tileMode);
     return _FLRawGradientButton.buildGradientButton(gradient, this);
   }
 }
 
 class _FLRadialGradientButton extends FLGradientButton {
-  _FLRadialGradientButton({
-    Key key,
-    @required VoidCallback onPressed,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    double elevation,
-    double highlightElevation,
-    double disabledElevation,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
-    Duration animationDuration,
-    Widget child,
-    List<Color> colors,
-    List<double> stops,
-    this.center = Alignment.center,
-    this.radius = 0.5,
-    this.tileMode = TileMode.clamp,
-    this.focal,
-    this.focalRadius = 0.0
-  }) : super (key: key,
-      onPressed: onPressed,
-      textTheme: textTheme,
-      textColor: textColor,
-      disabledTextColor: disabledTextColor,
-      splashColor: splashColor,
-      colorBrightness: colorBrightness,
-      elevation: elevation,
-      highlightElevation: highlightElevation,
-      disabledElevation: disabledElevation,
-      padding: padding,
-      shape: shape,
-      clipBehavior: clipBehavior,
-      focusNode: focusNode,
-      materialTapTargetSize: materialTapTargetSize,
-      animationDuration: animationDuration,
-      colors: colors,
-      stops: stops,
-      child: child
-  );
+  _FLRadialGradientButton(
+      {Key key,
+      @required VoidCallback onPressed,
+      ButtonTextTheme textTheme,
+      Color textColor,
+      Color disabledTextColor,
+      Color splashColor,
+      Brightness colorBrightness,
+      double elevation,
+      double highlightElevation,
+      double disabledElevation,
+      EdgeInsetsGeometry padding,
+      ShapeBorder shape,
+      Clip clipBehavior,
+      FocusNode focusNode,
+      MaterialTapTargetSize materialTapTargetSize,
+      Duration animationDuration,
+      Widget child,
+      List<Color> colors,
+      List<double> stops,
+      this.center = Alignment.center,
+      this.radius = 0.5,
+      this.tileMode = TileMode.clamp,
+      this.focal,
+      this.focalRadius = 0.0})
+      : super(
+            key: key,
+            onPressed: onPressed,
+            textTheme: textTheme,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
+            splashColor: splashColor,
+            colorBrightness: colorBrightness,
+            elevation: elevation,
+            highlightElevation: highlightElevation,
+            disabledElevation: disabledElevation,
+            padding: padding,
+            shape: shape,
+            clipBehavior: clipBehavior,
+            focusNode: focusNode,
+            materialTapTargetSize: materialTapTargetSize,
+            animationDuration: animationDuration,
+            colors: colors,
+            stops: stops,
+            child: child);
 
   final AlignmentGeometry center;
   final double radius;
@@ -340,24 +335,24 @@ class _FLRawGradientButton extends MaterialButton {
     Duration animationDuration,
     Widget child,
     this.gradient,
-  }) : super (key: key,
-      onPressed: onPressed,
-      textTheme: textTheme,
-      textColor: textColor,
-      disabledTextColor: disabledTextColor,
-      splashColor: splashColor,
-      colorBrightness: colorBrightness,
-      elevation: elevation,
-      highlightElevation: highlightElevation,
-      disabledElevation: disabledElevation,
-      padding: padding,
-      shape: shape,
-      clipBehavior: clipBehavior,
-      focusNode: focusNode,
-      materialTapTargetSize: materialTapTargetSize,
-      animationDuration: animationDuration,
-      child: child
-  );
+  }) : super(
+            key: key,
+            onPressed: onPressed,
+            textTheme: textTheme,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
+            splashColor: splashColor,
+            colorBrightness: colorBrightness,
+            elevation: elevation,
+            highlightElevation: highlightElevation,
+            disabledElevation: disabledElevation,
+            padding: padding,
+            shape: shape,
+            clipBehavior: clipBehavior,
+            focusNode: focusNode,
+            materialTapTargetSize: materialTapTargetSize,
+            animationDuration: animationDuration,
+            child: child);
 
   final Gradient gradient;
 
@@ -365,10 +360,10 @@ class _FLRawGradientButton extends MaterialButton {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ButtonThemeData buttonTheme = ButtonTheme.of(context);
-    final TextStyle textStyle = theme.textTheme
-        .button.copyWith(color: buttonTheme.getTextColor(this));
-    final double currentElevation = (enabled ? elevation : disabledElevation)
-        ?? buttonTheme.getElevation(this);
+    final TextStyle textStyle =
+        theme.textTheme.button.copyWith(color: buttonTheme.getTextColor(this));
+    final double currentElevation = (enabled ? elevation : disabledElevation) ??
+        buttonTheme.getElevation(this);
 
     return Semantics(
       container: true,
@@ -402,17 +397,14 @@ class _FLRawGradientButton extends MaterialButton {
                               heightFactor: 1.0,
                               child: child,
                             ),
-                          )
-                      )
-                  ),
+                          ))),
                 ),
-              )
-          )
-      ),
+              ))),
     );
   }
 
-  static Widget buildGradientButton(Gradient gradient, FLGradientButton button) {
+  static Widget buildGradientButton(
+      Gradient gradient, FLGradientButton button) {
     return _FLRawGradientButton(
       gradient: gradient,
       onPressed: button.onPressed,

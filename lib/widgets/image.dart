@@ -20,7 +20,7 @@ class FLImage extends StatefulWidget {
     this.splashColor,
     this.highlightColor,
     this.onPressed,
-  }) : assert(image != null),
+  })  : assert(image != null),
         super(key: key);
 
   final ImageProvider image;
@@ -68,7 +68,8 @@ class _FLImageState extends State<FLImage> {
 
   @override
   Widget build(BuildContext context) {
-    Color highlightColor = widget.highlightColor ?? _kDefaultImageHighlightColor;
+    Color highlightColor =
+        widget.highlightColor ?? _kDefaultImageHighlightColor;
     return ClipRRect(
       borderRadius: widget.borderRadius,
       child: Container(
@@ -78,29 +79,27 @@ class _FLImageState extends State<FLImage> {
           children: <Widget>[
             Positioned.fill(
                 child: Image(
-                  image: _contentImage,
-                  width: widget.width,
-                  height: widget.height,
-                  fit: widget.fit,
-                  loadingBuilder: widget.loadingBuilder,
-                  frameBuilder: widget.frameBuilder,
-                  alignment: widget.alignment,
-                  repeat: widget.imageRepeat,
-                  colorBlendMode: widget.colorBlendMode,
-                  filterQuality: widget.filterQuality,
-                )
-            ),
+              image: _contentImage,
+              width: widget.width,
+              height: widget.height,
+              fit: widget.fit,
+              loadingBuilder: widget.loadingBuilder,
+              frameBuilder: widget.frameBuilder,
+              alignment: widget.alignment,
+              repeat: widget.imageRepeat,
+              colorBlendMode: widget.colorBlendMode,
+              filterQuality: widget.filterQuality,
+            )),
             Positioned.fill(
                 child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onHighlightChanged: _handleHighlightChanged,
-                    splashColor: widget.splashColor,
-                    highlightColor: highlightColor,
-                    onTap: widget.onPressed,
-                  ),
-                )
-            ),
+              color: Colors.transparent,
+              child: InkWell(
+                onHighlightChanged: _handleHighlightChanged,
+                splashColor: widget.splashColor,
+                highlightColor: highlightColor,
+                onTap: widget.onPressed,
+              ),
+            )),
           ],
         ),
       ),

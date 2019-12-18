@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
 
-enum FLBadgeShape {
-  circle,
-  square,
-  spot
-}
+enum FLBadgeShape { circle, square, spot }
 
-enum FLBadgePosition {
-  topRight,
-  topLeft,
-  bottomRight,
-  bottomLeft
-}
+enum FLBadgePosition { topRight, topLeft, bottomRight, bottomLeft }
 
-const double _kSquareRadius  = 1;
-const double _kSpotRadius    = 4;
-const double _kBadgeSize     = 18;
+const double _kSquareRadius = 1;
+const double _kSpotRadius = 4;
+const double _kBadgeSize = 18;
 const double _kDefaultRadius = -1;
 
 class FLBadge extends StatefulWidget {
-  FLBadge({
-    Key key,
-    this.color = Colors.red,
-    this.shape = FLBadgeShape.circle,
-    this.textStyle = const TextStyle(color: Colors.white, fontSize: 8),
-    this.position = FLBadgePosition.topRight,
-    this.hidden = false,
-    this.radius = _kDefaultRadius,
-    this.text,
-    @required this.child
-  }) : assert(child != null),
+  FLBadge(
+      {Key key,
+      this.color = Colors.red,
+      this.shape = FLBadgeShape.circle,
+      this.textStyle = const TextStyle(color: Colors.white, fontSize: 8),
+      this.position = FLBadgePosition.topRight,
+      this.hidden = false,
+      this.radius = _kDefaultRadius,
+      this.text,
+      @required this.child})
+      : assert(child != null),
         super(key: key);
 
   final Color color;
@@ -37,6 +28,7 @@ class FLBadge extends StatefulWidget {
   final TextStyle textStyle;
   final FLBadgePosition position;
   final bool hidden;
+
   /// Each shape will have a default radius.
   /// If u set this value, the [shape] property will be meaningless.
   final double radius;
@@ -56,8 +48,7 @@ class FLBadgeState extends State<FLBadge> {
       radius = _kBadgeSize / 2;
     else if (widget.shape == FLBadgeShape.square)
       radius = _kSquareRadius;
-    else if (widget.shape == FLBadgeShape.spot)
-      radius = _kSpotRadius;
+    else if (widget.shape == FLBadgeShape.spot) radius = _kSpotRadius;
 
     return BorderRadius.circular(radius);
   }
@@ -66,33 +57,35 @@ class FLBadgeState extends State<FLBadge> {
   Widget build(BuildContext context) {
     FLBadgeShape shape = widget.text != null ? widget.shape : FLBadgeShape.spot;
     double size = shape == FLBadgeShape.spot ? 2 * _kSpotRadius : _kBadgeSize;
-    Widget textChild = widget.text == null ? null : Center(
-      child: Text(
-        widget.text,
-        style:widget.textStyle,
-        textAlign: TextAlign.center,
-      ),
-    );
+    Widget textChild = widget.text == null
+        ? null
+        : Center(
+            child: Text(
+              widget.text,
+              style: widget.textStyle,
+              textAlign: TextAlign.center,
+            ),
+          );
 
     var left, right, top, bottom;
     double offset = size / 3;
     Alignment alignment;
     if (widget.position == FLBadgePosition.topRight) {
-      right = - offset;
-      top = - offset;
+      right = -offset;
+      top = -offset;
       alignment = Alignment.topRight;
     } else if (widget.position == FLBadgePosition.topLeft) {
-      left = - offset;
-      top = - offset;
+      left = -offset;
+      top = -offset;
       alignment = Alignment.topLeft;
     } else if (widget.position == FLBadgePosition.bottomRight) {
-      bottom = - offset;
-      right = - offset;
+      bottom = -offset;
+      right = -offset;
       alignment = Alignment.bottomRight;
     } else {
       // bottom left
-      left = - offset;
-      bottom = - offset;
+      left = -offset;
+      bottom = -offset;
       alignment = Alignment.bottomLeft;
     }
 
@@ -105,19 +98,13 @@ class FLBadgeState extends State<FLBadge> {
         height: size,
         child: Container(
             decoration: BoxDecoration(
-                color: widget.color,
-                borderRadius: _borderRadius(shape)
-            ),
-            child: textChild
-        )
-    );
+                color: widget.color, borderRadius: _borderRadius(shape)),
+            child: textChild));
 
-    List<Widget> children = widget.hidden ? [widget.child] : [widget.child, badge];
+    List<Widget> children =
+        widget.hidden ? [widget.child] : [widget.child, badge];
 
     return Stack(
-        alignment: alignment,
-        overflow: Overflow.visible,
-        children: children
-    );
+        alignment: alignment, overflow: Overflow.visible, children: children);
   }
 }

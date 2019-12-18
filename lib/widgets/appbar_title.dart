@@ -15,19 +15,19 @@ enum FLAppBarPosition {
 }
 
 class FLAppBarTitle extends StatelessWidget {
-  FLAppBarTitle({
-    Key key,
-    @required this.title,
-    this.titleStyle,
-    this.subtitle,
-    this.subtitleStyle,
-    this.layout = FLAppBarTitleLayout.horizontal,
-    this.showLoading = false,
-    this.loadingPosition = FLAppBarPosition.left,
-    this.customAccessoryWidget,
-    this.accessoryPosition = FLAppBarPosition.right
-  }) : assert(title != null),
-       super(key: key);
+  FLAppBarTitle(
+      {Key key,
+      @required this.title,
+      this.titleStyle,
+      this.subtitle,
+      this.subtitleStyle,
+      this.layout = FLAppBarTitleLayout.horizontal,
+      this.showLoading = false,
+      this.loadingPosition = FLAppBarPosition.left,
+      this.customAccessoryWidget,
+      this.accessoryPosition = FLAppBarPosition.right})
+      : assert(title != null),
+        super(key: key);
 
   final String title;
   final TextStyle titleStyle;
@@ -42,31 +42,36 @@ class FLAppBarTitle extends StatelessWidget {
   Widget _buildTitles() {
     List<Widget> titles = [];
     if (title != null) {
-      double tSize = layout == FLAppBarTitleLayout.horizontal ? _kDefaultTitleSize : _kDefaultVerticalTitleSize;
-      TextStyle tStyle = titleStyle ?? TextStyle(fontWeight: FontWeight.bold, fontSize: tSize);
+      double tSize = layout == FLAppBarTitleLayout.horizontal
+          ? _kDefaultTitleSize
+          : _kDefaultVerticalTitleSize;
+      TextStyle tStyle =
+          titleStyle ?? TextStyle(fontWeight: FontWeight.bold, fontSize: tSize);
       Text titleWidget = Text(title, style: tStyle);
       titles.add(titleWidget);
     }
 
     if (subtitle != null) {
-      Widget inset = layout == FLAppBarTitleLayout.horizontal ? SizedBox(width: 5) : SizedBox(height: 3);
+      Widget inset = layout == FLAppBarTitleLayout.horizontal
+          ? SizedBox(width: 5)
+          : SizedBox(height: 3);
       titles.add(inset);
 
-      double sSize = layout == FLAppBarTitleLayout.horizontal ? _kDefaultTitleSize : _kDefaultVerticalSubtitleSize;
-      TextStyle sStyle = subtitleStyle ?? TextStyle(fontWeight: FontWeight.w300, fontSize: sSize);
+      double sSize = layout == FLAppBarTitleLayout.horizontal
+          ? _kDefaultTitleSize
+          : _kDefaultVerticalSubtitleSize;
+      TextStyle sStyle = subtitleStyle ??
+          TextStyle(fontWeight: FontWeight.w300, fontSize: sSize);
       Text subtitleWidget = Text(subtitle, style: sStyle);
       titles.add(subtitleWidget);
     }
 
     if (layout == FLAppBarTitleLayout.horizontal) {
-      return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: titles
-      );
+      return Row(mainAxisSize: MainAxisSize.min, children: titles);
     } else {
       return Column(
-          children: titles,
-          mainAxisAlignment: MainAxisAlignment.center,
+        children: titles,
+        mainAxisAlignment: MainAxisAlignment.center,
       );
     }
   }
@@ -77,8 +82,7 @@ class FLAppBarTitle extends StatelessWidget {
         child: CircularProgressIndicator(
           strokeWidth: 3.0,
           valueColor: AlwaysStoppedAnimation(tintColor),
-        )
-    );
+        ));
   }
 
   _widgetInsetsAdd(List<Widget> list, Widget widget) {
@@ -92,14 +96,16 @@ class FLAppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget titleWidget = _buildTitles();
     ThemeData themeData = Theme.of(context);
-    final Color tintColor = themeData.appBarTheme.textTheme?.title?.color ?? themeData.primaryTextTheme.title.color;
+    final Color tintColor = themeData.appBarTheme.textTheme?.title?.color ??
+        themeData.primaryTextTheme.title.color;
     List<Widget> children = [];
 
     // build left
     if (loadingPosition == FLAppBarPosition.left && showLoading) {
       children.add(_buildLoadingIndicator(tintColor));
     }
-    if (accessoryPosition == FLAppBarPosition.left && customAccessoryWidget != null) {
+    if (accessoryPosition == FLAppBarPosition.left &&
+        customAccessoryWidget != null) {
       _widgetInsetsAdd(children, customAccessoryWidget);
     }
 
@@ -107,7 +113,8 @@ class FLAppBarTitle extends StatelessWidget {
     _widgetInsetsAdd(children, titleWidget);
 
     // build right
-    if (accessoryPosition == FLAppBarPosition.right && customAccessoryWidget != null) {
+    if (accessoryPosition == FLAppBarPosition.right &&
+        customAccessoryWidget != null) {
       _widgetInsetsAdd(children, customAccessoryWidget);
     }
     if (loadingPosition == FLAppBarPosition.right && showLoading) {

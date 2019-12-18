@@ -4,35 +4,34 @@ import 'package:flui/widgets/marquee_label.dart';
 const Color FLNoticeBarTintColor = const Color(0xFFF76A24);
 
 class FLNoticeBar extends StatelessWidget {
-  FLNoticeBar({
-    Key key,
-    this.backgroundColor = const Color(0xFFFEFCEC),
-    this.textStyle = const TextStyle(color: FLNoticeBarTintColor),
-    this.loop = true,
-    this.velocity,
-    this.padding,
-    this.textPadding,
-    this.prefix,
-    @required this.text,
-    this.space,
-    this.height = FLMarqueeDefaultHeight,
-    this.suffix
-  }) : assert(text != null),
-       super(key: key);
+  FLNoticeBar(
+      {Key key,
+      this.backgroundColor = const Color(0xFFFEFCEC),
+      this.textStyle = const TextStyle(color: FLNoticeBarTintColor),
+      this.loop = true,
+      this.velocity,
+      this.padding,
+      this.textPadding,
+      this.prefix,
+      @required this.text,
+      this.space,
+      this.height = FLMarqueeDefaultHeight,
+      this.suffix})
+      : assert(text != null),
+        super(key: key);
 
-  factory FLNoticeBar.notice({
-    Key key,
-    Color backgroundColor,
-    TextStyle textStyle,
-    bool loop,
-    double velocity,
-    EdgeInsetsGeometry padding,
-    EdgeInsetsGeometry textPadding,
-    String text,
-    double space,
-    double height,
-    Widget suffix
-  }) {
+  factory FLNoticeBar.notice(
+      {Key key,
+      Color backgroundColor,
+      TextStyle textStyle,
+      bool loop,
+      double velocity,
+      EdgeInsetsGeometry padding,
+      EdgeInsetsGeometry textPadding,
+      String text,
+      double space,
+      double height,
+      Widget suffix}) {
     backgroundColor ??= const Color(0xFFFEFCEC);
     textStyle ??= const TextStyle(color: FLNoticeBarTintColor);
     velocity ??= 0.4;
@@ -63,20 +62,19 @@ class FLNoticeBar extends StatelessWidget {
     );
   }
 
-  factory FLNoticeBar.closable({
-    Key key,
-    Color backgroundColor,
-    TextStyle textStyle,
-    bool loop,
-    double velocity,
-    EdgeInsetsGeometry padding,
-    EdgeInsetsGeometry textPadding,
-    String text,
-    double space,
-    double height,
-    Widget prefix,
-    VoidCallback onPressed
-  }) {
+  factory FLNoticeBar.closable(
+      {Key key,
+      Color backgroundColor,
+      TextStyle textStyle,
+      bool loop,
+      double velocity,
+      EdgeInsetsGeometry padding,
+      EdgeInsetsGeometry textPadding,
+      String text,
+      double space,
+      double height,
+      Widget prefix,
+      VoidCallback onPressed}) {
     assert(onPressed != null);
     backgroundColor ??= const Color(0xFFFEFCEC);
     textStyle ??= const TextStyle(color: FLNoticeBarTintColor);
