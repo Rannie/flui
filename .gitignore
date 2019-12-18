@@ -80,4 +80,5 @@ build/
 
 # Site
 site/.site-deploy.sh
+site/docs/.vuepress/public/app/flui.apk
 dist
