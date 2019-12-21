@@ -10,7 +10,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 <h1 align="center">FLUI</h1>
 
 <div align="center">
-A widget kit for Google Flutter <a href="https://www.flui.xin/app/flui.apk">Demo apk</a>
+<p>A widget kit for Google Flutter <a href="https://www.flui.xin/app/flui.apk">Demo apk</a></p>
 
 
 [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)

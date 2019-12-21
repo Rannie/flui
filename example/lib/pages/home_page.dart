@@ -1,3 +1,4 @@
+import 'package:example/pages/count_stepper_page.dart';
 import 'package:flutter/material.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
@@ -21,6 +22,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   List<_FLDemoListData> get _demoList {
     return [
+      _FLDemoListData(title: 'CountStepper', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: CountStepperPage.routeName),
       _FLDemoListData(title: 'Button', picPath: 'assets/button.png', imgWidth: 110, imgHeight: 50, targetRouteName: ButtonPage.routeName),
       _FLDemoListData(title: 'Label', picPath: 'assets/label.png', imgWidth: 70, imgHeight: 70, targetRouteName: LabelPage.routeName),
       _FLDemoListData(title: 'AppBar', picPath: 'assets/navi.png', imgWidth: 120, imgHeight: 50, targetRouteName: AppBarPage.routeName),
@@ -33,7 +35,7 @@ class HomePageState extends State<HomePage> {
       _FLDemoListData(title: 'NoticeBar', picPath: 'assets/notice.png', imgWidth: 110, imgHeight: 50, targetRouteName: NoticeBarPage.routeName),
       _FLDemoListData(title: 'Skeleton', picPath: 'assets/skeleton.png', imgWidth: 100, imgHeight: 65, targetRouteName: SkeletonPage.routeName),
       _FLDemoListData(title: 'BottomSheet', picPath: 'assets/sheet.png', imgWidth: 100, imgHeight: 65, targetRouteName: ActionSheetPage.routeName),
-      _FLDemoListData(title: 'List', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: StaticListViewPage.routeName)
+      _FLDemoListData(title: 'List', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: StaticListViewPage.routeName),
     ];
   }
 
@@ -81,6 +83,7 @@ class HomePageState extends State<HomePage> {
     }
     return list;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
