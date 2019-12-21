@@ -119,6 +119,21 @@ class FLToast {
       _showToast(text,
           position: position, style: style, type: _FLToastType.loading);
 
+  static Function show({String text, Widget content}) =>
+      FLToast.showToast(text: text, content: content);
+  static Function showToast(
+          {String text,
+          Widget content,
+          Duration duration,
+          FLToastPosition position,
+          FLToastStyle style}) =>
+      _showToast(text,
+          customWidget: content,
+          showDuration: duration,
+          position: position,
+          style: style,
+          type: _FLToastType.custom);
+
   static void text({String text}) => FLToast.showText(text: text);
   static void showText(
           {String text,
@@ -176,13 +191,14 @@ final EdgeInsetsGeometry _padding =
 final double _iconSize = 36.0;
 final double _toastMarginHorizontal = 10;
 
-enum _FLToastType { text, loading, success, error, info }
+enum _FLToastType { text, loading, success, error, info, custom }
 
 Function _showToast(String text,
     {Duration showDuration,
     FLToastPosition position,
     FLToastStyle style,
-    _FLToastType type}) {
+    _FLToastType type,
+    Widget customWidget}) {
   BuildContext context = _contextMap.values.first;
   OverlayEntry entry;
   FLToastDefaults defaults = _FLToastDefaultsWidget.of(context);
@@ -198,7 +214,10 @@ Function _showToast(String text,
   double topOffset = defaults.topOffset;
   double bottomOffset = defaults.bottomOffset;
   showDuration ??= defaults.showDuration;
-  if (type == _FLToastType.loading) showDuration = null;
+  if (type == _FLToastType.loading || type == _FLToastType.custom)
+    showDuration = null;
+  Widget slotWidget =
+      type == _FLToastType.custom ? customWidget : _typeWidget(type, color);
 
   GlobalKey<_FLToastViewState> key = GlobalKey();
 
@@ -210,7 +229,7 @@ Function _showToast(String text,
     text: text,
     padding: _padding,
     showDuration: showDuration,
-    slotWidget: _typeWidget(type, color),
+    slotWidget: slotWidget,
     canBeAutoClear: type != _FLToastType.loading,
     position: position,
     style: style,
@@ -228,7 +247,7 @@ Function _showToast(String text,
   SemanticsService.tooltip(text);
 
   return () {
-    key.currentState._dismiss();
+    key.currentState?._dismiss();
   };
 }
 

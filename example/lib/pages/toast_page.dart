@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flui/flui.dart';
 import 'package:example/style/style.dart';
 import 'package:example/event.dart';
@@ -21,6 +20,7 @@ class _ToastPageState extends State<ToastPage> {
   bool _darkMode = false;
   FLToastStyle _toastStyle = FLToastStyle.dark;
   FLToastPosition _toastPosition = FLToastPosition.center;
+  Function _hideCustomToast;
 
   @override
   void dispose() {
@@ -30,6 +30,11 @@ class _ToastPageState extends State<ToastPage> {
   
   @override
   Widget build(BuildContext context) {
+    if (_hideCustomToast != null) {
+      _hideCustomToast();
+      _hideCustomToast = null;
+    }
+
     Widget inset = SizedBox(height: 15);
     Color buttonColor = _darkMode ? darkButtonBG : lightBG;
     Color textColor = _darkMode ? lightBG : lightBarBG;
@@ -104,6 +109,34 @@ class _ToastPageState extends State<ToastPage> {
                     textColor: textColor,
                     child: Text('Error Toast', style: textStyle),
                     onPressed: () => FLToast.error(text: 'Something was wrong'),
+                  ),
+                ),
+                inset,
+                GestureDetector(
+                  onTapDown: (TapDownDetails details) {
+                    final Widget mic = Container(
+                      padding: EdgeInsets.all(15),
+                      child: Image.asset('assets/record.gif', scale: 2)
+                    );
+
+                    _hideCustomToast = FLToast.show(text: 'Swipe up to cancel sending', content: mic);
+                  },
+                  onLongPressEnd: (LongPressEndDetails details) {
+                    if (_hideCustomToast != null) {
+                      _hideCustomToast();
+                      _hideCustomToast = null;
+                    }
+                  },
+                  child: Container(
+                    width: 220,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.withAlpha(150)),
+                      borderRadius: BorderRadius.all(Radius.circular(2)),
+                    ),
+                    child: Center(
+                      child: Text('Custom Toast', style: textStyle.copyWith(color: textColor)),
+                    ),
                   ),
                 ),
                 inset,
