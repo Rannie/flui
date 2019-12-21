@@ -11,6 +11,7 @@ class CountStepperPage extends StatefulWidget {
 class _CountStepperPageState extends State<CountStepperPage> {
   bool _disabled = false;
   FLCountStepperController _controller = FLCountStepperController();
+  FLCountStepperController _floatingController = FLCountStepperController();
 
   Widget _buildNormalStepper() {
     return Container(
@@ -31,7 +32,17 @@ class _CountStepperPageState extends State<CountStepperPage> {
   }
 
   Widget _buildFloatingStepper() {
-    return Container();
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Center(
+        child: FLFloatingCountStepper(
+          controller: _floatingController,
+          onChanged: (value) {
+            print('update $value');
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -45,8 +56,8 @@ class _CountStepperPageState extends State<CountStepperPage> {
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            PageUtil.buildSection('Normal Count Stepper', _buildNormalStepper()),
-            PageUtil.buildSection('Floating Stepper', _buildFloatingStepper())
+            PageUtil.buildSection('Normal', _buildNormalStepper()),
+            PageUtil.buildSection('Floating', _buildFloatingStepper())
           ],
         ),
       ),
