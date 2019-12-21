@@ -5,6 +5,7 @@ import 'package:example/pages/avatar_page.dart';
 import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/bubble_page.dart';
 import 'package:example/pages/button_page.dart';
+import 'package:example/pages/count_stepper_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/hints_action_empty_page.dart';
 import 'package:example/pages/hints_empty_page.dart';
@@ -83,6 +84,7 @@ class _MyAppState extends State<MyApp> {
           BubblePage.routeName: (context) => BubblePage(),
           AvatarPage.routeName: (context) => AvatarPage(),
           InputPage.routeName: (context) => InputPage(),
+          CountStepperPage.routeName: (context) => CountStepperPage()
         },
       ),
     );
