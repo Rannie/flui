@@ -213,9 +213,9 @@ Function _showToast(String text,
   double backgroundOpacity = defaults.backgroundOpacity;
   double topOffset = defaults.topOffset;
   double bottomOffset = defaults.bottomOffset;
-  showDuration ??= defaults.showDuration;
-  if (type == _FLToastType.loading || type == _FLToastType.custom)
-    showDuration = null;
+  showDuration ??= (type == _FLToastType.custom) ? null : defaults.showDuration;
+  if (type == _FLToastType.loading)
+    showDuration = null; //loading type no duration
   Widget slotWidget =
       type == _FLToastType.custom ? customWidget : _typeWidget(type, color);
 
@@ -345,10 +345,8 @@ class _FLToastDefaultsWidget extends InheritedWidget {
   }
 
   static FLToastDefaults of(BuildContext context) {
-    // TODO: change to new method when upgrade to 1.12
-    // ignore: deprecated_member_use
-    _FLToastDefaultsWidget defaultsWidget =
-        context.inheritFromWidgetOfExactType(_FLToastDefaultsWidget);
+    _FLToastDefaultsWidget defaultsWidget = context
+        .dependOnInheritedWidgetOfExactType(aspect: _FLToastDefaultsWidget);
     return defaultsWidget.defaults;
   }
 }
