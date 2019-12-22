@@ -66,6 +66,7 @@ class HomePageState extends State<HomePage> {
                         child: Image.asset(demoData.picPath,
                           width: demoData.imgWidth,
                           height: demoData.imgHeight,
+                          scale: 1.6,
                         ),
                       )
                   ),
@@ -73,7 +74,7 @@ class HomePageState extends State<HomePage> {
                     left: 10,
                     right: 10,
                     bottom: 20,
-                    child: Text(demoData.title, style: TextStyle(fontSize: 16, color: Colors.black.withAlpha(150)), textAlign: TextAlign.center),
+                    child: Text(demoData.title, style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
                   )
                 ],
               )
@@ -88,11 +89,10 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FLUI'),
+        title: Text('FLUI', style: TextStyle(letterSpacing: 6)),
         centerTitle: true,
       ),
       body: Container(
-          color: Colors.white,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: GridView(
             padding: EdgeInsets.symmetric(vertical: 20),
