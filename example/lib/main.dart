@@ -24,6 +24,7 @@ import 'package:example/pages/static_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:example/style/theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,12 +59,8 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'FLUI',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: FLColors.primarySwatch,
-          buttonTheme: ButtonThemeData(
-              colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
-          ),
-        ),
+        theme: kLightTheme,
+        darkTheme: kDarkTheme,
         routes: {
           HomeTab.routeName: (context) => HomeTab(),
           InputPage.routeName: (context) => InputPage(),

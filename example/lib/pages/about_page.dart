@@ -12,9 +12,11 @@ class AboutPageState extends State<AboutPage> {
     return Column(
       children: <Widget>[
         SizedBox(height: 60),
-        Image.asset('assets/logop.png'),
-        SizedBox(height: 20),
-        Text('version: 0.7.4', style: TextStyle(fontSize: 16, color: Colors.black.withAlpha(160)), textAlign: TextAlign.center),
+        Image.asset('assets/logo_trans.png', scale: 3.4),
+        SizedBox(height: 10),
+        Text('FLUI', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500, letterSpacing: 6)),
+        SizedBox(height: 45),
+        Text('version: 0.7.4', style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
         SizedBox(height: 40),
       ],
     );

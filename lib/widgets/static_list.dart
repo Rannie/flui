@@ -11,7 +11,7 @@ enum FLStaticListCellAccessoryType {
   accSwitch,
 }
 
-const Color kStaticBackgroundColor = Color.fromRGBO(246, 246, 246, 1);
+const Color kStaticBackgroundColor = Colors.transparent;
 const double kStaticHeaderHeight = 56;
 const double kStaticHeaderHeightNormal = 40;
 const double kStaticHeaderTitleIntent = 20;
@@ -45,7 +45,7 @@ class FLStaticItemData {
     this.accessoryType = FLStaticListCellAccessoryType.accNone,
     this.accessoryString,
     this.customTrailing,
-    this.cellColor = Colors.white,
+    this.cellColor,
     this.onTap,
     this.switchValue = false,
     this.selected = false,
@@ -171,16 +171,14 @@ class FLStaticListView extends StatelessWidget {
         : Text(itemData.subtitle, style: itemData.subtitleStyle);
     final Widget accesssoryWidget = _getAccessoryWidget(itemData, themeData);
     final Widget trailingWidget = accesssoryWidget ?? itemData.customTrailing;
-    return Container(
-        color: itemData.cellColor,
-        child: FLListTile(
+    return FLListTile(
           leading: itemData.leading,
           title: titleText,
           subtitle: subtitleText,
           trailing: trailingWidget,
           onTap: itemData.onTap,
           selected: itemData.selected,
-        ));
+        );
   }
 
   Widget _buildButtonCell(FLStaticItemData itemData, ThemeData themeData) {

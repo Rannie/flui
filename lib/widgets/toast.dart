@@ -60,8 +60,8 @@ class FLToastProvider extends StatefulWidget {
 class _FLToastProviderState extends State<FLToastProvider> {
   @override
   void initState() {
-    GestureBinding.instance.pointerRouter.addGlobalRoute(_handlePointerEvent);
     super.initState();
+    GestureBinding.instance.pointerRouter.addGlobalRoute(_handlePointerEvent);
   }
 
   void _handlePointerEvent(PointerEvent event) {
@@ -340,9 +340,7 @@ class _FLToastDefaultsWidget extends InheritedWidget {
   final FLToastDefaults defaults;
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return true;
-  }
+  bool updateShouldNotify(_FLToastDefaultsWidget oldWidget) => this.defaults != oldWidget.defaults;
 
   static FLToastDefaults of(BuildContext context) {
     _FLToastDefaultsWidget defaultsWidget = context

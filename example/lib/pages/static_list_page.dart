@@ -89,7 +89,6 @@ class _StaticListViewState extends State<StaticListViewPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.white,//Color.fromRGBO(246, 246, 246, 1),
         child: FLStaticListView(
           shrinkWrap: true,
           sections: _buildList(),

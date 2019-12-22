@@ -78,6 +78,7 @@ flutter:
     - assets/list.png
     - assets/logop.png
     - assets/record.gif
+    - assets/logo_trans.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
