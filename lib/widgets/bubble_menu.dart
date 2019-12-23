@@ -148,8 +148,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < route.items.length; i += 1) {
       final CurvedAnimation opacity = CurvedAnimation(

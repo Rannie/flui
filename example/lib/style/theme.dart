@@ -43,7 +43,8 @@ ThemeData _buildDarkTheme() {
       textTheme: ButtonTextTheme.primary,
     ),
     cupertinoOverrideTheme: CupertinoThemeData(
-        primaryColor: primaryColor
+      primaryColor: primaryColor,
+      brightness: Brightness.dark,
     ),
   );
   return base.copyWith(
@@ -66,25 +67,28 @@ ThemeData _buildLightTheme() {
     secondary: secondaryColor,
   );
   final ThemeData base = ThemeData(
-    brightness: Brightness.light,
-    accentColorBrightness: Brightness.dark,
-    colorScheme: colorScheme,
-    primaryColor: primaryColor,
-    buttonColor: primaryColor,
-    indicatorColor: Colors.white,
-    toggleableActiveColor: const Color(0xFF1E88E5),
-    splashColor: Colors.white24,
-    splashFactory: InkRipple.splashFactory,
-    accentColor: secondaryColor,
-    canvasColor: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
-    backgroundColor: Colors.white,
-    errorColor: const Color(0xFFB00020),
-    buttonTheme: ButtonThemeData(
+      brightness: Brightness.light,
+      accentColorBrightness: Brightness.dark,
       colorScheme: colorScheme,
-      textTheme: ButtonTextTheme.primary,
-    ),
-  );
+      primaryColor: primaryColor,
+      buttonColor: primaryColor,
+      indicatorColor: Colors.white,
+      toggleableActiveColor: const Color(0xFF1E88E5),
+      splashColor: Colors.white24,
+      splashFactory: InkRipple.splashFactory,
+      accentColor: secondaryColor,
+      canvasColor: Colors.white,
+      scaffoldBackgroundColor: Colors.white,
+      backgroundColor: Colors.white,
+      errorColor: const Color(0xFFB00020),
+      buttonTheme: ButtonThemeData(
+        colorScheme: colorScheme,
+        textTheme: ButtonTextTheme.primary,
+      ),
+      cupertinoOverrideTheme: CupertinoThemeData(
+        primaryColor: primaryColor,
+        brightness: Brightness.light,
+      ));
   return base.copyWith(
     textTheme: _buildTextTheme(base.textTheme),
     primaryTextTheme: _buildTextTheme(base.primaryTextTheme),

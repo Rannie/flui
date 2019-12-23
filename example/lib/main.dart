@@ -1,4 +1,6 @@
-import 'package:example/event.dart';
+import 'dart:io';
+
+import 'package:example/util.dart';
 import 'package:example/pages/about_page.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
@@ -22,10 +24,19 @@ import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:example/style/theme.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle =
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+  Util.initialize();
+}
 
 Logger logger = Logger();
 
@@ -35,14 +46,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  bool _isDarkMode;
+  FLToastDefaults _defaults = FLToastDefaults();
+  bool _userModeLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    eventBus.on().listen((event) {});
     WidgetsBinding.instance.addObserver(this);
-    _isDarkMode = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    Util.eventBus.on().listen((event) {
+      if (event == 'reset') {
+        setState(() {
+          _defaults = FLToastDefaults();
+        });
+      } else if (event == 'theme') {
+        setState(() {});
+      } else if (event == 'themeLoaded') {
+        if (!_userModeLoaded) setState(() {});
+      } else {
+        setState(() => _defaults = event);
+      }
+    });
   }
 
   @override
@@ -53,22 +76,46 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangePlatformBrightness() {
-    final Brightness brightness =
-        WidgetsBinding.instance.window.platformBrightness;
-    setState(() {
-      _isDarkMode = brightness == Brightness.dark;
-    });
+    if (Util.themeMode == ThemeMode.system) {
+      setState(() {});
+    }
+  }
+
+  bool _isDarkMode() {
+    bool isDarkMode;
+    final ThemeMode themeMode = Util.themeMode;
+    if (themeMode == ThemeMode.light || themeMode == ThemeMode.dark) {
+      isDarkMode = themeMode == ThemeMode.dark;
+    } else {
+      isDarkMode =
+          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    }
+    return isDarkMode;
+  }
+
+  void _updateStatusBar() {
+    final SystemUiOverlayStyle overlayStyle =
+        _isDarkMode() ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
+    SystemChrome.setSystemUIOverlayStyle(overlayStyle);
   }
 
   @override
   Widget build(BuildContext context) {
-    FLToastStyle style = _isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
-    FLToastDefaults toastDefaults = FLToastDefaults(style: style);
+    if (_userModeLoaded == false && Util.preferences != null) {
+      _userModeLoaded = true;
+    }
+    _updateStatusBar();
+    bool isDarkMode = _isDarkMode();
+    final ThemeMode themeMode = Util.themeMode;
+    FLToastStyle style = isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
+    FLToastDefaults toastDefaults =
+        FLToastDefaults(style: style, position: _defaults.position);
     return FLToastProvider(
       defaults: toastDefaults,
       child: MaterialApp(
         title: 'FLUI',
         debugShowCheckedModeBanner: false,
+        themeMode: themeMode,
         theme: kLightTheme,
         darkTheme: kDarkTheme,
         routes: {
@@ -110,10 +157,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int _currentIndex = 0;
-  List pages = [
-    HomePage(),
-    AboutPage()
-  ];
+  List pages = [HomePage(), AboutPage()];
 
   @override
   Widget build(BuildContext context) {

@@ -20,7 +20,7 @@ class _InputPageState extends State<InputPage> {
   final TextEditingController _pinController = TextEditingController();
   final GlobalKey<FLAutoCompleteState> _key = GlobalKey<FLAutoCompleteState>();
   final FocusNode _focusNode = FocusNode();
-  
+
   Widget _buildPinInputsContent() {
     return Column(
       children: <Widget>[
@@ -76,7 +76,7 @@ class _InputPageState extends State<InputPage> {
       ],
     );
   }
-  
+
   Widget _buildAutoComplete() {
     return Container(
       padding: EdgeInsets.all(20),
@@ -124,12 +124,12 @@ class _InputPageState extends State<InputPage> {
         ),
         body: Container(
             child: ListView(
-              children: <Widget>[
-                PageUtil.buildSection('Auto Complete', _buildAutoComplete(), context),
-                PageUtil.buildSection('Pin Input', _buildPinInputsContent(), context)
-              ],
-            )
-        )
-    );
+          children: <Widget>[
+            PageUtil.buildSection(
+                'Auto Complete', _buildAutoComplete(), context),
+            PageUtil.buildSection(
+                'Pin Input', _buildPinInputsContent(), context)
+          ],
+        )));
   }
 }

@@ -56,10 +56,10 @@ class _AvatarPageState extends State<AvatarPage> {
       child: GridView(
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              childAspectRatio: 1.0,
+            crossAxisCount: 5,
+            childAspectRatio: 1.0,
           ),
-          children:<Widget>[
+          children: <Widget>[
             Container(
               child: Center(
                 child: FLAvatar(
@@ -172,8 +172,7 @@ class _AvatarPageState extends State<AvatarPage> {
                 ),
               ),
             ),
-          ]
-      ),
+          ]),
     );
   }
 
@@ -186,7 +185,8 @@ class _AvatarPageState extends State<AvatarPage> {
       body: Container(
         child: ListView(
           children: <Widget>[
-            PageUtil.buildSection('Image Avatars', _buildImageAvatars(), context),
+            PageUtil.buildSection(
+                'Image Avatars', _buildImageAvatars(), context),
             PageUtil.buildSection('Name Avatars', _buildNameAvatars(), context),
           ],
         ),
