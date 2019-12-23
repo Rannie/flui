@@ -22,20 +22,90 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   List<_FLDemoListData> get _demoList {
     return [
-      _FLDemoListData(title: 'Button', picPath: 'assets/button.png', imgWidth: 110, imgHeight: 50, targetRouteName: ButtonPage.routeName),
-      _FLDemoListData(title: 'Label', picPath: 'assets/label.png', imgWidth: 70, imgHeight: 70, targetRouteName: LabelPage.routeName),
-      _FLDemoListData(title: 'AppBar', picPath: 'assets/navi.png', imgWidth: 120, imgHeight: 50, targetRouteName: AppBarPage.routeName),
-      _FLDemoListData(title: 'Toast', picPath: 'assets/toast.png', imgWidth: 100, imgHeight: 65, targetRouteName: ToastPage.routeName),
-      _FLDemoListData(title: 'Bubble', picPath: 'assets/bubble.png', imgWidth: 120, imgHeight: 58, targetRouteName: BubblePage.routeName),
-      _FLDemoListData(title: 'Avatar', picPath: 'assets/avatar.png', imgWidth: 70, imgHeight: 70, targetRouteName: AvatarPage.routeName),
-      _FLDemoListData(title: 'Input', picPath: 'assets/input.png', imgWidth: 110, imgHeight: 50, targetRouteName: InputPage.routeName),
-      _FLDemoListData(title: 'Badge', picPath: 'assets/badge.png', imgWidth: 70, imgHeight: 70, targetRouteName: BadgePage.routeName),
-      _FLDemoListData(title: 'CountStepper', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: CountStepperPage.routeName),
-      _FLDemoListData(title: 'Empty', picPath: 'assets/empty.png', imgWidth: 70, imgHeight: 70, targetRouteName: EmptyPage.routeName),
-      _FLDemoListData(title: 'NoticeBar', picPath: 'assets/notice.png', imgWidth: 110, imgHeight: 50, targetRouteName: NoticeBarPage.routeName),
-      _FLDemoListData(title: 'Skeleton', picPath: 'assets/skeleton.png', imgWidth: 100, imgHeight: 65, targetRouteName: SkeletonPage.routeName),
-      _FLDemoListData(title: 'BottomSheet', picPath: 'assets/sheet.png', imgWidth: 100, imgHeight: 65, targetRouteName: ActionSheetPage.routeName),
-      _FLDemoListData(title: 'List', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: StaticListViewPage.routeName),
+      _FLDemoListData(
+          title: 'Button',
+          picPath: 'assets/button.png',
+          imgWidth: 110,
+          imgHeight: 50,
+          targetRouteName: ButtonPage.routeName),
+      _FLDemoListData(
+          title: 'Label',
+          picPath: 'assets/label.png',
+          imgWidth: 70,
+          imgHeight: 70,
+          targetRouteName: LabelPage.routeName),
+      _FLDemoListData(
+          title: 'AppBar',
+          picPath: 'assets/navi.png',
+          imgWidth: 120,
+          imgHeight: 50,
+          targetRouteName: AppBarPage.routeName),
+      _FLDemoListData(
+          title: 'Toast',
+          picPath: 'assets/toast.png',
+          imgWidth: 100,
+          imgHeight: 65,
+          targetRouteName: ToastPage.routeName),
+      _FLDemoListData(
+          title: 'Bubble',
+          picPath: 'assets/bubble.png',
+          imgWidth: 120,
+          imgHeight: 58,
+          targetRouteName: BubblePage.routeName),
+      _FLDemoListData(
+          title: 'Avatar',
+          picPath: 'assets/avatar.png',
+          imgWidth: 70,
+          imgHeight: 70,
+          targetRouteName: AvatarPage.routeName),
+      _FLDemoListData(
+          title: 'Input',
+          picPath: 'assets/input.png',
+          imgWidth: 110,
+          imgHeight: 50,
+          targetRouteName: InputPage.routeName),
+      _FLDemoListData(
+          title: 'Badge',
+          picPath: 'assets/badge.png',
+          imgWidth: 70,
+          imgHeight: 70,
+          targetRouteName: BadgePage.routeName),
+      _FLDemoListData(
+          title: 'CountStepper',
+          picPath: 'assets/list.png',
+          imgWidth: 70,
+          imgHeight: 70,
+          targetRouteName: CountStepperPage.routeName),
+      _FLDemoListData(
+          title: 'Empty',
+          picPath: 'assets/empty.png',
+          imgWidth: 70,
+          imgHeight: 70,
+          targetRouteName: EmptyPage.routeName),
+      _FLDemoListData(
+          title: 'NoticeBar',
+          picPath: 'assets/notice.png',
+          imgWidth: 110,
+          imgHeight: 50,
+          targetRouteName: NoticeBarPage.routeName),
+      _FLDemoListData(
+          title: 'Skeleton',
+          picPath: 'assets/skeleton.png',
+          imgWidth: 100,
+          imgHeight: 65,
+          targetRouteName: SkeletonPage.routeName),
+      _FLDemoListData(
+          title: 'BottomSheet',
+          picPath: 'assets/sheet.png',
+          imgWidth: 100,
+          imgHeight: 65,
+          targetRouteName: ActionSheetPage.routeName),
+      _FLDemoListData(
+          title: 'List',
+          picPath: 'assets/list.png',
+          imgWidth: 70,
+          imgHeight: 70,
+          targetRouteName: StaticListViewPage.routeName),
     ];
   }
 
@@ -52,7 +122,8 @@ class HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pushNamed(context, demoData.targetRouteName);
               },
-              splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+              splashColor:
+                  Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
               // Generally, material cards do not have a highlight overlay.
               highlightColor: Colors.transparent,
               child: Stack(
@@ -63,23 +134,23 @@ class HomePageState extends State<HomePage> {
                       top: 15,
                       bottom: 55,
                       child: Center(
-                        child: Image.asset(demoData.picPath,
+                        child: Image.asset(
+                          demoData.picPath,
                           width: demoData.imgWidth,
                           height: demoData.imgHeight,
                           scale: 1.6,
                         ),
-                      )
-                  ),
+                      )),
                   Positioned(
                     left: 10,
                     right: 10,
                     bottom: 20,
-                    child: Text(demoData.title, style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
+                    child: Text(demoData.title,
+                        style: TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center),
                   )
                 ],
-              )
-          )
-      );
+              )));
       list.add(card);
     }
     return list;
@@ -88,24 +159,21 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('FLUI', style: TextStyle(letterSpacing: 6)),
-        centerTitle: true,
-      ),
-      body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: GridView(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 9/8,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20
-            ),
-            children: _demoCards,
-          )
-      )
-    );
+        appBar: AppBar(
+          title: Text('FLUI', style: TextStyle(letterSpacing: 6)),
+          centerTitle: true,
+        ),
+        body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: GridView(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 9 / 8,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 20),
+              children: _demoCards,
+            )));
   }
 }
 

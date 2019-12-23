@@ -29,7 +29,7 @@ class _ButtonPageState extends State<ButtonPage> {
   }
 
   Widget _flatButtonContent(double screenWidth) {
-    final Brightness brightness = MediaQuery.of(context).platformBrightness;
+    final Brightness brightness = Theme.of(context).brightness;
     final bool isDarkMode = brightness == Brightness.dark;
     final Color color = isDarkMode ? Colors.white : _mainColor;
     return Column(
@@ -46,13 +46,14 @@ class _ButtonPageState extends State<ButtonPage> {
         ),
         SizedBox(height: 10),
         FLFlatButton.icon(
-              padding: const EdgeInsets.all(5),
-              textColor: color,
-              onPressed: () => setState(() => _iconPosFlat = _newIconPos(_iconPosFlat)),
-              icon: Icon(Icons.account_box, color: color),
-              label: Text('Click to change icon position'),
-              spacing: 5,
-              iconPosition: _iconPosFlat,
+          padding: const EdgeInsets.all(5),
+          textColor: color,
+          onPressed: () =>
+              setState(() => _iconPosFlat = _newIconPos(_iconPosFlat)),
+          icon: Icon(Icons.account_box, color: color),
+          label: Text('Click to change icon position'),
+          spacing: 5,
+          iconPosition: _iconPosFlat,
         ),
         SizedBox(height: 10),
       ],
@@ -76,8 +77,9 @@ class _ButtonPageState extends State<ButtonPage> {
           padding: const EdgeInsets.all(5),
           color: _mainColor,
           textColor: Colors.white,
-          onPressed: () => setState(() => _iconPosRaised = _newIconPos(_iconPosRaised)),
-          icon: Icon(Icons.account_box, color:Colors.white),
+          onPressed: () =>
+              setState(() => _iconPosRaised = _newIconPos(_iconPosRaised)),
+          icon: Icon(Icons.account_box, color: Colors.white),
           label: Text('Click to change icon position'),
           spacing: 5,
           iconPosition: _iconPosRaised,
@@ -108,7 +110,8 @@ class _ButtonPageState extends State<ButtonPage> {
             Color(0xFF34A853), // green
             Color(0xFFFBBC05), // yellow
             Color(0xFFEA4335), // red
-            Color(0xFF4285F4), // blue again to seamlessly transition to the start
+            Color(
+                0xFF4285F4), // blue again to seamlessly transition to the start
           ],
           stops: const <double>[0.0, 0.25, 0.5, 0.75, 1.0],
           textColor: Colors.white,
@@ -149,7 +152,8 @@ class _ButtonPageState extends State<ButtonPage> {
           minWidth: 200,
           onPressed: () {
             setState(() => _loading = true);
-            Future.delayed(Duration(seconds: 3), () => setState(() => _loading = false));
+            Future.delayed(
+                Duration(seconds: 3), () => setState(() => _loading = false));
           },
         ),
         SizedBox(height: 10),
@@ -164,7 +168,8 @@ class _ButtonPageState extends State<ButtonPage> {
           indicatorOnly: true,
           onPressed: () {
             setState(() => _indiOnlyLoading = true);
-            Future.delayed(Duration(seconds: 3), () => setState(() => _indiOnlyLoading = false));
+            Future.delayed(Duration(seconds: 3),
+                () => setState(() => _indiOnlyLoading = false));
           },
         ),
         SizedBox(height: 10),
@@ -180,20 +185,23 @@ class _ButtonPageState extends State<ButtonPage> {
         appBar: AppBar(
           title: Text('Buttons'),
           centerTitle: true,
-    ),
+        ),
         body: Container(
           width: screenWidth,
           height: screenHeight,
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              PageUtil.buildSection('Flat Button', _flatButtonContent(screenWidth), context),
-              PageUtil.buildSection('Raised Button', _raisedButtonContent(screenWidth), context),
-              PageUtil.buildSection('Gradient Button', _gradientButtonContent(), context),
-              PageUtil.buildSection('Loading Button', _loadingButtonContent(), context),
+              PageUtil.buildSection(
+                  'Flat Button', _flatButtonContent(screenWidth), context),
+              PageUtil.buildSection(
+                  'Raised Button', _raisedButtonContent(screenWidth), context),
+              PageUtil.buildSection(
+                  'Gradient Button', _gradientButtonContent(), context),
+              PageUtil.buildSection(
+                  'Loading Button', _loadingButtonContent(), context),
             ],
           ),
-        )
-    );
+        ));
   }
 }

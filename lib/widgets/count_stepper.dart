@@ -152,7 +152,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
   Widget build(BuildContext context) {
     _maxLength = (widget.inputWidth / 10).floor() - 1;
     final ThemeData themeData = Theme.of(context);
-    final Brightness brightness = MediaQuery.of(context).platformBrightness;
+    final Brightness brightness = themeData.brightness;
     final bool isDarkMode = brightness == Brightness.dark;
     final Color buttonIconColor = widget.actionColor ?? isDarkMode
         ? Colors.white

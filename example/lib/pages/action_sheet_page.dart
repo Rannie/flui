@@ -29,9 +29,11 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Color actionBlue = CupertinoDynamicColor.resolve(CupertinoColors.systemBlue, context);
-    final CupertinoDynamicColor headerColor = CupertinoDynamicColor
-        .withBrightness(color: Colors.blueGrey, darkColor: Colors.white);
+    final Color actionBlue =
+        CupertinoDynamicColor.resolve(CupertinoColors.systemBlue, context);
+    final CupertinoDynamicColor headerColor =
+        CupertinoDynamicColor.withBrightness(
+            color: Colors.blueGrey, darkColor: Colors.white);
     final Color hColor = CupertinoDynamicColor.resolve(headerColor, context);
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +56,8 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                             style: FLCupertinoActionSheetStyle.filled,
                             child: _buildActionSheetContent(),
                             cancelButton: CupertinoActionSheetAction(
-                              child: Text('Cancel', style: TextStyle(color: actionBlue)),
+                              child: Text('Cancel',
+                                  style: TextStyle(color: actionBlue)),
                               isDefaultAction: true,
                               onPressed: () {
                                 Navigator.pop(context, 'Cancel');
@@ -80,7 +83,8 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                           return FLCupertinoActionSheet(
                             child: _buildActionSheetContent(),
                             cancelButton: CupertinoActionSheetAction(
-                              child: Text('Cancel', style: TextStyle(color: actionBlue)),
+                              child: Text('Cancel',
+                                  style: TextStyle(color: actionBlue)),
                               isDefaultAction: true,
                               onPressed: () {
                                 Navigator.pop(context, 'Cancel');
@@ -107,15 +111,19 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                           return FLCupertinoOperationSheet(
                             sheetStyle: FLCupertinoActionSheetStyle.filled,
                             cancelButton: CupertinoActionSheetAction(
-                              child: Text('Cancel', style: TextStyle(color: actionBlue)),
+                              child: Text('Cancel',
+                                  style: TextStyle(color: actionBlue)),
                               isDefaultAction: true,
                               onPressed: () {
                                 Navigator.pop(context, 'Cancel');
                               },
                             ),
                             header: Container(
-                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                              child: Text('Share', style: TextStyle(color: hColor, fontSize: 18)),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 30),
+                              child: Text('Share',
+                                  style:
+                                      TextStyle(color: hColor, fontSize: 18)),
                             ),
                             itemList: [
                               [
@@ -201,8 +209,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                               ]
                             ],
                           );
-                        }
-                    ).then((value) => FLToast.info(text: value));
+                        }).then((value) => FLToast.info(text: value));
                   },
                 ),
               ),

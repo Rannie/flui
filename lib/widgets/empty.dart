@@ -51,8 +51,7 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final List<Widget> children = <Widget>[];
     if (widget.customLoadingWidget != null) {
       _addChildAndSpacingIfNeeded(children, widget.customLoadingWidget);

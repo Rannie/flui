@@ -14,7 +14,8 @@ class _AppBarPageState extends State<AppBarPage> {
   FLAppBarTitleLayout _barLayout = FLAppBarTitleLayout.horizontal;
   bool _showLoading = false;
   FLAppBarPosition _loadingPos = FLAppBarPosition.right;
-  Widget _accessoryWidget = Icon(Icons.keyboard_arrow_down, color: Colors.white);
+  Widget _accessoryWidget =
+      Icon(Icons.keyboard_arrow_down, color: Colors.white);
   FLAppBarPosition _accessoryPos = FLAppBarPosition.right;
   bool _showSubTitle = false;
   bool _showAccessory = false;
@@ -24,19 +25,23 @@ class _AppBarPageState extends State<AppBarPage> {
     Widget inset = SizedBox(height: 10);
     String subStr = _showSubTitle ? 'Hide subtitle' : 'Show subtitle';
     String loadStr = _showLoading ? 'Hide loading' : 'Show loading';
-    String accStr = _showAccessory ? 'Hide accessory widget' : 'Show accessory widget';
+    String accStr =
+        _showAccessory ? 'Hide accessory widget' : 'Show accessory widget';
 
-    final Map<FLAppBarTitleLayout, Widget> layoutSegs = const <FLAppBarTitleLayout, Widget>{
+    final Map<FLAppBarTitleLayout, Widget> layoutSegs =
+        const <FLAppBarTitleLayout, Widget>{
       FLAppBarTitleLayout.horizontal: Text('Horizontal'),
       FLAppBarTitleLayout.vertical: Text('Vertical'),
     };
 
-    final Map<FLAppBarPosition, Widget> loadingSegs = const <FLAppBarPosition, Widget>{
+    final Map<FLAppBarPosition, Widget> loadingSegs =
+        const <FLAppBarPosition, Widget>{
       FLAppBarPosition.right: Text('Right'),
       FLAppBarPosition.left: Text('Left')
     };
 
-    final Map<FLAppBarPosition, Widget> accSegs = const <FLAppBarPosition, Widget>{
+    final Map<FLAppBarPosition, Widget> accSegs =
+        const <FLAppBarPosition, Widget>{
       FLAppBarPosition.right: Text('Right'),
       FLAppBarPosition.left: Text('Left')
     };
@@ -89,7 +94,8 @@ class _AppBarPageState extends State<AppBarPage> {
                   width: 250,
                   child: CupertinoSegmentedControl<FLAppBarTitleLayout>(
                     children: layoutSegs,
-                    onValueChanged: (newValue) => setState(() => _barLayout = newValue),
+                    onValueChanged: (newValue) =>
+                        setState(() => _barLayout = newValue),
                     groupValue: _barLayout,
                   ),
                 )
@@ -108,7 +114,8 @@ class _AppBarPageState extends State<AppBarPage> {
                   width: 250,
                   child: CupertinoSegmentedControl<FLAppBarPosition>(
                     children: loadingSegs,
-                    onValueChanged: (newValue) => setState(() => _loadingPos = newValue),
+                    onValueChanged: (newValue) =>
+                        setState(() => _loadingPos = newValue),
                     groupValue: _loadingPos,
                   ),
                 )
@@ -127,7 +134,8 @@ class _AppBarPageState extends State<AppBarPage> {
                   width: 250,
                   child: CupertinoSegmentedControl<FLAppBarPosition>(
                     children: accSegs,
-                    onValueChanged: (newValue) => setState(() => _accessoryPos = newValue),
+                    onValueChanged: (newValue) =>
+                        setState(() => _accessoryPos = newValue),
                     groupValue: _accessoryPos,
                   ),
                 )
