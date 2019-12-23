@@ -13,7 +13,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 <p>A widget kit for Google Flutter <a href="https://www.flui.xin/app/flui.apk">Demo apk</a></p>
 
 
-[![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
+[![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) [![Documentation](http://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/en/widgets/button.html) [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
 
 
 <img src="https://raw.githubusercontent.com/Rannie/Rannie.github.io/master/images/2019-12-18-overview-2.png" />
