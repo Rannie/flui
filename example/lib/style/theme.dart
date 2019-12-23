@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData kLightTheme = _buildLightTheme();
@@ -13,7 +14,7 @@ TextTheme _buildTextTheme(TextTheme base) {
 
 ThemeData _buildDarkTheme() {
   const Color primaryColor = Color(0xFF34355D);
-  const Color secondaryColor = Color(0xFF3B42AC);
+  const Color secondaryColor = Color(0xFF5F58A0);
   final ColorScheme colorScheme = const ColorScheme.dark().copyWith(
     primary: primaryColor,
     secondary: secondaryColor,
@@ -40,6 +41,9 @@ ThemeData _buildDarkTheme() {
     buttonTheme: ButtonThemeData(
       colorScheme: colorScheme,
       textTheme: ButtonTextTheme.primary,
+    ),
+    cupertinoOverrideTheme: CupertinoThemeData(
+        primaryColor: primaryColor
     ),
   );
   return base.copyWith(

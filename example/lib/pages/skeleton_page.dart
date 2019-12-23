@@ -1,3 +1,4 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
@@ -9,24 +10,6 @@ class SkeletonPage extends StatefulWidget {
 }
 
 class _SkeletonState extends State<SkeletonPage> {
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
-
   Widget _buildNormalContent() {
     return Container(
         padding: EdgeInsets.all(10),
@@ -165,9 +148,9 @@ class _SkeletonState extends State<SkeletonPage> {
       body: Container(
         child: ListView(
           children: <Widget>[
-            _buildSection('Shimmer', _buildShimmerContent()),
-            _buildSection('Stretch', _buildStretchContent()),
-            _buildSection('No Animation', _buildNormalContent()),
+            PageUtil.buildSection('Shimmer', _buildShimmerContent(), context),
+            PageUtil.buildSection('Stretch', _buildStretchContent(), context),
+            PageUtil.buildSection('No Animation', _buildNormalContent(), context),
           ],
         ),
       )

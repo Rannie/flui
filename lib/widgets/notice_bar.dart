@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flui/widgets/marquee_label.dart';
 
 const Color FLNoticeBarTintColor = const Color(0xFFF76A24);
+const Color FLNoticeBarBackgroundColor = const Color(0xFFFEFCEC);
+
+typedef FLNoticeBarItemBuilder = Widget Function(BuildContext context);
 
 class FLNoticeBar extends StatelessWidget {
-  FLNoticeBar(
-      {Key key,
-      this.backgroundColor = const Color(0xFFFEFCEC),
-      this.textStyle = const TextStyle(color: FLNoticeBarTintColor),
-      this.loop = true,
-      this.velocity = 0.4,
-      this.padding,
-      this.textPadding,
-      this.prefix,
-      @required this.text,
-      this.space,
-      this.height = FLMarqueeDefaultHeight,
-      this.suffix})
-      : assert(text != null),
+  FLNoticeBar({
+    Key key,
+    this.backgroundColor,
+    this.textStyle,
+    this.loop = true,
+    this.velocity = 0.4,
+    this.padding,
+    this.textPadding,
+    @required this.text,
+    this.space,
+    this.height = FLMarqueeDefaultHeight,
+    this.prefixBuilder,
+    this.suffixBuilder,
+  })  : assert(text != null),
         super(key: key);
 
   factory FLNoticeBar.notice(
@@ -31,20 +34,25 @@ class FLNoticeBar extends StatelessWidget {
       String text,
       double space,
       double height,
-      Widget suffix}) {
-    backgroundColor ??= const Color(0xFFFEFCEC);
-    textStyle ??= const TextStyle(color: FLNoticeBarTintColor);
+      FLNoticeBarItemBuilder suffixBuilder}) {
     velocity ??= 0.4;
     loop ??= true;
     height ??= FLMarqueeDefaultHeight;
     padding ??= EdgeInsets.symmetric(horizontal: 10);
 
-    final double size = textStyle.fontSize ?? height / 2.0;
-    final Widget preIcon = Icon(
-      Icons.notifications_active,
-      size: size,
-      color: textStyle.color,
-    );
+    FLNoticeBarItemBuilder prefixBuilder = (BuildContext context) {
+      final bool isDarkMode =
+          MediaQuery.of(context).platformBrightness == Brightness.dark;
+      final Color accent = Theme.of(context).accentColor;
+      final Color textColor = isDarkMode ? accent : FLNoticeBarTintColor;
+      final TextStyle marqueeStyle = textStyle ?? TextStyle(color: textColor);
+      final double size = marqueeStyle.fontSize ?? height / 2.0;
+      return Icon(
+        Icons.notifications_active,
+        size: size,
+        color: textColor,
+      );
+    };
 
     return FLNoticeBar(
       key: key,
@@ -57,8 +65,8 @@ class FLNoticeBar extends StatelessWidget {
       text: text,
       space: space,
       height: height,
-      prefix: preIcon,
-      suffix: suffix,
+      prefixBuilder: prefixBuilder,
+      suffixBuilder: suffixBuilder,
     );
   }
 
@@ -73,25 +81,30 @@ class FLNoticeBar extends StatelessWidget {
       String text,
       double space,
       double height,
-      Widget prefix,
+      FLNoticeBarItemBuilder prefixBuilder,
       VoidCallback onPressed}) {
     assert(onPressed != null);
-    backgroundColor ??= const Color(0xFFFEFCEC);
-    textStyle ??= const TextStyle(color: FLNoticeBarTintColor);
     velocity ??= 0.4;
     loop ??= true;
     height ??= FLMarqueeDefaultHeight;
     padding ??= EdgeInsets.symmetric(horizontal: 10);
 
-    final double size = textStyle.fontSize ?? height / 2.0;
-    final Widget sufWidget = GestureDetector(
-      onTap: onPressed,
-      child: Icon(
-        Icons.close,
-        size: size,
-        color: textStyle.color,
-      ),
-    );
+    FLNoticeBarItemBuilder suffixBuilder = (BuildContext context) {
+      final bool isDarkMode =
+          MediaQuery.of(context).platformBrightness == Brightness.dark;
+      final Color accent = Theme.of(context).accentColor;
+      final Color textColor = isDarkMode ? accent : FLNoticeBarTintColor;
+      final TextStyle marqueeStyle = textStyle ?? TextStyle(color: textColor);
+      final double size = marqueeStyle.fontSize ?? height / 2.0;
+      return GestureDetector(
+        onTap: onPressed,
+        child: Icon(
+          Icons.close,
+          size: size,
+          color: textColor,
+        ),
+      );
+    };
 
     return FLNoticeBar(
       key: key,
@@ -104,8 +117,8 @@ class FLNoticeBar extends StatelessWidget {
       text: text,
       space: space,
       height: height,
-      prefix: prefix,
-      suffix: sufWidget,
+      prefixBuilder: prefixBuilder,
+      suffixBuilder: suffixBuilder,
     );
   }
 
@@ -118,21 +131,31 @@ class FLNoticeBar extends StatelessWidget {
   final String text;
   final double space;
   final double height;
-  final Widget prefix;
-  final Widget suffix;
+  final FLNoticeBarItemBuilder prefixBuilder;
+  final FLNoticeBarItemBuilder suffixBuilder;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = <Widget>[];
-    if (prefix != null) {
-      children.add(prefix);
+    final bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final Color accent = Theme.of(context).accentColor;
+    final Color barBackgroundColor = backgroundColor ?? isDarkMode
+        ? accent.withOpacity(0.2)
+        : FLNoticeBarBackgroundColor;
+    final Color textColor = isDarkMode ? accent : FLNoticeBarTintColor;
+    final TextStyle marqueeStyle = textStyle ?? TextStyle(color: textColor);
+
+    final List<Widget> children = <Widget>[];
+
+    if (prefixBuilder != null) {
+      children.add(prefixBuilder(context));
       children.add(SizedBox(width: 5));
     }
 
     children.add(Expanded(
       child: FLMarqueeLabel(
         text: text,
-        style: textStyle,
+        style: marqueeStyle,
         padding: textPadding,
         space: space,
         velocity: velocity,
@@ -140,13 +163,13 @@ class FLNoticeBar extends StatelessWidget {
       ),
     ));
 
-    if (suffix != null) {
+    if (suffixBuilder != null) {
       children.add(SizedBox(width: 5));
-      children.add(suffix);
+      children.add(suffixBuilder(context));
     }
 
     return Container(
-      color: backgroundColor,
+      color: barBackgroundColor,
       height: height,
       padding: padding,
       child: Center(

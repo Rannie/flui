@@ -10,12 +10,14 @@ class ImageHintsEmptyPage extends StatefulWidget {
 class _ImageHintsEmptyPageState extends State<ImageHintsEmptyPage> {
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final String imgPath = isDarkMode ? 'assets/no_data_dark.png' : 'assets/nodata.png';
     return Scaffold(
       appBar: AppBar(
         title: Text('Image & Hints'),
       ),
       body: FLEmptyContainer(
-        image: Image.asset('assets/nodata.png'),
+        image: Image.asset(imgPath),
         title: 'No Data',
       ),
     );

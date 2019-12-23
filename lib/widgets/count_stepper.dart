@@ -152,7 +152,13 @@ class _FLCountStepperState extends State<FLCountStepper> {
   Widget build(BuildContext context) {
     _maxLength = (widget.inputWidth / 10).floor() - 1;
     final ThemeData themeData = Theme.of(context);
-    final Color buttonIconColor = widget.actionColor ?? themeData.primaryColor;
+    final Brightness brightness = MediaQuery.of(context).platformBrightness;
+    final bool isDarkMode = brightness == Brightness.dark;
+    final Color buttonIconColor = widget.actionColor ?? isDarkMode
+        ? Colors.white
+        : themeData.primaryColor;
+    final Color inputBackgroundColor =
+        isDarkMode ? Colors.transparent : _kDefaultBackgroundColor;
 
     final Widget minusButton = Container(
       width: _kDefaultButtonSize,
@@ -172,7 +178,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
       height: _kDefaultInputHeight,
       padding: EdgeInsets.only(left: 3), // resolve text center issue
       decoration: BoxDecoration(
-        color: _kDefaultBackgroundColor,
+        color: inputBackgroundColor,
         borderRadius: BorderRadius.circular(3),
       ),
       child: TextField(

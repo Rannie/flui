@@ -56,8 +56,8 @@ class _CountStepperPageState extends State<CountStepperPage> {
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            PageUtil.buildSection('Normal', _buildNormalStepper()),
-            PageUtil.buildSection('Floating', _buildFloatingStepper())
+            PageUtil.buildSection('Normal', _buildNormalStepper(), context),
+            PageUtil.buildSection('Floating', _buildFloatingStepper(), context)
           ],
         ),
       ),

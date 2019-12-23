@@ -22,7 +22,6 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   List<_FLDemoListData> get _demoList {
     return [
-      _FLDemoListData(title: 'CountStepper', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: CountStepperPage.routeName),
       _FLDemoListData(title: 'Button', picPath: 'assets/button.png', imgWidth: 110, imgHeight: 50, targetRouteName: ButtonPage.routeName),
       _FLDemoListData(title: 'Label', picPath: 'assets/label.png', imgWidth: 70, imgHeight: 70, targetRouteName: LabelPage.routeName),
       _FLDemoListData(title: 'AppBar', picPath: 'assets/navi.png', imgWidth: 120, imgHeight: 50, targetRouteName: AppBarPage.routeName),
@@ -31,6 +30,7 @@ class HomePageState extends State<HomePage> {
       _FLDemoListData(title: 'Avatar', picPath: 'assets/avatar.png', imgWidth: 70, imgHeight: 70, targetRouteName: AvatarPage.routeName),
       _FLDemoListData(title: 'Input', picPath: 'assets/input.png', imgWidth: 110, imgHeight: 50, targetRouteName: InputPage.routeName),
       _FLDemoListData(title: 'Badge', picPath: 'assets/badge.png', imgWidth: 70, imgHeight: 70, targetRouteName: BadgePage.routeName),
+      _FLDemoListData(title: 'CountStepper', picPath: 'assets/list.png', imgWidth: 70, imgHeight: 70, targetRouteName: CountStepperPage.routeName),
       _FLDemoListData(title: 'Empty', picPath: 'assets/empty.png', imgWidth: 70, imgHeight: 70, targetRouteName: EmptyPage.routeName),
       _FLDemoListData(title: 'NoticeBar', picPath: 'assets/notice.png', imgWidth: 110, imgHeight: 50, targetRouteName: NoticeBarPage.routeName),
       _FLDemoListData(title: 'Skeleton', picPath: 'assets/skeleton.png', imgWidth: 100, imgHeight: 65, targetRouteName: SkeletonPage.routeName),

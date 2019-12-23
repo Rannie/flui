@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-const Color _kBubbleBackgroundColor = Color(0xFF2E2E2E);
 // normally, bubble view width is longer than its height,
 // so make the triangle smaller
 const Size _kBubbleTriangleSizeH = Size(9.0, 16.0);
@@ -14,7 +13,7 @@ enum FLBubbleFrom { bottom, top, left, right }
 class FLBubble extends StatelessWidget {
   FLBubble(
       {Key key,
-      this.backgroundColor = _kBubbleBackgroundColor,
+      this.backgroundColor = CupertinoColors.white,
       this.from = FLBubbleFrom.bottom,
       this.padding = const EdgeInsets.all(8),
       @required this.child})

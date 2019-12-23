@@ -18,7 +18,6 @@ import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
 import 'package:flui/flui.dart';
-import 'package:example/style/style.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,27 +34,38 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  FLToastDefaults _toastDefaults = FLToastDefaults();
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  bool _isDarkMode;
 
   @override
   void initState() {
     super.initState();
-    eventBus.on().listen((event) {
-      if (event.runtimeType == FLToastDefaults) {
-        setState(() => _toastDefaults = event);
-      }
+    eventBus.on().listen((event) {});
+    WidgetsBinding.instance.addObserver(this);
+    _isDarkMode = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+  }
 
-      if (event == 'reset') {
-        setState(() => _toastDefaults = FLToastDefaults());
-      }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    final Brightness brightness =
+        WidgetsBinding.instance.window.platformBrightness;
+    setState(() {
+      _isDarkMode = brightness == Brightness.dark;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    FLToastStyle style = _isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
+    FLToastDefaults toastDefaults = FLToastDefaults(style: style);
     return FLToastProvider(
-      defaults: _toastDefaults,
+      defaults: toastDefaults,
       child: MaterialApp(
         title: 'FLUI',
         debugShowCheckedModeBanner: false,

@@ -5,6 +5,7 @@ import 'bubble.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 300);
 const Color _kMenuBackgroundColor = Color(0xFF2E2E2E);
+const Color _kMenuBackgroundLightColor = Color(0xD1F8F8F8);
 const EdgeInsets _kMenuButtonPadding =
     EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0);
 const double _kMenuScreenPadding = 8.0;
@@ -147,20 +148,24 @@ class _FLBubbleMenu<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < route.items.length; i += 1) {
       final CurvedAnimation opacity = CurvedAnimation(
           parent: route.animation, curve: Interval(0.0, 1.0 / 3.0));
       FLBubbleMenuItem item = route.items[i];
-      Widget itemWidget = _buildMenuButton(context, item);
+      Widget itemWidget = _buildMenuButton(context, item, isDarkMode);
       children.add(_transitionWrapper(itemWidget, opacity));
       if (i != route.items.length - 1) {
-        children.add(_transitionWrapper(_divider(), opacity));
+        children.add(_transitionWrapper(_divider(isDarkMode), opacity));
       }
     }
 
     final CurveTween opacity =
         CurveTween(curve: const Interval(0.0, 1.0 / 3.0));
+    final Color backgroundColor =
+        isDarkMode ? _kMenuBackgroundLightColor : _kMenuBackgroundColor;
     final Widget child = ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: _kMenuMinWidth,
@@ -176,6 +181,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
           child: FLBubble(
               from: from,
               padding: EdgeInsets.zero,
+              backgroundColor: backgroundColor,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: children,
@@ -200,10 +206,12 @@ class _FLBubbleMenu<T> extends StatelessWidget {
   }
 
   CupertinoButton _buildMenuButton(
-      BuildContext context, FLBubbleMenuItem menuItem) {
+      BuildContext context, FLBubbleMenuItem menuItem, bool isDarkMode) {
+    TextStyle textStyle = isDarkMode
+        ? _kToolbarButtonFontStyle.copyWith(color: Colors.black)
+        : _kToolbarButtonFontStyle;
     return CupertinoButton(
-      child: Text(menuItem.text, style: _kToolbarButtonFontStyle),
-      color: _kMenuBackgroundColor,
+      child: Text(menuItem.text, style: textStyle),
       minSize: _kMenuButtonMinHeight,
       padding: _kMenuButtonPadding,
       borderRadius: null,
@@ -214,8 +222,9 @@ class _FLBubbleMenu<T> extends StatelessWidget {
     );
   }
 
-  Widget _divider() {
-    return Container(width: 1 / 2.0, height: _kMenuHeight, color: Colors.white);
+  Widget _divider(bool isDarkMode) {
+    Color dividerColor = isDarkMode ? Colors.blueGrey : Colors.white;
+    return Container(width: 1 / 2.0, height: _kMenuHeight, color: dividerColor);
   }
 
   Widget _transitionWrapper(Widget child, CurvedAnimation opacity) {

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
+const Color _kDefaultTitleColor = const Color.fromARGB(255, 93, 100, 110);
+const Color _kDefaultTitleColorLight = const Color.fromARGB(255, 247, 247, 247);
+const Color _kDefaultDetailColor = const Color.fromARGB(255, 133, 140, 150);
+const Color _kDefaultDetailColorLight =
+    const Color.fromARGB(255, 218, 218, 218);
+
 class FLEmptyContainer extends StatefulWidget {
   FLEmptyContainer({
     Key key,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor,
     this.customLoadingWidget,
     this.showLoading = false,
     this.image,
@@ -45,16 +51,17 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final List<Widget> children = <Widget>[];
     if (widget.customLoadingWidget != null) {
       _addChildAndSpacingIfNeeded(children, widget.customLoadingWidget);
     }
 
     if (widget.customLoadingWidget == null && widget.showLoading) {
-      Color indColor = Theme.of(context).primaryColor;
       Widget loading = CircularProgressIndicator(
         strokeWidth: 3.0,
-        valueColor: AlwaysStoppedAnimation(indColor),
+        valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
       );
       _addChildAndSpacingIfNeeded(children, loading);
     }
@@ -65,7 +72,10 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
 
     if (widget.title != null && widget.title.isNotEmpty) {
       TextStyle textStyle = widget.titleStyle ??
-          TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 93, 100, 110));
+          TextStyle(
+              fontSize: 16.0,
+              color:
+                  isDarkMode ? _kDefaultTitleColorLight : _kDefaultTitleColor);
       Widget title =
           Text(widget.title, style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, title);
@@ -73,7 +83,11 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
 
     if (widget.detailText != null && widget.detailText.isNotEmpty) {
       TextStyle textStyle = widget.detailTextStyle ??
-          TextStyle(fontSize: 14.0, color: Color.fromARGB(255, 133, 140, 150));
+          TextStyle(
+              fontSize: 14.0,
+              color: isDarkMode
+                  ? _kDefaultDetailColorLight
+                  : _kDefaultDetailColor);
       Widget detailText = Text(widget.detailText,
           style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, detailText);
