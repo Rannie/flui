@@ -16,7 +16,7 @@ class AboutPageState extends State<AboutPage> {
         SizedBox(height: 10),
         Text('FLUI', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500, letterSpacing: 6)),
         SizedBox(height: 45),
-        Text('version: 0.7.4', style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
+        Text('version: 0.8.0', style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
         SizedBox(height: 40),
       ],
     );

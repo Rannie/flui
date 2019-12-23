@@ -1,3 +1,4 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
 
@@ -8,24 +9,6 @@ class AvatarPage extends StatefulWidget {
 }
 
 class _AvatarPageState extends State<AvatarPage> {
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
-  
   Widget _buildImageAvatars() {
     Widget inset = SizedBox(width: 20);
     return Container(
@@ -203,8 +186,8 @@ class _AvatarPageState extends State<AvatarPage> {
       body: Container(
         child: ListView(
           children: <Widget>[
-            _buildSection('Image Avatars', _buildImageAvatars()),
-            _buildSection('Name Avatars', _buildNameAvatars()),
+            PageUtil.buildSection('Image Avatars', _buildImageAvatars(), context),
+            PageUtil.buildSection('Name Avatars', _buildNameAvatars(), context),
           ],
         ),
       ),

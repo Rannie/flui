@@ -1,3 +1,4 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
@@ -19,24 +20,6 @@ class _InputPageState extends State<InputPage> {
   final TextEditingController _pinController = TextEditingController();
   final GlobalKey<FLAutoCompleteState> _key = GlobalKey<FLAutoCompleteState>();
   final FocusNode _focusNode = FocusNode();
-
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
   
   Widget _buildPinInputsContent() {
     return Column(
@@ -140,11 +123,10 @@ class _InputPageState extends State<InputPage> {
           title: Text('Input'),
         ),
         body: Container(
-            color: Colors.white,
             child: ListView(
               children: <Widget>[
-                _buildSection('Auto Complete', _buildAutoComplete()),
-                _buildSection('Pin Input', _buildPinInputsContent())
+                PageUtil.buildSection('Auto Complete', _buildAutoComplete(), context),
+                PageUtil.buildSection('Pin Input', _buildPinInputsContent(), context)
               ],
             )
         )

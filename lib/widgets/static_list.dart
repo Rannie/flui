@@ -172,13 +172,13 @@ class FLStaticListView extends StatelessWidget {
     final Widget accesssoryWidget = _getAccessoryWidget(itemData, themeData);
     final Widget trailingWidget = accesssoryWidget ?? itemData.customTrailing;
     return FLListTile(
-          leading: itemData.leading,
-          title: titleText,
-          subtitle: subtitleText,
-          trailing: trailingWidget,
-          onTap: itemData.onTap,
-          selected: itemData.selected,
-        );
+      leading: itemData.leading,
+      title: titleText,
+      subtitle: subtitleText,
+      trailing: trailingWidget,
+      onTap: itemData.onTap,
+      selected: itemData.selected,
+    );
   }
 
   Widget _buildButtonCell(FLStaticItemData itemData, ThemeData themeData) {
@@ -198,7 +198,13 @@ class FLStaticListView extends StatelessWidget {
   Widget _getAccessoryWidget(FLStaticItemData itemData, ThemeData themeData) {
     switch (itemData.accessoryType) {
       case FLStaticListCellAccessoryType.accCheckmark:
-        return Icon(Icons.check);
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(Icons.check),
+            SizedBox(width: 6), // align right side
+          ],
+        );
       case FLStaticListCellAccessoryType.accDetail:
         {
           final icon = Container(

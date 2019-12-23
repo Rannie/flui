@@ -10,6 +10,7 @@ class FLSkeleton extends StatefulWidget {
       this.shape,
       this.padding,
       this.color,
+      this.shimmerColor,
       this.width,
       this.height,
       this.margin,
@@ -23,6 +24,7 @@ class FLSkeleton extends StatefulWidget {
   final BoxShape shape;
   final EdgeInsetsGeometry padding;
   final Color color;
+  final Color shimmerColor;
   final double width;
   final double height;
   final EdgeInsetsGeometry margin;
@@ -122,6 +124,8 @@ class _FLSkeletonState extends State<FLSkeleton>
           /// config style
           final BoxShape shape = widget.shape ?? BoxShape.rectangle;
           final Color color = widget.color ?? const Color(0xFFE8E8E8);
+          final Color shimmerColor =
+              widget.shimmerColor ?? const Color(0xFFEDEDED);
           final Gradient gradient =
               widget.type == FLSkeletonAnimationType.shimmer
                   ? LinearGradient(
@@ -129,7 +133,7 @@ class _FLSkeletonState extends State<FLSkeleton>
                       end: Alignment.centerRight,
                       colors: [
                           color,
-                          color.withAlpha(80),
+                          shimmerColor.withAlpha(200),
                           color
                         ],
                       stops: [

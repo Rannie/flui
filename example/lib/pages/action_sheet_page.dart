@@ -29,6 +29,10 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Color actionBlue = CupertinoDynamicColor.resolve(CupertinoColors.systemBlue, context);
+    final CupertinoDynamicColor headerColor = CupertinoDynamicColor
+        .withBrightness(color: Colors.blueGrey, darkColor: Colors.white);
+    final Color hColor = CupertinoDynamicColor.resolve(headerColor, context);
     return Scaffold(
       appBar: AppBar(
         title: Text('BottomSheet'),
@@ -39,7 +43,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
             children: <Widget>[
               SizedBox(height: 20),
               Container(
-                width: 200,
+                width: 220,
                 child: FLRaisedButton(
                   textColor: Colors.white,
                   onPressed: () {
@@ -50,7 +54,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                             style: FLCupertinoActionSheetStyle.filled,
                             child: _buildActionSheetContent(),
                             cancelButton: CupertinoActionSheetAction(
-                              child: const Text('Cancel'),
+                              child: Text('Cancel', style: TextStyle(color: actionBlue)),
                               isDefaultAction: true,
                               onPressed: () {
                                 Navigator.pop(context, 'Cancel');
@@ -66,7 +70,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
               ),
               SizedBox(height: 20),
               Container(
-                width: 200,
+                width: 220,
                 child: FLRaisedButton(
                   textColor: Colors.white,
                   onPressed: () {
@@ -76,7 +80,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                           return FLCupertinoActionSheet(
                             child: _buildActionSheetContent(),
                             cancelButton: CupertinoActionSheetAction(
-                              child: const Text('Cancel'),
+                              child: Text('Cancel', style: TextStyle(color: actionBlue)),
                               isDefaultAction: true,
                               onPressed: () {
                                 Navigator.pop(context, 'Cancel');
@@ -92,7 +96,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
               ),
               SizedBox(height: 20),
               Container(
-                width: 200,
+                width: 220,
                 child: FLRaisedButton(
                   textColor: Colors.white,
                   child: Text('OperationSheet'),
@@ -101,10 +105,9 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return FLCupertinoOperationSheet(
-                            backgroundColor: Color(0xFFFAFAFA),
                             sheetStyle: FLCupertinoActionSheetStyle.filled,
                             cancelButton: CupertinoActionSheetAction(
-                              child: const Text('Cancel'),
+                              child: Text('Cancel', style: TextStyle(color: actionBlue)),
                               isDefaultAction: true,
                               onPressed: () {
                                 Navigator.pop(context, 'Cancel');
@@ -112,7 +115,7 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                             ),
                             header: Container(
                               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                              child: Text('Share', style: TextStyle(color: Colors.blueGrey, fontSize: 18)),
+                              child: Text('Share', style: TextStyle(color: hColor, fontSize: 18)),
                             ),
                             itemList: [
                               [

@@ -8,9 +8,7 @@ extension ThemeFluiExt on Theme {
     return null;
   }
 
-  static set configFluiTheme(FLThemeData flThemeData) {
-
-  }
+  static set configFluiTheme(FLThemeData flThemeData) {}
 }
 
 class FLThemeData {

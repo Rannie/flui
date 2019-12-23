@@ -6,8 +6,18 @@ import 'package:flutter/services.dart';
 
 // Translucent, very light gray that is painted on top of the blurred backdrop
 // as the action sheet's background color.
-const Color _kBackgroundColor = Color(0xD1F8F8F8);
-const Color _kCancelButtonPressedColor = Color(0xFFEAEAEA);
+// TODO(LongCatIsLooong): https://github.com/flutter/flutter/issues/39272. Use
+// System Materials once we have them.
+// Extracted from https://developer.apple.com/design/resources/.
+const Color _kBackgroundColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0xC7F9F9F9),
+  darkColor: Color(0xC7252525),
+);
+
+const Color _kCancelPressedColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0xFFECECEC),
+  darkColor: Color(0xFF49494B),
+);
 
 const double _kEdgeHorizontalPadding = 8.0;
 const double _kEdgeVerticalPadding = 10.0;
@@ -27,7 +37,7 @@ Future<T> showFLBottomSheet<T>(
 class FLCupertinoActionSheet extends StatelessWidget {
   FLCupertinoActionSheet(
       {Key key,
-      this.backgroundColor = _kBackgroundColor,
+      this.backgroundColor,
       this.style = FLCupertinoActionSheetStyle.roundedCard,
       this.borderRadius,
       @required this.child,
@@ -88,12 +98,13 @@ class FLCupertinoActionSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildMainContent() {
+  Widget _buildMainContent(BuildContext context) {
     BorderRadius radius = this.borderRadius ?? _isRound()
         ? BorderRadius.circular(_kCornerRadius)
         : null;
     final Widget blurContent = _wrapWithBackground(
-        backgroundColor: backgroundColor,
+        backgroundColor:
+            CupertinoDynamicColor.resolve(_kBackgroundColor, context),
         updateSystemUiOverlay: true,
         child: CupertinoScrollbar(
           child: SingleChildScrollView(
@@ -138,7 +149,7 @@ class FLCupertinoActionSheet extends StatelessWidget {
             vertical: _kEdgeVerticalPadding)
         : EdgeInsets.only(top: _kEdgeVerticalPadding);
     List<Widget> children = <Widget>[];
-    children.add(_buildMainContent());
+    children.add(_buildMainContent(context));
 
     if (cancelButton != null) children.add(_buildCancelButton());
 
@@ -184,29 +195,32 @@ class _FLCupertinoActionSheetCancelButton extends StatefulWidget {
 
 class _FLCupertinoActionSheetCancelButtonState
     extends State<_FLCupertinoActionSheetCancelButton> {
-  Color _backgroundColor;
+  CupertinoDynamicColor _backgroundColor;
 
   @override
   void initState() {
-    _backgroundColor = CupertinoColors.white;
+    _backgroundColor = CupertinoColors.secondarySystemGroupedBackground;
     super.initState();
   }
 
   void _onTapDown(TapDownDetails event) {
     setState(() {
-      _backgroundColor = _kCancelButtonPressedColor;
+      _backgroundColor =
+          CupertinoDynamicColor.resolve(_kCancelPressedColor, context);
     });
   }
 
   void _onTapUp(TapUpDetails event) {
     setState(() {
-      _backgroundColor = CupertinoColors.white;
+      _backgroundColor =
+          CupertinoDynamicColor.resolve(_backgroundColor, context);
     });
   }
 
   void _onTapCancel() {
     setState(() {
-      _backgroundColor = CupertinoColors.white;
+      _backgroundColor =
+          CupertinoDynamicColor.resolve(_backgroundColor, context);
     });
   }
 
@@ -221,7 +235,7 @@ class _FLCupertinoActionSheetCancelButtonState
       onTapCancel: _onTapCancel,
       child: Container(
         decoration: BoxDecoration(
-          color: _backgroundColor,
+          color: CupertinoDynamicColor.resolve(_backgroundColor, context),
           borderRadius: borderRadius,
         ),
         child: widget.child,

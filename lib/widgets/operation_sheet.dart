@@ -8,7 +8,10 @@ const double _kSectionInsetVertical = 10;
 const double _kItemSpacing = 0;
 const double _kItemImageSize = 56;
 
-const Color _kTextColor = Color.fromARGB(255, 93, 93, 93);
+const CupertinoDynamicColor _kTextColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 93, 93, 93),
+  darkColor: Color.fromARGB(255, 237, 237, 237),
+);
 
 /// The operation sheet is based on [FLCupertinoActionSheet].
 class FLCupertinoOperationSheet extends StatelessWidget {
@@ -73,7 +76,7 @@ class FLCupertinoOperationSheet extends StatelessWidget {
     return FLCupertinoActionSheet(
         style: sheetStyle ?? FLCupertinoActionSheetStyle.roundedCard,
         borderRadius: borderRadius,
-        backgroundColor: backgroundColor ?? Color(0xD1F8F8F8),
+        backgroundColor: backgroundColor,
         cancelButton: cancelButton,
         child: Container(
           child: Column(
@@ -103,7 +106,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget customChild;
 
-  Widget _buildImageTitleItem() {
+  Widget _buildImageTitleItem(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +126,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: _kTextColor,
+            color: CupertinoDynamicColor.resolve(_kTextColor, context),
             decoration: TextDecoration.none,
             fontSize: 12,
           ),
@@ -137,7 +140,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = this.customChild ?? _buildImageTitleItem();
+    final child = this.customChild ?? _buildImageTitleItem(context);
     return ClipRect(
       child: Container(child: child),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
-import 'package:example/style/style.dart';
 import 'package:example/event.dart';
 
 class ToastPage extends StatefulWidget {
@@ -10,14 +9,7 @@ class ToastPage extends StatefulWidget {
   State<ToastPage> createState() => _ToastPageState();
 }
 
-const Color lightBG = Colors.white;
-const Color darkBG = Colors.black;
-const Color lightBarBG = FLColors.primaryColor;
-const Color darkBarBG = Color(0xFF161616);
-const Color darkButtonBG = Color.fromRGBO(28, 28, 30, 1);
-
 class _ToastPageState extends State<ToastPage> {
-  bool _darkMode = false;
   FLToastStyle _toastStyle = FLToastStyle.dark;
   FLToastPosition _toastPosition = FLToastPosition.center;
   Function _hideCustomToast;
@@ -35,13 +27,13 @@ class _ToastPageState extends State<ToastPage> {
       _hideCustomToast = null;
     }
 
-    Widget inset = SizedBox(height: 15);
-    Color buttonColor = _darkMode ? darkButtonBG : lightBG;
-    Color textColor = _darkMode ? lightBG : lightBarBG;
-    TextStyle textStyle = TextStyle(fontSize: 15);
+    final bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final Widget inset = SizedBox(height: 15);
+    final TextStyle textStyle = isDarkMode
+        ? TextStyle(fontSize: 15)
+        : TextStyle(fontSize: 15, color: Theme.of(context).primaryColor);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: _darkMode ? darkBarBG : lightBarBG,
           title: FLAppBarTitle(
             title: 'Toast',
           ),
@@ -50,7 +42,6 @@ class _ToastPageState extends State<ToastPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: _darkMode ? darkBG : lightBG,
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
@@ -60,8 +51,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Text Toast', style: textStyle),
                     onPressed: () => FLToast.text(text: 'Here is text'),
                   ),
@@ -70,8 +59,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Loading Toast', style: textStyle),
                     onPressed: () {
                       var dismiss = FLToast.loading(text: 'Loading...');
@@ -85,8 +72,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Success Toast', style: textStyle),
                     onPressed: () => FLToast.success(text: 'Fetch success'),
                   ),
@@ -95,8 +80,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Info Toast', style: textStyle),
                     onPressed: () => FLToast.info(text: 'Some info'),
                   ),
@@ -105,8 +88,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Error Toast', style: textStyle),
                     onPressed: () => FLToast.error(text: 'Something was wrong'),
                   ),
@@ -131,11 +112,11 @@ class _ToastPageState extends State<ToastPage> {
                     width: 220,
                     height: 35,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.withAlpha(150)),
+                      border: Border.all(color: Colors.grey.withAlpha(100)),
                       borderRadius: BorderRadius.all(Radius.circular(2)),
                     ),
                     child: Center(
-                      child: Text('Custom Toast', style: textStyle.copyWith(color: textColor)),
+                      child: Text('Custom Toast', style: textStyle),
                     ),
                   ),
                 ),
@@ -144,8 +125,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Position Top', style: textStyle),
                     onPressed: () => setState(() {
                       _toastPosition = FLToastPosition.top;
@@ -157,8 +136,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Position Center', style: textStyle),
                     onPressed: () => setState(() {
                       _toastPosition = FLToastPosition.center;
@@ -170,8 +147,6 @@ class _ToastPageState extends State<ToastPage> {
                 SizedBox(
                   width: 220,
                   child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
                     child: Text('Position Bottom', style: textStyle),
                     onPressed: () => setState(() {
                       _toastPosition = FLToastPosition.bottom;
@@ -180,19 +155,6 @@ class _ToastPageState extends State<ToastPage> {
                   ),
                 ),
                 inset,
-                SizedBox(
-                  width: 220,
-                  child: OutlineButton(
-                    color: buttonColor,
-                    textColor: textColor,
-                    child: Text(_darkMode ? 'Light Mode' : 'Dark Mode', style: textStyle),
-                    onPressed: () => setState(() {
-                      _darkMode = !_darkMode;
-                      _toastStyle = _darkMode ? FLToastStyle.light : FLToastStyle.dark;
-                      eventBus.fire(FLToastDefaults(style: _toastStyle, position: _toastPosition));
-                    }),
-                  ),
-                ),
               ],
             )
           ],

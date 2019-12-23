@@ -1,3 +1,4 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
@@ -9,24 +10,6 @@ class NoticeBarPage extends StatefulWidget {
 }
 
 class _NoticeBarPageState extends State<NoticeBarPage> {
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
-
   Widget _buildNormalBar() {
     return FLNoticeBar(
       text: 'Notice: The arrival time of incomes and transfers of account will be delayed during National Day.',
@@ -53,20 +36,24 @@ class _NoticeBarPageState extends State<NoticeBarPage> {
   Widget _buildCustomBar() {
     return FLNoticeBar(
       text: 'Notice: The arrival time of incomes and transfers of account will be delayed during National Day.',
-      prefix: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4),
-        child: Text(
-          'prefix',
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-      suffix: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4),
-        child: Text(
-          'suffix',
-          style: TextStyle(color: Colors.grey),
-        ),
-      )
+      prefixBuilder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4),
+          child: Text(
+            'prefix',
+            style: TextStyle(color: Colors.grey),
+          ),
+        );
+      },
+      suffixBuilder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4),
+          child: Text(
+            'suffix',
+            style: TextStyle(color: Colors.grey),
+          ),
+        );
+      }
     );
   }
 
@@ -79,10 +66,10 @@ class _NoticeBarPageState extends State<NoticeBarPage> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              _buildSection('normal', _buildNormalBar()),
-              _buildSection('.notice', _buildNoticeBar()),
-              _buildSection('.closable', _buildClosableBar()),
-              _buildSection('custom prefix & suffix', _buildCustomBar())
+              PageUtil.buildSection('normal', _buildNormalBar(), context),
+              PageUtil.buildSection('.notice', _buildNoticeBar(), context),
+              PageUtil.buildSection('.closable', _buildClosableBar(), context),
+              PageUtil.buildSection('custom prefix & suffix', _buildCustomBar(), context)
             ],
           ),
         )

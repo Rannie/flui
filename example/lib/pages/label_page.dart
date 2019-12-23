@@ -1,3 +1,4 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flui/flui.dart';
@@ -11,24 +12,6 @@ class LabelPage extends StatefulWidget {
 
 class _LabelPageState extends State<LabelPage> {
   String _clipboardStr = '';
-
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
 
   Widget _buildCopyLabelContent() {
     String copyableStr = 'This is a copyable label';
@@ -110,8 +93,8 @@ class _LabelPageState extends State<LabelPage> {
            child: ListView(
              shrinkWrap: true,
              children: <Widget>[
-               _buildSection('Copyable Label', _buildCopyLabelContent()),
-               _buildSection('Marquee Label', _buildMarqueeLabelContent())
+               PageUtil.buildSection('Copyable Label', _buildCopyLabelContent(), context),
+               PageUtil.buildSection('Marquee Label', _buildMarqueeLabelContent(), context)
              ],
            )
         )

@@ -39,7 +39,7 @@ class FLListTile extends StatefulWidget {
 class _FLListTileState extends State<FLListTile> {
   @override
   Widget build(BuildContext context) {
-      return InkWell(
+    return InkWell(
         onTap: widget.onTap,
         onLongPress: widget.onLongPress,
         child: Container(
@@ -55,7 +55,6 @@ class _FLListTileState extends State<FLListTile> {
             enabled: widget.enabled,
             selected: widget.selected,
           ),
-        )
-    );
+        ));
   }
 }

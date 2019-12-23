@@ -340,7 +340,8 @@ class _FLToastDefaultsWidget extends InheritedWidget {
   final FLToastDefaults defaults;
 
   @override
-  bool updateShouldNotify(_FLToastDefaultsWidget oldWidget) => this.defaults != oldWidget.defaults;
+  bool updateShouldNotify(_FLToastDefaultsWidget oldWidget) =>
+      this.defaults != oldWidget.defaults;
 
   static FLToastDefaults of(BuildContext context) {
     _FLToastDefaultsWidget defaultsWidget = context
