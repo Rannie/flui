@@ -134,7 +134,8 @@ class FLStaticListView extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(
-      FLStaticSectionData sectionData, ThemeData themeData) {
+      FLStaticSectionData sectionData, ThemeData themeData, BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final Widget titleWidget = sectionData.headerTitle == null
         ? null
         : Column(
@@ -148,7 +149,7 @@ class FLStaticListView extends StatelessWidget {
             ],
           );
     final EdgeInsetsGeometry padding = sectionData.headerTitleIntent != null
-        ? EdgeInsets.only(left: sectionData.headerTitleIntent)
+        ? (isRtl ? EdgeInsets.only(right: sectionData.headerTitleIntent) : EdgeInsets.only(left: sectionData.headerTitleIntent))
         : EdgeInsets.zero;
     final headerHeight = sectionData.headerHeight ??
         (sectionData.headerTitle != null
@@ -251,11 +252,11 @@ class FLStaticListView extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildCells(ThemeData themeData) {
+  List<Widget> _buildCells(ThemeData themeData, BuildContext context) {
     final List<Widget> cellList = [];
     for (FLStaticSectionData sectionData in sections) {
       // add header
-      Widget sectionHeader = _buildSectionHeader(sectionData, themeData);
+      Widget sectionHeader = _buildSectionHeader(sectionData, themeData, context);
       cellList.add(sectionHeader);
       // add section cells
       for (FLStaticItemData itemData in sectionData.itemList) {
@@ -288,7 +289,7 @@ class FLStaticListView extends StatelessWidget {
         (BuildContext context, int index) {
           return Divider(color: sepColor, height: 1);
         };
-    final List<Widget> cells = _buildCells(themeData);
+    final List<Widget> cells = _buildCells(themeData, context);
     return Container(
       color: kStaticBackgroundColor,
       child: ListView.separated(

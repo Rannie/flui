@@ -11,7 +11,7 @@ import 'package:example/pages/count_stepper_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/hints_action_empty_page.dart';
 import 'package:example/pages/hints_empty_page.dart';
-import 'package:example/pages/home_page.dart';
+import 'package:example/home_page.dart';
 import 'package:example/pages/image_hints_empty_page.dart';
 import 'package:example/pages/label_page.dart';
 import 'package:example/pages/app_bar_page.dart';
@@ -62,6 +62,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         setState(() {});
       } else if (event == 'themeLoaded') {
         if (!_userModeLoaded) setState(() {});
+      } else if (event == 'direction') {
+        setState(() {});
       } else {
         setState(() => _defaults = event);
       }
@@ -104,12 +106,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (_userModeLoaded == false && Util.preferences != null) {
       _userModeLoaded = true;
     }
+
     _updateStatusBar();
-    bool isDarkMode = _isDarkMode();
+    final bool isDarkMode = _isDarkMode();
     final ThemeMode themeMode = Util.themeMode;
-    FLToastStyle style = isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
-    FLToastDefaults toastDefaults =
-        FLToastDefaults(style: style, position: _defaults.position);
+    final FLToastStyle style = isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
+    final FLToastDefaults toastDefaults = FLToastDefaults(style: style, position: _defaults.position);
+
     return FLToastProvider(
       defaults: toastDefaults,
       child: MaterialApp(
@@ -139,6 +142,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           AvatarPage.routeName: (context) => AvatarPage(),
           InputPage.routeName: (context) => InputPage(),
           CountStepperPage.routeName: (context) => CountStepperPage()
+        },
+        builder: (BuildContext context, Widget child) {
+          return Directionality(
+            textDirection: Util.textDirection,
+            child: child,
+          );
         },
       ),
     );

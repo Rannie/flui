@@ -118,6 +118,7 @@ class _FLSkeletonState extends State<FLSkeleton>
 
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {
@@ -129,8 +130,8 @@ class _FLSkeletonState extends State<FLSkeleton>
           final Gradient gradient =
               widget.type == FLSkeletonAnimationType.shimmer
                   ? LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
+                      begin: isRtl ? Alignment.centerRight : Alignment.centerLeft,
+                      end: isRtl ? Alignment.centerLeft : Alignment.centerRight,
                       colors: [
                           color,
                           shimmerColor.withAlpha(200),

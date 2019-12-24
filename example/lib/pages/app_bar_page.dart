@@ -86,9 +86,9 @@ class _AppBarPageState extends State<AppBarPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   width: 120,
-                  child: Text('Bar Layout: '),
+                  child: Text('Bar Layout'),
                 ),
                 SizedBox(
                   width: 250,
@@ -106,9 +106,9 @@ class _AppBarPageState extends State<AppBarPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   width: 120,
-                  child: Text('Loading Position: '),
+                  child: Text('Loading Position'),
                 ),
                 SizedBox(
                   width: 250,
@@ -126,9 +126,9 @@ class _AppBarPageState extends State<AppBarPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   width: 120,
-                  child: Text('Accessory Position: '),
+                  child: Text('Accessory Position'),
                 ),
                 SizedBox(
                   width: 250,
