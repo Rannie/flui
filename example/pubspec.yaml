@@ -81,6 +81,21 @@ flutter:
     - assets/record.gif
     - assets/logo_trans.png
     - assets/no_data_dark.png
+    - assets/button_dark.png
+    - assets/label_dark.png
+    - assets/count_stepper.png
+    - assets/count_stepper_dark.png
+    - assets/navi_dark.png
+    - assets/toast_dark.png
+    - assets/bubble_dark.png
+    - assets/avatar_dark.png
+    - assets/input_dark.png
+    - assets/badge_dark.png
+    - assets/empty_dark.png
+    - assets/notice_dark.png
+    - assets/skeleton_dark.png
+    - assets/sheet_dark.png
+    - assets/list_dark.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
