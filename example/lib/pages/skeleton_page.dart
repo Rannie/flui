@@ -11,6 +11,8 @@ class SkeletonPage extends StatefulWidget {
 
 class _SkeletonState extends State<SkeletonPage> {
   Widget _buildNormalContent() {
+    TextDirection direction = Directionality.of(context);
+    bool isRtl = direction == TextDirection.rtl;
     return Container(
         padding: EdgeInsets.all(10),
         child: Card(
@@ -18,7 +20,8 @@ class _SkeletonState extends State<SkeletonPage> {
             children: <Widget>[
               FLSkeleton(
                 shape: BoxShape.circle,
-                margin: EdgeInsets.only(top: 10, left: 10),
+                margin: isRtl ? EdgeInsets.only(top: 10, right: 10)
+                    : EdgeInsets.only(top: 10, left: 10),
                 active: false,
                 width: 40,
                 height: 40,
@@ -26,14 +29,14 @@ class _SkeletonState extends State<SkeletonPage> {
               FLSkeleton(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
-                margin: EdgeInsets.only(left: 60, top: 10, right: 10),
+                margin: isRtl ? EdgeInsets.only(left: 10, top: 10, right: 60) : EdgeInsets.only(left: 60, top: 10, right: 10),
                 active: false,
                 height: 20,
               ),
               FLSkeleton(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
-                margin: EdgeInsets.only(left: 60, top: 40),
+                margin: isRtl ? EdgeInsets.only(right: 60, top: 40) : EdgeInsets.only(left: 60, top: 40),
                 active: false,
                 width: 300,
                 height: 20,
@@ -41,7 +44,7 @@ class _SkeletonState extends State<SkeletonPage> {
               FLSkeleton(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
-                margin: EdgeInsets.only(left: 60, top: 70, bottom: 10),
+                margin: isRtl ? EdgeInsets.only(right: 60, top: 70, bottom: 10) : EdgeInsets.only(left: 60, top: 70, bottom: 10),
                 active: false,
                 width: 100,
                 height: 20,
@@ -52,6 +55,8 @@ class _SkeletonState extends State<SkeletonPage> {
   }
 
   Widget _buildShimmerContent() {
+    TextDirection direction = Directionality.of(context);
+    bool isRtl = direction == TextDirection.rtl;
     return Container(
         padding: EdgeInsets.all(10),
         child: Card(
@@ -59,27 +64,28 @@ class _SkeletonState extends State<SkeletonPage> {
             children: <Widget>[
               FLSkeleton(
                 shape: BoxShape.circle,
-                margin: EdgeInsets.only(top: 10, left: 10),
+                margin: isRtl ? EdgeInsets.only(top: 10, right: 10)
+                    : EdgeInsets.only(top: 10, left: 10),
                 width: 40,
                 height: 40,
               ),
               FLSkeleton(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
-                margin: EdgeInsets.only(left: 60, top: 10, right: 10),
+                margin: isRtl ? EdgeInsets.only(left: 10, top: 10, right: 60) : EdgeInsets.only(left: 60, top: 10, right: 10),
                 height: 20,
               ),
               FLSkeleton(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
-                margin: EdgeInsets.only(left: 60, top: 40),
+                margin: isRtl ? EdgeInsets.only(right: 60, top: 40) : EdgeInsets.only(left: 60, top: 40),
                 width: 300,
                 height: 20,
               ),
               FLSkeleton(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
-                margin: EdgeInsets.only(left: 60, top: 70, bottom: 10),
+                margin: isRtl ? EdgeInsets.only(right: 60, top: 70, bottom: 10) : EdgeInsets.only(left: 60, top: 70, bottom: 10),
                 width: 100,
                 height: 20,
               ),
@@ -89,6 +95,8 @@ class _SkeletonState extends State<SkeletonPage> {
   }
 
   Widget _buildStretchContent() {
+    TextDirection direction = Directionality.of(context);
+    bool isRtl = direction == TextDirection.rtl;
     return Container(
         padding: EdgeInsets.all(10),
         child: Card(
@@ -98,7 +106,8 @@ class _SkeletonState extends State<SkeletonPage> {
             children: <Widget>[
               FLSkeleton(
                 shape: BoxShape.circle,
-                margin: EdgeInsets.only(top: 10, left: 10),
+                margin: isRtl ? EdgeInsets.only(top: 10, right: 10)
+                    : EdgeInsets.only(top: 10, left: 10),
                 active: false,
                 width: 40,
                 height: 40,
@@ -107,7 +116,7 @@ class _SkeletonState extends State<SkeletonPage> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
                 type: FLSkeletonAnimationType.stretch,
-                margin: EdgeInsets.only(left: 60, top: 10, right: 10),
+                margin: isRtl ? EdgeInsets.only(left: 10, top: 10, right: 60) : EdgeInsets.only(left: 60, top: 10, right: 10),
                 height: 20,
                 width: 320,
                 stretchWidth: 100,
@@ -116,7 +125,7 @@ class _SkeletonState extends State<SkeletonPage> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
                 type: FLSkeletonAnimationType.stretch,
-                margin: EdgeInsets.only(left: 60, top: 40),
+                margin: isRtl ? EdgeInsets.only(right: 60, top: 40) : EdgeInsets.only(left: 60, top: 40),
                 width: 300,
                 stretchWidth: 150,
                 height: 20,
@@ -125,7 +134,7 @@ class _SkeletonState extends State<SkeletonPage> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(2),
                 type: FLSkeletonAnimationType.stretch,
-                margin: EdgeInsets.only(left: 60, top: 70, bottom: 10),
+                margin: isRtl ? EdgeInsets.only(right: 60, top: 70, bottom: 10) : EdgeInsets.only(left: 60, top: 70, bottom: 10),
                 width: 100,
                 stretchWidth: 200,
                 height: 20,

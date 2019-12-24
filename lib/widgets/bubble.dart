@@ -26,19 +26,24 @@ class FLBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FLBubbleFrom _from = from;
+    final TextDirection textDirection = Directionality.of(context);
+    final bool isRtl = textDirection == TextDirection.rtl;
+    final bool isHorizontal = (_from == FLBubbleFrom.left || _from == FLBubbleFrom.right);
+    if (isRtl && isHorizontal) {
+      _from = _from == FLBubbleFrom.left ? FLBubbleFrom.right : FLBubbleFrom.left;
+    }
     // triangle
-    final bool isHorizontal =
-        (from == FLBubbleFrom.left || from == FLBubbleFrom.right);
     final Size triangleSize =
         isHorizontal ? _kBubbleTriangleSizeH : _kBubbleTriangleSizeV;
     final Widget triangle = SizedBox.fromSize(
       size: triangleSize,
       child: CustomPaint(
         painter:
-            _FLBubbleNotchPainter(pos: from, backgroundColor: backgroundColor),
+            _FLBubbleNotchPainter(pos: _from, backgroundColor: backgroundColor),
       ),
     );
-    //main rect
+    // main rect
     final Widget rect = ClipRRect(
       borderRadius: _kBubbleBorderRadius,
       child: DecoratedBox(
@@ -54,6 +59,7 @@ class FLBubble extends StatelessWidget {
       ),
     );
 
+    // layout use original from, Row will auto change direction.
     if (from == FLBubbleFrom.bottom) {
       return Column(
         mainAxisSize: MainAxisSize.min,

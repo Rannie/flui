@@ -35,6 +35,7 @@ class AboutPageState extends State<AboutPage> {
     } else {
       isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
     }
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
       appBar: AppBar(
         title: Text('About', style: TextStyle(letterSpacing: 2)),
@@ -42,7 +43,7 @@ class AboutPageState extends State<AboutPage> {
       ),
       body: Container(
         child: ListView.separated(
-            itemCount: 5,
+            itemCount: 6,
             itemBuilder: (BuildContext context, int index) {
               if (index == 0) {
                 return _headerView();
@@ -52,11 +53,8 @@ class AboutPageState extends State<AboutPage> {
                   trailing: Switch(
                     value: isDarkMode,
                     onChanged: (value) {
-                      if (value == true)
-                        Util.setThemeMode(ThemeMode.dark);
-                      else
-                        Util.setThemeMode(ThemeMode.light);
-
+                      if (value == true) Util.setThemeMode(ThemeMode.dark);
+                      else Util.setThemeMode(ThemeMode.light);
                       Util.eventBus.fire('theme');
                       setState(() {});
                     },
@@ -64,8 +62,21 @@ class AboutPageState extends State<AboutPage> {
                 );
               } else if (index == 2) {
                 return FLListTile(
+                  title: Text('Force RTL'),
+                  trailing: Switch(
+                    value: isRtl,
+                    onChanged: (value) {
+                      if (value == true) Util.setTextDirection(TextDirection.rtl);
+                      else Util.setTextDirection(TextDirection.ltr);
+                      Util.eventBus.fire('direction');
+                      setState(() {});
+                    },
+                  ),
+                );
+              } else if (index == 3) {
+                return FLListTile(
                   title: Text('Site'),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                  trailing: Icon(isRtl ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right),
                   onTap: () {
                     const siteUrl = 'https://www.flui.xin/en/';
                     canLaunch(siteUrl).then((canOpen) {
@@ -73,10 +84,10 @@ class AboutPageState extends State<AboutPage> {
                     });
                   },
                 );
-              } else if (index == 3) {
+              } else if (index == 4) {
                 return FLListTile(
                   title: Text('GitHub'),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                  trailing: Icon(isRtl ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right),
                   onTap: () {
                     const siteUrl = 'https://github.com/Rannie/flui';
                     canLaunch(siteUrl).then((canOpen) {
