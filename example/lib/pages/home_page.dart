@@ -25,84 +25,98 @@ class HomePageState extends State<HomePage> {
       _FLDemoListData(
           title: 'Button',
           picPath: 'assets/button.png',
+          darkPicPath: 'assets/button_dark.png',
           imgWidth: 110,
           imgHeight: 50,
           targetRouteName: ButtonPage.routeName),
       _FLDemoListData(
           title: 'Label',
           picPath: 'assets/label.png',
+          darkPicPath: 'assets/label_dark.png',
           imgWidth: 70,
           imgHeight: 70,
           targetRouteName: LabelPage.routeName),
       _FLDemoListData(
           title: 'AppBar',
           picPath: 'assets/navi.png',
+          darkPicPath: 'assets/navi_dark.png',
           imgWidth: 120,
           imgHeight: 50,
           targetRouteName: AppBarPage.routeName),
       _FLDemoListData(
           title: 'Toast',
           picPath: 'assets/toast.png',
+          darkPicPath: 'assets/toast_dark.png',
           imgWidth: 100,
           imgHeight: 65,
           targetRouteName: ToastPage.routeName),
       _FLDemoListData(
           title: 'Bubble',
           picPath: 'assets/bubble.png',
+          darkPicPath: 'assets/bubble_dark.png',
           imgWidth: 120,
           imgHeight: 58,
           targetRouteName: BubblePage.routeName),
       _FLDemoListData(
           title: 'Avatar',
           picPath: 'assets/avatar.png',
+          darkPicPath: 'assets/avatar_dark.png',
           imgWidth: 70,
           imgHeight: 70,
           targetRouteName: AvatarPage.routeName),
       _FLDemoListData(
           title: 'Input',
           picPath: 'assets/input.png',
+          darkPicPath: 'assets/input_dark.png',
           imgWidth: 110,
           imgHeight: 50,
           targetRouteName: InputPage.routeName),
       _FLDemoListData(
           title: 'Badge',
           picPath: 'assets/badge.png',
+          darkPicPath: 'assets/badge_dark.png',
           imgWidth: 70,
           imgHeight: 70,
           targetRouteName: BadgePage.routeName),
       _FLDemoListData(
           title: 'CountStepper',
-          picPath: 'assets/list.png',
+          picPath: 'assets/count_stepper.png',
+          darkPicPath: 'assets/count_stepper_dark.png',
           imgWidth: 70,
           imgHeight: 70,
           targetRouteName: CountStepperPage.routeName),
       _FLDemoListData(
           title: 'Empty',
           picPath: 'assets/empty.png',
+          darkPicPath: 'assets/empty_dark.png',
           imgWidth: 70,
           imgHeight: 70,
           targetRouteName: EmptyPage.routeName),
       _FLDemoListData(
           title: 'NoticeBar',
           picPath: 'assets/notice.png',
+          darkPicPath: 'assets/notice_dark.png',
           imgWidth: 110,
           imgHeight: 50,
           targetRouteName: NoticeBarPage.routeName),
       _FLDemoListData(
           title: 'Skeleton',
           picPath: 'assets/skeleton.png',
+          darkPicPath: 'assets/skeleton_dark.png',
           imgWidth: 100,
           imgHeight: 65,
           targetRouteName: SkeletonPage.routeName),
       _FLDemoListData(
           title: 'BottomSheet',
           picPath: 'assets/sheet.png',
+          darkPicPath: 'assets/sheet_dark.png',
           imgWidth: 100,
           imgHeight: 65,
           targetRouteName: ActionSheetPage.routeName),
       _FLDemoListData(
           title: 'List',
           picPath: 'assets/list.png',
+          darkPicPath: 'assets/list_dark.png',
           imgWidth: 70,
           imgHeight: 70,
           targetRouteName: StaticListViewPage.routeName),
@@ -110,6 +124,7 @@ class HomePageState extends State<HomePage> {
   }
 
   List<Widget> get _demoCards {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     List<Widget> list = [];
     for (_FLDemoListData demoData in _demoList) {
       Widget card = Card(
@@ -135,7 +150,7 @@ class HomePageState extends State<HomePage> {
                       bottom: 55,
                       child: Center(
                         child: Image.asset(
-                          demoData.picPath,
+                          isDarkMode ? (demoData.darkPicPath ?? demoData.picPath ) : demoData.picPath,
                           width: demoData.imgWidth,
                           height: demoData.imgHeight,
                           scale: 1.6,
@@ -181,6 +196,7 @@ class _FLDemoListData {
   const _FLDemoListData({
     this.title,
     this.picPath,
+    this.darkPicPath,
     this.imgWidth,
     this.imgHeight,
     this.targetRouteName,
@@ -188,6 +204,7 @@ class _FLDemoListData {
 
   final String title;
   final String picPath;
+  final String darkPicPath;
   final double imgWidth;
   final double imgHeight;
   final String targetRouteName;
