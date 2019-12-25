@@ -29,7 +29,7 @@ class FLRaisedButton extends StatelessWidget {
     this.animationDuration,
     this.expanded = false,
     @required this.child,
-  });
+  }) : super(key: key);
 
   final VoidCallback onPressed;
   final ValueChanged<bool> onHighlightChanged;
