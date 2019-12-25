@@ -29,9 +29,11 @@ class FLBubble extends StatelessWidget {
     FLBubbleFrom _from = from;
     final TextDirection textDirection = Directionality.of(context);
     final bool isRtl = textDirection == TextDirection.rtl;
-    final bool isHorizontal = (_from == FLBubbleFrom.left || _from == FLBubbleFrom.right);
+    final bool isHorizontal =
+        (_from == FLBubbleFrom.left || _from == FLBubbleFrom.right);
     if (isRtl && isHorizontal) {
-      _from = _from == FLBubbleFrom.left ? FLBubbleFrom.right : FLBubbleFrom.left;
+      _from =
+          _from == FLBubbleFrom.left ? FLBubbleFrom.right : FLBubbleFrom.left;
     }
     // triangle
     final Size triangleSize =

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
 MockNavigatorObserver navigatorObserver = MockNavigatorObserver();
 
 class TestContainer extends StatelessWidget {
