@@ -17,6 +17,7 @@ class FLMarqueeLabel extends StatefulWidget {
       this.loop = true,
       this.height = FLMarqueeDefaultHeight,
       this.padding,
+      this.delay,
       this.backgroundColor = Colors.transparent})
       : assert(text != null),
         super(key: key);
@@ -35,6 +36,7 @@ class FLMarqueeLabel extends StatefulWidget {
   final double height;
   final EdgeInsetsGeometry padding;
   final Color backgroundColor;
+  final Duration delay;
 
   @override
   State<FLMarqueeLabel> createState() => _FLMarqueeLabelState();
@@ -78,8 +80,13 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   }
 
   void _setup() {
-    WidgetsBinding.instance.addPostFrameCallback((_) =>
-        Future.delayed(Duration(milliseconds: 200), () => _scheduleScroll()));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.delay != null) {
+        Future.delayed(widget.delay, () => _scheduleScroll());
+      } else {
+        _scheduleScroll();
+      }
+    });
   }
 
   void _stop() {

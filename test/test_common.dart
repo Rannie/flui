@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mockito/mockito.dart';
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+MockNavigatorObserver navigatorObserver = MockNavigatorObserver();
 
 class TestContainer extends StatelessWidget {
   TestContainer({
@@ -11,6 +15,7 @@ class TestContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [navigatorObserver],
       home: Scaffold(
         body: Container(
           child: child,
