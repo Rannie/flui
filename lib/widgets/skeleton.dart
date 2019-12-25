@@ -127,22 +127,22 @@ class _FLSkeletonState extends State<FLSkeleton>
           final Color color = widget.color ?? const Color(0xFFE8E8E8);
           final Color shimmerColor =
               widget.shimmerColor ?? const Color(0xFFEDEDED);
-          final Gradient gradient =
-              widget.type == FLSkeletonAnimationType.shimmer
-                  ? LinearGradient(
-                      begin: isRtl ? Alignment.centerRight : Alignment.centerLeft,
-                      end: isRtl ? Alignment.centerLeft : Alignment.centerRight,
-                      colors: [
-                          color,
-                          shimmerColor.withAlpha(200),
-                          color
-                        ],
-                      stops: [
-                          _animation.value - 0.4,
-                          _animation.value,
-                          _animation.value + 0.4
-                        ])
-                  : null;
+          final Gradient gradient = widget.type ==
+                  FLSkeletonAnimationType.shimmer
+              ? LinearGradient(
+                  begin: isRtl ? Alignment.centerRight : Alignment.centerLeft,
+                  end: isRtl ? Alignment.centerLeft : Alignment.centerRight,
+                  colors: [
+                      color,
+                      shimmerColor.withAlpha(200),
+                      color
+                    ],
+                  stops: [
+                      _animation.value - 0.4,
+                      _animation.value,
+                      _animation.value + 0.4
+                    ])
+              : null;
           final double width = widget.type == FLSkeletonAnimationType.shimmer
               ? widget.width
               : _animation.value;

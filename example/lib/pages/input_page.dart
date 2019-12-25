@@ -100,11 +100,10 @@ class _InputPageState extends State<InputPage> {
               onChanged: (text) {
                 List<String> sugList = [];
                 if (text != null && text.isNotEmpty) {
-                  for (String option in acData) {
-                    if (option.toLowerCase().contains(text.toLowerCase())) {
-                      sugList.add(option);
-                    }
-                  }
+                  sugList = acData
+                      .where((option) =>
+                          option.toLowerCase().contains(text.toLowerCase()))
+                      .toList();
                 }
                 _key.currentState.updateSuggestionList(sugList);
               },

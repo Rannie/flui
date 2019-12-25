@@ -53,8 +53,10 @@ class AboutPageState extends State<AboutPage> {
                   trailing: Switch(
                     value: isDarkMode,
                     onChanged: (value) {
-                      if (value == true) Util.setThemeMode(ThemeMode.dark);
-                      else Util.setThemeMode(ThemeMode.light);
+                      if (value == true)
+                        Util.setThemeMode(ThemeMode.dark);
+                      else
+                        Util.setThemeMode(ThemeMode.light);
                       Util.eventBus.fire('theme');
                       setState(() {});
                     },
@@ -66,8 +68,10 @@ class AboutPageState extends State<AboutPage> {
                   trailing: Switch(
                     value: isRtl,
                     onChanged: (value) {
-                      if (value == true) Util.setTextDirection(TextDirection.rtl);
-                      else Util.setTextDirection(TextDirection.ltr);
+                      if (value == true)
+                        Util.setTextDirection(TextDirection.rtl);
+                      else
+                        Util.setTextDirection(TextDirection.ltr);
                       Util.eventBus.fire('direction');
                       setState(() {});
                     },
@@ -76,7 +80,9 @@ class AboutPageState extends State<AboutPage> {
               } else if (index == 3) {
                 return FLListTile(
                   title: Text('Site'),
-                  trailing: Icon(isRtl ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right),
+                  trailing: Icon(isRtl
+                      ? Icons.keyboard_arrow_left
+                      : Icons.keyboard_arrow_right),
                   onTap: () {
                     const siteUrl = 'https://www.flui.xin/en/';
                     canLaunch(siteUrl).then((canOpen) {
@@ -87,7 +93,9 @@ class AboutPageState extends State<AboutPage> {
               } else if (index == 4) {
                 return FLListTile(
                   title: Text('GitHub'),
-                  trailing: Icon(isRtl ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right),
+                  trailing: Icon(isRtl
+                      ? Icons.keyboard_arrow_left
+                      : Icons.keyboard_arrow_right),
                   onTap: () {
                     const siteUrl = 'https://github.com/Rannie/flui';
                     canLaunch(siteUrl).then((canOpen) {

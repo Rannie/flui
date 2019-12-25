@@ -150,7 +150,9 @@ class HomePageState extends State<HomePage> {
                       bottom: 55,
                       child: Center(
                         child: Image.asset(
-                          isDarkMode ? (demoData.darkPicPath ?? demoData.picPath ) : demoData.picPath,
+                          isDarkMode
+                              ? (demoData.darkPicPath ?? demoData.picPath)
+                              : demoData.picPath,
                           width: demoData.imgWidth,
                           height: demoData.imgHeight,
                           scale: 1.6,

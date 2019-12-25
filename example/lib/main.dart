@@ -110,8 +110,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _updateStatusBar();
     final bool isDarkMode = _isDarkMode();
     final ThemeMode themeMode = Util.themeMode;
-    final FLToastStyle style = isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
-    final FLToastDefaults toastDefaults = FLToastDefaults(style: style, position: _defaults.position);
+    final FLToastStyle style =
+        isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
+    final FLToastDefaults toastDefaults =
+        FLToastDefaults(style: style, position: _defaults.position);
 
     return FLToastProvider(
       defaults: toastDefaults,

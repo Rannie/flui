@@ -12,18 +12,18 @@ void main() {
     final normalFinder = find.text('flat button');
 
     await tester.pumpWidget(TestContainer(
-      child: Container(
-        width: width,
-        child: FLFlatButton(
-          key: _buttonKey,
-          expanded: true,
-          child: Text('flat button'),
-          onPressed: (){},
-        ),
-      )
-    ));
+        child: Container(
+      width: width,
+      child: FLFlatButton(
+        key: _buttonKey,
+        expanded: true,
+        child: Text('flat button'),
+        onPressed: () {},
+      ),
+    )));
 
-    final double buttonW = _buttonKey.currentContext.findRenderObject().paintBounds.width;
+    final double buttonW =
+        _buttonKey.currentContext.findRenderObject().paintBounds.width;
     expect(normalFinder, findsOneWidget);
     expect(buttonW.compareTo(width), 0);
 
@@ -33,10 +33,7 @@ void main() {
 
     await tester.pumpWidget(TestContainer(
       child: FLFlatButton.icon(
-          onPressed: (){},
-          icon: Icon(iconData),
-          label: Text('alarm')
-      ),
+          onPressed: () {}, icon: Icon(iconData), label: Text('alarm')),
     ));
 
     expect(textFinder, findsOneWidget);
@@ -55,12 +52,13 @@ void main() {
           key: _raisedKey,
           expanded: true,
           child: Text('raised button'),
-          onPressed: (){},
+          onPressed: () {},
         ),
       ),
     ));
 
-    final double buttonW = _raisedKey.currentContext.findRenderObject().paintBounds.width;
+    final double buttonW =
+        _raisedKey.currentContext.findRenderObject().paintBounds.width;
     expect(buttonW.compareTo(width), 0);
     expect(textFinder, findsOneWidget);
 
@@ -70,10 +68,7 @@ void main() {
 
     await tester.pumpWidget(TestContainer(
       child: FLRaisedButton.icon(
-          onPressed: (){},
-          icon: Icon(iconData),
-          label: Text('alarm')
-      ),
+          onPressed: () {}, icon: Icon(iconData), label: Text('alarm')),
     ));
 
     expect(tFinder, findsOneWidget);
@@ -87,10 +82,11 @@ void main() {
           child: Text('login'),
           loading: loading,
           indicatorOnly: indicatorOnly,
-          onPressed: (){},
+          onPressed: () {},
         ),
       );
     }
+
     final textFinder = find.text('login');
     final indiFinder = find.byType(CircularProgressIndicator);
 

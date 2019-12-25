@@ -11,25 +11,23 @@ void main() {
     final menuFinder = find.byType(FLBubbleMenuWidget);
     await tester.pumpWidget(TestContainer(
         child: Container(
-          child: FLCopyableLabel(
-            copyData: copyData,
-            child: Text('label'),
-            showMenu: false,
-          ),
-        )
-    ));
+      child: FLCopyableLabel(
+        copyData: copyData,
+        child: Text('label'),
+        showMenu: false,
+      ),
+    )));
 
     expect(menuFinder, findsNothing);
 
     await tester.pumpWidget(TestContainer(
-      child: Container(
-        child: FLCopyableLabel(
-          copyData: copyData,
-          child: Text('label'),
-          showMenu: true,
-        ),
-      )
-    ));
+        child: Container(
+      child: FLCopyableLabel(
+        copyData: copyData,
+        child: Text('label'),
+        showMenu: true,
+      ),
+    )));
 
     expect(menuFinder, findsOneWidget);
 
@@ -37,16 +35,18 @@ void main() {
     await tester.pumpAndSettle();
     verify(navigatorObserver.didPush(any, any));
   });
-  
+
   testWidgets('Marquee Label Test', (WidgetTester tester) async {
-    await tester.pumpWidget(TestContainer(
-      child: Container(
-        child: FLMarqueeLabel(
-          velocity: 0,
-          text: 'this is a notice',
+    await tester.pumpWidget(
+        TestContainer(
+          child: Container(
+            child: FLMarqueeLabel(
+              velocity: 0,
+              text: 'this is a notice',
+            ),
+          ),
         ),
-      ),
-    ), Duration(milliseconds: 300));
+        Duration(milliseconds: 300));
 
     final textFinder = find.text('this is a notice');
     expect(textFinder, findsOneWidget);

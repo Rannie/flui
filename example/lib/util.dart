@@ -42,12 +42,13 @@ class Util {
   static TextDirection get textDirection {
     String directionStr = Util.preferences?.getString(_directionKey);
     TextDirection direction =
-      directionStr == _kDirectionRTL ? TextDirection.rtl : TextDirection.ltr;
+        directionStr == _kDirectionRTL ? TextDirection.rtl : TextDirection.ltr;
     return direction;
   }
 
   static setTextDirection(TextDirection textDirection) {
-    String directionStr = textDirection == TextDirection.rtl ? _kDirectionRTL : _kDirectionLTR;
+    String directionStr =
+        textDirection == TextDirection.rtl ? _kDirectionRTL : _kDirectionLTR;
     Util.preferences?.setString(_directionKey, directionStr);
   }
 }
