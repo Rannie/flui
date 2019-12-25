@@ -20,6 +20,7 @@ class FLNoticeBar extends StatelessWidget {
     this.height = FLMarqueeDefaultHeight,
     this.prefixBuilder,
     this.suffixBuilder,
+    this.delay,
   })  : assert(text != null),
         super(key: key);
 
@@ -34,6 +35,7 @@ class FLNoticeBar extends StatelessWidget {
       String text,
       double space,
       double height,
+      Duration delay,
       FLNoticeBarItemBuilder suffixBuilder}) {
     velocity ??= 0.4;
     loop ??= true;
@@ -64,6 +66,7 @@ class FLNoticeBar extends StatelessWidget {
       text: text,
       space: space,
       height: height,
+      delay: delay,
       prefixBuilder: prefixBuilder,
       suffixBuilder: suffixBuilder,
     );
@@ -81,6 +84,7 @@ class FLNoticeBar extends StatelessWidget {
       double space,
       double height,
       FLNoticeBarItemBuilder prefixBuilder,
+      Duration delay,
       VoidCallback onPressed}) {
     assert(onPressed != null);
     velocity ??= 0.4;
@@ -115,6 +119,7 @@ class FLNoticeBar extends StatelessWidget {
       text: text,
       space: space,
       height: height,
+      delay: delay,
       prefixBuilder: prefixBuilder,
       suffixBuilder: suffixBuilder,
     );
@@ -129,6 +134,7 @@ class FLNoticeBar extends StatelessWidget {
   final String text;
   final double space;
   final double height;
+  final Duration delay;
   final FLNoticeBarItemBuilder prefixBuilder;
   final FLNoticeBarItemBuilder suffixBuilder;
 
@@ -157,6 +163,7 @@ class FLNoticeBar extends StatelessWidget {
         space: space,
         velocity: velocity,
         loop: loop,
+        delay: delay,
       ),
     ));
 

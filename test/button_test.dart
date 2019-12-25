@@ -1,9 +1,9 @@
-import 'package:flui/flui.dart';
 import 'package:flui/widgets/loading_button.dart';
 import 'package:flui/widgets/flat_button.dart';
+import 'package:flui/widgets/raised_button.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'test_container.dart';
+import 'test_common.dart';
 
 void main() {
   testWidgets('Flat Button Test', (WidgetTester tester) async {
