@@ -101,7 +101,7 @@ class _ToastPageState extends State<ToastPage> {
                             child: Image.asset('assets/record.gif', scale: 2));
 
                         _hideCustomToast = FLToast.show(
-                            text: 'Swipe up to cancel sending', content: mic);
+                            text: 'Swipe up to cancel sending', contentBuilder: (context) => mic);
                       },
                       onLongPressEnd: (LongPressEndDetails details) {
                         if (_hideCustomToast != null) {
