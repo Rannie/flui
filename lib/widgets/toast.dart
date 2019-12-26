@@ -11,6 +11,8 @@ enum FLToastPosition { center, top, bottom }
 
 enum FLToastStyle { dark, light }
 
+typedef FLToastContentBuilder = Widget Function(BuildContext context);
+
 class FLToastDefaults {
   const FLToastDefaults({
     this.showDuration = const Duration(milliseconds: 1500),
@@ -119,16 +121,16 @@ class FLToast {
       _showToast(text,
           position: position, style: style, type: _FLToastType.loading);
 
-  static Function show({String text, Widget content}) =>
-      FLToast.showToast(text: text, content: content);
+  static Function show({String text, FLToastContentBuilder contentBuilder}) =>
+      FLToast.showToast(text: text, contentBuilder: contentBuilder);
   static Function showToast(
           {String text,
-          Widget content,
+          FLToastContentBuilder contentBuilder,
           Duration duration,
           FLToastPosition position,
           FLToastStyle style}) =>
       _showToast(text,
-          customWidget: content,
+          contentBuilder: contentBuilder,
           showDuration: duration,
           position: position,
           style: style,
@@ -198,7 +200,7 @@ Function _showToast(String text,
     FLToastPosition position,
     FLToastStyle style,
     _FLToastType type,
-    Widget customWidget}) {
+    FLToastContentBuilder contentBuilder}) {
   BuildContext context = _contextMap.values.first;
   OverlayEntry entry;
   FLToastDefaults defaults = _FLToastDefaultsWidget.of(context);
@@ -216,8 +218,7 @@ Function _showToast(String text,
   showDuration ??= (type == _FLToastType.custom) ? null : defaults.showDuration;
   if (type == _FLToastType.loading)
     showDuration = null; //loading type no duration
-  Widget slotWidget =
-      type == _FLToastType.custom ? customWidget : _typeWidget(type, color);
+  Widget slotWidget = _typeWidget(type, color);
 
   GlobalKey<_FLToastViewState> key = GlobalKey();
 
@@ -230,6 +231,7 @@ Function _showToast(String text,
     padding: _padding,
     showDuration: showDuration,
     slotWidget: slotWidget,
+    slotBuilder: contentBuilder,
     canBeAutoClear: type != _FLToastType.loading,
     position: position,
     style: style,
@@ -356,6 +358,7 @@ class _FLToastView extends StatefulWidget {
       this.text,
       this.padding,
       this.slotWidget,
+      this.slotBuilder,
       this.color,
       this.backgroundColor,
       this.backgroundOpacity,
@@ -365,12 +368,13 @@ class _FLToastView extends StatefulWidget {
       this.style,
       this.topOffset,
       this.bottomOffset})
-      : assert(slotWidget != null || text != null),
+      : assert(slotWidget != null || text != null || slotBuilder != null),
         super(key: key);
 
   final String text;
   final EdgeInsetsGeometry padding;
   final Widget slotWidget;
+  final FLToastContentBuilder slotBuilder;
   final Color color;
   final Color backgroundColor;
   final double backgroundOpacity;
@@ -467,19 +471,26 @@ class _FLToastViewState extends State<_FLToastView>
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQueryData.fromWindow(ui.window);
-    double marginTop = widget.topOffset + mediaQueryData.padding.top;
-    double marginBottom = widget.bottomOffset + mediaQueryData.padding.bottom;
+    final MediaQueryData mediaQueryData = MediaQueryData.fromWindow(ui.window);
+    final double marginTop = widget.topOffset + mediaQueryData.padding.top;
+    final double marginBottom = widget.bottomOffset + mediaQueryData.padding.bottom;
     MainAxisAlignment alignment = MainAxisAlignment.center;
     if (widget.position == FLToastPosition.top)
       alignment = MainAxisAlignment.start;
     else if (widget.position == FLToastPosition.bottom)
       alignment = MainAxisAlignment.end;
 
-    List<Widget> children = <Widget>[];
+    final List<Widget> children = <Widget>[];
     // add custom slot
     if (widget.slotWidget != null) {
       children.add(widget.slotWidget);
+      if (widget.text != null) {
+        children.add(SizedBox(height: 8.0));
+      }
+    }
+    // custom slot builder
+    if (widget.slotBuilder != null) {
+      children.add(widget.slotBuilder(context));
       if (widget.text != null) {
         children.add(SizedBox(height: 8.0));
       }
