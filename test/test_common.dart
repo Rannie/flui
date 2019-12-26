@@ -10,16 +10,19 @@ class TestContainer extends StatelessWidget {
     Key key,
     @required this.child,
     this.bottomWidget,
+    this.appbar,
   }) : super(key: key);
 
   final Widget child;
   final Widget bottomWidget;
+  final Widget appbar;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorObservers: [navigatorObserver],
       home: Scaffold(
+        appBar: appbar,
         body: Container(
           child: child,
         ),
