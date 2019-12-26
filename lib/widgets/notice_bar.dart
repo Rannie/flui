@@ -85,7 +85,7 @@ class FLNoticeBar extends StatelessWidget {
       double height,
       FLNoticeBarItemBuilder prefixBuilder,
       Duration delay,
-      VoidCallback onPressed}) {
+      @required VoidCallback onPressed}) {
     assert(onPressed != null);
     velocity ??= 0.4;
     loop ??= true;
