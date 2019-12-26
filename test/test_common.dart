@@ -9,9 +9,11 @@ class TestContainer extends StatelessWidget {
   TestContainer({
     Key key,
     @required this.child,
+    this.bottomWidget,
   }) : super(key: key);
 
   final Widget child;
+  final Widget bottomWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class TestContainer extends StatelessWidget {
         body: Container(
           child: child,
         ),
+        bottomNavigationBar: bottomWidget,
       ),
     );
   }
