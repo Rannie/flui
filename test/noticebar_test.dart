@@ -1,5 +1,5 @@
 import 'package:flui/flui.dart';
-import 'package:flui/widgets/notice_bar.dart';
+import 'package:flui/src/widgets/notice_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -33,7 +33,7 @@ void main() {
       child: Container(
         child: FLNoticeBar.closable(
           text: notice,
-          onPressed: (){},
+          onPressed: () {},
         ),
       ),
     ));
@@ -43,16 +43,15 @@ void main() {
     final GlobalKey preKey = GlobalKey();
     await tester.pumpWidget(TestContainer(
       child: Container(
-        child: FLNoticeBar(
-          text: notice,
-          prefixBuilder: (BuildContext context) {
-            return Container(
-              key: preKey,
-              width: 20,
-              height: 20,
-            );
-          })
-      ),
+          child: FLNoticeBar(
+              text: notice,
+              prefixBuilder: (BuildContext context) {
+                return Container(
+                  key: preKey,
+                  width: 20,
+                  height: 20,
+                );
+              })),
     ));
 
     expect(find.byKey(preKey), findsOneWidget);

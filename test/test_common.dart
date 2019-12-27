@@ -32,6 +32,6 @@ class TestContainer extends StatelessWidget {
   }
 }
 
-Future delayed({milliseconds : 600}) async {
+Future delayed({milliseconds: 600}) async {
   return await Future.delayed(Duration(milliseconds: milliseconds));
 }

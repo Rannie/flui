@@ -1,4 +1,4 @@
-import 'package:flui/widgets/empty.dart';
+import 'package:flui/src/widgets/empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flui/widgets/marquee_label.dart';
+import 'package:flui/src/widgets/marquee_label.dart';
 
 const Color FLNoticeBarTintColor = const Color(0xFFF76A24);
 const Color FLNoticeBarBackgroundColor = const Color(0xFFFEFCEC);

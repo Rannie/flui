@@ -1,5 +1,5 @@
-import 'package:flui/widgets/bubble.dart';
-import 'package:flui/widgets/bubble_menu.dart';
+import 'package:flui/src/widgets/bubble.dart';
+import 'package:flui/src/widgets/bubble_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -16,7 +16,7 @@ void main() {
     final textFinder = find.text('hello');
     expect(textFinder, findsOneWidget);
   });
-  
+
   testWidgets('Bubble Menu Test', (WidgetTester tester) async {
     const String title = 'BubbleMenu';
     await tester.pumpWidget(TestContainer(
@@ -28,17 +28,12 @@ void main() {
         ),
         itemBuilder: (BuildContext context) {
           verify(navigatorObserver.didPush(any, any));
-          return [
-            FLBubbleMenuItem(
-              text: 'item',
-              value: 'item'
-            )
-          ];
+          return [FLBubbleMenuItem(text: 'item', value: 'item')];
         },
       ),
     ));
 
     await tester.longPress(find.text(title));
     await tester.pumpAndSettle();
-;  });
+  });
 }

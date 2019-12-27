@@ -1,6 +1,6 @@
 import 'package:example/pages/page_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flui/widgets/count_stepper.dart';
+import 'package:flui/flui.dart';
 
 class CountStepperPage extends StatefulWidget {
   static const String routeName = '/count-stepper';

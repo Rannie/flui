@@ -473,7 +473,8 @@ class _FLToastViewState extends State<_FLToastView>
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQueryData.fromWindow(ui.window);
     final double marginTop = widget.topOffset + mediaQueryData.padding.top;
-    final double marginBottom = widget.bottomOffset + mediaQueryData.padding.bottom;
+    final double marginBottom =
+        widget.bottomOffset + mediaQueryData.padding.bottom;
     MainAxisAlignment alignment = MainAxisAlignment.center;
     if (widget.position == FLToastPosition.top)
       alignment = MainAxisAlignment.start;

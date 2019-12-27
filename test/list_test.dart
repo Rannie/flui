@@ -13,7 +13,7 @@ void main() {
         FLStaticItemData(
             title: itemTitle,
             accessoryType: FLStaticListCellAccessoryType.accDetail,
-            onTap: (){}),
+            onTap: () {}),
         FLStaticItemData(
           title: '护眼模式',
           accessoryType: FLStaticListCellAccessoryType.accSwitch,
