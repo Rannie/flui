@@ -1,16 +1,14 @@
-import 'package:flui/widgets/toast.dart';
+import 'package:flui/src/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'test_common.dart';
 
-class ToastApp extends StatelessWidget{
+class ToastApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FLToastProvider(
       defaults: FLToastDefaults(),
-      child: TestContainer(
-        child: ToastDes()
-      ),
+      child: TestContainer(child: ToastDes()),
     );
   }
 }

@@ -1,5 +1,5 @@
-import 'package:flui/widgets/action_sheet.dart';
-import 'package:flui/widgets/image.dart';
+import 'package:flui/src/widgets/action_sheet.dart';
+import 'package:flui/src/widgets/image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
