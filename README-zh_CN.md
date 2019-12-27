@@ -13,10 +13,14 @@
 
 <p>一个 Google Flutter 的组件扩展集 <a href="https://www.flui.xin/app/flui.apk">示例 apk</a></p>
 
-[![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) [![Documentation](http://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/widgets/button.html) [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
+[![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
+[![Documentation](http://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/en/widgets/button.html) 
+[![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) 
+[![GitHub forks](https://img.shields.io/github/forks/Rannie/flui.svg)](https://github.com/Rannie/flui) 
+[![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
 
 <br/>
-<img src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png" width="80%" />
+<img src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-overview-2.png" />
 
 </div>
 
@@ -25,12 +29,13 @@
 * 开箱即用的高质量 Flutter UI 组件 
 * 完善的使用示例和文档
 * 细粒度非风格化的组件适用于不同类型的应用
+* 支持 [Dark Mode](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-dark_shots.png) 以及 [RTL](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-rtl_shots.png)
 
 ## 兼容性
 
 **FLUI** 在多端具有良好的兼容性，框架会一直基于 *Flutter Stable Channel* 开发。
 
-目前支持 *v1.7.8+hotfix.1* 及以上版本。
+目前支持 *v1.12.13+hotfix.5* 及以上版本。
 
 
 ## 快速上手
@@ -39,7 +44,7 @@
 
 ```yaml
 dependencies:
-  flui: 0.7.4
+  flui: 0.8.0
 ```
 
 然后运行 `flutter pub get` 下载依赖。
@@ -49,7 +54,7 @@ dependencies:
 依赖安装完成后直接引入组件。
 
 ```dart
-import 'package:flui/flui.dart
+import 'package:flui/flui.dart';
 
 // in somewhere
 FLAppBarTitle(
@@ -71,6 +76,7 @@ FLAppBarTitle(
 - [Avatar](https://www.flui.xin/widgets/avatar.html)
 - [Badge](https://www.flui.xin/widgets/badge.html)
 - [Image](https://www.flui.xin/widgets/image.html)
+- [CountStepper](https://www.flui.xin/widgets/counter.html)
 - [AppBar](https://www.flui.xin/widgets/appbar.html)
 - [NoticeBar](https://www.flui.xin/widgets/notice-bar.html)
 - [Empty](https://www.flui.xin/widgets/empty.html)

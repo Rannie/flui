@@ -34,7 +34,7 @@ class FLCountStepper extends StatefulWidget {
   /// disable step button
   final bool disabled;
 
-  /// disable input
+  /// disable input, default is true
   final bool disableInput;
 
   /// the width of input, also related with TextField's max length
@@ -72,6 +72,8 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _inputController.value = TextEditingValue(text: '$number');
     _minusEnabled = !(widget.disabled || _controller.isMin());
     _addEnabled = !(widget.disabled || _controller.isMax());
+
+    _controller.addListener(_onStepperValueChanged);
   }
 
   void _onStepperValueChanged() {
@@ -83,7 +85,6 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _resignFocus();
     _syncValueAndInput();
     _controller.minus();
-    _onStepperValueChanged();
     _updateEnableStates();
 
     if (widget.onChanged != null) {
@@ -95,7 +96,6 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _resignFocus();
     _syncValueAndInput();
     _controller.add();
-    _onStepperValueChanged();
     _updateEnableStates();
 
     if (widget.onChanged != null) {
