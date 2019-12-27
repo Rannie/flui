@@ -10,7 +10,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 <h1 align="center">FLUI</h1>
 
 <div align="center">
-<p>A widget kit for Google Flutter <a href="https://www.flui.xin/app/flui.apk">Demo apk</a></p>
+A widget kit for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/flui.apk">Demo apk</a>
 
 
 [![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
