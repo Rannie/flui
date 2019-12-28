@@ -14,7 +14,8 @@ class _LoadingEmptyPageState extends State<LoadingEmptyPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () => setState(() => _showContent = true));
+    Future.delayed(
+        Duration(seconds: 3), () => setState(() => _showContent = true));
   }
 
   @override

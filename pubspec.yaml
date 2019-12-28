@@ -1,16 +1,19 @@
 name: flui
 description:
   FLUI has a relatively fine granularity of widgets, which is a supplement to the kinds of Flutter widgets.
-version: 0.7.4
+version: 0.8.0
 author: Rannie <rannstudio@outlook.com>
 homepage: 'https://www.flui.xin/en/'
 repository: 'https://github.com/Rannie/flui'
 documentation: 'https://www.flui.xin/en/widgets/button.html'
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.6.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
-dev_dependencies: null
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^4.1.1
 flutter:
   uses-material-design: true
