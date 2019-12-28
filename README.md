@@ -14,7 +14,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 
 
 [![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
-![CI Status](https://github.com/rannie/flui/workflows/test/badge.svg)
+![CI Status](https://github.com/rannie/flui/workflows/Dart%20CI/badge.svg)
 [![Documentation](http://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/en/widgets/button.html) 
 [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) 
 [![GitHub forks](https://img.shields.io/github/forks/Rannie/flui.svg)](https://github.com/Rannie/flui) 
