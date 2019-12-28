@@ -14,57 +14,55 @@ class _BadgePageState extends State<BadgePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Badge'),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('show badges: '),
-                  SizedBox(width: 4),
-                  Checkbox(
-                    value: _showBadge,
-                    onChanged: (value) => setState(() => _showBadge = value),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: FLBadge(
-                  child: Icon(Icons.home),
-                  hidden: !_showBadge,
-                  shape: FLBadgeShape.circle,
-                ),
-                title: Text('home')
-            ),
-            BottomNavigationBarItem(
-                icon: FLBadge(
-                  child: Icon(Icons.chat),
-                  hidden: !_showBadge,
-                  text: '99+',
-                ),
-                title: Text('chat')
-            ),
-            BottomNavigationBarItem(
-                icon: FLBadge(
-                  child: Icon(Icons.shopping_cart),
-                  hidden: !_showBadge,
-                  position: FLBadgePosition.topLeft,
-                  shape: FLBadgeShape.spot,
-                ),
-                title: Text('cart'),
+      appBar: AppBar(
+        title: Text('Badge'),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('show badges: '),
+                SizedBox(width: 4),
+                Checkbox(
+                  value: _showBadge,
+                  onChanged: (value) => setState(() => _showBadge = value),
+                )
+              ],
             )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: FLBadge(
+                child: Icon(Icons.home),
+                hidden: !_showBadge,
+                shape: FLBadgeShape.circle,
+              ),
+              title: Text('home')),
+          BottomNavigationBarItem(
+              icon: FLBadge(
+                child: Icon(Icons.chat),
+                hidden: !_showBadge,
+                text: '99+',
+              ),
+              title: Text('chat')),
+          BottomNavigationBarItem(
+            icon: FLBadge(
+              child: Icon(Icons.shopping_cart),
+              hidden: !_showBadge,
+              position: FLBadgePosition.topLeft,
+              shape: FLBadgeShape.spot,
+            ),
+            title: Text('cart'),
+          )
+        ],
+      ),
     );
   }
 }
