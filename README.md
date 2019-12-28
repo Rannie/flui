@@ -10,10 +10,15 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 <h1 align="center">FLUI</h1>
 
 <div align="center">
-A widget kit for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/flui.apk">Demo apk</a>
+<p>A widget kit for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/flui.apk">Demo apk</a></p>
 
 
-[![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
+[![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
+![CI Status](https://github.com/rannie/flui/workflows/test/badge.svg)
+[![Documentation](http://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/en/widgets/button.html) 
+[![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) 
+[![GitHub forks](https://img.shields.io/github/forks/Rannie/flui.svg)](https://github.com/Rannie/flui) 
+[![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
 
 
 <img src="https://raw.githubusercontent.com/Rannie/Rannie.github.io/master/images/2019-12-18-overview-2.png" />
@@ -25,12 +30,13 @@ A widget kit for Google Flutter <a href="https://github.com/Rannie/Rannie.github
 * A set of high-quality Flutter widgets out of the box
 * Comprehensive usage examples and documentation
 * Fine-grained non-stylized widgets for different types of applications
+* Supports [Dark Mode](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-dark_shots.png) and [RTL](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-rtl_shots.png)
 
 ## Compatibility
 
 **FLUI** has good compatibility on multiple clients, and the framework will be developed based on Flutter Stable Channel.
 
-Currently supports *v1.7.8 + hotfix.1* and above.
+Currently supports *v1.12.13+hotfix.5* and above.
 
 ## Getting Started
 
@@ -38,7 +44,7 @@ Currently supports *v1.7.8 + hotfix.1* and above.
 
 ```yaml
 dependencies:
-  flui: 0.7.4
+  flui: 0.8.0
 ```
 
 Then run `flutter pub get` to download the dependencies.
@@ -69,6 +75,7 @@ FLAppBarTitle(
 - [Avatar](https://www.flui.xin/en/widgets/avatar.html)
 - [Badge](https://www.flui.xin/en/widgets/badge.html)
 - [Image](https://www.flui.xin/en/widgets/image.html)
+- [CountStepper](https://www.flui.xin/en/widgets/counter.html)
 - [AppBar](https://www.flui.xin/en/widgets/appbar.html)
 - [NoticeBar](https://www.flui.xin/en/widgets/notice-bar.html)
 - [Empty](https://www.flui.xin/en/widgets/empty.html)

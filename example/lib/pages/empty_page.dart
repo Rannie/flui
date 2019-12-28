@@ -16,38 +16,32 @@ class _EmptyPageState extends State<EmptyPage> {
   @override
   Widget build(BuildContext context) {
     final List<FLStaticSectionData> sectionList = [
-      FLStaticSectionData(
-          itemList: [
-            FLStaticItemData(
-              title: 'Loading',
-              accessoryType: FLStaticListCellAccessoryType.accDetail,
-              onTap: () {
-                Navigator.pushNamed(context, LoadingEmptyPage.routeName);
-              }
-            ),
-            FLStaticItemData(
-              title: 'Hints',
-                accessoryType: FLStaticListCellAccessoryType.accDetail,
-                onTap: () {
-                  Navigator.pushNamed(context, HintsEmptyPage.routeName);
-                }
-            ),
-            FLStaticItemData(
-                title: 'Hints and Action Button',
-                accessoryType: FLStaticListCellAccessoryType.accDetail,
-                onTap: () {
-                  Navigator.pushNamed(context, HintsActionEmptyPage.routeName);
-                }
-            ),
-            FLStaticItemData(
-                title: 'Image and Hints',
-                accessoryType: FLStaticListCellAccessoryType.accDetail,
-                onTap: () {
-                  Navigator.pushNamed(context, ImageHintsEmptyPage.routeName);
-                }
-            ),
-          ]
-      )
+      FLStaticSectionData(itemList: [
+        FLStaticItemData(
+            title: 'Loading',
+            accessoryType: FLStaticListCellAccessoryType.accDetail,
+            onTap: () {
+              Navigator.pushNamed(context, LoadingEmptyPage.routeName);
+            }),
+        FLStaticItemData(
+            title: 'Hints',
+            accessoryType: FLStaticListCellAccessoryType.accDetail,
+            onTap: () {
+              Navigator.pushNamed(context, HintsEmptyPage.routeName);
+            }),
+        FLStaticItemData(
+            title: 'Hints and Action Button',
+            accessoryType: FLStaticListCellAccessoryType.accDetail,
+            onTap: () {
+              Navigator.pushNamed(context, HintsActionEmptyPage.routeName);
+            }),
+        FLStaticItemData(
+            title: 'Image and Hints',
+            accessoryType: FLStaticListCellAccessoryType.accDetail,
+            onTap: () {
+              Navigator.pushNamed(context, ImageHintsEmptyPage.routeName);
+            }),
+      ])
     ];
 
     return Scaffold(
@@ -55,15 +49,13 @@ class _EmptyPageState extends State<EmptyPage> {
           title: Text('Empty'),
         ),
         body: Container(
-          height: double.infinity,
-          child: FLStaticListView(
-            shrinkWrap: true,
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(height: 1, color: Colors.grey);
-            },
-            sections: sectionList,
-          )
-        )
-    );
+            height: double.infinity,
+            child: FLStaticListView(
+              shrinkWrap: true,
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(height: 1, color: Colors.grey);
+              },
+              sections: sectionList,
+            )));
   }
 }

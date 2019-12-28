@@ -1,3 +1,4 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
@@ -9,28 +10,13 @@ class BubblePage extends StatefulWidget {
 }
 
 class _BubblePageState extends State<BubblePage> {
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
-
   Widget _buildBubbleContent(double maxWidth) {
     Widget insetV = SizedBox(height: 20);
     Widget insetH = SizedBox(width: 4);
     double tWidth = maxWidth - 160;
+    final TextStyle textStyle = _isDarkMode
+        ? TextStyle(fontSize: 15, color: Colors.black)
+        : TextStyle(fontSize: 15);
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -40,14 +26,14 @@ class _BubblePageState extends State<BubblePage> {
               _buildRoundedAvatar('T'),
               insetH,
               FLBubble(
-                from: FLBubbleFrom.left,
-                backgroundColor: Colors.white,
-                child: Container(
-                  width: tWidth,
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                  child: Text('Hi, I\'m Tomas Shelby, from England.', style: TextStyle(fontSize: 15), softWrap: true),
-                )
-              )
+                  from: FLBubbleFrom.left,
+                  backgroundColor: Colors.white,
+                  child: Container(
+                    width: tWidth,
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                    child: Text('Hi, I\'m Tomas Shelby, from England.',
+                        style: textStyle, softWrap: true),
+                  ))
             ],
           ),
           insetV,
@@ -60,9 +46,11 @@ class _BubblePageState extends State<BubblePage> {
                   child: Container(
                     width: tWidth,
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Text('Hi, I\'m FLUI, a widget kit for Google Flutter.', style: TextStyle(fontSize: 15), softWrap: true),
-                  )
-              ),
+                    child: Text(
+                        'Hi, I\'m FLUI, a widget kit for Google Flutter.',
+                        style: textStyle,
+                        softWrap: true),
+                  )),
               insetH,
               _buildRoundedAvatar('F'),
             ],
@@ -78,9 +66,11 @@ class _BubblePageState extends State<BubblePage> {
                   child: Container(
                     constraints: BoxConstraints(maxWidth: tWidth),
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Text('I know, Flutter is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.', style: TextStyle(fontSize: 15), softWrap: true),
-                  )
-              )
+                    child: Text(
+                        'I know, Flutter is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.',
+                        style: textStyle,
+                        softWrap: true),
+                  ))
             ],
           ),
           insetV,
@@ -93,9 +83,8 @@ class _BubblePageState extends State<BubblePage> {
                   child: Container(
                     constraints: BoxConstraints(maxWidth: tWidth),
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Text('Exactly!', style: TextStyle(fontSize: 15), softWrap: true),
-                  )
-              ),
+                    child: Text('Exactly!', style: textStyle, softWrap: true),
+                  )),
               insetH,
               _buildRoundedAvatar('F'),
             ],
@@ -125,12 +114,12 @@ class _BubblePageState extends State<BubblePage> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: Color(0xFF0F4C81)
-              ),
+                  color: Theme.of(context).primaryColor),
               width: 240,
               height: 40,
               child: Center(
-                child: Text('Tap to show menu', style: TextStyle(fontSize: 17, color: Colors.white)),
+                child: Text('Tap to show menu',
+                    style: TextStyle(fontSize: 17, color: Colors.white)),
               ),
             ),
             itemBuilder: (BuildContext context) {
@@ -149,8 +138,10 @@ class _BubblePageState extends State<BubblePage> {
                 ),
               ];
             },
-            onSelected: (value) => FLToast.showText(text: 'Select - $value', position: FLToastPosition.bottom),
-            onCanceled: () => FLToast.showText(text: 'Canceled', position: FLToastPosition.bottom),
+            onSelected: (value) => FLToast.showText(
+                text: 'Select - $value', position: FLToastPosition.bottom),
+            onCanceled: () => FLToast.showText(
+                text: 'Canceled', position: FLToastPosition.bottom),
           ),
           SizedBox(height: 20),
           FLBubbleMenuWidget(
@@ -158,12 +149,12 @@ class _BubblePageState extends State<BubblePage> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: Color(0xFF0F4C81)
-              ),
+                  color: Theme.of(context).primaryColor),
               width: 240,
               height: 40,
               child: Center(
-                child: Text('Long press to show menu', style: TextStyle(fontSize: 17, color: Colors.white)),
+                child: Text('Long press to show menu',
+                    style: TextStyle(fontSize: 17, color: Colors.white)),
               ),
             ),
             itemBuilder: (BuildContext context) {
@@ -178,30 +169,40 @@ class _BubblePageState extends State<BubblePage> {
                 ),
               ];
             },
-            onSelected: (value) => FLToast.showText(text: 'Select - $value', position: FLToastPosition.bottom),
-            onCanceled: () => FLToast.showText(text: 'Canceled', position: FLToastPosition.bottom),
+            onSelected: (value) => FLToast.showText(
+                text: 'Select - $value', position: FLToastPosition.bottom),
+            onCanceled: () => FLToast.showText(
+                text: 'Canceled', position: FLToastPosition.bottom),
           ),
         ],
       ),
     );
   }
 
+  bool get _isDarkMode {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    final MediaQueryData queryData = MediaQuery.of(context);
+    final double width = queryData.size.width;
+    final bool isDarkMode = _isDarkMode;
     return Scaffold(
       appBar: AppBar(
         title: Text('Bubble'),
       ),
       body: Container(
-        color: Color(0xFFDEEEEEE),
+        color: isDarkMode ? Colors.transparent : Color(0xFFDEEEEEE),
         width: double.infinity,
         height: double.infinity,
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            _buildSection('Bubble', _buildBubbleContent(width)),
-            _buildSection('Bubble Menu', _buildBubbleMenuContent()),
+            PageUtil.buildSection(
+                'Bubble', _buildBubbleContent(width), context),
+            PageUtil.buildSection(
+                'Bubble Menu', _buildBubbleMenuContent(), context),
           ],
         ),
       ),

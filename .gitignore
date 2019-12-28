@@ -9,6 +9,9 @@
 .history
 .svn/
 
+# Test
+coverage/
+
 # Scripts
 node_modules
 
