@@ -27,8 +27,7 @@ class _HintsActionEmptyPageState extends State<HintsActionEmptyPage> {
               child: Text('Retry'),
               onPressed: () => print('retry'),
             ),
-          )
-      ),
+          )),
     );
   }
 }

@@ -1,6 +1,6 @@
+import 'package:example/pages/page_util.dart';
 import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
-import 'package:example/style/style.dart';
 import 'dart:math' as math;
 
 class ButtonPage extends StatefulWidget {
@@ -9,31 +9,11 @@ class ButtonPage extends StatefulWidget {
   State<ButtonPage> createState() => _ButtonPageState();
 }
 
-const Color mainColor = Color(FLColors.primaryValue);
-
 class _ButtonPageState extends State<ButtonPage> {
   FLPosition _iconPosFlat = FLPosition.bottom;
   FLPosition _iconPosRaised = FLPosition.bottom;
   bool _loading = false;
   bool _indiOnlyLoading = false;
-
-  Widget _buildSection(String title, Widget content) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color.fromRGBO(246, 246, 246, 1),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 56,
-          child: Row(
-            children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.blueGrey, fontSize: 17)),
-            ],
-          ),
-        ),
-        content
-      ],
-    );
-  }
 
   FLPosition _newIconPos(FLPosition iconPos) {
     if (iconPos == FLPosition.bottom) return FLPosition.left;
@@ -43,28 +23,37 @@ class _ButtonPageState extends State<ButtonPage> {
     return FLPosition.bottom;
   }
 
+  Color get _mainColor {
+    ThemeData themeData = Theme.of(context);
+    return themeData.primaryColor;
+  }
+
   Widget _flatButtonContent(double screenWidth) {
+    final Brightness brightness = Theme.of(context).brightness;
+    final bool isDarkMode = brightness == Brightness.dark;
+    final Color color = isDarkMode ? Colors.white : _mainColor;
     return Column(
       children: <Widget>[
         SizedBox(height: 10),
         Container(
           child: FLFlatButton(
             expanded: true,
-            color: mainColor,
+            color: _mainColor,
             textColor: Colors.white,
-            child: Text('Extended Button', textAlign: TextAlign.center),
-            onPressed: () => FLToast.info(text: 'Extended Button'),
+            child: Text('Expanded Button', textAlign: TextAlign.center),
+            onPressed: () => FLToast.info(text: 'Expanded Button'),
           ),
         ),
         SizedBox(height: 10),
         FLFlatButton.icon(
-              padding: const EdgeInsets.all(5),
-              textColor: mainColor,
-              onPressed: () => setState(() => _iconPosFlat = _newIconPos(_iconPosFlat)),
-              icon: Icon(Icons.account_box, color: mainColor),
-              label: Text('Click to change icon position'),
-              spacing: 5,
-              iconPosition: _iconPosFlat,
+          padding: const EdgeInsets.all(5),
+          textColor: color,
+          onPressed: () =>
+              setState(() => _iconPosFlat = _newIconPos(_iconPosFlat)),
+          icon: Icon(Icons.account_box, color: color),
+          label: Text('Click to change icon position'),
+          spacing: 5,
+          iconPosition: _iconPosFlat,
         ),
         SizedBox(height: 10),
       ],
@@ -79,17 +68,18 @@ class _ButtonPageState extends State<ButtonPage> {
           child: FLRaisedButton(
             expanded: true,
             textColor: Colors.white,
-            child: Text('Extended Button', textAlign: TextAlign.center),
-            onPressed: () => FLToast.info(text: 'Extended Button'),
+            child: Text('Expanded Button', textAlign: TextAlign.center),
+            onPressed: () => FLToast.info(text: 'Expanded Button'),
           ),
         ),
         SizedBox(height: 10),
         FLRaisedButton.icon(
           padding: const EdgeInsets.all(5),
-          color: mainColor,
+          color: _mainColor,
           textColor: Colors.white,
-          onPressed: () => setState(() => _iconPosRaised = _newIconPos(_iconPosRaised)),
-          icon: Icon(Icons.account_box, color:Colors.white),
+          onPressed: () =>
+              setState(() => _iconPosRaised = _newIconPos(_iconPosRaised)),
+          icon: Icon(Icons.account_box, color: Colors.white),
           label: Text('Click to change icon position'),
           spacing: 5,
           iconPosition: _iconPosRaised,
@@ -106,7 +96,7 @@ class _ButtonPageState extends State<ButtonPage> {
         FLGradientButton.linear(
           textColor: Colors.white,
           child: Text('Linear Gradient Button'),
-          colors: [Colors.lightBlueAccent, mainColor],
+          colors: [Colors.lightBlueAccent, _mainColor],
           onPressed: () => FLToast.info(text: 'Linear Gradient Button'),
         ),
         SizedBox(height: 10),
@@ -120,7 +110,8 @@ class _ButtonPageState extends State<ButtonPage> {
             Color(0xFF34A853), // green
             Color(0xFFFBBC05), // yellow
             Color(0xFFEA4335), // red
-            Color(0xFF4285F4), // blue again to seamlessly transition to the start
+            Color(
+                0xFF4285F4), // blue again to seamlessly transition to the start
           ],
           stops: const <double>[0.0, 0.25, 0.5, 0.75, 1.0],
           textColor: Colors.white,
@@ -152,8 +143,8 @@ class _ButtonPageState extends State<ButtonPage> {
         SizedBox(height: 10),
         FLLoadingButton(
           child: Text('Login'),
-          color: mainColor,
-          disabledColor: mainColor,
+          color: _mainColor,
+          disabledColor: _mainColor,
           indicatorColor: Colors.white,
           disabledTextColor: Colors.grey.withAlpha(40),
           textColor: Colors.white,
@@ -161,14 +152,15 @@ class _ButtonPageState extends State<ButtonPage> {
           minWidth: 200,
           onPressed: () {
             setState(() => _loading = true);
-            Future.delayed(Duration(seconds: 3), () => setState(() => _loading = false));
+            Future.delayed(
+                Duration(seconds: 3), () => setState(() => _loading = false));
           },
         ),
         SizedBox(height: 10),
         FLLoadingButton(
           child: Text('Login'),
-          color: mainColor,
-          disabledColor: mainColor,
+          color: _mainColor,
+          disabledColor: _mainColor,
           indicatorColor: Colors.white,
           textColor: Colors.white,
           loading: _indiOnlyLoading,
@@ -176,7 +168,8 @@ class _ButtonPageState extends State<ButtonPage> {
           indicatorOnly: true,
           onPressed: () {
             setState(() => _indiOnlyLoading = true);
-            Future.delayed(Duration(seconds: 3), () => setState(() => _indiOnlyLoading = false));
+            Future.delayed(Duration(seconds: 3),
+                () => setState(() => _indiOnlyLoading = false));
           },
         ),
         SizedBox(height: 10),
@@ -192,21 +185,23 @@ class _ButtonPageState extends State<ButtonPage> {
         appBar: AppBar(
           title: Text('Buttons'),
           centerTitle: true,
-    ),
+        ),
         body: Container(
-          color: Colors.white,
           width: screenWidth,
           height: screenHeight,
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              _buildSection('Flat Button', _flatButtonContent(screenWidth)),
-              _buildSection('Raised Button', _raisedButtonContent(screenWidth)),
-              _buildSection('Gradient Button', _gradientButtonContent()),
-              _buildSection('Loading Button', _loadingButtonContent()),
+              PageUtil.buildSection(
+                  'Flat Button', _flatButtonContent(screenWidth), context),
+              PageUtil.buildSection(
+                  'Raised Button', _raisedButtonContent(screenWidth), context),
+              PageUtil.buildSection(
+                  'Gradient Button', _gradientButtonContent(), context),
+              PageUtil.buildSection(
+                  'Loading Button', _loadingButtonContent(), context),
             ],
           ),
-        )
-    );
+        ));
   }
 }

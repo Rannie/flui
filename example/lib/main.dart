@@ -1,14 +1,17 @@
-import 'package:example/event.dart';
+import 'dart:io';
+
+import 'package:example/util.dart';
 import 'package:example/pages/about_page.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
 import 'package:example/pages/badge_page.dart';
 import 'package:example/pages/bubble_page.dart';
 import 'package:example/pages/button_page.dart';
+import 'package:example/pages/count_stepper_page.dart';
 import 'package:example/pages/empty_page.dart';
 import 'package:example/pages/hints_action_empty_page.dart';
 import 'package:example/pages/hints_empty_page.dart';
-import 'package:example/pages/home_page.dart';
+import 'package:example/home_page.dart';
 import 'package:example/pages/image_hints_empty_page.dart';
 import 'package:example/pages/label_page.dart';
 import 'package:example/pages/app_bar_page.dart';
@@ -17,14 +20,23 @@ import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
 import 'package:flui/flui.dart';
-import 'package:example/style/style.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:example/style/theme.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle =
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+  Util.initialize();
+}
 
 Logger logger = Logger();
 
@@ -33,36 +45,86 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  FLToastDefaults _toastDefaults = FLToastDefaults();
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  FLToastDefaults _defaults = FLToastDefaults();
+  bool _userModeLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    eventBus.on().listen((event) {
-      if (event.runtimeType == FLToastDefaults) {
-        setState(() => _toastDefaults = event);
-      }
-
+    WidgetsBinding.instance.addObserver(this);
+    Util.eventBus.on().listen((event) {
       if (event == 'reset') {
-        setState(() => _toastDefaults = FLToastDefaults());
+        setState(() {
+          _defaults = FLToastDefaults();
+        });
+      } else if (event == 'theme') {
+        setState(() {});
+      } else if (event == 'themeLoaded') {
+        if (!_userModeLoaded) setState(() {});
+      } else if (event == 'direction') {
+        setState(() {});
+      } else {
+        setState(() => _defaults = event);
       }
     });
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    if (Util.themeMode == ThemeMode.system) {
+      setState(() {});
+    }
+  }
+
+  bool _isDarkMode() {
+    bool isDarkMode;
+    final ThemeMode themeMode = Util.themeMode;
+    if (themeMode == ThemeMode.light || themeMode == ThemeMode.dark) {
+      isDarkMode = themeMode == ThemeMode.dark;
+    } else {
+      isDarkMode =
+          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    }
+    return isDarkMode;
+  }
+
+  void _updateStatusBar() {
+    final SystemUiOverlayStyle overlayStyle =
+        _isDarkMode() ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
+    SystemChrome.setSystemUIOverlayStyle(overlayStyle);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_userModeLoaded == false && Util.preferences != null) {
+      _userModeLoaded = true;
+    }
+
+    _updateStatusBar();
+    final bool isDarkMode = _isDarkMode();
+    final ThemeMode themeMode = Util.themeMode;
+    final FLToastStyle style =
+        isDarkMode ? FLToastStyle.light : FLToastStyle.dark;
+    final FLToastDefaults toastDefaults = FLToastDefaults(
+        style: style,
+        position: _defaults.position,
+        textDirection: Util.textDirection);
+
     return FLToastProvider(
-      defaults: _toastDefaults,
+      defaults: toastDefaults,
       child: MaterialApp(
         title: 'FLUI',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: FLColors.primarySwatch,
-          buttonTheme: ButtonThemeData(
-              colorScheme: ColorScheme.fromSwatch(primarySwatch: FLColors.primarySwatch)
-          ),
-        ),
+        themeMode: themeMode,
+        theme: kLightTheme,
+        darkTheme: kDarkTheme,
         routes: {
           HomeTab.routeName: (context) => HomeTab(),
           InputPage.routeName: (context) => InputPage(),
@@ -83,6 +145,13 @@ class _MyAppState extends State<MyApp> {
           BubblePage.routeName: (context) => BubblePage(),
           AvatarPage.routeName: (context) => AvatarPage(),
           InputPage.routeName: (context) => InputPage(),
+          CountStepperPage.routeName: (context) => CountStepperPage()
+        },
+        builder: (BuildContext context, Widget child) {
+          return Directionality(
+            textDirection: Util.textDirection,
+            child: child,
+          );
         },
       ),
     );
@@ -101,10 +170,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int _currentIndex = 0;
-  List pages = [
-    HomePage(),
-    AboutPage()
-  ];
+  List pages = [HomePage(), AboutPage()];
 
   @override
   Widget build(BuildContext context) {
