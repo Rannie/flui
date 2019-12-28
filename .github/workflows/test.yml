@@ -1,4 +1,4 @@
-name: Dart CI
+name: test
 
 on: push
 jobs:
