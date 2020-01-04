@@ -18,31 +18,31 @@ class _StaticListViewState extends State<StaticListViewPage> {
 
   List<FLStaticSectionData> _buildList() {
     return [
-      FLStaticSectionData(headerTitle: '账号', itemList: [
+      FLStaticSectionData(headerTitle: 'Account number', itemList: [
         FLStaticItemData(
-            title: '账号管理',
+            title: 'Account management',
             accessoryType: FLStaticListCellAccessoryType.accDetail,
             onTap: handleTap),
         FLStaticItemData(
-            title: '账号与安全',
+            title: 'Account and Security',
             accessoryType: FLStaticListCellAccessoryType.accDetail,
             onTap: handleTap),
       ]),
-      FLStaticSectionData(headerTitle: '设置', itemList: [
+      FLStaticSectionData(headerTitle: 'Set up', itemList: [
         FLStaticItemData(
-            title: '推送通知设置',
+            title: 'Push notification settings',
             accessoryType: FLStaticListCellAccessoryType.accDetail,
-            accessoryString: '全部通知',
+            accessoryString: 'Notify All',
             onTap: handleTap),
         FLStaticItemData(
-          title: '护眼模式',
+          title: 'Eye protection mode',
           accessoryType: FLStaticListCellAccessoryType.accSwitch,
           onChanged: onChanged,
           switchValue: _switchValue,
         ),
         FLStaticItemData(
-          title: '自动清理缓存',
-          subtitle: '每 10 天清理一次',
+          title: 'Automatically clear cache',
+          subtitle: 'Clean up every 10 days',
           accessoryType: FLStaticListCellAccessoryType.accCheckmark,
           onTap: handleTap,
           selected: true,
@@ -51,14 +51,14 @@ class _StaticListViewState extends State<StaticListViewPage> {
       FLStaticSectionData(itemList: [
         FLStaticItemData(
             cellType: FLStaticListCellType.button,
-            buttonTitle: '提交',
+            buttonTitle: 'Submit',
             buttonTitleColor: Colors.blue,
             onButtonPressed: () {
               print('button pressed');
             }),
         FLStaticItemData(
             cellType: FLStaticListCellType.button,
-            buttonTitle: '删除并退出登录',
+            buttonTitle: 'Delete and logout',
             buttonTitleColor: Colors.red,
             onButtonPressed: () {
               print('button pressed');
