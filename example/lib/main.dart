@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:example/pages/persistent_header_page.dart';
 import 'package:example/util.dart';
 import 'package:example/pages/about_page.dart';
 import 'package:example/pages/action_sheet_page.dart';
@@ -145,7 +146,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           BubblePage.routeName: (context) => BubblePage(),
           AvatarPage.routeName: (context) => AvatarPage(),
           InputPage.routeName: (context) => InputPage(),
-          CountStepperPage.routeName: (context) => CountStepperPage()
+          CountStepperPage.routeName: (context) => CountStepperPage(),
+          PersistentHeaderPage.routeName: (context) => PersistentHeaderPage()
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(

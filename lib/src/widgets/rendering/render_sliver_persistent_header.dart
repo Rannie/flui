@@ -1,6 +1,8 @@
-import 'package:flui/flui.dart';
+import 'package:flui/src/widgets/persistent_header.dart';
 import 'package:flui/src/widgets/rendering/persistent_header_constraints.dart';
+import 'package:flui/src/widgets/rendering/persistent_header_layout_builder.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 
@@ -10,8 +12,8 @@ class FLRenderSliverPersistentHeader extends RenderSliver
     RenderObject header,
     RenderSliver content,
     overlapsContent: false,
-  }) {
-    _overlapsContent = overlapsContent;
+  }) : assert(overlapsContent != null),
+    _overlapsContent = overlapsContent {
     this.header = header;
     this.content = content;
   }
@@ -201,11 +203,57 @@ class FLRenderSliverPersistentHeader extends RenderSliver
           break;
         case AxisDirection.down:
           contentParentData.paintOffset = Offset(
-              calculatePaintOffset(constraints, from: 0.0, to: headerExtent), 0.0
+              0.0, calculatePaintOffset(constraints, from: 0.0, to: headerExtent)
           );
           break;
         case AxisDirection.left:
           contentParentData.paintOffset = Offset.zero;
+          break;
+      }
+    }
+
+    if (header != null) {
+      final SliverPhysicalParentData headerParentData = header.parentData;
+      final childScrollExtent = content?.geometry?.scrollExtent ?? 0.0;
+      double headerPostion = math.min(
+          constraints.overlap,
+          childScrollExtent - constraints.scrollOffset - (overlapsContent ? _headerExtent : 0.0)
+      );
+
+      _pinning = (constraints.scrollOffset + constraints.overlap) > 0.0
+          || constraints.remainingPaintExtent == constraints.viewportMainAxisExtent;
+
+      if (header is FLRenderPersistentHeaderLayoutBuilder) {
+        double scrollPercentage = ((headerPostion - constraints.overlap).abs() / _headerExtent)
+            .clamp(0.0, 1.0);
+
+        FLPersistentHeaderState state = FLPersistentHeaderState(scrollPercentage, _pinning);
+        if (_oldState != state) {
+          _oldState = state;
+          header.layout(
+              FLPersistentHeaderConstraints(
+                state: _oldState,
+                boxConstraints: constraints.asBoxConstraints()
+              ),
+              parentUsesSize: true
+          );
+        }
+      }
+
+      switch (axisDirection) {
+        case AxisDirection.up:
+          headerParentData.paintOffset = Offset(
+            0.0, geometry.paintExtent - headerPostion - _headerExtent
+          );
+          break;
+        case AxisDirection.down:
+          headerParentData.paintOffset = Offset(0.0, headerPostion);
+          break;
+        case AxisDirection.left:
+          headerParentData.paintOffset = Offset(geometry.paintExtent - headerPostion - _headerExtent, 0.0);
+          break;
+        case AxisDirection.right:
+          headerParentData.paintOffset = Offset(headerPostion, 0.0);
           break;
       }
     }
