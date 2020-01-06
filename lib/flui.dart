@@ -25,3 +25,4 @@ export 'package:flui/src/widgets/appbar_title.dart';
 export 'package:flui/src/widgets/static_list.dart';
 export 'package:flui/src/widgets/list_tile.dart';
 export 'package:flui/src/widgets/count_stepper.dart';
+export 'package:flui/src/widgets/persistent_header.dart';
