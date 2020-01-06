@@ -1,4 +1,5 @@
 import 'package:example/pages/count_stepper_page.dart';
+import 'package:example/pages/persistent_header_page.dart';
 import 'package:flutter/material.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
@@ -22,6 +23,13 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   List<_FLDemoListData> get _demoList {
     return [
+      _FLDemoListData(
+          title: 'Persistent Header',
+          picPath: 'assets/button.png',
+          darkPicPath: 'assets/button_dark.png',
+          imgWidth: 110,
+          imgHeight: 50,
+          targetRouteName: PersistentHeaderPage.routeName),
       _FLDemoListData(
           title: 'Button',
           picPath: 'assets/button.png',
