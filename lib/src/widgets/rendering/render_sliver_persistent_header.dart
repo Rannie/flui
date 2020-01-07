@@ -12,8 +12,8 @@ class FLRenderSliverPersistentHeader extends RenderSliver
     RenderObject header,
     RenderSliver content,
     overlapsContent: false,
-  }) : assert(overlapsContent != null),
-    _overlapsContent = overlapsContent {
+  })  : assert(overlapsContent != null),
+        _overlapsContent = overlapsContent {
     this.header = header;
     this.content = content;
   }
@@ -95,7 +95,7 @@ class FLRenderSliverPersistentHeader extends RenderSliver
     if (header == null) return 0.0;
     assert(header.hasSize);
     assert(constraints.axis != null);
-    switch(constraints.axis) {
+    switch (constraints.axis) {
       case Axis.vertical:
         return header.size.height;
       case Axis.horizontal:
@@ -119,12 +119,11 @@ class FLRenderSliverPersistentHeader extends RenderSliver
     // layout header
     if (header != null) {
       header.layout(
-        FLPersistentHeaderConstraints(
-          state: _oldState ?? FLPersistentHeaderState(0.0, false),
-          boxConstraints: constraints.asBoxConstraints(),
-        ),
-        parentUsesSize: true
-      );
+          FLPersistentHeaderConstraints(
+            state: _oldState ?? FLPersistentHeaderState(0.0, false),
+            boxConstraints: constraints.asBoxConstraints(),
+          ),
+          parentUsesSize: true);
       _headerExtent = computeHeaderExtent();
     }
 
@@ -135,16 +134,16 @@ class FLRenderSliverPersistentHeader extends RenderSliver
     final double headerCacheExtent =
         calculateCacheOffset(constraints, from: 0.0, to: headerExtent);
 
-    if (content == null) { // config geometry
+    if (content == null) {
+      // config geometry
       geometry = SliverGeometry(
-        scrollExtent: headerExtent,
-        maxPaintExtent: headerExtent,
-        paintExtent: headerPaintExtent,
-        cacheExtent: headerCacheExtent,
-        hitTestExtent: headerPaintExtent,
-        hasVisualOverflow: headerExtent > constraints.remainingPaintExtent
-            || constraints.scrollOffset > 0.0
-      );
+          scrollExtent: headerExtent,
+          maxPaintExtent: headerExtent,
+          paintExtent: headerPaintExtent,
+          cacheExtent: headerCacheExtent,
+          hitTestExtent: headerPaintExtent,
+          hasVisualOverflow: headerExtent > constraints.remainingPaintExtent ||
+              constraints.scrollOffset > 0.0);
     } else {
       // content layout
       content.layout(
@@ -153,9 +152,9 @@ class FLRenderSliverPersistentHeader extends RenderSliver
           cacheOrigin: math.min(0.0, constraints.cacheOrigin + headerExtent),
           overlap: 0.0,
           remainingPaintExtent:
-            constraints.remainingPaintExtent - headerPaintExtent,
+              constraints.remainingPaintExtent - headerPaintExtent,
           remainingCacheExtent:
-            constraints.remainingCacheExtent - headerCacheExtent,
+              constraints.remainingCacheExtent - headerCacheExtent,
         ),
         parentUsesSize: true,
       );
@@ -168,17 +167,18 @@ class FLRenderSliverPersistentHeader extends RenderSliver
       }
 
       final double paintExtent = math.min(
-          headerPaintExtent + math.max(contentLayoutGeometry.paintExtent,
-              contentLayoutGeometry.layoutExtent),
-        constraints.remainingPaintExtent
-      );
+          headerPaintExtent +
+              math.max(contentLayoutGeometry.paintExtent,
+                  contentLayoutGeometry.layoutExtent),
+          constraints.remainingPaintExtent);
 
       // config geometry
       geometry = SliverGeometry(
         scrollExtent: headerExtent + contentLayoutGeometry.scrollExtent,
-        paintExtent:  paintExtent,
+        paintExtent: paintExtent,
         layoutExtent: math.min(
-            headerPaintExtent + contentLayoutGeometry.layoutExtent, paintExtent),
+            headerPaintExtent + contentLayoutGeometry.layoutExtent,
+            paintExtent),
         cacheExtent: math.min(
             headerCacheExtent + contentLayoutGeometry.cacheExtent,
             constraints.remainingCacheExtent),
@@ -192,19 +192,18 @@ class FLRenderSliverPersistentHeader extends RenderSliver
       final SliverPhysicalParentData contentParentData = content.parentData;
       assert(constraints.axisDirection != null);
       assert(constraints.growthDirection != null);
-      switch(axisDirection) {
+      switch (axisDirection) {
         case AxisDirection.up:
           contentParentData.paintOffset = Offset.zero;
           break;
         case AxisDirection.right:
           contentParentData.paintOffset = Offset(
-            calculatePaintOffset(constraints, from: 0.0, to: headerExtent), 0.0
-          );
+              calculatePaintOffset(constraints, from: 0.0, to: headerExtent),
+              0.0);
           break;
         case AxisDirection.down:
-          contentParentData.paintOffset = Offset(
-              0.0, calculatePaintOffset(constraints, from: 0.0, to: headerExtent)
-          );
+          contentParentData.paintOffset = Offset(0.0,
+              calculatePaintOffset(constraints, from: 0.0, to: headerExtent));
           break;
         case AxisDirection.left:
           contentParentData.paintOffset = Offset.zero;
@@ -217,40 +216,42 @@ class FLRenderSliverPersistentHeader extends RenderSliver
       final childScrollExtent = content?.geometry?.scrollExtent ?? 0.0;
       double headerPostion = math.min(
           constraints.overlap,
-          childScrollExtent - constraints.scrollOffset - (overlapsContent ? _headerExtent : 0.0)
-      );
+          childScrollExtent -
+              constraints.scrollOffset -
+              (overlapsContent ? _headerExtent : 0.0));
 
-      _pinning = (constraints.scrollOffset + constraints.overlap) > 0.0
-          || constraints.remainingPaintExtent == constraints.viewportMainAxisExtent;
+      _pinning = (constraints.scrollOffset + constraints.overlap) > 0.0 ||
+          constraints.remainingPaintExtent ==
+              constraints.viewportMainAxisExtent;
 
       if (header is FLRenderPersistentHeaderLayoutBuilder) {
-        double scrollPercentage = ((headerPostion - constraints.overlap).abs() / _headerExtent)
-            .clamp(0.0, 1.0);
+        double scrollPercentage =
+            ((headerPostion - constraints.overlap).abs() / _headerExtent)
+                .clamp(0.0, 1.0);
 
-        FLPersistentHeaderState state = FLPersistentHeaderState(scrollPercentage, _pinning);
+        FLPersistentHeaderState state =
+            FLPersistentHeaderState(scrollPercentage, _pinning);
         if (_oldState != state) {
           _oldState = state;
           header.layout(
               FLPersistentHeaderConstraints(
-                state: _oldState,
-                boxConstraints: constraints.asBoxConstraints()
-              ),
-              parentUsesSize: true
-          );
+                  state: _oldState,
+                  boxConstraints: constraints.asBoxConstraints()),
+              parentUsesSize: true);
         }
       }
 
       switch (axisDirection) {
         case AxisDirection.up:
-          headerParentData.paintOffset = Offset(
-            0.0, geometry.paintExtent - headerPostion - _headerExtent
-          );
+          headerParentData.paintOffset =
+              Offset(0.0, geometry.paintExtent - headerPostion - _headerExtent);
           break;
         case AxisDirection.down:
           headerParentData.paintOffset = Offset(0.0, headerPostion);
           break;
         case AxisDirection.left:
-          headerParentData.paintOffset = Offset(geometry.paintExtent - headerPostion - _headerExtent, 0.0);
+          headerParentData.paintOffset =
+              Offset(geometry.paintExtent - headerPostion - _headerExtent, 0.0);
           break;
         case AxisDirection.right:
           headerParentData.paintOffset = Offset(headerPostion, 0.0);
@@ -260,19 +261,21 @@ class FLRenderSliverPersistentHeader extends RenderSliver
   }
 
   @override
-  bool hitTestChildren(SliverHitTestResult result, {double mainAxisPosition, double crossAxisPosition}) {
+  bool hitTestChildren(SliverHitTestResult result,
+      {double mainAxisPosition, double crossAxisPosition}) {
     assert(geometry.hitTestExtent > 0.0);
-    if(header != null
-        && mainAxisPosition - constraints.overlap <= _headerExtent) {
+    if (header != null &&
+        mainAxisPosition - constraints.overlap <= _headerExtent) {
       return hitTestBoxChild(
-          BoxHitTestResult.wrap(SliverHitTestResult.wrap(result)), header,
-          mainAxisPosition: mainAxisPosition - constraints.overlap,
-          crossAxisPosition: crossAxisPosition)
-          || (_overlapsContent
-              && content != null
-              && content.geometry.hitTestExtent > 0.0
-              && content.hitTest(result,
-                  mainAxisPosition: mainAxisPosition - childMainAxisPosition(content),
+              BoxHitTestResult.wrap(SliverHitTestResult.wrap(result)), header,
+              mainAxisPosition: mainAxisPosition - constraints.overlap,
+              crossAxisPosition: crossAxisPosition) ||
+          (_overlapsContent &&
+              content != null &&
+              content.geometry.hitTestExtent > 0.0 &&
+              content.hitTest(result,
+                  mainAxisPosition:
+                      mainAxisPosition - childMainAxisPosition(content),
                   crossAxisPosition: crossAxisPosition));
     } else if (content != null && content.geometry.hitTestExtent > 0.0) {
       return content.hitTest(result,
@@ -285,8 +288,7 @@ class FLRenderSliverPersistentHeader extends RenderSliver
   @override
   double childMainAxisPosition(RenderObject child) {
     if (child == header) {
-      return _pinning
-          ? 0.0 : -(constraints.scrollOffset + constraints.overlap);
+      return _pinning ? 0.0 : -(constraints.scrollOffset + constraints.overlap);
     }
     if (child == content) {
       return calculatePaintOffset(constraints,

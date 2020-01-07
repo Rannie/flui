@@ -4,7 +4,6 @@ import 'persistent_header_constraints.dart';
 
 class FLRenderPersistentHeaderLayoutBuilder extends RenderBox
     with RenderObjectWithChildMixin<RenderBox> {
-
   FLRenderPersistentHeaderLayoutBuilder({
     LayoutCallback<FLPersistentHeaderConstraints> callback,
   }) : _callback = callback;
@@ -24,10 +23,9 @@ class FLRenderPersistentHeaderLayoutBuilder extends RenderBox
     assert(() {
       if (!RenderObject.debugCheckingIntrinsics) {
         throw FlutterError(
-          'StickyHeaderLayoutBuilder does not support returning intrinsic dimensions.\n'
-          'Calculating the intrinsic dimensions would require running the layout '
-          'callback speculatively, which might mutate the live render object tree.'
-        );
+            'StickyHeaderLayoutBuilder does not support returning intrinsic dimensions.\n'
+            'Calculating the intrinsic dimensions would require running the layout '
+            'callback speculatively, which might mutate the live render object tree.');
       }
       return true;
     }());
