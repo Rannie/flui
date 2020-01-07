@@ -10,7 +10,12 @@ class PersistentHeaderPage extends StatefulWidget {
 
 class _PersistentHeaderPageState extends State<PersistentHeaderPage> {
   List<Widget> _buildSlivers() {
-    List<Widget> children = [_buildGroup(1), _buildGroup(2), _buildGroup(3), _buildGroup(4)];
+    List<Widget> children = [
+      _buildGroup(1),
+      _buildGroup(2),
+      _buildGroup(3),
+      _buildGroup(4)
+    ];
     return children;
   }
 
@@ -20,8 +25,9 @@ class _PersistentHeaderPageState extends State<PersistentHeaderPage> {
       overlapsContent: false,
       builder: (context, state) {
         return Container(
-          color: themeData.brightness == Brightness.light ?
-            Color.fromRGBO(246, 246, 246, 1) : themeData.cardColor,
+          color: themeData.brightness == Brightness.light
+              ? Color.fromRGBO(246, 246, 246, 1)
+              : themeData.cardColor,
           height: 50,
           child: Row(
             children: <Widget>[
@@ -33,14 +39,13 @@ class _PersistentHeaderPageState extends State<PersistentHeaderPage> {
       },
       content: SliverList(
         delegate: SliverChildBuilderDelegate(
-                (context, i) => FLListTile(
-              leading: CircleAvatar(
-                child: Text('${i+1}'),
-              ),
-              title: Text('List tile ${i+1}'),
-            ),
-            childCount: 15
-        ),
+            (context, i) => FLListTile(
+                  leading: CircleAvatar(
+                    child: Text('${i + 1}'),
+                  ),
+                  title: Text('List tile ${i + 1}'),
+                ),
+            childCount: 15),
       ),
     );
   }
