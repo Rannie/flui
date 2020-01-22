@@ -38,7 +38,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
           title: '护眼模式',
           accessoryType: FLStaticListCellAccessoryType.accSwitch,
           onChanged: onChanged,
-          switchValue: _switchValue,
+          accItemValue: _switchValue,
         ),
         FLStaticItemData(
           title: '自动清理缓存',
