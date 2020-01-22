@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:ui' as ui;
 
 import 'package:flutter/animation.dart';
@@ -141,48 +142,56 @@ class FLToast {
           {String text,
           Duration showDuration,
           FLToastPosition position,
-          FLToastStyle style}) =>
+          FLToastStyle style,
+          VoidCallback onClosed}) =>
       _showToast(text,
           showDuration: showDuration,
           position: position,
           style: style,
-          type: _FLToastType.text);
+          type: _FLToastType.text,
+          onClosed: onClosed);
 
   static void success({String text}) => FLToast.showSuccess(text: text);
   static void showSuccess(
           {String text,
           Duration showDuration,
           FLToastPosition position,
-          FLToastStyle style}) =>
+          FLToastStyle style,
+          VoidCallback onClosed}) =>
       _showToast(text,
           showDuration: showDuration,
           position: position,
           style: style,
-          type: _FLToastType.success);
+          type: _FLToastType.success,
+          onClosed: onClosed);
 
   static void error({String text}) => FLToast.showError(text: text);
   static void showError(
           {String text,
           Duration showDuration,
           FLToastPosition position,
-          FLToastStyle style}) =>
+          FLToastStyle style,
+          VoidCallback onClosed}) =>
       _showToast(text,
           showDuration: showDuration,
           position: position,
           style: style,
-          type: _FLToastType.error);
+          type: _FLToastType.error,
+          onClosed: onClosed);
 
   static void info({String text}) => FLToast.showInfo(text: text);
   static void showInfo(
           {String text,
           Duration showDuration,
           FLToastPosition position,
-          FLToastStyle style}) =>
+          FLToastStyle style,
+          VoidCallback onClosed}) =>
       _showToast(text,
           showDuration: showDuration,
           position: position,
           style: style,
-          type: _FLToastType.info);
+          type: _FLToastType.info,
+          onClosed: onClosed);
 }
 
 LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap =
@@ -200,7 +209,8 @@ Function _showToast(String text,
     FLToastPosition position,
     FLToastStyle style,
     _FLToastType type,
-    FLToastContentBuilder contentBuilder}) {
+    FLToastContentBuilder contentBuilder,
+    VoidCallback onClosed}) {
   BuildContext context = _contextMap.values.first;
   OverlayEntry entry;
   FLToastDefaults defaults = _FLToastDefaultsWidget.of(context);
@@ -237,6 +247,7 @@ Function _showToast(String text,
     style: style,
     topOffset: topOffset,
     bottomOffset: bottomOffset,
+    onClosed: onClosed,
   );
   entry = OverlayEntry(builder: (BuildContext context) => toastView);
 
@@ -367,7 +378,8 @@ class _FLToastView extends StatefulWidget {
       this.position,
       this.style,
       this.topOffset,
-      this.bottomOffset})
+      this.bottomOffset,
+      this.onClosed})
       : assert(slotWidget != null || text != null || slotBuilder != null),
         super(key: key);
 
@@ -384,6 +396,7 @@ class _FLToastView extends StatefulWidget {
   final FLToastStyle style;
   final double topOffset;
   final double bottomOffset;
+  final VoidCallback onClosed;
 
   @override
   State<_FLToastView> createState() => _FLToastViewState();
@@ -415,6 +428,9 @@ class _FLToastViewState extends State<_FLToastView>
   void _handleStatusChanged(AnimationStatus status) {
     if (status == AnimationStatus.dismissed) {
       _dismiss(immediately: true);
+      if (widget.onClosed != null) {
+        widget.onClosed();
+      }
     }
   }
 
