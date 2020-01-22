@@ -19,7 +19,7 @@ class AboutPageState extends State<AboutPage> {
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w500, letterSpacing: 6)),
         SizedBox(height: 45),
-        Text('version: 0.8.0',
+        Text('version: 1.0.0',
             style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
         SizedBox(height: 40),
       ],

@@ -157,7 +157,7 @@ class HomePageState extends State<HomePage> {
                               : demoData.picPath,
                           width: demoData.imgWidth,
                           height: demoData.imgHeight,
-                          scale: 1.6,
+                          scale: 1.8,
                         ),
                       )),
                   Positioned(
