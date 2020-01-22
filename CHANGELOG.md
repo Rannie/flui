@@ -6,7 +6,7 @@
 - Support Dark Mode 
 - Support RTL text direction
 - Widget test integration
-- New widget **FLCountStepper**
+- New widget [CountStepper](https://www.flui.xin/en/widgets/counter.html)
 - **FLToast** add custom content view
 - **FLMarqueeLabel** and **FLNoticeBar** Added delayed scrolling property *delay*
 

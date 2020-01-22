@@ -3,7 +3,7 @@
 <br />
 <p align="center">
     <a href="https://flui.xin">
-        <img width="200" src="http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-Artboard.png">
+        <img width="200" src="https://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-18-Artboard.png">
     </a>
 </p>
 
@@ -14,8 +14,8 @@
 <p>一个 Google Flutter 的组件扩展集 <a href="https://www.flui.xin/app/flui.apk">示例 apk</a></p>
 
 [![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
-![CI Status](https://github.com/rannie/flui/workflows/test/badge.svg) 
-[![Documentation](http://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/en/widgets/button.html) 
+[![CI Status](https://github.com/rannie/flui/workflows/test/badge.svg)](https://github.com/Rannie/flui/actions) 
+[![Documentation](https://img.shields.io/badge/read_the-docs-2196f3.svg)](https://www.flui.xin/en/widgets/button.html) 
 [![GitHub stars](https://img.shields.io/github/stars/Rannie/flui)](https://github.com/Rannie/flui/stargazers) 
 [![GitHub forks](https://img.shields.io/github/forks/Rannie/flui.svg)](https://github.com/Rannie/flui) 
 [![GitHub license](https://img.shields.io/github/license/Rannie/flui.svg)](https://github.com/Rannie/flui/blob/master/LICENSE)
@@ -30,7 +30,7 @@
 * 开箱即用的高质量 Flutter UI 组件 
 * 完善的使用示例和文档
 * 细粒度非风格化的组件适用于不同类型的应用
-* 支持 [Dark Mode](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-dark_shots.png) 以及 [RTL](http://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-rtl_shots.png)
+* 支持 [Dark Mode](https://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-dark_shots.png) 以及 [RTL](https://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-rtl_shots.png)
 
 ## 兼容性
 
