@@ -177,6 +177,8 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    Color bgColor = Theme.of(context).backgroundColor;
     return Scaffold(
         appBar: AppBar(
           title: Text('FLUI', style: TextStyle(letterSpacing: 6)),
@@ -184,6 +186,7 @@ class HomePageState extends State<HomePage> {
         ),
         body: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
+            color: isDarkMode ? bgColor : Color(0xFFFCFCFC),
             child: GridView(
               padding: EdgeInsets.symmetric(vertical: 20),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

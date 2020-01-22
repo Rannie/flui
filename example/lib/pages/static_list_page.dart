@@ -17,33 +17,40 @@ class _StaticListViewState extends State<StaticListViewPage> {
   onChanged(bool value) => setState(() => _switchValue = value);
 
   List<FLStaticSectionData> _buildList() {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    Color bgColor = Theme.of(context).backgroundColor;
     return [
-      FLStaticSectionData(headerTitle: 'Account number', itemList: [
+      FLStaticSectionData(headerTitle: 'Account', itemList: [
         FLStaticItemData(
-            title: 'Account management',
+            title: 'Account Management',
             accessoryType: FLStaticListCellAccessoryType.accDetail,
+            cellColor: isDarkMode ? bgColor : Colors.white,
             onTap: handleTap),
         FLStaticItemData(
-            title: 'Account and Security',
+            title: 'Security',
             accessoryType: FLStaticListCellAccessoryType.accDetail,
+            cellColor: isDarkMode ? bgColor : Colors.white,
             onTap: handleTap),
       ]),
-      FLStaticSectionData(headerTitle: 'Set up', itemList: [
+      FLStaticSectionData(headerTitle: 'Settings', itemList: [
         FLStaticItemData(
-            title: 'Push notification settings',
+            title: 'Push Notification Settings',
             accessoryType: FLStaticListCellAccessoryType.accDetail,
+            cellColor: isDarkMode ? bgColor : Colors.white,
             accessoryString: 'Notify All',
             onTap: handleTap),
         FLStaticItemData(
-          title: 'Eye protection mode',
+          title: 'Eye Protection Mode',
           accessoryType: FLStaticListCellAccessoryType.accSwitch,
+          cellColor: isDarkMode ? bgColor : Colors.white,
           onChanged: onChanged,
           accItemValue: _switchValue,
         ),
         FLStaticItemData(
-          title: 'Automatically clear cache',
+          title: 'Automatically Clear Cache',
           subtitle: 'Clean up every 10 days',
           accessoryType: FLStaticListCellAccessoryType.accCheckmark,
+          cellColor: isDarkMode ? bgColor : Colors.white,
           onTap: handleTap,
           selected: true,
         )
@@ -53,13 +60,15 @@ class _StaticListViewState extends State<StaticListViewPage> {
             cellType: FLStaticListCellType.button,
             buttonTitle: 'Submit',
             buttonTitleColor: Colors.blue,
+            cellColor: isDarkMode ? bgColor : Colors.white,
             onButtonPressed: () {
               print('button pressed');
             }),
         FLStaticItemData(
             cellType: FLStaticListCellType.button,
-            buttonTitle: 'Delete and logout',
+            buttonTitle: 'Delete and Logout',
             buttonTitleColor: Colors.red,
+            cellColor: isDarkMode ? bgColor : Colors.white,
             onButtonPressed: () {
               print('button pressed');
             })
@@ -69,6 +78,8 @@ class _StaticListViewState extends State<StaticListViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    Color bgColor = Theme.of(context).backgroundColor;
     return Scaffold(
         appBar: AppBar(
           title: Text('Static List'),
@@ -76,6 +87,7 @@ class _StaticListViewState extends State<StaticListViewPage> {
         body: Container(
             width: double.infinity,
             height: double.infinity,
+            color: isDarkMode ? bgColor : Color(0xFFFCFCFC),
             child: FLStaticListView(
               shrinkWrap: true,
               sections: _buildList(),
