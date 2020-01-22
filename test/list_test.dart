@@ -18,7 +18,7 @@ void main() {
           title: '护眼模式',
           accessoryType: FLStaticListCellAccessoryType.accSwitch,
           onChanged: (val) {},
-          switchValue: false,
+          accItemValue: false,
         ),
         FLStaticItemData(
           title: '自动清理缓存',

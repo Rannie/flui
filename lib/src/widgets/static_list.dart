@@ -9,8 +9,7 @@ enum FLStaticListCellAccessoryType {
   accCheckmark,
   accDetail,
   accSwitch,
-  accCheckBox,
-  accRadio
+  accCheckBox
 }
 
 const Color kStaticBackgroundColor = Colors.transparent;
@@ -177,6 +176,7 @@ class FLStaticListView extends StatelessWidget {
     final Widget accesssoryWidget = _getAccessoryWidget(itemData, themeData);
     final Widget trailingWidget = accesssoryWidget ?? itemData.customTrailing;
     return FLListTile(
+      backgroundColor: itemData.cellColor ?? Colors.transparent,
       leading: itemData.leading,
       title: titleText,
       subtitle: subtitleText,
@@ -242,12 +242,6 @@ class FLStaticListView extends StatelessWidget {
       case FLStaticListCellAccessoryType.accCheckBox:
         return Checkbox(
           value: itemData.accItemValue,
-          onChanged: itemData.onChanged,
-        );
-      case FLStaticListCellAccessoryType.accRadio:
-        return Radio(
-          value: itemData.accItemValue,
-          groupValue: itemData.accItemValue,
           onChanged: itemData.onChanged,
         );
       case FLStaticListCellAccessoryType.accNone:
