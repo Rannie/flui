@@ -52,7 +52,7 @@ class _ToastPageState extends State<ToastPage> {
                       width: 220,
                       child: OutlineButton(
                         child: Text('Text Toast', style: textStyle),
-                        onPressed: () => FLToast.text(text: 'Here is text'),
+                        onPressed: () => FLToast.showText(text: 'Here is text', onClosed: () => print('text toast closed')),
                       ),
                     ),
                     inset,
