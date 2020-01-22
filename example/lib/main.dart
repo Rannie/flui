@@ -21,7 +21,6 @@ import 'package:example/pages/loading_empty_page.dart';
 import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
-import 'package:flui/flui.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:example/style/theme.dart';
+import 'package:flui/flui.dart';
 
 void main() {
   runApp(MyApp());
