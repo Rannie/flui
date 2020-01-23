@@ -23,6 +23,7 @@ import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
+import 'package:example/pages/dynamic_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -174,7 +175,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int _currentIndex = 0;
-  List pages = [HomePage(), AboutPage()];
+  List pages = [HomePage(), DynamicPage(), AboutPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +186,10 @@ class _HomeTabState extends State<HomeTab> {
           BottomNavigationBarItem(
             icon: Icon(Icons.apps),
             title: Text('widgets'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.aspect_ratio),
+            title: Text('dynamic'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
