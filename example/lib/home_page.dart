@@ -1,6 +1,5 @@
 import 'package:example/pages/count_stepper_page.dart';
 import 'package:example/pages/list_page.dart';
-import 'package:example/pages/persistent_header_page.dart';
 import 'package:flutter/material.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
@@ -14,7 +13,6 @@ import 'package:example/pages/notice_page.dart';
 import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
 import 'package:example/pages/input_page.dart';
-import 'package:example/pages/static_list_page.dart';
 
 class HomePage extends StatefulWidget {
   @override

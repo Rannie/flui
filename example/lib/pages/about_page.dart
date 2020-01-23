@@ -38,7 +38,7 @@ class AboutPageState extends State<AboutPage> {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
       appBar: AppBar(
-        title: Text('About', style: TextStyle(letterSpacing: 2)),
+        title: Text('About', style: TextStyle(letterSpacing: 1)),
         centerTitle: true,
       ),
       body: Container(

@@ -1,0 +1,2 @@
+
+const String renderJson = '{"uniqueId":"flui-view01"  ,"unitName":"Container","height":300,"align":{"type":"Center"},"color":"0xFF0000FF","child":{"uniqueId":"flui-view01-c01","unitName":"Container","width":100,"height":100,"color":"0xFF00FF00"}}';

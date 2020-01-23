@@ -11,9 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  json_annotation: ^3.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1
+  build_runner: ^1.7.3
+  json_serializable: ^3.2.5
 flutter:
   uses-material-design: true
