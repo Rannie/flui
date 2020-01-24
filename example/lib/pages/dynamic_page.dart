@@ -9,8 +9,6 @@ class DynamicPage extends StatefulWidget {
 }
 
 class _DynamicPageState extends State<DynamicPage> {
-  GlobalKey<FLDyContainerState> _containerKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -25,20 +23,13 @@ class _DynamicPageState extends State<DynamicPage> {
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
-          Container(
-            height: 300,
-            color: Colors.red,
-            child: Center(
-              child: FLDyContainer(
-                key: _containerKey,
-                jsonObject: renderJson,
-                placeholder: CircularProgressIndicator(
-                  strokeWidth: 3.0,
-                  valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
-                ),
-              ),
-            )
-          )
+          FLDyContainer(
+            jsonObject: ColumnLayoutJson,
+            placeholder: CircularProgressIndicator(
+              strokeWidth: 3.0,
+              valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
+            ),
+          ),
         ],
       ),
     );

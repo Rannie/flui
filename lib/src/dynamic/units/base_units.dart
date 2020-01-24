@@ -1,8 +1,6 @@
-import 'dart:core';
-
 import 'package:flutter/material.dart';
-import 'unit_model.dart';
-import 'render_parser.dart';
+import 'package:flui/src/dynamic/units/unit_model.dart';
+import 'package:flui/src/dynamic/core/render_parser.dart';
 
 abstract class FLDyBaseUnit extends StatelessWidget {
   @override
@@ -10,10 +8,9 @@ abstract class FLDyBaseUnit extends StatelessWidget {
 }
 
 abstract class FLDyRenderUnit extends FLDyBaseUnit {
-  FLDyRenderUnit({
-    @required this.unitModel
-  }) : assert(unitModel != null),
-       super();
+  FLDyRenderUnit({@required this.unitModel})
+      : assert(unitModel != null),
+        super();
 
   final FLDyUnitModel unitModel;
   String get uniqueId => unitModel.uniqueId;
@@ -34,14 +31,13 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
     return children;
   }
 
-  Widget resolveChild() {
+  Widget resolveChild(FLDyUnitAlign align) {
     Widget child;
-    if (unitModel.align != null && unitModel.child != null)
-      child = resolveAlignChild(unitModel.align, unitModel.child);
-    else if (unitModel.align != null && unitModel.children != null)
-      child = resolveAlignChildren(unitModel.align, unitModel.children);
-    else if (unitModel.child != null)
-      child = markupUnit(unitModel.child);
+    if (align != null && unitModel.child != null)
+      child = resolveAlignChild(align, unitModel.child);
+    else if (align != null && unitModel.children != null)
+      child = resolveAlignChildren(align, unitModel.children);
+    else if (unitModel.child != null) child = markupUnit(unitModel.child);
     return child;
   }
 
@@ -57,7 +53,8 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
   }
 
   // resolve children with align
-  Widget resolveAlignChildren(FLDyUnitAlign align, List<FLDyUnitModel> childModels) {
+  Widget resolveAlignChildren(
+      FLDyUnitAlign align, List<FLDyUnitModel> childModels) {
     assert(align != null);
     assert(childModels != null);
     final List<Widget> widgets = markupUnits(childModels);
@@ -68,30 +65,9 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
   }
 }
 
-class FLDyContainerUnit extends FLDyRenderUnit {
-  FLDyContainerUnit({
-    FLDyUnitModel unitModel
-  }) : super(unitModel: unitModel);
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget child = resolveChild();
-    return Container(
-      width: unitModel.width,
-      height: unitModel.height,
-      padding: unitModel.padding?.toEdgeInsets(),
-      color: unitModel.color != null ? Color(num.parse(unitModel.color)) : null,
-      child: child,
-    );
-  }
-}
-
 class FLDyAlignUnit extends FLDyBaseUnit {
-  FLDyAlignUnit({
-    @required this.align,
-    this.child,
-    this.children
-  }) : assert(align != null);
+  FLDyAlignUnit({@required this.align, this.child, this.children})
+      : assert(align != null);
 
   final FLDyUnitAlign align;
   final Widget child;
@@ -99,32 +75,48 @@ class FLDyAlignUnit extends FLDyBaseUnit {
 
   MainAxisSize resolveMainAxisSize(String size) {
     switch (size) {
-      case "min": return MainAxisSize.min;
-      case "max": return MainAxisSize.max;
-      default: return null;
+      case "min":
+        return MainAxisSize.min;
+      case "max":
+        return MainAxisSize.max;
+      default:
+        return null;
     }
   }
 
   MainAxisAlignment resolveMainAlignment(String alignment) {
     switch (alignment) {
-      case "start": return MainAxisAlignment.start;
-      case "end": return MainAxisAlignment.end;
-      case "center": return MainAxisAlignment.center;
-      case "spaceBetween": return MainAxisAlignment.spaceBetween;
-      case "spaceAround": return MainAxisAlignment.spaceAround;
-      case "spaceEvenly": return MainAxisAlignment.spaceEvenly;
-      default: return null;
+      case "start":
+        return MainAxisAlignment.start;
+      case "end":
+        return MainAxisAlignment.end;
+      case "center":
+        return MainAxisAlignment.center;
+      case "spaceBetween":
+        return MainAxisAlignment.spaceBetween;
+      case "spaceAround":
+        return MainAxisAlignment.spaceAround;
+      case "spaceEvenly":
+        return MainAxisAlignment.spaceEvenly;
+      default:
+        return null;
     }
   }
 
   CrossAxisAlignment resolveCrossAlignment(String alignment) {
     switch (alignment) {
-      case "start": return CrossAxisAlignment.start;
-      case "end": return CrossAxisAlignment.end;
-      case "center": return CrossAxisAlignment.center;
-      case "stretch": return CrossAxisAlignment.stretch;
-      case "baseline": return CrossAxisAlignment.baseline;
-      default: return null;
+      case "start":
+        return CrossAxisAlignment.start;
+      case "end":
+        return CrossAxisAlignment.end;
+      case "center":
+        return CrossAxisAlignment.center;
+      case "stretch":
+        return CrossAxisAlignment.stretch;
+      case "baseline":
+        return CrossAxisAlignment.baseline;
+      default:
+        return null;
     }
   }
 
@@ -135,11 +127,15 @@ class FLDyAlignUnit extends FLDyBaseUnit {
     }
 
     final MainAxisSize mainAxisSize = align.mainAxisSize != null
-        ? resolveMainAxisSize(align.mainAxisSize) : null;
+        ? resolveMainAxisSize(align.mainAxisSize)
+        : MainAxisSize.max;
     final MainAxisAlignment mainAxisAlignment = align.mainAxisAlignment != null
-        ? resolveMainAlignment(align.mainAxisAlignment) : null;
-    final CrossAxisAlignment crossAxisAlignment = align.crossAxisAlignment != null
-        ? resolveCrossAlignment(align.crossAxisAlignment) : null;
+        ? resolveMainAlignment(align.mainAxisAlignment)
+        : MainAxisAlignment.start;
+    final CrossAxisAlignment crossAxisAlignment =
+        align.crossAxisAlignment != null
+            ? resolveCrossAlignment(align.crossAxisAlignment)
+            : CrossAxisAlignment.center;
     if (align.type == "Row") {
       return Row(
         mainAxisSize: mainAxisSize,
