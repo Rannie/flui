@@ -40,20 +40,20 @@ class _FLListTileState extends State<FLListTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-          color: widget.backgroundColor,
-          child: InkWell(
-            onTap: widget.onTap,
-            onLongPress: widget.onLongPress,
-            child: ListTile(
-              leading: widget.leading,
-              title: widget.title,
-              subtitle: widget.subtitle,
-              trailing: widget.trailing,
-              isThreeLine: widget.isThreeLine,
-              dense: widget.dense,
-              contentPadding: widget.contentPadding,
-              enabled: widget.enabled,
-              selected: widget.selected,
+        color: widget.backgroundColor,
+        child: InkWell(
+          onTap: widget.onTap,
+          onLongPress: widget.onLongPress,
+          child: ListTile(
+            leading: widget.leading,
+            title: widget.title,
+            subtitle: widget.subtitle,
+            trailing: widget.trailing,
+            isThreeLine: widget.isThreeLine,
+            dense: widget.dense,
+            contentPadding: widget.contentPadding,
+            enabled: widget.enabled,
+            selected: widget.selected,
           ),
         ));
   }
