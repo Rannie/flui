@@ -1,34 +1,34 @@
 import 'dart:io';
 
-import 'package:example/pages/list_page.dart';
-import 'package:example/pages/persistent_header_page.dart';
-import 'package:example/util.dart';
-import 'package:example/pages/about_page.dart';
-import 'package:example/pages/action_sheet_page.dart';
-import 'package:example/pages/avatar_page.dart';
-import 'package:example/pages/badge_page.dart';
-import 'package:example/pages/bubble_page.dart';
-import 'package:example/pages/button_page.dart';
-import 'package:example/pages/count_stepper_page.dart';
-import 'package:example/pages/empty_page.dart';
-import 'package:example/pages/hints_action_empty_page.dart';
-import 'package:example/pages/hints_empty_page.dart';
-import 'package:example/home_page.dart';
-import 'package:example/pages/image_hints_empty_page.dart';
-import 'package:example/pages/label_page.dart';
-import 'package:example/pages/app_bar_page.dart';
-import 'package:example/pages/loading_empty_page.dart';
-import 'package:example/pages/notice_page.dart';
-import 'package:example/pages/skeleton_page.dart';
-import 'package:example/pages/toast_page.dart';
-import 'package:example/pages/input_page.dart';
-import 'package:example/pages/static_list_page.dart';
-import 'package:example/pages/dynamic_page.dart';
+import 'pages/list_page.dart';
+import 'pages/persistent_header_page.dart';
+import 'util.dart';
+import 'pages/about_page.dart';
+import 'pages/action_sheet_page.dart';
+import 'pages/avatar_page.dart';
+import 'pages/badge_page.dart';
+import 'pages/bubble_page.dart';
+import 'pages/button_page.dart';
+import 'pages/count_stepper_page.dart';
+import 'pages/empty_page.dart';
+import 'pages/hints_action_empty_page.dart';
+import 'pages/hints_empty_page.dart';
+import 'home_page.dart';
+import 'pages/image_hints_empty_page.dart';
+import 'pages/label_page.dart';
+import 'pages/app_bar_page.dart';
+import 'pages/loading_empty_page.dart';
+import 'pages/notice_page.dart';
+import 'pages/skeleton_page.dart';
+import 'pages/toast_page.dart';
+import 'pages/input_page.dart';
+import 'pages/static_list_page.dart';
+import 'pages/dynamic_page.dart';
+import 'pages/dyalign_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:logger/logger.dart';
-import 'package:example/style/theme.dart';
+import 'style/theme.dart';
 import 'package:flui/flui.dart';
 
 void main() {
@@ -40,8 +40,6 @@ void main() {
   }
   Util.initialize();
 }
-
-Logger logger = Logger();
 
 class MyApp extends StatefulWidget {
   @override
@@ -150,7 +148,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           InputPage.routeName: (context) => InputPage(),
           CountStepperPage.routeName: (context) => CountStepperPage(),
           PersistentHeaderPage.routeName: (context) => PersistentHeaderPage(),
-          ListPage.routeName: (context) => ListPage()
+          ListPage.routeName: (context) => ListPage(),
+          AlignLayoutPage.routeName: (context) => AlignLayoutPage()
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(

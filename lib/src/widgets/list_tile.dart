@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// FLListTile is a component that include [ListTile],
 /// just handle gesture to change background color.
-class FLListTile extends StatefulWidget {
+class FLListTile extends StatelessWidget {
   FLListTile({
     Key key,
     this.leading,
@@ -32,28 +32,22 @@ class FLListTile extends StatefulWidget {
   final bool selected;
   final Color backgroundColor;
 
-  @override
-  State<StatefulWidget> createState() => _FLListTileState();
-}
-
-class _FLListTileState extends State<FLListTile> {
-  @override
   Widget build(BuildContext context) {
     return Material(
-        color: widget.backgroundColor,
+        color: backgroundColor,
         child: InkWell(
-          onTap: widget.onTap,
-          onLongPress: widget.onLongPress,
+          onTap: onTap,
+          onLongPress: onLongPress,
           child: ListTile(
-            leading: widget.leading,
-            title: widget.title,
-            subtitle: widget.subtitle,
-            trailing: widget.trailing,
-            isThreeLine: widget.isThreeLine,
-            dense: widget.dense,
-            contentPadding: widget.contentPadding,
-            enabled: widget.enabled,
-            selected: widget.selected,
+            leading: leading,
+            title: title,
+            subtitle: subtitle,
+            trailing: trailing,
+            isThreeLine: isThreeLine,
+            dense: dense,
+            contentPadding: contentPadding,
+            enabled: enabled,
+            selected: selected,
           ),
         ));
   }

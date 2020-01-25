@@ -19,10 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  logger: ^0.6.0
-  event_bus: ^1.1.0
-  url_launcher: ^3.0.3
-  shared_preferences: ^0.5.6
+  event_bus: ^1.1.1
+  shared_preferences: ^0.5.6+1
+  url_launcher: ^5.4.1
   flui:
     path: ../
 
