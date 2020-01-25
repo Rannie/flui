@@ -1,18 +1,18 @@
-import 'package:example/pages/count_stepper_page.dart';
-import 'package:example/pages/list_page.dart';
+import 'pages/count_stepper_page.dart';
+import 'pages/list_page.dart';
 import 'package:flutter/material.dart';
-import 'package:example/pages/action_sheet_page.dart';
-import 'package:example/pages/avatar_page.dart';
-import 'package:example/pages/badge_page.dart';
-import 'package:example/pages/bubble_page.dart';
-import 'package:example/pages/button_page.dart';
-import 'package:example/pages/empty_page.dart';
-import 'package:example/pages/label_page.dart';
-import 'package:example/pages/app_bar_page.dart';
-import 'package:example/pages/notice_page.dart';
-import 'package:example/pages/skeleton_page.dart';
-import 'package:example/pages/toast_page.dart';
-import 'package:example/pages/input_page.dart';
+import 'pages/action_sheet_page.dart';
+import 'pages/avatar_page.dart';
+import 'pages/badge_page.dart';
+import 'pages/bubble_page.dart';
+import 'pages/button_page.dart';
+import 'pages/empty_page.dart';
+import 'pages/label_page.dart';
+import 'pages/app_bar_page.dart';
+import 'pages/notice_page.dart';
+import 'pages/skeleton_page.dart';
+import 'pages/toast_page.dart';
+import 'pages/input_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -179,7 +179,7 @@ class HomePageState extends State<HomePage> {
     Color bgColor = Theme.of(context).backgroundColor;
     return Scaffold(
         appBar: AppBar(
-          title: Text('FLUI', style: TextStyle(letterSpacing: 6)),
+          title: Text('FLUI', style: TextStyle(letterSpacing: 4)),
           centerTitle: true,
         ),
         body: Container(
