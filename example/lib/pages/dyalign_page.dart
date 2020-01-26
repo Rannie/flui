@@ -13,16 +13,16 @@ class AlignLayoutPageState extends State<AlignLayoutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dynamic', style: TextStyle(letterSpacing: 1)),
+        title: Text('Flex Layout'),
         centerTitle: true,
       ),
       body: FLDyContainer(
-        jsonObject: ColumnLayoutJson,
+        jsonObject: FlexLayoutJson,
         placeholder: CircularProgressIndicator(
           strokeWidth: 3.0,
           valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
         ),
       ),
-    );;
+    );
   }
 }
