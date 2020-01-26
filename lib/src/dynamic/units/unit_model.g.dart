@@ -10,6 +10,10 @@ FLDyUnitModel _$FLDyUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyUnitModel(
     uniqueId: json['uniqueId'] as String,
     unitName: json['unitName'] as String,
+    flex: json['flex'] as String,
+    align: json['align'] == null
+        ? null
+        : FLDyUnitAlign.fromJson(json['align'] as Map<String, dynamic>),
     child: json['child'] == null
         ? null
         : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
@@ -25,6 +29,8 @@ Map<String, dynamic> _$FLDyUnitModelToJson(FLDyUnitModel instance) =>
     <String, dynamic>{
       'uniqueId': instance.uniqueId,
       'unitName': instance.unitName,
+      'flex': instance.flex,
+      'align': instance.align,
       'child': instance.child,
       'children': instance.children,
     };
@@ -42,6 +48,7 @@ FLDyContainerUnitModel _$FLDyContainerUnitModelFromJson(
             ? null
             : FLDyUnitModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    flex: json['flex'] as String,
     width: (json['width'] as num)?.toDouble(),
     height: (json['height'] as num)?.toDouble(),
     color: json['color'] as String,
@@ -54,6 +61,10 @@ FLDyContainerUnitModel _$FLDyContainerUnitModelFromJson(
     margin: json['margin'] == null
         ? null
         : FLDyUnitEdgeInsets.fromJson(json['margin'] as Map<String, dynamic>),
+    decoration: json['decoration'] == null
+        ? null
+        : FLDyUnitBoxDecoration.fromJson(
+            json['decoration'] as Map<String, dynamic>),
   );
 }
 
@@ -62,14 +73,16 @@ Map<String, dynamic> _$FLDyContainerUnitModelToJson(
     <String, dynamic>{
       'uniqueId': instance.uniqueId,
       'unitName': instance.unitName,
+      'flex': instance.flex,
+      'align': instance.align,
       'child': instance.child,
       'children': instance.children,
       'width': instance.width,
       'height': instance.height,
       'color': instance.color,
-      'align': instance.align,
       'padding': instance.padding,
       'margin': instance.margin,
+      'decoration': instance.decoration,
     };
 
 FLDySizedBoxUnitModel _$FLDySizedBoxUnitModelFromJson(
@@ -127,9 +140,9 @@ Map<String, dynamic> _$FLDyUnitImageProviderToJson(
       'scale': instance.scale,
     };
 
-FLDyUnitDecorationIamge _$FLDyUnitDecorationIamgeFromJson(
+FLDyUnitDecorationImage _$FLDyUnitDecorationImageFromJson(
     Map<String, dynamic> json) {
-  return FLDyUnitDecorationIamge(
+  return FLDyUnitDecorationImage(
     json['imageProvider'] == null
         ? null
         : FLDyUnitImageProvider.fromJson(
@@ -142,8 +155,8 @@ FLDyUnitDecorationIamge _$FLDyUnitDecorationIamgeFromJson(
   );
 }
 
-Map<String, dynamic> _$FLDyUnitDecorationIamgeToJson(
-        FLDyUnitDecorationIamge instance) =>
+Map<String, dynamic> _$FLDyUnitDecorationImageToJson(
+        FLDyUnitDecorationImage instance) =>
     <String, dynamic>{
       'imageProvider': instance.imageProvider,
       'fit': instance.fit,
@@ -189,7 +202,7 @@ FLDyUnitBoxDecoration _$FLDyUnitBoxDecorationFromJson(
     json['color'] as String,
     json['image'] == null
         ? null
-        : FLDyUnitDecorationIamge.fromJson(
+        : FLDyUnitDecorationImage.fromJson(
             json['image'] as Map<String, dynamic>),
     json['border'] == null
         ? null

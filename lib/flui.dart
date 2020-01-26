@@ -28,7 +28,7 @@ export 'package:flui/src/widgets/list_tile.dart';
 export 'package:flui/src/widgets/count_stepper.dart';
 export 'package:flui/src/widgets/persistent_header.dart';
 
-// dynamic module
+// dynamic modules
 export 'package:flui/src/dynamic/core/container.dart';
 export 'package:flui/src/dynamic/core/actions.dart';
 export 'package:flui/src/dynamic/core/render_parser.dart';

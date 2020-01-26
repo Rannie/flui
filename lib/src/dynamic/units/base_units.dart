@@ -31,12 +31,12 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
     return children;
   }
 
-  Widget resolveChild(FLDyUnitAlign align) {
+  Widget resolveChild() {
     Widget child;
-    if (align != null && unitModel.child != null)
-      child = resolveAlignChild(align, unitModel.child);
-    else if (align != null && unitModel.children != null)
-      child = resolveAlignChildren(align, unitModel.children);
+    if (unitModel.align != null && unitModel.child != null)
+      child = resolveAlignChild(unitModel.align, unitModel.child);
+    else if (unitModel.align != null && unitModel.children != null)
+      child = resolveAlignChildren(unitModel.align, unitModel.children);
     else if (unitModel.child != null) child = markupUnit(unitModel.child);
     return child;
   }
@@ -62,6 +62,14 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
       align: align,
       children: widgets,
     );
+  }
+
+  Widget resolveSelf(Widget self) {
+    if(unitModel.flex != null) {
+      if (unitModel.flex == 'Expanded') return Expanded(child: self);
+      if (unitModel.flex == 'Flexible') return Flexible(child: self);
+    }
+    return self;
   }
 }
 

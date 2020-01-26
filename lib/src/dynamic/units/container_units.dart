@@ -10,14 +10,16 @@ class FLDyContainerUnit extends FLDyRenderUnit {
   @override
   Widget build(BuildContext context) {
     final FLDyContainerUnitModel conModel = unitModel as FLDyContainerUnitModel;
-    final Widget child = resolveChild(conModel.align);
-    return Container(
+    final Widget child = resolveChild();
+    final Widget self = Container(
       width: conModel.width,
       height: conModel.height,
       padding: conModel.padding?.toEdgeInsets(),
       margin: conModel.margin?.toEdgeInsets(),
       color: conModel.color != null ? Color(num.parse(conModel.color)) : null,
+      decoration: conModel.decoration?.toBoxDecoration(),
       child: child,
     );
+    return resolveSelf(self);
   }
 }

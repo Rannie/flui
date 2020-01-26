@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
 
@@ -100,11 +98,13 @@ BorderStyle _stringToBorderStyle(String style) {
 /// rendering information, bound events and bound data.
 class FLDyUnitModel {
   FLDyUnitModel(
-      {this.uniqueId, @required this.unitName, this.child, this.children})
+      {this.uniqueId, @required this.unitName, this.flex, this.align, this.child, this.children})
       : assert(unitName != null);
 
   final String uniqueId;
   final String unitName;
+  final String flex;
+  final FLDyUnitAlign align;
   final FLDyUnitModel child;
   final List<FLDyUnitModel> children;
 
@@ -129,24 +129,28 @@ class FLDyContainerUnitModel extends FLDyUnitModel {
     String unitName,
     FLDyUnitModel child,
     List<FLDyUnitModel> children,
+    String flex,
     this.width,
     this.height,
     this.color,
-    this.align,
+    FLDyUnitAlign align,
     this.padding,
     this.margin,
+    this.decoration,
   }) : super(
             uniqueId: uniqueId,
             unitName: unitName,
             child: child,
-            children: children);
+            children: children,
+            flex: flex,
+            align: align);
 
   final double width;
   final double height;
   final String color;
-  final FLDyUnitAlign align;
   final FLDyUnitEdgeInsets padding;
   final FLDyUnitEdgeInsets margin;
+  final FLDyUnitBoxDecoration decoration;
 
   factory FLDyContainerUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyContainerUnitModelFromJson(json);
@@ -200,7 +204,7 @@ class FLDyUnitImageProvider {
   final String type;
   /// network network use
   final String url;
-  /// assset image use
+  /// asset image use
   final String assetName;
   final double scale;
 
@@ -214,17 +218,17 @@ class FLDyUnitImageProvider {
 
 @JsonSerializable()
 /// DecorationImage
-class FLDyUnitDecorationIamge {
-  FLDyUnitDecorationIamge(this.imageProvider, this.fit, this.alignment, this.imageRepeat);
+class FLDyUnitDecorationImage {
+  FLDyUnitDecorationImage(this.imageProvider, this.fit, this.alignment, this.imageRepeat);
 
   final FLDyUnitImageProvider imageProvider;
   final String fit;
   final FLDyUnitAlignment alignment;
   final String imageRepeat;
 
-  factory FLDyUnitDecorationIamge.fromJson(Map<String, dynamic> json) =>
-      _$FLDyUnitDecorationIamgeFromJson(json);
-  Map<String, dynamic> toJson() => _$FLDyUnitDecorationIamgeToJson(this);
+  factory FLDyUnitDecorationImage.fromJson(Map<String, dynamic> json) =>
+      _$FLDyUnitDecorationImageFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyUnitDecorationImageToJson(this);
 
   DecorationImage toDecorationImage() => DecorationImage(
     image: (imageProvider.type == FLDyImageTypes.network
@@ -293,7 +297,7 @@ class FLDyUnitBoxDecoration {
       this.shape);
 
   final String color;
-  final FLDyUnitDecorationIamge image;
+  final FLDyUnitDecorationImage image;
   final FLDyUnitBorder border;
   final FLDyUnitBorderRadius borderRadius;
   final List<FLDyUnitBoxShadow> boxShadow;
