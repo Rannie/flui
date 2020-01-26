@@ -65,6 +65,14 @@ FLDyContainerUnitModel _$FLDyContainerUnitModelFromJson(
         ? null
         : FLDyUnitBoxDecoration.fromJson(
             json['decoration'] as Map<String, dynamic>),
+    foregroundDecoration: json['foregroundDecoration'] == null
+        ? null
+        : FLDyUnitBoxDecoration.fromJson(
+            json['foregroundDecoration'] as Map<String, dynamic>),
+    constraints: json['constraints'] == null
+        ? null
+        : FLDyUnitBoxConstraints.fromJson(
+            json['constraints'] as Map<String, dynamic>),
   );
 }
 
@@ -83,12 +91,111 @@ Map<String, dynamic> _$FLDyContainerUnitModelToJson(
       'padding': instance.padding,
       'margin': instance.margin,
       'decoration': instance.decoration,
+      'foregroundDecoration': instance.foregroundDecoration,
+      'constraints': instance.constraints,
+    };
+
+FLDySafeAreaUnitModel _$FLDySafeAreaUnitModelFromJson(
+    Map<String, dynamic> json) {
+  return FLDySafeAreaUnitModel(
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    child: json['child'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
+    children: (json['children'] as List)
+        ?.map((e) => e == null
+            ? null
+            : FLDyUnitModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    align: json['align'] == null
+        ? null
+        : FLDyUnitAlign.fromJson(json['align'] as Map<String, dynamic>),
+    left: json['left'] as bool,
+    top: json['top'] as bool,
+    right: json['right'] as bool,
+    bottom: json['bottom'] as bool,
+    minimum: json['minimum'] == null
+        ? null
+        : FLDyUnitEdgeInsets.fromJson(json['minimum'] as Map<String, dynamic>),
+    maintainBottomViewPadding: json['maintainBottomViewPadding'] as bool,
+  );
+}
+
+Map<String, dynamic> _$FLDySafeAreaUnitModelToJson(
+        FLDySafeAreaUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'align': instance.align,
+      'child': instance.child,
+      'children': instance.children,
+      'left': instance.left,
+      'top': instance.top,
+      'right': instance.right,
+      'bottom': instance.bottom,
+      'minimum': instance.minimum,
+      'maintainBottomViewPadding': instance.maintainBottomViewPadding,
+    };
+
+FLDyListViewUnitModel _$FLDyListViewUnitModelFromJson(
+    Map<String, dynamic> json) {
+  return FLDyListViewUnitModel(
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    children: (json['children'] as List)
+        ?.map((e) => e == null
+            ? null
+            : FLDyUnitModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    scrollDirection: json['scrollDirection'] as String,
+    reverse: json['reverse'] as bool,
+    primary: json['primary'] as bool,
+    scrollPhysics: json['scrollPhysics'] == null
+        ? null
+        : FLDyUnitScrollPhysics.fromJson(
+            json['scrollPhysics'] as Map<String, dynamic>),
+    shrinkWrap: json['shrinkWrap'] as bool,
+    padding: json['padding'] == null
+        ? null
+        : FLDyUnitEdgeInsets.fromJson(json['padding'] as Map<String, dynamic>),
+    itemExtent: (json['itemExtent'] as num)?.toDouble(),
+    addAutomaticKeepAlives: json['addAutomaticKeepAlives'] as bool,
+    addRepaintBoundaries: json['addRepaintBoundaries'] as bool,
+    addSemanticIndexes: json['addSemanticIndexes'] as bool,
+    cacheExtent: (json['cacheExtent'] as num)?.toDouble(),
+    semanticChildCount: json['semanticChildCount'] as int,
+    separetedDivider: json['separetedDivider'] == null
+        ? null
+        : FLDyUnitDivider.fromJson(
+            json['separetedDivider'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$FLDyListViewUnitModelToJson(
+        FLDyListViewUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'children': instance.children,
+      'scrollDirection': instance.scrollDirection,
+      'reverse': instance.reverse,
+      'primary': instance.primary,
+      'scrollPhysics': instance.scrollPhysics,
+      'shrinkWrap': instance.shrinkWrap,
+      'padding': instance.padding,
+      'itemExtent': instance.itemExtent,
+      'addAutomaticKeepAlives': instance.addAutomaticKeepAlives,
+      'addRepaintBoundaries': instance.addRepaintBoundaries,
+      'addSemanticIndexes': instance.addSemanticIndexes,
+      'cacheExtent': instance.cacheExtent,
+      'semanticChildCount': instance.semanticChildCount,
+      'separetedDivider': instance.separetedDivider,
     };
 
 FLDySizedBoxUnitModel _$FLDySizedBoxUnitModelFromJson(
     Map<String, dynamic> json) {
   return FLDySizedBoxUnitModel(
-    uniqueId: json['uniqueId'] as String,
     unitName: json['unitName'] as String,
     width: (json['width'] as num)?.toDouble(),
     height: (json['height'] as num)?.toDouble(),
@@ -98,10 +205,41 @@ FLDySizedBoxUnitModel _$FLDySizedBoxUnitModelFromJson(
 Map<String, dynamic> _$FLDySizedBoxUnitModelToJson(
         FLDySizedBoxUnitModel instance) =>
     <String, dynamic>{
-      'uniqueId': instance.uniqueId,
       'unitName': instance.unitName,
       'width': instance.width,
       'height': instance.height,
+    };
+
+FLDyUnitDivider _$FLDyUnitDividerFromJson(Map<String, dynamic> json) {
+  return FLDyUnitDivider(
+    (json['height'] as num)?.toDouble(),
+    (json['thickness'] as num)?.toDouble(),
+    (json['indent'] as num)?.toDouble(),
+    (json['endIndent'] as num)?.toDouble(),
+    json['color'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyUnitDividerToJson(FLDyUnitDivider instance) =>
+    <String, dynamic>{
+      'height': instance.height,
+      'thickness': instance.thickness,
+      'indent': instance.indent,
+      'endIndent': instance.endIndent,
+      'color': instance.color,
+    };
+
+FLDyUnitScrollPhysics _$FLDyUnitScrollPhysicsFromJson(
+    Map<String, dynamic> json) {
+  return FLDyUnitScrollPhysics(
+    json['type'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyUnitScrollPhysicsToJson(
+        FLDyUnitScrollPhysics instance) =>
+    <String, dynamic>{
+      'type': instance.type,
     };
 
 FLDyUnitEdgeInsets _$FLDyUnitEdgeInsetsFromJson(Map<String, dynamic> json) {
@@ -194,6 +332,25 @@ Map<String, dynamic> _$FLDyUnitImageToJson(FLDyUnitImage instance) =>
       'imageRepeat': instance.imageRepeat,
       'semanticLabel': instance.semanticLabel,
       'excludeFromSemantics': instance.excludeFromSemantics,
+    };
+
+FLDyUnitBoxConstraints _$FLDyUnitBoxConstraintsFromJson(
+    Map<String, dynamic> json) {
+  return FLDyUnitBoxConstraints(
+    (json['minWidth'] as num)?.toDouble(),
+    (json['maxWidth'] as num)?.toDouble(),
+    (json['minHeight'] as num)?.toDouble(),
+    (json['maxHeight'] as num)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$FLDyUnitBoxConstraintsToJson(
+        FLDyUnitBoxConstraints instance) =>
+    <String, dynamic>{
+      'minWidth': instance.minWidth,
+      'maxWidth': instance.maxWidth,
+      'minHeight': instance.minHeight,
+      'maxHeight': instance.maxHeight,
     };
 
 FLDyUnitBoxDecoration _$FLDyUnitBoxDecorationFromJson(

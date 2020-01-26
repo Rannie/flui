@@ -12,9 +12,11 @@ class FLDyRenderParser {
 
   static Widget parseUnitModel(FLDyUnitModel unitModel) {
     switch (unitModel.unitName) {
-      case FLDyNativeUnitNames.container:
+      case FLDyNativeUnitName.container:
         return FLDyContainerUnit(unitModel: unitModel);
-      case FLDyNativeUnitNames.sizedBox:
+      case FLDyNativeUnitName.safeArea:
+        return FLDySafeAreaUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.sizedBox:
         return FLDySizedBoxUnit(unitModel: unitModel);
     }
     return null;

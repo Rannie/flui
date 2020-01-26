@@ -9,17 +9,40 @@ class FLDyContainerUnit extends FLDyRenderUnit {
 
   @override
   Widget build(BuildContext context) {
-    final FLDyContainerUnitModel conModel = unitModel as FLDyContainerUnitModel;
+    final FLDyContainerUnitModel cum = unitModel as FLDyContainerUnitModel;
     final Widget child = resolveChild();
     final Widget self = Container(
-      width: conModel.width,
-      height: conModel.height,
-      padding: conModel.padding?.toEdgeInsets(),
-      margin: conModel.margin?.toEdgeInsets(),
-      color: conModel.color != null ? Color(num.parse(conModel.color)) : null,
-      decoration: conModel.decoration?.toBoxDecoration(),
+      width: cum.width,
+      height: cum.height,
+      padding: cum.padding?.toEdgeInsets(),
+      margin: cum.margin?.toEdgeInsets(),
+      color: cum.color != null ? Color(num.parse(cum.color)) : null,
+      decoration: cum.decoration?.toBoxDecoration(),
+      foregroundDecoration: cum.foregroundDecoration?.toBoxDecoration(),
+      constraints: cum.constraints?.toBoxConstraints(),
       child: child,
     );
     return resolveSelf(self);
+  }
+}
+
+class FLDySafeAreaUnit extends FLDyRenderUnit {
+  FLDySafeAreaUnit({FLDySafeAreaUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDySafeAreaUnitModel),
+        super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDySafeAreaUnitModel saum = unitModel as FLDySafeAreaUnitModel;
+    final Widget child = resolveChild();
+    return SafeArea(
+      left: saum.left ?? true,
+      top: saum.top ?? true,
+      right: saum.right ?? true,
+      bottom: saum.bottom ?? true,
+      minimum: saum.minimum?.toEdgeInsets() ?? EdgeInsets.zero,
+      maintainBottomViewPadding: saum.maintainBottomViewPadding ?? false,
+      child: child,
+    );
   }
 }
