@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:example/pages/dycontainer_page.dart';
 import 'package:example/pages/list_page.dart';
 import 'package:example/pages/persistent_header_page.dart';
 import 'util.dart';
@@ -149,7 +150,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           CountStepperPage.routeName: (context) => CountStepperPage(),
           PersistentHeaderPage.routeName: (context) => PersistentHeaderPage(),
           ListPage.routeName: (context) => ListPage(),
-          AlignLayoutPage.routeName: (context) => AlignLayoutPage()
+          AlignLayoutPage.routeName: (context) => AlignLayoutPage(),
+          ContainerEffectPage.routeName: (context) => ContainerEffectPage()
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(
