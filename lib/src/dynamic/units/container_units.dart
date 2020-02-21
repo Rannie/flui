@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/units/base_units.dart';
 
+/// Container unit widget
 class FLDyContainerUnit extends FLDyRenderUnit {
   FLDyContainerUnit({FLDyContainerUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyContainerUnitModel),
@@ -26,6 +27,7 @@ class FLDyContainerUnit extends FLDyRenderUnit {
   }
 }
 
+/// SafeArea unit widget
 class FLDySafeAreaUnit extends FLDyRenderUnit {
   FLDySafeAreaUnit({FLDySafeAreaUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDySafeAreaUnitModel),
@@ -43,6 +45,71 @@ class FLDySafeAreaUnit extends FLDyRenderUnit {
       minimum: saum.minimum?.toEdgeInsets() ?? EdgeInsets.zero,
       maintainBottomViewPadding: saum.maintainBottomViewPadding ?? false,
       child: child,
+    );
+  }
+}
+
+/// ListView unit widget
+class FLDyListViewUnit extends FLDyRenderUnit {
+  FLDyListViewUnit({FLDyListViewUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDyListViewUnitModel),
+        super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyListViewUnitModel lvum = unitModel as FLDyListViewUnitModel;
+    final List<Widget> children = markupUnits(lvum.children);
+    ListView listView;
+    if (lvum.separetedDivider != null) {
+      listView = ListView.separated(
+          itemBuilder: (BuildContext context, int index) {
+            return children[index];
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return lvum.separetedDivider.toDivider();
+          },
+          itemCount: children.length
+      );
+    } else {
+      listView = ListView(
+        scrollDirection: lvum.getScrollDirection(),
+        reverse: lvum.reverse ?? false,
+        primary: lvum.primary,
+        physics: lvum.scrollPhysics?.toScrollPhysics(),
+        shrinkWrap: lvum.shrinkWrap ?? false,
+        padding: lvum.padding?.toEdgeInsets(),
+        itemExtent: lvum.itemExtent,
+        addAutomaticKeepAlives: lvum.addAutomaticKeepAlives ?? true,
+        addRepaintBoundaries: lvum.addRepaintBoundaries ?? true,
+        addSemanticIndexes: lvum.addSemanticIndexes ?? true,
+        cacheExtent: lvum.cacheExtent,
+        semanticChildCount: lvum.semanticChildCount,
+        children: children,
+      );
+    }
+    return listView;
+  }
+}
+
+/// ListTile unit widget
+class FLDyListTileUnit extends FLDyRenderUnit {
+  FLDyListTileUnit({FLDyListTileUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDyListTileUnitModel),
+        super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyListTileUnitModel ltum = unitModel as FLDyListTileUnitModel;
+    return ListTile(
+      leading: ltum.leading != null ? markupUnit(ltum.leading) : null,
+      title: ltum.title != null ? markupUnit(ltum.title) : null,
+      subtitle: ltum.subtitle != null ? markupUnit(ltum.subtitle) : null,
+      trailing: ltum.trailing != null ? markupUnit(ltum.trailing) : null,
+      isThreeLine: ltum.isThreeLine ?? false,
+      dense: ltum.dense,
+      contentPadding: ltum.contentPadding?.toEdgeInsets(),
+      enabled: ltum.enabled ?? true,
+      selected: ltum.selected,
     );
   }
 }

@@ -7,6 +7,8 @@ class FLDyNativeUnitName {
   static const String container = 'Container';
   static const String safeArea = 'SafeArea';
   static const String sizedBox = 'SizedBox';
+  static const String listView = 'ListView';
+  static const String listTile = 'ListTile';
 }
 
 class FLDyImageType {
@@ -63,6 +65,81 @@ class FLDyScrollPhysicsType {
   static const String clamping = 'Clamping';
   static const String alwaysScrollable = 'AlwaysScrollable';
   static const String neverScrollable = 'NeverScrollable';
+}
+
+class FLDyFontWeightType {
+  static const String normal = 'normal';
+  static const String bold = 'bold';
+}
+
+class FLDyFontStyleType {
+  static const String nomral = 'normal';
+  static const String italic = 'italic';
+}
+
+class FLDyTextBaselineType {
+  static const String alphabetic = 'alphabetic';
+  static const String ideographic = 'ideographic';
+}
+
+class FLDyTextDecorationType {
+  static const String none = 'none';
+  static const String underline = 'underline';
+  static const String overline = 'overline';
+  static const String lineThrough = 'lineThrough';
+}
+
+class FLDyTextDecorationStyleType {
+  static const String solid = 'solid';
+  static const String double = 'double';
+  static const String dotted = 'dotted';
+  static const String dashed = 'dashed';
+  static const String wavy = 'wavy';
+}
+
+TextDecorationStyle _stringToTextDecorationStyle(String decorationStyle) {
+  switch (decorationStyle) {
+    case FLDyTextDecorationStyleType.solid: return TextDecorationStyle.solid;
+    case FLDyTextDecorationStyleType.double: return TextDecorationStyle.double;
+    case FLDyTextDecorationStyleType.dotted: return TextDecorationStyle.dotted;
+    case FLDyTextDecorationStyleType.dashed: return TextDecorationStyle.dashed;
+    case FLDyTextDecorationStyleType.wavy: return TextDecorationStyle.wavy;
+    default: return null;
+  }
+}
+
+TextDecoration _stringToTextDecoration (String decoration) {
+  switch (decoration) {
+    case FLDyTextDecorationType.none: return TextDecoration.none;
+    case FLDyTextDecorationType.underline: return TextDecoration.underline;
+    case FLDyTextDecorationType.overline: return TextDecoration.overline;
+    case FLDyTextDecorationType.lineThrough: return TextDecoration.lineThrough;
+    default: return null;
+  }
+}
+
+TextBaseline _stringToTextBaseline (String textBaseline) {
+  switch (textBaseline) {
+    case FLDyTextBaselineType.alphabetic: return TextBaseline.alphabetic;
+    case FLDyTextBaselineType.ideographic: return TextBaseline.ideographic;
+    default: return null;
+  }
+}
+
+FontStyle _stringToFontStyle (String fontStyle) {
+  switch (fontStyle) {
+    case FLDyFontStyleType.nomral: return FontStyle.normal;
+    case FLDyFontStyleType.italic: return FontStyle.italic;
+    default: return null;
+  }
+}
+
+FontWeight _stringToFontWeight (String fontWeight) {
+  switch (fontWeight) {
+    case FLDyFontWeightType.normal: return FontWeight.normal;
+    case FLDyFontWeightType.bold: return FontWeight.bold;
+    default: return null;
+  }
 }
 
 Axis _stringToAxis(String axis) {
@@ -138,6 +215,10 @@ class FLDyUnitModel {
         return FLDySafeAreaUnitModel.fromJson(json);
       case FLDyNativeUnitName.sizedBox:
         return FLDySizedBoxUnitModel.fromJson(json);
+      case FLDyNativeUnitName.listView:
+        return FLDyListViewUnitModel.fromJson(json);
+      case FLDyNativeUnitName.listTile:
+        return FLDyListTileUnitModel.fromJson(json);
     }
     return _$FLDyUnitModelFromJson(json);
   }
@@ -261,6 +342,44 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
   factory FLDyListViewUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyListViewUnitModelFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyListViewUnitModelToJson(this);
+
+  Axis getScrollDirection() => (scrollDirection != null)
+      ? _stringToAxis(scrollDirection) : Axis.vertical;
+}
+
+@JsonSerializable()
+/// ListTile
+class FLDyListTileUnitModel extends FLDyUnitModel {
+  FLDyListTileUnitModel({
+    String uniqueId,
+    String unitName,
+    this.leading,
+    this.title,
+    this.subtitle,
+    this.trailing,
+    this.isThreeLine,
+    this.dense,
+    this.contentPadding,
+    this.enabled,
+    this.selected
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName
+  );
+
+  final FLDyUnitModel leading;
+  final FLDyUnitModel title;
+  final FLDyUnitModel subtitle;
+  final FLDyUnitModel trailing;
+  final bool isThreeLine;
+  final bool dense;
+  final FLDyUnitEdgeInsets contentPadding;
+  final bool enabled;
+  final bool selected;
+
+  factory FLDyListTileUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyListTileUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyListTileUnitModelToJson(this);
 }
 
 @JsonSerializable()
@@ -278,6 +397,81 @@ class FLDySizedBoxUnitModel extends FLDyUnitModel {
   factory FLDySizedBoxUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDySizedBoxUnitModelFromJson(json);
   Map<String, dynamic> toJson() => _$FLDySizedBoxUnitModelToJson(this);
+}
+
+@JsonSerializable()
+/// Text
+class FLDyTextUnitModel extends FLDyUnitModel {
+  FLDyTextUnitModel(this.text, {
+    String unitName,
+  }) : super(unitName: unitName);
+
+  final String text;
+}
+
+@JsonSerializable()
+/// TextStyle
+class FLDyUnitTextStyle {
+  FLDyUnitTextStyle(
+      this.color,
+      this.backgroundColor,
+      this.fontFamily,
+      this.fontSize,
+      this.fontWeight,
+      this.fontStyle,
+      this.letterSpacing,
+      this.wordSpacing,
+      this.textBaseline,
+      this.height,
+      this.textDecorations,
+      this.decorationColor,
+      this.decorationStyle,
+      this.decorationThickness
+  );
+
+  final String color;
+  final String backgroundColor;
+  final String fontFamily;
+  final double fontSize;
+  final String fontWeight;
+  final String fontStyle;
+  final double letterSpacing;
+  final double wordSpacing;
+  final String textBaseline;
+  final double height;
+  final List<String> textDecorations;
+  final String decorationColor;
+  final String decorationStyle;
+  final double decorationThickness;
+
+  factory FLDyUnitTextStyle.fromJson(Map<String, dynamic> json) =>
+      _$FLDyUnitTextStyleFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyUnitTextStyleToJson(this);
+
+  TextStyle toTextStyle() {
+    final TextDecoration textDecoration = textDecorations != null
+        ? TextDecoration.combine(textDecorations.map((decStr) {
+          _stringToTextDecoration(decStr);
+        }).toList()) : null;
+    return TextStyle(
+      color: color != null ? Color(num.parse(color)) : null,
+      backgroundColor: backgroundColor != null
+          ? Color(num.parse(backgroundColor)) : null,
+      fontFamily: fontFamily,
+      fontSize: fontSize,
+      fontWeight: _stringToFontWeight(fontWeight),
+      fontStyle: _stringToFontStyle(fontStyle),
+      letterSpacing: letterSpacing,
+      wordSpacing: wordSpacing,
+      textBaseline: _stringToTextBaseline(textBaseline),
+      height: height,
+      decoration: textDecoration,
+      decorationColor: decorationColor != null
+          ? Color(num.parse(decorationColor)) : null,
+      decorationStyle: _stringToTextDecorationStyle(decorationStyle),
+      decorationThickness: decorationThickness
+    );
+  }
 }
 
 @JsonSerializable()

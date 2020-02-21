@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flui/src/dynamic/util/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/core/render_parser.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
@@ -66,7 +67,7 @@ class FLDyContainerState extends State<FLDyContainer> {
 
   @override
   Widget build(BuildContext context) {
-    print('build dynamic container');
+    FLDyLogger.log('build dynamic container');
     return _renderContent ?? widget.placeholder;
   }
 }
@@ -75,7 +76,7 @@ bool debugJsonAndType(dynamic jsonObj) {
   if (jsonObj == null) return false;
   if (jsonObj.runtimeType != Map && jsonObj.runtimeType != String) {
     throw FlutterError(
-        '[FLUI-Dyanmic]: "loadJsonAndRender" method needs to pass a parameter of String or Map');
+        '[FLUI Dyanmic]: "loadJsonAndRender" method needs to pass a parameter of String or Map');
   }
   return true;
 }

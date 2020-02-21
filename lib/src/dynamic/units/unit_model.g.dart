@@ -193,6 +193,50 @@ Map<String, dynamic> _$FLDyListViewUnitModelToJson(
       'separetedDivider': instance.separetedDivider,
     };
 
+FLDyListTileUnitModel _$FLDyListTileUnitModelFromJson(
+    Map<String, dynamic> json) {
+  return FLDyListTileUnitModel(
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    leading: json['leading'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['leading'] as Map<String, dynamic>),
+    title: json['title'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['title'] as Map<String, dynamic>),
+    subtitle: json['subtitle'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['subtitle'] as Map<String, dynamic>),
+    trailing: json['trailing'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['trailing'] as Map<String, dynamic>),
+    isThreeLine: json['isThreeLine'] as bool,
+    dense: json['dense'] as bool,
+    contentPadding: json['contentPadding'] == null
+        ? null
+        : FLDyUnitEdgeInsets.fromJson(
+            json['contentPadding'] as Map<String, dynamic>),
+    enabled: json['enabled'] as bool,
+    selected: json['selected'] as bool,
+  );
+}
+
+Map<String, dynamic> _$FLDyListTileUnitModelToJson(
+        FLDyListTileUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'leading': instance.leading,
+      'title': instance.title,
+      'subtitle': instance.subtitle,
+      'trailing': instance.trailing,
+      'isThreeLine': instance.isThreeLine,
+      'dense': instance.dense,
+      'contentPadding': instance.contentPadding,
+      'enabled': instance.enabled,
+      'selected': instance.selected,
+    };
+
 FLDySizedBoxUnitModel _$FLDySizedBoxUnitModelFromJson(
     Map<String, dynamic> json) {
   return FLDySizedBoxUnitModel(
@@ -208,6 +252,56 @@ Map<String, dynamic> _$FLDySizedBoxUnitModelToJson(
       'unitName': instance.unitName,
       'width': instance.width,
       'height': instance.height,
+    };
+
+FLDyTextUnitModel _$FLDyTextUnitModelFromJson(Map<String, dynamic> json) {
+  return FLDyTextUnitModel(
+    json['text'] as String,
+    unitName: json['unitName'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyTextUnitModelToJson(FLDyTextUnitModel instance) =>
+    <String, dynamic>{
+      'unitName': instance.unitName,
+      'text': instance.text,
+    };
+
+FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
+  return FLDyUnitTextStyle(
+    json['color'] as String,
+    json['backgroundColor'] as String,
+    json['fontFamily'] as String,
+    (json['fontSize'] as num)?.toDouble(),
+    json['fontWeight'] as String,
+    json['fontStyle'] as String,
+    (json['letterSpacing'] as num)?.toDouble(),
+    (json['wordSpacing'] as num)?.toDouble(),
+    json['textBaseline'] as String,
+    (json['height'] as num)?.toDouble(),
+    (json['textDecorations'] as List)?.map((e) => e as String)?.toList(),
+    json['decorationColor'] as String,
+    json['decorationStyle'] as String,
+    (json['decorationThickness'] as num)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$FLDyUnitTextStyleToJson(FLDyUnitTextStyle instance) =>
+    <String, dynamic>{
+      'color': instance.color,
+      'backgroundColor': instance.backgroundColor,
+      'fontFamily': instance.fontFamily,
+      'fontSize': instance.fontSize,
+      'fontWeight': instance.fontWeight,
+      'fontStyle': instance.fontStyle,
+      'letterSpacing': instance.letterSpacing,
+      'wordSpacing': instance.wordSpacing,
+      'textBaseline': instance.textBaseline,
+      'height': instance.height,
+      'textDecorations': instance.textDecorations,
+      'decorationColor': instance.decorationColor,
+      'decorationStyle': instance.decorationStyle,
+      'decorationThickness': instance.decorationThickness,
     };
 
 FLDyUnitDivider _$FLDyUnitDividerFromJson(Map<String, dynamic> json) {

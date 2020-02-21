@@ -18,6 +18,10 @@ class FLDyRenderParser {
         return FLDySafeAreaUnit(unitModel: unitModel);
       case FLDyNativeUnitName.sizedBox:
         return FLDySizedBoxUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.listView:
+        return FLDyListViewUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.listTile:
+        return FLDyListTileUnit(unitModel: unitModel);
     }
     return null;
   }
