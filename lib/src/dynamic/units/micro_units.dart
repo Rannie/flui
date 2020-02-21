@@ -15,3 +15,12 @@ class FLDySizedBoxUnit extends FLDyRenderUnit {
     );
   }
 }
+
+
+class FLDyTextUnit extends FLDyRenderUnit {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return super.build(context);
+  }
+}
