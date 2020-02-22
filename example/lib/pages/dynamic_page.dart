@@ -1,5 +1,6 @@
 import 'package:example/pages/dyalign_page.dart';
 import 'package:example/pages/dycontainer_page.dart';
+import 'package:example/pages/dylistview_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
 
@@ -22,7 +23,7 @@ class _DynamicPageState extends State<DynamicPage> {
           height: double.infinity,
           child: ListView.separated(
               shrinkWrap: true,
-              itemCount: 2,
+              itemCount: 3,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return FLListTile(
@@ -36,6 +37,13 @@ class _DynamicPageState extends State<DynamicPage> {
                     title: Text('Flex Layout'),
                     onTap: () => Navigator.pushNamed(
                         context, AlignLayoutPage.routeName),
+                  );
+                }
+                if (index == 2) {
+                  return FLListTile(
+                    title: Text('List View'),
+                    onTap: () => Navigator.pushNamed(
+                        context, DyListPage.routeName),
                   );
                 }
                 return null;

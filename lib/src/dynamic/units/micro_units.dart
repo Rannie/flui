@@ -18,9 +18,24 @@ class FLDySizedBoxUnit extends FLDyRenderUnit {
 
 
 class FLDyTextUnit extends FLDyRenderUnit {
+  FLDyTextUnit({FLDyTextUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDyTextUnitModel),
+        super(unitModel: unitModel);
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return super.build(context);
+    final FLDyTextUnitModel tum = unitModel as FLDyTextUnitModel;
+    return Text(
+      tum.text,
+      style: tum.textStyle?.toTextStyle(),
+      textAlign: tum.getTextAlign(),
+      textDirection: tum.getTextDirection(),
+      softWrap: tum.softWrap,
+      overflow: tum.getTextOverflow(),
+      textScaleFactor: tum.textScaleFactor,
+      maxLines: tum.maxLines,
+      semanticsLabel: tum.semanticsLabel,
+      textWidthBasis: tum.getTextWidthBasis(),
+    );
   }
 }

@@ -9,6 +9,7 @@ class FLDyNativeUnitName {
   static const String sizedBox = 'SizedBox';
   static const String listView = 'ListView';
   static const String listTile = 'ListTile';
+  static const String text = 'Text';
 }
 
 class FLDyImageType {
@@ -97,7 +98,71 @@ class FLDyTextDecorationStyleType {
   static const String wavy = 'wavy';
 }
 
-TextDecorationStyle _stringToTextDecorationStyle(String decorationStyle) {
+class FLDyTextAlignType {
+  static const String left = 'left';
+  static const String right = 'right';
+  static const String center = 'center';
+  static const String justify = 'justify';
+  static const String start = 'start';
+  static const String end = 'end';
+}
+
+class FLDyTextDirectionType {
+  static const String ltr = 'ltr';
+  static const String rtl = 'rtl';
+}
+
+class FLDyTextOverflowType {
+  static const String clip = 'clip';
+  static const String fade = 'fade';
+  static const String ellipsis = 'ellipsis';
+  static const String visible = 'visible';
+}
+
+class FLDyTextWidthBasisType {
+  static const String parent = 'parent';
+  static const String longestLine = 'longestLine';
+}
+
+TextWidthBasis flStringToTextWidthBasis(String textWidthBasis) {
+  switch (textWidthBasis) {
+    case FLDyTextWidthBasisType.parent: return TextWidthBasis.parent;
+    case FLDyTextWidthBasisType.longestLine: return TextWidthBasis.longestLine;
+    default: return null;
+  }
+}
+
+TextOverflow flStringToTextOverflow(String textOverflow) {
+  switch (textOverflow) {
+    case FLDyTextOverflowType.clip: return TextOverflow.clip;
+    case FLDyTextOverflowType.fade: return TextOverflow.fade;
+    case FLDyTextOverflowType.ellipsis: return TextOverflow.ellipsis;
+    case FLDyTextOverflowType.visible: return TextOverflow.visible;
+    default: return null;
+  }
+}
+
+TextDirection flStringToTextDirection(String textDirection) {
+  switch (textDirection) {
+    case FLDyTextDirectionType.rtl: return TextDirection.rtl;
+    case FLDyTextDirectionType.ltr: return TextDirection.ltr;
+    default: return null;
+  }
+}
+
+TextAlign flStringToTextAlign(String textAlign) {
+  switch (textAlign) {
+    case FLDyTextAlignType.left: return TextAlign.left;
+    case FLDyTextAlignType.right: return TextAlign.right;
+    case FLDyTextAlignType.center: return TextAlign.center;
+    case FLDyTextAlignType.justify: return TextAlign.justify;
+    case FLDyTextAlignType.start: return TextAlign.start;
+    case FLDyTextAlignType.end: return TextAlign.end;
+    default: return null;
+  }
+}
+
+TextDecorationStyle flStringToTextDecorationStyle(String decorationStyle) {
   switch (decorationStyle) {
     case FLDyTextDecorationStyleType.solid: return TextDecorationStyle.solid;
     case FLDyTextDecorationStyleType.double: return TextDecorationStyle.double;
@@ -108,7 +173,7 @@ TextDecorationStyle _stringToTextDecorationStyle(String decorationStyle) {
   }
 }
 
-TextDecoration _stringToTextDecoration (String decoration) {
+TextDecoration flStringToTextDecoration (String decoration) {
   switch (decoration) {
     case FLDyTextDecorationType.none: return TextDecoration.none;
     case FLDyTextDecorationType.underline: return TextDecoration.underline;
@@ -118,7 +183,7 @@ TextDecoration _stringToTextDecoration (String decoration) {
   }
 }
 
-TextBaseline _stringToTextBaseline (String textBaseline) {
+TextBaseline flStringToTextBaseline (String textBaseline) {
   switch (textBaseline) {
     case FLDyTextBaselineType.alphabetic: return TextBaseline.alphabetic;
     case FLDyTextBaselineType.ideographic: return TextBaseline.ideographic;
@@ -126,7 +191,7 @@ TextBaseline _stringToTextBaseline (String textBaseline) {
   }
 }
 
-FontStyle _stringToFontStyle (String fontStyle) {
+FontStyle flStringToFontStyle (String fontStyle) {
   switch (fontStyle) {
     case FLDyFontStyleType.nomral: return FontStyle.normal;
     case FLDyFontStyleType.italic: return FontStyle.italic;
@@ -134,7 +199,7 @@ FontStyle _stringToFontStyle (String fontStyle) {
   }
 }
 
-FontWeight _stringToFontWeight (String fontWeight) {
+FontWeight flStringToFontWeight (String fontWeight) {
   switch (fontWeight) {
     case FLDyFontWeightType.normal: return FontWeight.normal;
     case FLDyFontWeightType.bold: return FontWeight.bold;
@@ -142,7 +207,7 @@ FontWeight _stringToFontWeight (String fontWeight) {
   }
 }
 
-Axis _stringToAxis(String axis) {
+Axis flStringToAxis(String axis) {
   switch (axis) {
     case FLDyAxisType.horizontal: return Axis.horizontal;
     case FLDyAxisType.vertical: return Axis.vertical;
@@ -150,7 +215,7 @@ Axis _stringToAxis(String axis) {
   }
 }
 
-BoxShape _stringToBoxShape(String shape) {
+BoxShape flStringToBoxShape(String shape) {
   switch (shape) {
     case FLDyBoxShapeType.rectangle: return BoxShape.rectangle;
     case FLDyBoxShapeType.circle: return BoxShape.circle;
@@ -158,7 +223,7 @@ BoxShape _stringToBoxShape(String shape) {
   }
 }
 
-BoxFit _stringToBoxFit(String fit) {
+BoxFit flStringToBoxFit(String fit) {
   BoxFit boxFit;
   switch (fit) {
     case FLDyBoxFitType.fill: boxFit = BoxFit.fill; break;
@@ -172,7 +237,7 @@ BoxFit _stringToBoxFit(String fit) {
   return boxFit;
 }
 
-ImageRepeat _stringToImageRepeat(String imageRepeat) {
+ImageRepeat flStringToImageRepeat(String imageRepeat) {
   ImageRepeat ir;
   switch (imageRepeat) {
     case FLDyImageRepeatType.noRepeat: ir = ImageRepeat.noRepeat; break;
@@ -183,7 +248,7 @@ ImageRepeat _stringToImageRepeat(String imageRepeat) {
   return ir;
 }
 
-BorderStyle _stringToBorderStyle(String style) {
+BorderStyle flStringToBorderStyle(String style) {
   switch (style) {
     case FLDyBorderStyleType.none: return BorderStyle.none;
     case FLDyBorderStyleType.solid: return BorderStyle.solid;
@@ -219,6 +284,8 @@ class FLDyUnitModel {
         return FLDyListViewUnitModel.fromJson(json);
       case FLDyNativeUnitName.listTile:
         return FLDyListTileUnitModel.fromJson(json);
+      case FLDyNativeUnitName.text:
+        return FLDyTextUnitModel.fromJson(json);
     }
     return _$FLDyUnitModelFromJson(json);
   }
@@ -319,7 +386,7 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
     this.addSemanticIndexes,
     this.cacheExtent,
     this.semanticChildCount,
-    this.separetedDivider,
+    this.separatedDivider,
   }) : super(
     uniqueId: uniqueId,
     unitName: unitName,
@@ -337,14 +404,14 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
   final bool addSemanticIndexes;
   final double cacheExtent;
   final int semanticChildCount;
-  final FLDyUnitDivider separetedDivider;
+  final FLDyUnitDivider separatedDivider;
 
   factory FLDyListViewUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyListViewUnitModelFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyListViewUnitModelToJson(this);
 
   Axis getScrollDirection() => (scrollDirection != null)
-      ? _stringToAxis(scrollDirection) : Axis.vertical;
+      ? flStringToAxis(scrollDirection) : Axis.vertical;
 }
 
 @JsonSerializable()
@@ -404,9 +471,36 @@ class FLDySizedBoxUnitModel extends FLDyUnitModel {
 class FLDyTextUnitModel extends FLDyUnitModel {
   FLDyTextUnitModel(this.text, {
     String unitName,
+    this.textStyle,
+    this.textAlign,
+    this.textDirection,
+    this.softWrap,
+    this.textOverflow,
+    this.textScaleFactor,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
   }) : super(unitName: unitName);
 
   final String text;
+  final FLDyUnitTextStyle textStyle;
+  final String textAlign;
+  final String textDirection;
+  final bool softWrap;
+  final String textOverflow;
+  final double textScaleFactor;
+  final int maxLines;
+  final String semanticsLabel;
+  final String textWidthBasis;
+
+  factory FLDyTextUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyTextUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyTextUnitModelToJson(this);
+  
+  TextAlign getTextAlign() => flStringToTextAlign(textAlign);
+  TextDirection getTextDirection() => flStringToTextDirection(textDirection);
+  TextOverflow getTextOverflow() => flStringToTextOverflow(textOverflow);
+  TextWidthBasis getTextWidthBasis() => flStringToTextWidthBasis(textWidthBasis);
 }
 
 @JsonSerializable()
@@ -451,7 +545,7 @@ class FLDyUnitTextStyle {
   TextStyle toTextStyle() {
     final TextDecoration textDecoration = textDecorations != null
         ? TextDecoration.combine(textDecorations.map((decStr) {
-          _stringToTextDecoration(decStr);
+          flStringToTextDecoration(decStr);
         }).toList()) : null;
     return TextStyle(
       color: color != null ? Color(num.parse(color)) : null,
@@ -459,16 +553,16 @@ class FLDyUnitTextStyle {
           ? Color(num.parse(backgroundColor)) : null,
       fontFamily: fontFamily,
       fontSize: fontSize,
-      fontWeight: _stringToFontWeight(fontWeight),
-      fontStyle: _stringToFontStyle(fontStyle),
+      fontWeight: flStringToFontWeight(fontWeight),
+      fontStyle: flStringToFontStyle(fontStyle),
       letterSpacing: letterSpacing,
       wordSpacing: wordSpacing,
-      textBaseline: _stringToTextBaseline(textBaseline),
+      textBaseline: flStringToTextBaseline(textBaseline),
       height: height,
       decoration: textDecoration,
       decorationColor: decorationColor != null
           ? Color(num.parse(decorationColor)) : null,
-      decorationStyle: _stringToTextDecorationStyle(decorationStyle),
+      decorationStyle: flStringToTextDecorationStyle(decorationStyle),
       decorationThickness: decorationThickness
     );
   }
@@ -525,19 +619,22 @@ class FLDyUnitScrollPhysics {
 @JsonSerializable()
 /// EdgeInsets
 class FLDyUnitEdgeInsets {
-  FLDyUnitEdgeInsets(this.left, this.top, this.right, this.bottom);
+  FLDyUnitEdgeInsets(this.left, this.top, this.right, this.bottom, this.all);
 
   final double top;
   final double left;
   final double bottom;
   final double right;
+  final double all;
 
   factory FLDyUnitEdgeInsets.fromJson(Map<String, dynamic> json) =>
       _$FLDyUnitEdgeInsetsFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitEdgeInsetsToJson(this);
 
-  EdgeInsets toEdgeInsets() =>
-      EdgeInsets.fromLTRB(left ?? 0, top ?? 0, right ?? 0, bottom ?? 0);
+  EdgeInsets toEdgeInsets() {
+    if (all > 0) return EdgeInsets.all(all);
+    else return EdgeInsets.fromLTRB(left ?? 0, top ?? 0, right ?? 0, bottom ?? 0);
+  }
 }
 
 @JsonSerializable()
@@ -577,9 +674,9 @@ class FLDyUnitDecorationImage {
   DecorationImage toDecorationImage() => DecorationImage(
     image: (imageProvider.type == FLDyImageType.network
         ? imageProvider.toNetworkImage() : imageProvider.toAssetImage()),
-    fit: _stringToBoxFit(fit),
+    fit: flStringToBoxFit(fit),
     alignment: alignment?.toAlignment() ?? Alignment.center,
-    repeat: _stringToImageRepeat(imageRepeat)
+    repeat: flStringToImageRepeat(imageRepeat)
   );
 }
 
@@ -622,9 +719,9 @@ class FLDyUnitImage {
       width: width,
       height: height,
       color: Color(num.parse(color)),
-      fit: _stringToBoxFit(fit),
+      fit: flStringToBoxFit(fit),
       alignment: alignment?.toAlignment() ?? Alignment.center,
-      repeat: _stringToImageRepeat(imageRepeat) ?? ImageRepeat.noRepeat,
+      repeat: flStringToImageRepeat(imageRepeat) ?? ImageRepeat.noRepeat,
     );
   }
 }
@@ -680,7 +777,7 @@ class FLDyUnitBoxDecoration {
     boxShadow: boxShadow!= null
         ? boxShadow.map((FLDyUnitBoxShadow shadow)
             => shadow.toBoxShadow()).toList() : null,
-    shape: _stringToBoxShape(shape) ?? BoxShape.rectangle
+    shape: flStringToBoxShape(shape) ?? BoxShape.rectangle
   );
 }
 
@@ -751,7 +848,7 @@ class FLDyUnitBorder {
   Border toBorder() => Border.all(
       color: (color != null ? Color(num.parse(color)) : Color(0xFF000000)),
       width: width ?? 1,
-      style: _stringToBorderStyle(style) ?? BorderStyle.solid
+      style: flStringToBorderStyle(style) ?? BorderStyle.solid
   );
 }
 
