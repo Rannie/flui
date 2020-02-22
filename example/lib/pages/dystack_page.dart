@@ -11,6 +11,7 @@ class StackPage extends StatefulWidget {
 class StackPageState extends State<StackPage> {
   @override
   Widget build(BuildContext context) {
+    var widget = Stack();
     return Scaffold(
       appBar: AppBar(
         title: Text('Stack'),

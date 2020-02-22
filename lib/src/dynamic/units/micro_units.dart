@@ -25,7 +25,7 @@ class FLDyTextUnit extends FLDyRenderUnit {
   @override
   Widget build(BuildContext context) {
     final FLDyTextUnitModel tum = unitModel as FLDyTextUnitModel;
-    return Text(
+    final Widget textWidget = Text(
       tum.text,
       style: tum.textStyle?.toTextStyle(),
       textAlign: tum.getTextAlign(),
@@ -37,5 +37,6 @@ class FLDyTextUnit extends FLDyRenderUnit {
       semanticsLabel: tum.semanticsLabel,
       textWidthBasis: tum.getTextWidthBasis(),
     );
+    return resolveSelf(textWidget);
   }
 }

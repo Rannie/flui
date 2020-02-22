@@ -8,6 +8,7 @@ class FLDyNativeUnitName {
   static const String safeArea = 'SafeArea';
   static const String sizedBox = 'SizedBox';
   static const String listView = 'ListView';
+  static const String stack = 'Stack';
   static const String listTile = 'ListTile';
   static const String text = 'Text';
 }
@@ -122,6 +123,85 @@ class FLDyTextOverflowType {
 class FLDyTextWidthBasisType {
   static const String parent = 'parent';
   static const String longestLine = 'longestLine';
+}
+
+class FLDyStackFitType {
+  static const String loose = 'loose';
+  static const String expand = 'expand';
+  static const String passthrough = 'passthrough';
+}
+
+class FLDyOverflowType {
+  static const String visible = 'visible';
+  static const String clip = 'clip';
+}
+
+class FLDyAlignmentDirectionalType {
+  static const String topStart = 'topStart';
+  static const String topCenter = 'topCenter';
+  static const String topEnd = 'topEnd';
+  static const String centerStart = 'centerStart';
+  static const String center = 'center';
+  static const String centerEnd = 'centerEnd';
+  static const String bottomStart = 'bottomStart';
+  static const String bottomCenter = 'bottomCenter';
+  static const String bottomEnd = 'bottomEnd';
+}
+
+AlignmentDirectional flStringToAlignmentDirectional(String alignmentDirectional) {
+  switch (alignmentDirectional) {
+    case FLDyAlignmentDirectionalType.topStart:
+      return AlignmentDirectional.topStart;
+    case FLDyAlignmentDirectionalType.topCenter:
+      return AlignmentDirectional.topCenter;
+    case FLDyAlignmentDirectionalType.topEnd:
+      return AlignmentDirectional.topEnd;
+    case FLDyAlignmentDirectionalType.centerStart:
+      return AlignmentDirectional.centerStart;
+    case FLDyAlignmentDirectionalType.center:
+      return AlignmentDirectional.center;
+    case FLDyAlignmentDirectionalType.centerEnd:
+      return AlignmentDirectional.centerEnd;
+    case FLDyAlignmentDirectionalType.bottomStart:
+      return AlignmentDirectional.bottomStart;
+    case FLDyAlignmentDirectionalType.bottomCenter:
+      return AlignmentDirectional.bottomCenter;
+    case FLDyAlignmentDirectionalType.bottomEnd:
+      return AlignmentDirectional.bottomEnd;
+    default: return null;
+  }
+}
+
+Overflow flStringToOverflow(String overflow) {
+  switch (overflow) {
+    case FLDyOverflowType.visible: return Overflow.visible;
+    case FLDyOverflowType.clip: return Overflow.clip;
+    default: return null;
+  }
+}
+
+StackFit flStringToStackFit(String stackFit) {
+  switch (stackFit) {
+    case FLDyStackFitType.loose: return StackFit.loose;
+    case FLDyStackFitType.expand: return StackFit.expand;
+    case FLDyStackFitType.passthrough: return StackFit.passthrough;
+    default: return null;
+  }
+}
+
+Alignment flStringtoAlignment(String alignment) {
+  switch (alignment) {
+    case FLDyAlignmentType.topLeft: return Alignment.topLeft;
+    case FLDyAlignmentType.topCenter: return Alignment.topCenter;
+    case FLDyAlignmentType.topRight: return Alignment.topRight;
+    case FLDyAlignmentType.centerLeft: return Alignment.centerLeft;
+    case FLDyAlignmentType.center: return Alignment.center;
+    case FLDyAlignmentType.centerRight: return Alignment.centerRight;
+    case FLDyAlignmentType.bottomLeft: return Alignment.bottomLeft;
+    case FLDyAlignmentType.bottomCenter: return Alignment.bottomCenter;
+    case FLDyAlignmentType.bottomRight: return Alignment.bottomRight;
+    default: return null;
+  }
 }
 
 TextWidthBasis flStringToTextWidthBasis(String textWidthBasis) {
@@ -261,13 +341,20 @@ BorderStyle flStringToBorderStyle(String style) {
 /// rendering information, bound events and bound data.
 class FLDyUnitModel {
   FLDyUnitModel(
-      {this.uniqueId, @required this.unitName, this.flex, this.align, this.child, this.children})
+      {this.uniqueId,
+        @required this.unitName,
+        this.flex,
+        this.align,
+        this.positioned,
+        this.child,
+        this.children})
       : assert(unitName != null);
 
   final String uniqueId;
   final String unitName;
   final String flex;
   final FLDyUnitAlign align;
+  final FLDyUnitPositioned positioned;
   final FLDyUnitModel child;
   final List<FLDyUnitModel> children;
 
@@ -278,14 +365,16 @@ class FLDyUnitModel {
         return FLDyContainerUnitModel.fromJson(json);
       case FLDyNativeUnitName.safeArea:
         return FLDySafeAreaUnitModel.fromJson(json);
-      case FLDyNativeUnitName.sizedBox:
-        return FLDySizedBoxUnitModel.fromJson(json);
+      case FLDyNativeUnitName.stack:
+        return FLDyStackUnitModel.fromJson(json);
       case FLDyNativeUnitName.listView:
         return FLDyListViewUnitModel.fromJson(json);
       case FLDyNativeUnitName.listTile:
         return FLDyListTileUnitModel.fromJson(json);
       case FLDyNativeUnitName.text:
         return FLDyTextUnitModel.fromJson(json);
+      case FLDyNativeUnitName.sizedBox:
+        return FLDySizedBoxUnitModel.fromJson(json);
     }
     return _$FLDyUnitModelFromJson(json);
   }
@@ -305,6 +394,7 @@ class FLDyContainerUnitModel extends FLDyUnitModel {
     this.height,
     this.color,
     FLDyUnitAlign align,
+    FLDyUnitPositioned positioned,
     this.padding,
     this.margin,
     this.decoration,
@@ -316,7 +406,8 @@ class FLDyContainerUnitModel extends FLDyUnitModel {
             child: child,
             children: children,
             flex: flex,
-            align: align);
+            align: align,
+            positioned: positioned);
 
   final double width;
   final double height;
@@ -368,12 +459,47 @@ class FLDySafeAreaUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+/// StackView
+class FLDyStackUnitModel extends FLDyUnitModel {
+  FLDyStackUnitModel({
+    String uniqueId,
+    String unitName,
+    FLDyUnitPositioned positioned,
+    List<FLDyUnitModel> children,
+    this.alignment,
+    this.fit,
+    this.textDirection,
+    this.overflow
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    positioned: positioned,
+    children: children,
+  );
+
+  final String alignment;
+  final String textDirection;
+  final String fit;
+  final String overflow;
+
+  factory FLDyStackUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyStackUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyStackUnitModelToJson(this);
+
+  AlignmentDirectional getAlignment() => flStringToAlignmentDirectional(alignment);
+  TextDirection getTextDirection() => flStringToTextDirection(textDirection);
+  StackFit getStackFit() => flStringToStackFit(fit);
+  Overflow getOverflow() => flStringToOverflow(overflow);
+}
+
+@JsonSerializable()
 /// ListView
 class FLDyListViewUnitModel extends FLDyUnitModel {
   FLDyListViewUnitModel({
     String uniqueId,
     String unitName,
     List<FLDyUnitModel> children,
+    FLDyUnitPositioned positioned,
     this.scrollDirection,
     this.reverse,
     this.primary,
@@ -390,7 +516,8 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
   }) : super(
     uniqueId: uniqueId,
     unitName: unitName,
-    children: children);
+    children: children,
+    positioned: positioned);
 
   final String scrollDirection;
   final bool reverse;
@@ -420,6 +547,7 @@ class FLDyListTileUnitModel extends FLDyUnitModel {
   FLDyListTileUnitModel({
     String uniqueId,
     String unitName,
+    FLDyUnitPositioned positioned,
     this.leading,
     this.title,
     this.subtitle,
@@ -431,7 +559,8 @@ class FLDyListTileUnitModel extends FLDyUnitModel {
     this.selected
   }) : super(
     uniqueId: uniqueId,
-    unitName: unitName
+    unitName: unitName,
+    positioned: positioned,
   );
 
   final FLDyUnitModel leading;
@@ -471,6 +600,7 @@ class FLDySizedBoxUnitModel extends FLDyUnitModel {
 class FLDyTextUnitModel extends FLDyUnitModel {
   FLDyTextUnitModel(this.text, {
     String unitName,
+    FLDyUnitPositioned positioned,
     this.textStyle,
     this.textAlign,
     this.textDirection,
@@ -480,7 +610,10 @@ class FLDyTextUnitModel extends FLDyUnitModel {
     this.maxLines,
     this.semanticsLabel,
     this.textWidthBasis,
-  }) : super(unitName: unitName);
+  }) : super(
+      unitName: unitName,
+      positioned: positioned,
+  );
 
   final String text;
   final FLDyUnitTextStyle textStyle;
@@ -664,7 +797,7 @@ class FLDyUnitDecorationImage {
 
   final FLDyUnitImageProvider imageProvider;
   final String fit;
-  final FLDyUnitAlignment alignment;
+  final String alignment;
   final String imageRepeat;
 
   factory FLDyUnitDecorationImage.fromJson(Map<String, dynamic> json) =>
@@ -675,7 +808,7 @@ class FLDyUnitDecorationImage {
     image: (imageProvider.type == FLDyImageType.network
         ? imageProvider.toNetworkImage() : imageProvider.toAssetImage()),
     fit: flStringToBoxFit(fit),
-    alignment: alignment?.toAlignment() ?? Alignment.center,
+    alignment: flStringtoAlignment(alignment) ?? Alignment.center,
     repeat: flStringToImageRepeat(imageRepeat)
   );
 }
@@ -701,7 +834,7 @@ class FLDyUnitImage {
   final double height;
   final String color;
   final String fit;
-  final FLDyUnitAlignment alignment;
+  final String alignment;
   final String imageRepeat;
   final String semanticLabel;
   final bool excludeFromSemantics;
@@ -720,7 +853,7 @@ class FLDyUnitImage {
       height: height,
       color: Color(num.parse(color)),
       fit: flStringToBoxFit(fit),
-      alignment: alignment?.toAlignment() ?? Alignment.center,
+      alignment: flStringtoAlignment(alignment) ?? Alignment.center,
       repeat: flStringToImageRepeat(imageRepeat) ?? ImageRepeat.noRepeat,
     );
   }
@@ -869,26 +1002,20 @@ class FLDyUnitAlign {
 }
 
 @JsonSerializable()
-class FLDyUnitAlignment {
-  FLDyUnitAlignment(this.type);
-  final String type;
+/// Positioned
+class FLDyUnitPositioned {
+  FLDyUnitPositioned(this.left, this.top, this.right, this.bottom,
+      this.width, this.height);
 
-  factory FLDyUnitAlignment.fromJson(Map<String, dynamic> json) =>
-      _$FLDyUnitAlignmentFromJson(json);
-  Map<String, dynamic> toJson() => _$FLDyUnitAlignmentToJson(this);
+  final double left;
+  final double top;
+  final double right;
+  final double bottom;
+  final double width;
+  final double height;
 
-  Alignment toAlignment() {
-    switch (type) {
-      case FLDyAlignmentType.topLeft: return Alignment.topLeft;
-      case FLDyAlignmentType.topCenter: return Alignment.topCenter;
-      case FLDyAlignmentType.topRight: return Alignment.topRight;
-      case FLDyAlignmentType.centerLeft: return Alignment.centerLeft;
-      case FLDyAlignmentType.center: return Alignment.center;
-      case FLDyAlignmentType.centerRight: return Alignment.centerRight;
-      case FLDyAlignmentType.bottomLeft: return Alignment.bottomLeft;
-      case FLDyAlignmentType.bottomCenter: return Alignment.bottomCenter;
-      case FLDyAlignmentType.bottomRight: return Alignment.bottomRight;
-      default: return null;
-    }
-  }
+  factory FLDyUnitPositioned.fromJson(Map<String, dynamic> json) =>
+      _$FLDyUnitPositionedFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyUnitPositionedToJson(this);
 }
+

@@ -65,10 +65,25 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
   }
 
   Widget resolveSelf(Widget self) {
-    if(unitModel.flex != null) {
-      if (unitModel.flex == 'Expanded') return Expanded(child: self);
-      if (unitModel.flex == 'Flexible') return Flexible(child: self);
+    // flex
+    if (unitModel.flex != null) {
+      if (unitModel.flex == 'Expanded') self = Expanded(child: self);
+      else if (unitModel.flex == 'Flexible') self = Flexible(child: self);
     }
+    // position layout
+    if (unitModel.positioned != null) {
+      FLDyUnitPositioned positionedConf = unitModel.positioned;
+      self = Positioned(
+        left: positionedConf.left,
+        right: positionedConf.right,
+        top: positionedConf.top,
+        bottom: positionedConf.bottom,
+        width: positionedConf.width,
+        height: positionedConf.height,
+        child: self,
+      );
+    }
+
     return self;
   }
 }
