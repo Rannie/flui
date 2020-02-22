@@ -165,10 +165,10 @@ FLDyListViewUnitModel _$FLDyListViewUnitModelFromJson(
     addSemanticIndexes: json['addSemanticIndexes'] as bool,
     cacheExtent: (json['cacheExtent'] as num)?.toDouble(),
     semanticChildCount: json['semanticChildCount'] as int,
-    separetedDivider: json['separetedDivider'] == null
+    separatedDivider: json['separatedDivider'] == null
         ? null
         : FLDyUnitDivider.fromJson(
-            json['separetedDivider'] as Map<String, dynamic>),
+            json['separatedDivider'] as Map<String, dynamic>),
   );
 }
 
@@ -190,7 +190,7 @@ Map<String, dynamic> _$FLDyListViewUnitModelToJson(
       'addSemanticIndexes': instance.addSemanticIndexes,
       'cacheExtent': instance.cacheExtent,
       'semanticChildCount': instance.semanticChildCount,
-      'separetedDivider': instance.separetedDivider,
+      'separatedDivider': instance.separatedDivider,
     };
 
 FLDyListTileUnitModel _$FLDyListTileUnitModelFromJson(
@@ -258,6 +258,17 @@ FLDyTextUnitModel _$FLDyTextUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyTextUnitModel(
     json['text'] as String,
     unitName: json['unitName'] as String,
+    textStyle: json['textStyle'] == null
+        ? null
+        : FLDyUnitTextStyle.fromJson(json['textStyle'] as Map<String, dynamic>),
+    textAlign: json['textAlign'] as String,
+    textDirection: json['textDirection'] as String,
+    softWrap: json['softWrap'] as bool,
+    textOverflow: json['textOverflow'] as String,
+    textScaleFactor: (json['textScaleFactor'] as num)?.toDouble(),
+    maxLines: json['maxLines'] as int,
+    semanticsLabel: json['semanticsLabel'] as String,
+    textWidthBasis: json['textWidthBasis'] as String,
   );
 }
 
@@ -265,6 +276,15 @@ Map<String, dynamic> _$FLDyTextUnitModelToJson(FLDyTextUnitModel instance) =>
     <String, dynamic>{
       'unitName': instance.unitName,
       'text': instance.text,
+      'textStyle': instance.textStyle,
+      'textAlign': instance.textAlign,
+      'textDirection': instance.textDirection,
+      'softWrap': instance.softWrap,
+      'textOverflow': instance.textOverflow,
+      'textScaleFactor': instance.textScaleFactor,
+      'maxLines': instance.maxLines,
+      'semanticsLabel': instance.semanticsLabel,
+      'textWidthBasis': instance.textWidthBasis,
     };
 
 FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
@@ -342,6 +362,7 @@ FLDyUnitEdgeInsets _$FLDyUnitEdgeInsetsFromJson(Map<String, dynamic> json) {
     (json['top'] as num)?.toDouble(),
     (json['right'] as num)?.toDouble(),
     (json['bottom'] as num)?.toDouble(),
+    (json['all'] as num)?.toDouble(),
   );
 }
 
@@ -351,6 +372,7 @@ Map<String, dynamic> _$FLDyUnitEdgeInsetsToJson(FLDyUnitEdgeInsets instance) =>
       'left': instance.left,
       'bottom': instance.bottom,
       'right': instance.right,
+      'all': instance.all,
     };
 
 FLDyUnitImageProvider _$FLDyUnitImageProviderFromJson(

@@ -26,6 +26,7 @@ import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
 import 'package:example/pages/dynamic_page.dart';
 import 'package:example/pages/dyalign_page.dart';
+import 'package:example/pages/dylistview_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -151,7 +152,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           PersistentHeaderPage.routeName: (context) => PersistentHeaderPage(),
           ListPage.routeName: (context) => ListPage(),
           AlignLayoutPage.routeName: (context) => AlignLayoutPage(),
-          ContainerEffectPage.routeName: (context) => ContainerEffectPage()
+          ContainerEffectPage.routeName: (context) => ContainerEffectPage(),
+          DyListPage.routeName: (context) => DyListPage(),
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(

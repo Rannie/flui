@@ -22,6 +22,8 @@ class FLDyRenderParser {
         return FLDyListViewUnit(unitModel: unitModel);
       case FLDyNativeUnitName.listTile:
         return FLDyListTileUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.text:
+        return FLDyTextUnit(unitModel: unitModel);
     }
     return null;
   }

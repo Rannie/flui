@@ -60,15 +60,25 @@ class FLDyListViewUnit extends FLDyRenderUnit {
     final FLDyListViewUnitModel lvum = unitModel as FLDyListViewUnitModel;
     final List<Widget> children = markupUnits(lvum.children);
     ListView listView;
-    if (lvum.separetedDivider != null) {
+    if (lvum.separatedDivider != null) {
       listView = ListView.separated(
           itemBuilder: (BuildContext context, int index) {
             return children[index];
           },
           separatorBuilder: (BuildContext context, int index) {
-            return lvum.separetedDivider.toDivider();
+            return lvum.separatedDivider.toDivider();
           },
-          itemCount: children.length
+          itemCount: children.length,
+          scrollDirection: lvum.getScrollDirection(),
+          reverse: lvum.reverse ?? false,
+          primary: lvum.primary,
+          physics: lvum.scrollPhysics?.toScrollPhysics(),
+          shrinkWrap: lvum.shrinkWrap ?? false,
+          padding: lvum.padding?.toEdgeInsets(),
+          addAutomaticKeepAlives: lvum.addAutomaticKeepAlives ?? true,
+          addRepaintBoundaries: lvum.addRepaintBoundaries ?? true,
+          addSemanticIndexes: lvum.addSemanticIndexes ?? true,
+          cacheExtent: lvum.cacheExtent,
       );
     } else {
       listView = ListView(
@@ -109,7 +119,7 @@ class FLDyListTileUnit extends FLDyRenderUnit {
       dense: ltum.dense,
       contentPadding: ltum.contentPadding?.toEdgeInsets(),
       enabled: ltum.enabled ?? true,
-      selected: ltum.selected,
+      selected: ltum.selected ?? false,
     );
   }
 }
