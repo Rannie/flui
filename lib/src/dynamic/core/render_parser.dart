@@ -16,14 +16,16 @@ class FLDyRenderParser {
         return FLDyContainerUnit(unitModel: unitModel);
       case FLDyNativeUnitName.safeArea:
         return FLDySafeAreaUnit(unitModel: unitModel);
-      case FLDyNativeUnitName.sizedBox:
-        return FLDySizedBoxUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.stack:
+        return FLDyStackUnit(unitModel: unitModel);
       case FLDyNativeUnitName.listView:
         return FLDyListViewUnit(unitModel: unitModel);
       case FLDyNativeUnitName.listTile:
         return FLDyListTileUnit(unitModel: unitModel);
       case FLDyNativeUnitName.text:
         return FLDyTextUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.sizedBox:
+        return FLDySizedBoxUnit(unitModel: unitModel);
     }
     return null;
   }

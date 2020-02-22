@@ -49,6 +49,25 @@ class FLDySafeAreaUnit extends FLDyRenderUnit {
   }
 }
 
+/// Stack unit widget
+class FLDyStackUnit extends FLDyRenderUnit {
+  FLDyStackUnit({FLDyStackUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDyStackUnitModel),
+        super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyStackUnitModel sum = unitModel as FLDyStackUnitModel;
+    final Widget self = Stack(
+      alignment: sum.getAlignment() ?? AlignmentDirectional.topStart,
+      textDirection: sum.getTextDirection(),
+      fit: sum.getStackFit() ?? StackFit.loose,
+      overflow: sum.getOverflow() ?? Overflow.clip,
+    );
+    return resolveSelf(self);
+  }
+}
+
 /// ListView unit widget
 class FLDyListViewUnit extends FLDyRenderUnit {
   FLDyListViewUnit({FLDyListViewUnitModel unitModel})
@@ -97,7 +116,7 @@ class FLDyListViewUnit extends FLDyRenderUnit {
         children: children,
       );
     }
-    return listView;
+    return resolveSelf(listView);
   }
 }
 
@@ -110,7 +129,7 @@ class FLDyListTileUnit extends FLDyRenderUnit {
   @override
   Widget build(BuildContext context) {
     final FLDyListTileUnitModel ltum = unitModel as FLDyListTileUnitModel;
-    return ListTile(
+    final widget = ListTile(
       leading: ltum.leading != null ? markupUnit(ltum.leading) : null,
       title: ltum.title != null ? markupUnit(ltum.title) : null,
       subtitle: ltum.subtitle != null ? markupUnit(ltum.subtitle) : null,
@@ -121,5 +140,6 @@ class FLDyListTileUnit extends FLDyRenderUnit {
       enabled: ltum.enabled ?? true,
       selected: ltum.selected ?? false,
     );
+    return resolveSelf(widget);
   }
 }
