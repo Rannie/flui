@@ -13,6 +13,8 @@ class StackPageState extends State<StackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+          ? Color(0xFFECEFF1) : null,
       appBar: AppBar(
         title: Text('Stack'),
       ),

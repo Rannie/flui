@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/base_units.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/units/unit_constants.dart';
+import 'package:flui/src/common/tools.dart';
 
 /// SizedBox
 class FLDySizedBoxUnit extends FLDyRenderUnit {
@@ -29,7 +30,7 @@ class FLDyTextUnit extends FLDyRenderUnit {
     final FLDyTextUnitModel tum = unitModel as FLDyTextUnitModel;
     final Widget textWidget = Text(
       tum.text,
-      style: tum.textStyle?.toTextStyle(),
+      style: tum.textStyle?.toTextStyle(context),
       textAlign: tum.getTextAlign(),
       textDirection: tum.getTextDirection(),
       softWrap: tum.softWrap,
@@ -59,7 +60,7 @@ class FLDyImageUnit extends FLDyRenderUnit {
       excludeFromSemantics: ium.excludeFromSemantics ?? false,
       width: ium.width,
       height: ium.height,
-      color: ium.color != null ? Color(num.parse(ium.color)) : null,
+      color: FLColorTool.parseColor(ium.color, context),
       fit: ium.getBoxFit(),
       alignment: ium.getAlignment() ?? Alignment.center,
       repeat: ium.getImageRepeat() ?? ImageRepeat.noRepeat,
@@ -80,7 +81,7 @@ class FLDyIconUnit extends FLDyRenderUnit {
     final Icon icon = Icon(
       ium.icon.toIconData(),
       size: ium.size,
-      color: ium.color != null ? Color(num.parse(ium.color)) : null,
+      color: FLColorTool.parseColor(ium.color, context),
       semanticLabel: ium.semanticLabel,
       textDirection: ium.getTextDirection(),
     );
