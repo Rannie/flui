@@ -152,6 +152,10 @@ FLDyStackUnitModel _$FLDyStackUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyStackUnitModel(
     uniqueId: json['uniqueId'] as String,
     unitName: json['unitName'] as String,
+    positioned: json['positioned'] == null
+        ? null
+        : FLDyUnitPositioned.fromJson(
+            json['positioned'] as Map<String, dynamic>),
     children: (json['children'] as List)
         ?.map((e) => e == null
             ? null
@@ -168,6 +172,7 @@ Map<String, dynamic> _$FLDyStackUnitModelToJson(FLDyStackUnitModel instance) =>
     <String, dynamic>{
       'uniqueId': instance.uniqueId,
       'unitName': instance.unitName,
+      'positioned': instance.positioned,
       'children': instance.children,
       'alignment': instance.alignment,
       'textDirection': instance.textDirection,
@@ -339,6 +344,45 @@ Map<String, dynamic> _$FLDyTextUnitModelToJson(FLDyTextUnitModel instance) =>
       'textWidthBasis': instance.textWidthBasis,
     };
 
+FLDyImageUnitModel _$FLDyImageUnitModelFromJson(Map<String, dynamic> json) {
+  return FLDyImageUnitModel(
+    unitName: json['unitName'] as String,
+    positioned: json['positioned'] == null
+        ? null
+        : FLDyUnitPositioned.fromJson(
+            json['positioned'] as Map<String, dynamic>),
+    flex: json['flex'] as String,
+    imageProvider: json['imageProvider'] == null
+        ? null
+        : FLDyUnitImageProvider.fromJson(
+            json['imageProvider'] as Map<String, dynamic>),
+    width: (json['width'] as num)?.toDouble(),
+    height: (json['height'] as num)?.toDouble(),
+    color: json['color'] as String,
+    fit: json['fit'] as String,
+    alignment: json['alignment'] as String,
+    imageRepeat: json['imageRepeat'] as String,
+    semanticLabel: json['semanticLabel'] as String,
+    excludeFromSemantics: json['excludeFromSemantics'] as bool,
+  );
+}
+
+Map<String, dynamic> _$FLDyImageUnitModelToJson(FLDyImageUnitModel instance) =>
+    <String, dynamic>{
+      'unitName': instance.unitName,
+      'flex': instance.flex,
+      'positioned': instance.positioned,
+      'imageProvider': instance.imageProvider,
+      'width': instance.width,
+      'height': instance.height,
+      'color': instance.color,
+      'fit': instance.fit,
+      'alignment': instance.alignment,
+      'imageRepeat': instance.imageRepeat,
+      'semanticLabel': instance.semanticLabel,
+      'excludeFromSemantics': instance.excludeFromSemantics,
+    };
+
 FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
   return FLDyUnitTextStyle(
     json['color'] as String,
@@ -466,36 +510,6 @@ Map<String, dynamic> _$FLDyUnitDecorationImageToJson(
       'fit': instance.fit,
       'alignment': instance.alignment,
       'imageRepeat': instance.imageRepeat,
-    };
-
-FLDyUnitImage _$FLDyUnitImageFromJson(Map<String, dynamic> json) {
-  return FLDyUnitImage(
-    imageProvider: json['imageProvider'] == null
-        ? null
-        : FLDyUnitImageProvider.fromJson(
-            json['imageProvider'] as Map<String, dynamic>),
-    width: (json['width'] as num)?.toDouble(),
-    height: (json['height'] as num)?.toDouble(),
-    color: json['color'] as String,
-    fit: json['fit'] as String,
-    alignment: json['alignment'] as String,
-    imageRepeat: json['imageRepeat'] as String,
-    semanticLabel: json['semanticLabel'] as String,
-    excludeFromSemantics: json['excludeFromSemantics'] as bool,
-  );
-}
-
-Map<String, dynamic> _$FLDyUnitImageToJson(FLDyUnitImage instance) =>
-    <String, dynamic>{
-      'imageProvider': instance.imageProvider,
-      'width': instance.width,
-      'height': instance.height,
-      'color': instance.color,
-      'fit': instance.fit,
-      'alignment': instance.alignment,
-      'imageRepeat': instance.imageRepeat,
-      'semanticLabel': instance.semanticLabel,
-      'excludeFromSemantics': instance.excludeFromSemantics,
     };
 
 FLDyUnitBoxConstraints _$FLDyUnitBoxConstraintsFromJson(

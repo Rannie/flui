@@ -58,11 +58,13 @@ class FLDyStackUnit extends FLDyRenderUnit {
   @override
   Widget build(BuildContext context) {
     final FLDyStackUnitModel sum = unitModel as FLDyStackUnitModel;
+    final List<Widget> children = markupUnits(sum.children);
     final Widget self = Stack(
       alignment: sum.getAlignment() ?? AlignmentDirectional.topStart,
       textDirection: sum.getTextDirection(),
       fit: sum.getStackFit() ?? StackFit.loose,
       overflow: sum.getOverflow() ?? Overflow.clip,
+      children: children,
     );
     return resolveSelf(self);
   }
