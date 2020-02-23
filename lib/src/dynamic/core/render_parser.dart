@@ -29,6 +29,8 @@ class FLDyRenderParser {
         return FLDySizedBoxUnit(unitModel: unitModel);
       case FLDyNativeUnitName.image:
         return FLDyImageUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.icon:
+        return FLDyIconUnit(unitModel: unitModel);
     }
     return null;
   }
