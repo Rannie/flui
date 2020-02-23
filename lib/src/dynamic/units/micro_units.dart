@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/base_units.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
+import 'unit_constants.dart';
 
+/// SizedBox
 class FLDySizedBoxUnit extends FLDyRenderUnit {
   FLDySizedBoxUnit({FLDySizedBoxUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDySizedBoxUnitModel),
@@ -16,7 +18,7 @@ class FLDySizedBoxUnit extends FLDyRenderUnit {
   }
 }
 
-
+/// Text
 class FLDyTextUnit extends FLDyRenderUnit {
   FLDyTextUnit({FLDyTextUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyTextUnitModel),
@@ -38,5 +40,30 @@ class FLDyTextUnit extends FLDyRenderUnit {
       textWidthBasis: tum.getTextWidthBasis(),
     );
     return resolveSelf(textWidget);
+  }
+}
+
+/// Image
+class FLDyImageUnit extends FLDyRenderUnit {
+  FLDyImageUnit({FLDyImageUnitModel unitModel})
+    : assert(unitModel.runtimeType == FLDyImageUnitModel),
+      super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyImageUnitModel ium = unitModel as FLDyImageUnitModel;
+    final Widget image = Image(
+      image: ium.imageProvider.type == FLDyImageType.network
+          ? ium.imageProvider.toNetworkImage() : ium.imageProvider.toAssetImage(),
+      semanticLabel: ium.semanticLabel,
+      excludeFromSemantics: ium.excludeFromSemantics ?? false,
+      width: ium.width,
+      height: ium.height,
+      color: ium.color != null ? Color(num.parse(ium.color)) : null,
+      fit: ium.getBoxFit(),
+      alignment: ium.getAlignment() ?? Alignment.center,
+      repeat: ium.getImageRepeat() ?? ImageRepeat.noRepeat,
+    );
+    return resolveSelf(image);
   }
 }

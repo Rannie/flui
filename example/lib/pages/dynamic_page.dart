@@ -1,6 +1,7 @@
 import 'package:example/pages/dyalign_page.dart';
 import 'package:example/pages/dycontainer_page.dart';
 import 'package:example/pages/dylistview_page.dart';
+import 'package:example/pages/dystack_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
 
@@ -23,7 +24,7 @@ class _DynamicPageState extends State<DynamicPage> {
           height: double.infinity,
           child: ListView.separated(
               shrinkWrap: true,
-              itemCount: 3,
+              itemCount: 4,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return FLListTile(
@@ -40,6 +41,13 @@ class _DynamicPageState extends State<DynamicPage> {
                   );
                 }
                 if (index == 2) {
+                  return FLListTile(
+                    title: Text('Stack Layout'),
+                    onTap: () => Navigator.pushNamed(
+                        context, StackPage.routeName),
+                  );
+                }
+                if (index == 3) {
                   return FLListTile(
                     title: Text('List View'),
                     onTap: () => Navigator.pushNamed(

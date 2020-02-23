@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/units/container_units.dart';
 import 'package:flui/src/dynamic/units/micro_units.dart';
+import 'package:flui/src/dynamic/units/unit_constants.dart';
 
 class FLDyRenderParser {
   // mark up build
@@ -26,6 +27,8 @@ class FLDyRenderParser {
         return FLDyTextUnit(unitModel: unitModel);
       case FLDyNativeUnitName.sizedBox:
         return FLDySizedBoxUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.image:
+        return FLDyImageUnit(unitModel: unitModel);
     }
     return null;
   }
