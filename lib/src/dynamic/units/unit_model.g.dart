@@ -309,6 +309,7 @@ Map<String, dynamic> _$FLDySizedBoxUnitModelToJson(
 FLDyTextUnitModel _$FLDyTextUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyTextUnitModel(
     json['text'] as String,
+    uniqueId: json['uniqueId'] as String,
     unitName: json['unitName'] as String,
     positioned: json['positioned'] == null
         ? null
@@ -330,6 +331,7 @@ FLDyTextUnitModel _$FLDyTextUnitModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$FLDyTextUnitModelToJson(FLDyTextUnitModel instance) =>
     <String, dynamic>{
+      'uniqueId': instance.uniqueId,
       'unitName': instance.unitName,
       'positioned': instance.positioned,
       'text': instance.text,
@@ -346,6 +348,7 @@ Map<String, dynamic> _$FLDyTextUnitModelToJson(FLDyTextUnitModel instance) =>
 
 FLDyImageUnitModel _$FLDyImageUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyImageUnitModel(
+    uniqueId: json['uniqueId'] as String,
     unitName: json['unitName'] as String,
     positioned: json['positioned'] == null
         ? null
@@ -369,6 +372,7 @@ FLDyImageUnitModel _$FLDyImageUnitModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$FLDyImageUnitModelToJson(FLDyImageUnitModel instance) =>
     <String, dynamic>{
+      'uniqueId': instance.uniqueId,
       'unitName': instance.unitName,
       'flex': instance.flex,
       'positioned': instance.positioned,
@@ -381,6 +385,53 @@ Map<String, dynamic> _$FLDyImageUnitModelToJson(FLDyImageUnitModel instance) =>
       'imageRepeat': instance.imageRepeat,
       'semanticLabel': instance.semanticLabel,
       'excludeFromSemantics': instance.excludeFromSemantics,
+    };
+
+FLDyIconUnitModel _$FLDyIconUnitModelFromJson(Map<String, dynamic> json) {
+  return FLDyIconUnitModel(
+    json['icon'] == null
+        ? null
+        : FLDyUnitIconData.fromJson(json['icon'] as Map<String, dynamic>),
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    positioned: json['positioned'] == null
+        ? null
+        : FLDyUnitPositioned.fromJson(
+            json['positioned'] as Map<String, dynamic>),
+    size: (json['size'] as num)?.toDouble(),
+    color: json['color'] as String,
+    semanticLabel: json['semanticLabel'] as String,
+    textDirection: json['textDirection'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyIconUnitModelToJson(FLDyIconUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'positioned': instance.positioned,
+      'icon': instance.icon,
+      'size': instance.size,
+      'color': instance.color,
+      'semanticLabel': instance.semanticLabel,
+      'textDirection': instance.textDirection,
+    };
+
+FLDyUnitIconData _$FLDyUnitIconDataFromJson(Map<String, dynamic> json) {
+  return FLDyUnitIconData(
+    json['codePoint'] as int,
+    json['fontFamily'] as String,
+    json['fontPackage'] as String,
+    json['matchTextDirection'] as bool,
+  );
+}
+
+Map<String, dynamic> _$FLDyUnitIconDataToJson(FLDyUnitIconData instance) =>
+    <String, dynamic>{
+      'codePoint': instance.codePoint,
+      'fontFamily': instance.fontFamily,
+      'fontPackage': instance.fontPackage,
+      'matchTextDirection': instance.matchTextDirection,
     };
 
 FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/base_units.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
-import 'unit_constants.dart';
+import 'package:flui/src/dynamic/units/unit_constants.dart';
 
 /// SizedBox
 class FLDySizedBoxUnit extends FLDyRenderUnit {
@@ -67,3 +67,24 @@ class FLDyImageUnit extends FLDyRenderUnit {
     return resolveSelf(image);
   }
 }
+
+/// Icon
+class FLDyIconUnit extends FLDyRenderUnit {
+  FLDyIconUnit({FLDyIconUnitModel unitModel})
+    : assert(unitModel.runtimeType == FLDyIconUnitModel),
+      super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyIconUnitModel ium = unitModel as FLDyIconUnitModel;
+    final Icon icon = Icon(
+      ium.icon.toIconData(),
+      size: ium.size,
+      color: ium.color != null ? Color(num.parse(ium.color)) : null,
+      semanticLabel: ium.semanticLabel,
+      textDirection: ium.getTextDirection(),
+    );
+    return resolveSelf(icon);
+  }
+}
+

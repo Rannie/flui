@@ -9,6 +9,7 @@ class FLDyNativeUnitName {
   static const String listTile = 'ListTile';
   static const String text = 'Text';
   static const String image = 'Image';
+  static const String icon = 'Icon';
 }
 
 class FLDyImageType {

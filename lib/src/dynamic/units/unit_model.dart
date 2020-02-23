@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
-import 'unit_constants.dart';
+import 'package:flui/src/dynamic/units/unit_constants.dart';
 
 part 'unit_model.g.dart';
 
@@ -45,6 +45,8 @@ class FLDyUnitModel {
         return FLDySizedBoxUnitModel.fromJson(json);
       case FLDyNativeUnitName.image:
         return FLDyImageUnitModel.fromJson(json);
+      case FLDyNativeUnitName.icon:
+        return FLDyIconUnitModel.fromJson(json);
     }
     return _$FLDyUnitModelFromJson(json);
   }
@@ -269,6 +271,7 @@ class FLDySizedBoxUnitModel extends FLDyUnitModel {
 /// Text
 class FLDyTextUnitModel extends FLDyUnitModel {
   FLDyTextUnitModel(this.text, {
+    String uniqueId,
     String unitName,
     FLDyUnitPositioned positioned,
     this.textStyle,
@@ -281,6 +284,7 @@ class FLDyTextUnitModel extends FLDyUnitModel {
     this.semanticsLabel,
     this.textWidthBasis,
   }) : super(
+      uniqueId: uniqueId,
       unitName: unitName,
       positioned: positioned,
   );
@@ -310,6 +314,7 @@ class FLDyTextUnitModel extends FLDyUnitModel {
 /// Image
 class FLDyImageUnitModel extends FLDyUnitModel {
   FLDyImageUnitModel({
+    String uniqueId,
     String unitName,
     FLDyUnitPositioned positioned,
     String flex,
@@ -323,6 +328,7 @@ class FLDyImageUnitModel extends FLDyUnitModel {
     this.semanticLabel,
     this.excludeFromSemantics
   }) : super(
+    uniqueId: uniqueId,
     unitName: unitName,
     positioned: positioned,
     flex: flex
@@ -346,6 +352,60 @@ class FLDyImageUnitModel extends FLDyUnitModel {
   BoxFit getBoxFit() => flStringToBoxFit(fit);
   Alignment getAlignment() => flStringtoAlignment(alignment);
   ImageRepeat getImageRepeat() => flStringToImageRepeat(imageRepeat);
+}
+
+@JsonSerializable()
+/// Icon
+class FLDyIconUnitModel extends FLDyUnitModel {
+  FLDyIconUnitModel(this.icon, {
+    String uniqueId,
+    String unitName,
+    FLDyUnitPositioned positioned,
+    this.size,
+    this.color,
+    this.semanticLabel,
+    this.textDirection,
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    positioned: positioned,
+  );
+
+  final FLDyUnitIconData icon;
+  final double size;
+  final String color;
+  final String semanticLabel;
+  final String textDirection;
+
+  factory FLDyIconUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyIconUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyIconUnitModelToJson(this);
+
+  TextDirection getTextDirection() => flStringToTextDirection(textDirection);
+}
+
+@JsonSerializable()
+/// IconData
+class FLDyUnitIconData {
+  FLDyUnitIconData(this.codePoint, this.fontFamily, this.fontPackage, this.matchTextDirection);
+
+  final int codePoint;
+  final String fontFamily;
+  final String fontPackage;
+  final bool matchTextDirection;
+
+  factory FLDyUnitIconData.fromJson(Map<String, dynamic> json) =>
+      _$FLDyUnitIconDataFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyUnitIconDataToJson(this);
+
+  IconData toIconData() {
+    return IconData(
+        codePoint,
+        fontFamily: fontFamily,
+        fontPackage: fontPackage,
+        matchTextDirection: matchTextDirection ?? false
+    );
+  }
 }
 
 @JsonSerializable()
@@ -477,7 +537,7 @@ class FLDyUnitEdgeInsets {
   Map<String, dynamic> toJson() => _$FLDyUnitEdgeInsetsToJson(this);
 
   EdgeInsets toEdgeInsets() {
-    if (all > 0) return EdgeInsets.all(all);
+    if (all != null) return EdgeInsets.all(all);
     else return EdgeInsets.fromLTRB(left ?? 0, top ?? 0, right ?? 0, bottom ?? 0);
   }
 }
