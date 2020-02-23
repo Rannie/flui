@@ -1,3 +1,4 @@
+import 'package:flui/src/common/tools.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_constants.dart';
@@ -447,15 +448,14 @@ class FLDyUnitTextStyle {
       _$FLDyUnitTextStyleFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitTextStyleToJson(this);
 
-  TextStyle toTextStyle() {
+  TextStyle toTextStyle(BuildContext context) {
     final TextDecoration textDecoration = textDecorations != null
         ? TextDecoration.combine(textDecorations.map((decStr) {
           flStringToTextDecoration(decStr);
         }).toList()) : null;
     return TextStyle(
-      color: color != null ? Color(num.parse(color)) : null,
-      backgroundColor: backgroundColor != null
-          ? Color(num.parse(backgroundColor)) : null,
+      color: FLColorTool.parseColor(color, context),
+      backgroundColor: FLColorTool.parseColor(backgroundColor, context),
       fontFamily: fontFamily,
       fontSize: fontSize,
       fontWeight: flStringToFontWeight(fontWeight),
@@ -465,8 +465,7 @@ class FLDyUnitTextStyle {
       textBaseline: flStringToTextBaseline(textBaseline),
       height: height,
       decoration: textDecoration,
-      decorationColor: decorationColor != null
-          ? Color(num.parse(decorationColor)) : null,
+      decorationColor: FLColorTool.parseColor(decorationColor, context),
       decorationStyle: flStringToTextDecorationStyle(decorationStyle),
       decorationThickness: decorationThickness
     );
@@ -488,12 +487,12 @@ class FLDyUnitDivider {
       _$FLDyUnitDividerFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitDividerToJson(this);
 
-  Divider toDivider() => Divider(
+  Divider toDivider(BuildContext context) => Divider(
     height: height,
     thickness: thickness,
     indent: indent,
     endIndent: endIndent,
-    color: color != null ? Color(num.parse(color)) : null,
+    color: FLColorTool.parseColor(color, context),
   );
 }
 
@@ -628,14 +627,14 @@ class FLDyUnitBoxDecoration {
       _$FLDyUnitBoxDecorationFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitBoxDecorationToJson(this);
 
-  BoxDecoration toBoxDecoration() => BoxDecoration(
-    color: (color != null ? Color(num.parse(color)) : null),
+  BoxDecoration toBoxDecoration(BuildContext context) => BoxDecoration(
+    color: FLColorTool.parseColor(color, context),
     image: image?.toDecorationImage(),
-    border: border?.toBorder(),
+    border: border?.toBorder(context),
     borderRadius: borderRadius?.toBorderRadius(),
     boxShadow: boxShadow!= null
         ? boxShadow.map((FLDyUnitBoxShadow shadow)
-            => shadow.toBoxShadow()).toList() : null,
+            => shadow.toBoxShadow(context)).toList() : null,
     shape: flStringToBoxShape(shape) ?? BoxShape.rectangle
   );
 }
@@ -654,12 +653,15 @@ class FLDyUnitBoxShadow {
       _$FLDyUnitBoxShadowFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitBoxShadowToJson(this);
 
-  BoxShadow toBoxShadow() => BoxShadow(
-    color: (color != null ? Color(num.parse(color)) : const Color(0xFF000000)),
-    offset: offset?.toOffset(),
-    blurRadius: blurRadius ?? 0.0,
-    spreadRadius: spreadRadius ?? 0.0,
-  );
+  BoxShadow toBoxShadow(BuildContext context) {
+    final shadowColor = FLColorTool.parseColor(color, context);
+    return BoxShadow(
+        color: shadowColor ?? const Color(0xFF000000),
+        offset: offset?.toOffset(),
+        blurRadius: blurRadius ?? 0.0,
+        spreadRadius: spreadRadius ?? 0.0,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -704,8 +706,8 @@ class FLDyUnitBorder {
       _$FLDyUnitBorderFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitBorderToJson(this);
 
-  Border toBorder() => Border.all(
-      color: (color != null ? Color(num.parse(color)) : Color(0xFF000000)),
+  Border toBorder(BuildContext context) => Border.all(
+      color: FLColorTool.parseColor(color, context) ?? Color(0xFF000000),
       width: width ?? 1,
       style: flStringToBorderStyle(style) ?? BorderStyle.solid
   );

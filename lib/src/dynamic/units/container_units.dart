@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/units/base_units.dart';
+import 'package:flui/src/common/tools.dart';
 
 /// Container unit widget
 class FLDyContainerUnit extends FLDyRenderUnit {
@@ -17,9 +18,9 @@ class FLDyContainerUnit extends FLDyRenderUnit {
       height: cum.height,
       padding: cum.padding?.toEdgeInsets(),
       margin: cum.margin?.toEdgeInsets(),
-      color: cum.color != null ? Color(num.parse(cum.color)) : null,
-      decoration: cum.decoration?.toBoxDecoration(),
-      foregroundDecoration: cum.foregroundDecoration?.toBoxDecoration(),
+      color: FLColorTool.parseColor(cum.color, context),
+      decoration: cum.decoration?.toBoxDecoration(context),
+      foregroundDecoration: cum.foregroundDecoration?.toBoxDecoration(context),
       constraints: cum.constraints?.toBoxConstraints(),
       child: child,
     );
@@ -87,7 +88,7 @@ class FLDyListViewUnit extends FLDyRenderUnit {
             return children[index];
           },
           separatorBuilder: (BuildContext context, int index) {
-            return lvum.separatedDivider.toDivider();
+            return lvum.separatedDivider.toDivider(context);
           },
           itemCount: children.length,
           scrollDirection: lvum.getScrollDirection(),
