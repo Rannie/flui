@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_constants.dart';
 
+import 'unit_constants.dart';
+
 part 'unit_model.g.dart';
 
 @JsonSerializable()
@@ -716,17 +718,29 @@ class FLDyUnitBorder {
 @JsonSerializable()
 /// Align
 class FLDyUnitAlign {
-  FLDyUnitAlign(this.type, this.mainAxisSize, this.mainAxisAlignment,
-      this.crossAxisAlignment);
+  FLDyUnitAlign(
+      this.type,
+      this.mainAxisSize,
+      this.mainAxisAlignment,
+      this.crossAxisAlignment,
+      this.alignment,
+      this.widthFactor,
+      this.heightFactor
+  );
 
   final String type;
   final String mainAxisSize;
   final String mainAxisAlignment;
   final String crossAxisAlignment;
+  final String alignment;
+  final double widthFactor;
+  final double heightFactor;
 
   factory FLDyUnitAlign.fromJson(Map<String, dynamic> json) =>
       _$FLDyUnitAlignFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitAlignToJson(this);
+
+  Alignment getAlignment() => flStringtoAlignment(alignment);
 }
 
 @JsonSerializable()

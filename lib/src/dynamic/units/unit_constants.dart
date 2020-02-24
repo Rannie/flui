@@ -12,6 +12,13 @@ class FLDyNativeUnitName {
   static const String icon = 'Icon';
 }
 
+class FLDyAlignType {
+  static const String row = 'Row';
+  static const String column = 'Column';
+  static const String center = 'Center';
+  static const String align = 'Align';
+}
+
 class FLDyImageType {
   static const String network = 'network';
   static const String asset = 'asset';

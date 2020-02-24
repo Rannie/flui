@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/core/render_parser.dart';
+import 'package:flui/src/dynamic/units/unit_constants.dart';
 
 abstract class FLDyBaseUnit extends StatelessWidget {
   @override
@@ -145,8 +146,12 @@ class FLDyAlignUnit extends FLDyBaseUnit {
 
   @override
   Widget build(BuildContext context) {
-    if (align.type == "Center") {
-      return Center(child: child);
+    if (align.type == FLDyAlignType.center) {
+      return Center(
+          widthFactor: align.widthFactor,
+          heightFactor: align.heightFactor,
+          child: child
+      );
     }
 
     final MainAxisSize mainAxisSize = align.mainAxisSize != null
@@ -159,19 +164,26 @@ class FLDyAlignUnit extends FLDyBaseUnit {
         align.crossAxisAlignment != null
             ? resolveCrossAlignment(align.crossAxisAlignment)
             : CrossAxisAlignment.center;
-    if (align.type == "Row") {
+    if (align.type == FLDyAlignType.row) {
       return Row(
         mainAxisSize: mainAxisSize,
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
         children: children,
       );
-    } else if (align.type == "Column") {
+    } else if (align.type == FLDyAlignType.column) {
       return Column(
         mainAxisSize: mainAxisSize,
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
         children: children,
+      );
+    } else if (align.type == FLDyAlignType.align) {
+      return Align(
+        alignment: align.getAlignment() ?? Alignment.center,
+        widthFactor: align.widthFactor,
+        heightFactor: align.heightFactor,
+        child: child,
       );
     }
 
