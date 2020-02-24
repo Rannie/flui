@@ -346,6 +346,71 @@ Map<String, dynamic> _$FLDyTextUnitModelToJson(FLDyTextUnitModel instance) =>
       'textWidthBasis': instance.textWidthBasis,
     };
 
+FLDyRichTextUnitModel _$FLDyRichTextUnitModelFromJson(
+    Map<String, dynamic> json) {
+  return FLDyRichTextUnitModel(
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    positioned: json['positioned'] == null
+        ? null
+        : FLDyUnitPositioned.fromJson(
+            json['positioned'] as Map<String, dynamic>),
+    text: json['text'] == null
+        ? null
+        : FLDyTextSpanUnitModel.fromJson(json['text'] as Map<String, dynamic>),
+    textAlign: json['textAlign'] as String,
+    textDirection: json['textDirection'] as String,
+    softWrap: json['softWrap'] as bool,
+    textOverflow: json['textOverflow'] as String,
+    textScaleFactor: (json['textScaleFactor'] as num)?.toDouble(),
+    maxLines: json['maxLines'] as int,
+    semanticsLabel: json['semanticsLabel'] as String,
+    textWidthBasis: json['textWidthBasis'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyRichTextUnitModelToJson(
+        FLDyRichTextUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'positioned': instance.positioned,
+      'text': instance.text,
+      'textAlign': instance.textAlign,
+      'textDirection': instance.textDirection,
+      'softWrap': instance.softWrap,
+      'textOverflow': instance.textOverflow,
+      'textScaleFactor': instance.textScaleFactor,
+      'maxLines': instance.maxLines,
+      'semanticsLabel': instance.semanticsLabel,
+      'textWidthBasis': instance.textWidthBasis,
+    };
+
+FLDyTextSpanUnitModel _$FLDyTextSpanUnitModelFromJson(
+    Map<String, dynamic> json) {
+  return FLDyTextSpanUnitModel(
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    children: json['children'] as List,
+    text: json['text'] as String,
+    textStyle: json['textStyle'] == null
+        ? null
+        : FLDyUnitTextStyle.fromJson(json['textStyle'] as Map<String, dynamic>),
+    semanticsLabel: json['semanticsLabel'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyTextSpanUnitModelToJson(
+        FLDyTextSpanUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'children': instance.children,
+      'text': instance.text,
+      'textStyle': instance.textStyle,
+      'semanticsLabel': instance.semanticsLabel,
+    };
+
 FLDyImageUnitModel _$FLDyImageUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyImageUnitModel(
     uniqueId: json['uniqueId'] as String,
@@ -436,6 +501,7 @@ Map<String, dynamic> _$FLDyUnitIconDataToJson(FLDyUnitIconData instance) =>
 
 FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
   return FLDyUnitTextStyle(
+    json['inherit'] as bool,
     json['color'] as String,
     json['backgroundColor'] as String,
     json['fontFamily'] as String,
@@ -455,6 +521,7 @@ FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$FLDyUnitTextStyleToJson(FLDyUnitTextStyle instance) =>
     <String, dynamic>{
+      'inherit': instance.inherit,
       'color': instance.color,
       'backgroundColor': instance.backgroundColor,
       'fontFamily': instance.fontFamily,

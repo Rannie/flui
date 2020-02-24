@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
-import 'package:flui/src/dynamic/units/container_units.dart';
-import 'package:flui/src/dynamic/units/micro_units.dart';
-import 'package:flui/src/dynamic/units/unit_constants.dart';
+import 'package:flui/src/dynamic/units/container_unit.dart';
+import 'package:flui/src/dynamic/units/micro_unit.dart';
+import 'package:flui/src/dynamic/units/unit_constant.dart';
 
 class FLDyRenderParser {
   // mark up build
@@ -25,6 +25,8 @@ class FLDyRenderParser {
         return FLDyListTileUnit(unitModel: unitModel);
       case FLDyNativeUnitName.text:
         return FLDyTextUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.richText:
+        return FLDyRichTextUnit(unitModel: unitModel);
       case FLDyNativeUnitName.sizedBox:
         return FLDySizedBoxUnit(unitModel: unitModel);
       case FLDyNativeUnitName.image:
