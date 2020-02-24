@@ -682,6 +682,9 @@ FLDyUnitAlign _$FLDyUnitAlignFromJson(Map<String, dynamic> json) {
     json['mainAxisSize'] as String,
     json['mainAxisAlignment'] as String,
     json['crossAxisAlignment'] as String,
+    json['alignment'] as String,
+    (json['widthFactor'] as num)?.toDouble(),
+    (json['heightFactor'] as num)?.toDouble(),
   );
 }
 
@@ -691,6 +694,9 @@ Map<String, dynamic> _$FLDyUnitAlignToJson(FLDyUnitAlign instance) =>
       'mainAxisSize': instance.mainAxisSize,
       'mainAxisAlignment': instance.mainAxisAlignment,
       'crossAxisAlignment': instance.crossAxisAlignment,
+      'alignment': instance.alignment,
+      'widthFactor': instance.widthFactor,
+      'heightFactor': instance.heightFactor,
     };
 
 FLDyUnitPositioned _$FLDyUnitPositionedFromJson(Map<String, dynamic> json) {
