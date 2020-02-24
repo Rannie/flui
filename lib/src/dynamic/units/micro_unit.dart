@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flui/src/dynamic/units/base_units.dart';
+import 'package:flui/src/dynamic/units/base_unit.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
-import 'package:flui/src/dynamic/units/unit_constants.dart';
+import 'package:flui/src/dynamic/units/unit_constant.dart';
 import 'package:flui/src/common/tools.dart';
 
 /// SizedBox
@@ -41,6 +41,33 @@ class FLDyTextUnit extends FLDyRenderUnit {
       textWidthBasis: tum.getTextWidthBasis(),
     );
     return resolveSelf(textWidget);
+  }
+}
+
+/// RichText
+class FLDyRichTextUnit extends FLDyRenderUnit {
+  FLDyRichTextUnit({FLDyRichTextUnitModel unitModel})
+    : assert(unitModel.runtimeType == FLDyRichTextUnitModel),
+      super(unitModel: unitModel);
+
+  TextSpan buildTextSpan(FLDyTextSpanUnitModel spanUM, BuildContext context) {
+    return TextSpan(
+      text: spanUM.text,
+      style: spanUM.textStyle?.toTextStyle(context),
+      semanticsLabel: spanUM.semanticsLabel,
+      children: spanUM.children?.map(
+              (spanUM) => buildTextSpan(spanUM, context))?.toList()
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyRichTextUnitModel rtum = unitModel as FLDyRichTextUnitModel;
+    final textSpan = buildTextSpan(rtum.text, context);
+    final Widget richText = RichText(
+      text: textSpan,
+    );
+    return resolveSelf(richText);
   }
 }
 

@@ -1,9 +1,7 @@
 import 'package:flui/src/common/tools.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
-import 'package:flui/src/dynamic/units/unit_constants.dart';
-
-import 'unit_constants.dart';
+import 'package:flui/src/dynamic/units/unit_constant.dart';
 
 part 'unit_model.g.dart';
 
@@ -44,6 +42,8 @@ class FLDyUnitModel {
         return FLDyListTileUnitModel.fromJson(json);
       case FLDyNativeUnitName.text:
         return FLDyTextUnitModel.fromJson(json);
+      case FLDyNativeUnitName.richText:
+        return FLDyRichTextUnitModel.fromJson(json);
       case FLDyNativeUnitName.sizedBox:
         return FLDySizedBoxUnitModel.fromJson(json);
       case FLDyNativeUnitName.image:
@@ -314,6 +314,74 @@ class FLDyTextUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+/// RichText
+class FLDyRichTextUnitModel extends FLDyUnitModel {
+  FLDyRichTextUnitModel({
+    String uniqueId,
+    String unitName,
+    FLDyUnitPositioned positioned,
+    this.text,
+    this.textAlign,
+    this.textDirection,
+    this.softWrap,
+    this.textOverflow,
+    this.textScaleFactor,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    positioned: positioned,
+  );
+
+  final FLDyTextSpanUnitModel text;
+  final String textAlign;
+  final String textDirection;
+  final bool softWrap;
+  final String textOverflow;
+  final double textScaleFactor;
+  final int maxLines;
+  final String semanticsLabel;
+  final String textWidthBasis;
+
+  factory FLDyRichTextUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyRichTextUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyRichTextUnitModelToJson(this);
+
+  TextAlign getTextAlign() => flStringToTextAlign(textAlign);
+  TextDirection getTextDirection() => flStringToTextDirection(textDirection);
+  TextOverflow getTextOverflow() => flStringToTextOverflow(textOverflow);
+  TextWidthBasis getTextWidthBasis() => flStringToTextWidthBasis(textWidthBasis);
+}
+
+@JsonSerializable()
+/// TextSpan
+class FLDyTextSpanUnitModel extends FLDyUnitModel {
+  FLDyTextSpanUnitModel({
+    String uniqueId,
+    String unitName,
+    List children,
+    this.text,
+    this.textStyle,
+    this.semanticsLabel
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    children: children,
+  );
+
+  final String text;
+  final FLDyUnitTextStyle textStyle;
+  // TODO: add gesture recognizer
+  final String semanticsLabel;
+
+  factory FLDyTextSpanUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyTextSpanUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyTextSpanUnitModelToJson(this);
+}
+
+@JsonSerializable()
 /// Image
 class FLDyImageUnitModel extends FLDyUnitModel {
   FLDyImageUnitModel({
@@ -415,6 +483,7 @@ class FLDyUnitIconData {
 /// TextStyle
 class FLDyUnitTextStyle {
   FLDyUnitTextStyle(
+      this.inherit,
       this.color,
       this.backgroundColor,
       this.fontFamily,
@@ -431,6 +500,7 @@ class FLDyUnitTextStyle {
       this.decorationThickness
   );
 
+  final bool inherit;
   final String color;
   final String backgroundColor;
   final String fontFamily;
@@ -456,6 +526,7 @@ class FLDyUnitTextStyle {
           flStringToTextDecoration(decStr);
         }).toList()) : null;
     return TextStyle(
+      inherit: inherit ?? true,
       color: FLColorTool.parseColor(color, context),
       backgroundColor: FLColorTool.parseColor(backgroundColor, context),
       fontFamily: fontFamily,

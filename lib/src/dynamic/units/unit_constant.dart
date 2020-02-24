@@ -8,6 +8,7 @@ class FLDyNativeUnitName {
   static const String stack = 'Stack';
   static const String listTile = 'ListTile';
   static const String text = 'Text';
+  static const String richText = 'RichText';
   static const String image = 'Image';
   static const String icon = 'Icon';
 }
