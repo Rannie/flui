@@ -33,6 +33,10 @@ class FLDyRenderParser {
         return FLDyImageUnit(unitModel: unitModel);
       case FLDyNativeUnitName.icon:
         return FLDyIconUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.raisedButton:
+        return FLDyRaisedButtonUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.flatButton:
+        return FLDyFlatButtonUnit(unitModel: unitModel);
     }
     return null;
   }
