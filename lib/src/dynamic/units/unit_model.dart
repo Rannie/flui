@@ -6,6 +6,16 @@ import 'package:flui/src/dynamic/units/unit_constant.dart';
 part 'unit_model.g.dart';
 
 @JsonSerializable()
+/// Aciont Model
+class FLDyAction {
+  FLDyAction();
+
+  factory FLDyAction.fromJson(Map<String, dynamic> json) =>
+      _$FLDyActionFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyActionToJson(this);
+}
+
+@JsonSerializable()
 /// The unit model classes are responsible for storing view
 /// rendering information, bound events and bound data.
 class FLDyUnitModel {
@@ -49,6 +59,10 @@ class FLDyUnitModel {
         return FLDyImageUnitModel.fromJson(json);
       case FLDyNativeUnitName.icon:
         return FLDyIconUnitModel.fromJson(json);
+      case FLDyNativeUnitName.raisedButton:
+        return FLDyRaisedButtonUnitModel.fromJson(json);
+      case FLDyNativeUnitName.flatButton:
+        return FLDyFlatButtonUnitModel.fromJson(json);
     }
     return _$FLDyUnitModelFromJson(json);
   }
@@ -450,6 +464,76 @@ class FLDyIconUnitModel extends FLDyUnitModel {
   Map<String, dynamic> toJson() => _$FLDyIconUnitModelToJson(this);
 
   TextDirection getTextDirection() => flStringToTextDirection(textDirection);
+}
+
+@JsonSerializable()
+/// RaisedButton
+class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
+  FLDyRaisedButtonUnitModel({
+    String uniqueId,
+    String unitName,
+    FLDyUnitPositioned positioned,
+    FLDyUnitAlign align,
+    String flex,
+    FLDyUnitModel child,
+    @required this.presedAction,
+    this.longPressAction,
+    this.textColor,
+    this.color,
+    this.padding
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    positioned: positioned,
+    align: align,
+    flex: flex,
+    child: child,
+  );
+
+  final FLDyAction presedAction;
+  final FLDyAction longPressAction;
+  final String textColor;
+  final String color;
+  final FLDyUnitEdgeInsets padding;
+
+  factory FLDyRaisedButtonUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyRaisedButtonUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyRaisedButtonUnitModelToJson(this);
+}
+
+@JsonSerializable()
+/// RaisedButton
+class FLDyFlatButtonUnitModel extends FLDyUnitModel {
+  FLDyFlatButtonUnitModel({
+    String uniqueId,
+    String unitName,
+    FLDyUnitPositioned positioned,
+    FLDyUnitAlign align,
+    String flex,
+    FLDyUnitModel child,
+    @required this.presedAction,
+    this.longPressAction,
+    this.textColor,
+    this.color,
+    this.padding
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    positioned: positioned,
+    align: align,
+    flex: flex,
+    child: child,
+  );
+
+  final FLDyAction presedAction;
+  final FLDyAction longPressAction;
+  final String textColor;
+  final String color;
+  final FLDyUnitEdgeInsets padding;
+
+  factory FLDyFlatButtonUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyFlatButtonUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyFlatButtonUnitModelToJson(this);
 }
 
 @JsonSerializable()

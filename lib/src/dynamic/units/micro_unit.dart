@@ -116,3 +116,46 @@ class FLDyIconUnit extends FLDyRenderUnit {
   }
 }
 
+/// RaisedButton
+class FLDyRaisedButtonUnit extends FLDyRenderUnit {
+  FLDyRaisedButtonUnit({FLDyRaisedButtonUnitModel unitModel})
+    : assert(unitModel.runtimeType == FLDyRaisedButtonUnitModel),
+      super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyRaisedButtonUnitModel rbum = unitModel as FLDyRaisedButtonUnitModel;
+    final Widget child = resolveChild();
+    final RaisedButton button = RaisedButton(
+      onPressed: (){},
+      onLongPress: (){},
+      textColor: FLThemeTool.parseColor(rbum.textColor, context),
+      color: FLThemeTool.parseColor(rbum.color, context),
+      padding: rbum.padding?.toEdgeInsets(),
+      child: child,
+    );
+    return resolveSelf(button);
+  }
+}
+
+/// FlatButton
+class FLDyFlatButtonUnit extends FLDyRenderUnit {
+  FLDyFlatButtonUnit({FLDyFlatButtonUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDyFlatButtonUnitModel),
+        super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyFlatButtonUnitModel fbum = unitModel as FLDyFlatButtonUnitModel;
+    final Widget child = resolveChild();
+    final FlatButton button = FlatButton(
+      onPressed: (){},
+      onLongPress: (){},
+      textColor: FLThemeTool.parseColor(fbum.textColor, context),
+      color: FLThemeTool.parseColor(fbum.color, context),
+      padding: fbum.padding?.toEdgeInsets(),
+      child: child,
+    );
+    return resolveSelf(button);
+  }
+}

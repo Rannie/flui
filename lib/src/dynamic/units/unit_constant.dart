@@ -11,6 +11,8 @@ class FLDyNativeUnitName {
   static const String richText = 'RichText';
   static const String image = 'Image';
   static const String icon = 'Icon';
+  static const String raisedButton = 'RaisedButton';
+  static const String flatButton = 'FlatButton';
 }
 
 class FLDyAlignType {
