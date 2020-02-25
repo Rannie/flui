@@ -87,7 +87,7 @@ class FLDyImageUnit extends FLDyRenderUnit {
       excludeFromSemantics: ium.excludeFromSemantics ?? false,
       width: ium.width,
       height: ium.height,
-      color: FLColorTool.parseColor(ium.color, context),
+      color: FLThemeTool.parseColor(ium.color, context),
       fit: ium.getBoxFit(),
       alignment: ium.getAlignment() ?? Alignment.center,
       repeat: ium.getImageRepeat() ?? ImageRepeat.noRepeat,
@@ -108,7 +108,7 @@ class FLDyIconUnit extends FLDyRenderUnit {
     final Icon icon = Icon(
       ium.icon.toIconData(),
       size: ium.size,
-      color: FLColorTool.parseColor(ium.color, context),
+      color: FLThemeTool.parseColor(ium.color, context),
       semanticLabel: ium.semanticLabel,
       textDirection: ium.getTextDirection(),
     );

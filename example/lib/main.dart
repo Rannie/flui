@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:example/pages/dycontainer_page.dart';
+import 'package:example/pages/dyrich_text_page.dart';
 import 'package:example/pages/dystack_page.dart';
 import 'package:example/pages/list_page.dart';
 import 'package:example/pages/persistent_header_page.dart';
 import 'util.dart';
-import 'package:example/pages/about_page.dart';
+import 'package:example/about_page.dart';
 import 'package:example/pages/action_sheet_page.dart';
 import 'package:example/pages/avatar_page.dart';
 import 'package:example/pages/badge_page.dart';
@@ -25,7 +26,7 @@ import 'package:example/pages/skeleton_page.dart';
 import 'package:example/pages/toast_page.dart';
 import 'package:example/pages/input_page.dart';
 import 'package:example/pages/static_list_page.dart';
-import 'package:example/pages/dynamic_page.dart';
+import 'package:example/dynamic_page.dart';
 import 'package:example/pages/dyalign_page.dart';
 import 'package:example/pages/dylistview_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -152,10 +153,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           CountStepperPage.routeName: (context) => CountStepperPage(),
           PersistentHeaderPage.routeName: (context) => PersistentHeaderPage(),
           ListPage.routeName: (context) => ListPage(),
+          // dynamic demo pages
           AlignLayoutPage.routeName: (context) => AlignLayoutPage(),
           ContainerEffectPage.routeName: (context) => ContainerEffectPage(),
           DyListPage.routeName: (context) => DyListPage(),
-          StackPage.routeName: (context) => StackPage()
+          StackPage.routeName: (context) => StackPage(),
+          DyRichTextPage.routeName: (context) => DyRichTextPage(),
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(

@@ -11,13 +11,12 @@ part 'unit_model.g.dart';
 class FLDyUnitModel {
   FLDyUnitModel(
       {this.uniqueId,
-        @required this.unitName,
+        this.unitName,
         this.flex,
         this.align,
         this.positioned,
         this.child,
-        this.children})
-      : assert(unitName != null);
+        this.children});
 
   final String uniqueId;
   final String unitName;
@@ -360,14 +359,12 @@ class FLDyRichTextUnitModel extends FLDyUnitModel {
 class FLDyTextSpanUnitModel extends FLDyUnitModel {
   FLDyTextSpanUnitModel({
     String uniqueId,
-    String unitName,
-    List children,
+    List<FLDyTextSpanUnitModel> children,
     this.text,
     this.textStyle,
     this.semanticsLabel
   }) : super(
     uniqueId: uniqueId,
-    unitName: unitName,
     children: children,
   );
 
@@ -483,6 +480,7 @@ class FLDyUnitIconData {
 /// TextStyle
 class FLDyUnitTextStyle {
   FLDyUnitTextStyle(
+      this.themeStyle,
       this.inherit,
       this.color,
       this.backgroundColor,
@@ -500,6 +498,7 @@ class FLDyUnitTextStyle {
       this.decorationThickness
   );
 
+  final String themeStyle;
   final bool inherit;
   final String color;
   final String backgroundColor;
@@ -521,14 +520,17 @@ class FLDyUnitTextStyle {
   Map<String, dynamic> toJson() => _$FLDyUnitTextStyleToJson(this);
 
   TextStyle toTextStyle(BuildContext context) {
+    if (themeStyle != null)
+      return FLThemeTool.parseTextStyle(themeStyle, context);
+
     final TextDecoration textDecoration = textDecorations != null
         ? TextDecoration.combine(textDecorations.map((decStr) {
-          flStringToTextDecoration(decStr);
+          return flStringToTextDecoration(decStr);
         }).toList()) : null;
     return TextStyle(
       inherit: inherit ?? true,
-      color: FLColorTool.parseColor(color, context),
-      backgroundColor: FLColorTool.parseColor(backgroundColor, context),
+      color: FLThemeTool.parseColor(color, context),
+      backgroundColor: FLThemeTool.parseColor(backgroundColor, context),
       fontFamily: fontFamily,
       fontSize: fontSize,
       fontWeight: flStringToFontWeight(fontWeight),
@@ -538,7 +540,7 @@ class FLDyUnitTextStyle {
       textBaseline: flStringToTextBaseline(textBaseline),
       height: height,
       decoration: textDecoration,
-      decorationColor: FLColorTool.parseColor(decorationColor, context),
+      decorationColor: FLThemeTool.parseColor(decorationColor, context),
       decorationStyle: flStringToTextDecorationStyle(decorationStyle),
       decorationThickness: decorationThickness
     );
@@ -565,7 +567,7 @@ class FLDyUnitDivider {
     thickness: thickness,
     indent: indent,
     endIndent: endIndent,
-    color: FLColorTool.parseColor(color, context),
+    color: FLThemeTool.parseColor(color, context),
   );
 }
 
@@ -701,7 +703,7 @@ class FLDyUnitBoxDecoration {
   Map<String, dynamic> toJson() => _$FLDyUnitBoxDecorationToJson(this);
 
   BoxDecoration toBoxDecoration(BuildContext context) => BoxDecoration(
-    color: FLColorTool.parseColor(color, context),
+    color: FLThemeTool.parseColor(color, context),
     image: image?.toDecorationImage(),
     border: border?.toBorder(context),
     borderRadius: borderRadius?.toBorderRadius(),
@@ -727,7 +729,7 @@ class FLDyUnitBoxShadow {
   Map<String, dynamic> toJson() => _$FLDyUnitBoxShadowToJson(this);
 
   BoxShadow toBoxShadow(BuildContext context) {
-    final shadowColor = FLColorTool.parseColor(color, context);
+    final shadowColor = FLThemeTool.parseColor(color, context);
     return BoxShadow(
         color: shadowColor ?? const Color(0xFF000000),
         offset: offset?.toOffset(),
@@ -780,7 +782,7 @@ class FLDyUnitBorder {
   Map<String, dynamic> toJson() => _$FLDyUnitBorderToJson(this);
 
   Border toBorder(BuildContext context) => Border.all(
-      color: FLColorTool.parseColor(color, context) ?? Color(0xFF000000),
+      color: FLThemeTool.parseColor(color, context) ?? Color(0xFF000000),
       width: width ?? 1,
       style: flStringToBorderStyle(style) ?? BorderStyle.solid
   );

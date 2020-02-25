@@ -390,8 +390,11 @@ FLDyTextSpanUnitModel _$FLDyTextSpanUnitModelFromJson(
     Map<String, dynamic> json) {
   return FLDyTextSpanUnitModel(
     uniqueId: json['uniqueId'] as String,
-    unitName: json['unitName'] as String,
-    children: json['children'] as List,
+    children: (json['children'] as List)
+        ?.map((e) => e == null
+            ? null
+            : FLDyTextSpanUnitModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     text: json['text'] as String,
     textStyle: json['textStyle'] == null
         ? null
@@ -404,7 +407,6 @@ Map<String, dynamic> _$FLDyTextSpanUnitModelToJson(
         FLDyTextSpanUnitModel instance) =>
     <String, dynamic>{
       'uniqueId': instance.uniqueId,
-      'unitName': instance.unitName,
       'children': instance.children,
       'text': instance.text,
       'textStyle': instance.textStyle,
@@ -501,6 +503,7 @@ Map<String, dynamic> _$FLDyUnitIconDataToJson(FLDyUnitIconData instance) =>
 
 FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
   return FLDyUnitTextStyle(
+    json['themeStyle'] as String,
     json['inherit'] as bool,
     json['color'] as String,
     json['backgroundColor'] as String,
@@ -521,6 +524,7 @@ FLDyUnitTextStyle _$FLDyUnitTextStyleFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$FLDyUnitTextStyleToJson(FLDyUnitTextStyle instance) =>
     <String, dynamic>{
+      'themeStyle': instance.themeStyle,
       'inherit': instance.inherit,
       'color': instance.color,
       'backgroundColor': instance.backgroundColor,

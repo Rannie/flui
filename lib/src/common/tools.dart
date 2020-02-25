@@ -30,7 +30,23 @@ class FLThemeColors {
   static const String toggleableActiveColor = 'toggleableActiveColor';
 }
 
-class FLColorTool {
+class FLThemeTextStyles {
+  static const String display4 = 'display4';
+  static const String display3 = 'display3';
+  static const String display2 = 'display2';
+  static const String display1 = 'display1';
+  static const String headline = 'headline';
+  static const String title = 'title';
+  static const String subhead = 'subhead';
+  static const String body2 = 'body2';
+  static const String body1 = 'body1';
+  static const String caption = 'caption';
+  static const String button = 'button';
+  static const String subtitle = 'subtitle';
+  static const String overline = 'overline';
+}
+
+class FLThemeTool {
   static Color parseColor(String colorStr, BuildContext ctx) {
     if (colorStr == null) return null;
     if (colorStr.startsWith('@theme')) {
@@ -70,4 +86,30 @@ class FLColorTool {
       return Color(num.parse(colorStr));
     }
   }
+
+  static TextStyle parseTextStyle(String themeStyle, BuildContext ctx) {
+    if (themeStyle.startsWith('@textTheme')) {
+      var descriptor = themeStyle.split('.').last;
+      TextTheme textTheme = Theme.of(ctx).textTheme;
+      switch(descriptor) {
+        case FLThemeTextStyles.display4: return textTheme.display4;
+        case FLThemeTextStyles.display3: return textTheme.display3;
+        case FLThemeTextStyles.display2: return textTheme.display2;
+        case FLThemeTextStyles.display1: return textTheme.display1;
+        case FLThemeTextStyles.headline: return textTheme.headline;
+        case FLThemeTextStyles.title: return textTheme.title;
+        case FLThemeTextStyles.subhead: return textTheme.subhead;
+        case FLThemeTextStyles.body2: return textTheme.body2;
+        case FLThemeTextStyles.body1: return textTheme.body1;
+        case FLThemeTextStyles.caption: return textTheme.caption;
+        case FLThemeTextStyles.button: return textTheme.button;
+        case FLThemeTextStyles.subtitle: return textTheme.subtitle;
+        case FLThemeTextStyles.overline: return textTheme.overline;
+        default: return null;
+      }
+    } else {
+      return null;
+    }
+  }
 }
+
