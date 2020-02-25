@@ -1,6 +1,7 @@
 import 'package:example/pages/dyalign_page.dart';
 import 'package:example/pages/dycontainer_page.dart';
 import 'package:example/pages/dylistview_page.dart';
+import 'package:example/pages/dyrich_text_page.dart';
 import 'package:example/pages/dystack_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
@@ -24,7 +25,7 @@ class _DynamicPageState extends State<DynamicPage> {
           height: double.infinity,
           child: ListView.separated(
               shrinkWrap: true,
-              itemCount: 4,
+              itemCount: 5,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return FLListTile(
@@ -52,6 +53,13 @@ class _DynamicPageState extends State<DynamicPage> {
                     title: Text('List View'),
                     onTap: () => Navigator.pushNamed(
                         context, DyListPage.routeName),
+                  );
+                }
+                if (index == 4) {
+                  return FLListTile(
+                    title: Text('Rich Text'),
+                    onTap: () => Navigator.pushNamed(
+                        context, DyRichTextPage.routeName),
                   );
                 }
                 return null;

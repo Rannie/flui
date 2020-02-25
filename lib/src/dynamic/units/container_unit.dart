@@ -18,7 +18,7 @@ class FLDyContainerUnit extends FLDyRenderUnit {
       height: cum.height,
       padding: cum.padding?.toEdgeInsets(),
       margin: cum.margin?.toEdgeInsets(),
-      color: FLColorTool.parseColor(cum.color, context),
+      color: FLThemeTool.parseColor(cum.color, context),
       decoration: cum.decoration?.toBoxDecoration(context),
       foregroundDecoration: cum.foregroundDecoration?.toBoxDecoration(context),
       constraints: cum.constraints?.toBoxConstraints(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
-import '../util.dart';
+import 'util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget {
