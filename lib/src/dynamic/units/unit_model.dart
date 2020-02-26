@@ -2,18 +2,9 @@ import 'package:flui/src/common/tools.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_constant.dart';
+import 'package:flui/src/dynamic/action/action.dart';
 
 part 'unit_model.g.dart';
-
-@JsonSerializable()
-/// Action Model
-class FLDyAction {
-  FLDyAction();
-
-  factory FLDyAction.fromJson(Map<String, dynamic> json) =>
-      _$FLDyActionFromJson(json);
-  Map<String, dynamic> toJson() => _$FLDyActionToJson(this);
-}
 
 @JsonSerializable()
 /// The unit model classes are responsible for storing view
@@ -476,7 +467,7 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
     FLDyUnitAlign align,
     String flex,
     FLDyUnitModel child,
-    @required this.presedAction,
+    @required this.pressedAction,
     this.longPressAction,
     this.textColor,
     this.color,
@@ -490,7 +481,7 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
     child: child,
   );
 
-  final FLDyAction presedAction;
+  final FLDyAction pressedAction;
   final FLDyAction longPressAction;
   final String textColor;
   final String color;
@@ -511,7 +502,7 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
     FLDyUnitAlign align,
     String flex,
     FLDyUnitModel child,
-    @required this.presedAction,
+    @required this.pressedAction,
     this.longPressAction,
     this.textColor,
     this.color,
@@ -525,7 +516,7 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
     child: child,
   );
 
-  final FLDyAction presedAction;
+  final FLDyAction pressedAction;
   final FLDyAction longPressAction;
   final String textColor;
   final String color;

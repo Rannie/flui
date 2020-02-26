@@ -6,13 +6,6 @@ part of 'unit_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-FLDyAction _$FLDyActionFromJson(Map<String, dynamic> json) {
-  return FLDyAction();
-}
-
-Map<String, dynamic> _$FLDyActionToJson(FLDyAction instance) =>
-    <String, dynamic>{};
-
 FLDyUnitModel _$FLDyUnitModelFromJson(Map<String, dynamic> json) {
   return FLDyUnitModel(
     uniqueId: json['uniqueId'] as String,
@@ -507,9 +500,9 @@ FLDyRaisedButtonUnitModel _$FLDyRaisedButtonUnitModelFromJson(
     child: json['child'] == null
         ? null
         : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
-    presedAction: json['presedAction'] == null
+    pressedAction: json['pressedAction'] == null
         ? null
-        : FLDyAction.fromJson(json['presedAction'] as Map<String, dynamic>),
+        : FLDyAction.fromJson(json['pressedAction'] as Map<String, dynamic>),
     longPressAction: json['longPressAction'] == null
         ? null
         : FLDyAction.fromJson(json['longPressAction'] as Map<String, dynamic>),
@@ -530,7 +523,7 @@ Map<String, dynamic> _$FLDyRaisedButtonUnitModelToJson(
       'align': instance.align,
       'positioned': instance.positioned,
       'child': instance.child,
-      'presedAction': instance.presedAction,
+      'pressedAction': instance.pressedAction,
       'longPressAction': instance.longPressAction,
       'textColor': instance.textColor,
       'color': instance.color,
@@ -553,9 +546,9 @@ FLDyFlatButtonUnitModel _$FLDyFlatButtonUnitModelFromJson(
     child: json['child'] == null
         ? null
         : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
-    presedAction: json['presedAction'] == null
+    pressedAction: json['pressedAction'] == null
         ? null
-        : FLDyAction.fromJson(json['presedAction'] as Map<String, dynamic>),
+        : FLDyAction.fromJson(json['pressedAction'] as Map<String, dynamic>),
     longPressAction: json['longPressAction'] == null
         ? null
         : FLDyAction.fromJson(json['longPressAction'] as Map<String, dynamic>),
@@ -576,7 +569,7 @@ Map<String, dynamic> _$FLDyFlatButtonUnitModelToJson(
       'align': instance.align,
       'positioned': instance.positioned,
       'child': instance.child,
-      'presedAction': instance.presedAction,
+      'pressedAction': instance.pressedAction,
       'longPressAction': instance.longPressAction,
       'textColor': instance.textColor,
       'color': instance.color,
