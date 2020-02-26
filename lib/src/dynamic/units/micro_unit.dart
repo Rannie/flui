@@ -3,6 +3,7 @@ import 'package:flui/src/dynamic/units/base_unit.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/units/unit_constant.dart';
 import 'package:flui/src/common/tools.dart';
+import 'package:flui/src/dynamic/action/action.dart';
 
 /// SizedBox
 class FLDySizedBoxUnit extends FLDyRenderUnit {
@@ -127,8 +128,10 @@ class FLDyRaisedButtonUnit extends FLDyRenderUnit {
     final FLDyRaisedButtonUnitModel rbum = unitModel as FLDyRaisedButtonUnitModel;
     final Widget child = resolveChild();
     final RaisedButton button = RaisedButton(
-      onPressed: (){},
-      onLongPress: (){},
+      onPressed: () => FLDyActionDispatch.dispatcher
+          .dispatchAction(rbum.pressedAction, context),
+      onLongPress: () => FLDyActionDispatch.dispatcher
+          .dispatchAction(rbum.longPressAction, context),
       textColor: FLThemeTool.parseColor(rbum.textColor, context),
       color: FLThemeTool.parseColor(rbum.color, context),
       padding: rbum.padding?.toEdgeInsets(),
@@ -149,8 +152,10 @@ class FLDyFlatButtonUnit extends FLDyRenderUnit {
     final FLDyFlatButtonUnitModel fbum = unitModel as FLDyFlatButtonUnitModel;
     final Widget child = resolveChild();
     final FlatButton button = FlatButton(
-      onPressed: (){},
-      onLongPress: (){},
+      onPressed: () => FLDyActionDispatch.dispatcher
+          .dispatchAction(fbum.pressedAction, context),
+      onLongPress: () => FLDyActionDispatch.dispatcher
+          .dispatchAction(fbum.longPressAction, context),
       textColor: FLThemeTool.parseColor(fbum.textColor, context),
       color: FLThemeTool.parseColor(fbum.color, context),
       padding: fbum.padding?.toEdgeInsets(),

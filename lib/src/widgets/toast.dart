@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:ui' as ui;
 
 import 'package:flutter/animation.dart';
