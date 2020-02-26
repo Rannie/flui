@@ -5,6 +5,8 @@ import 'package:example/pages/dyrich_text_page.dart';
 import 'package:example/pages/dystack_page.dart';
 import 'package:example/pages/list_page.dart';
 import 'package:example/pages/persistent_header_page.dart';
+import 'package:example/pages/dybutton_page.dart';
+import 'package:example/pages/dyimage_page.dart';
 import 'util.dart';
 import 'package:example/about_page.dart';
 import 'package:example/pages/action_sheet_page.dart';
@@ -39,7 +41,7 @@ void main() {
   runApp(MyApp());
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
   Util.initialize();
@@ -159,6 +161,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           DyListPage.routeName: (context) => DyListPage(),
           StackPage.routeName: (context) => StackPage(),
           DyRichTextPage.routeName: (context) => DyRichTextPage(),
+          DyButtonPage.routeName: (context) => DyButtonPage(),
+          DyImagePage.routeName: (context) => DyImagePage(),
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(

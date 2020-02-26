@@ -3,8 +3,14 @@ import 'package:example/pages/dycontainer_page.dart';
 import 'package:example/pages/dylistview_page.dart';
 import 'package:example/pages/dyrich_text_page.dart';
 import 'package:example/pages/dystack_page.dart';
+import 'package:example/pages/dybutton_page.dart';
+import 'package:example/pages/dyimage_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
+
+import 'pages/dyalign_page.dart';
+import 'pages/dylistview_page.dart';
+import 'pages/dystack_page.dart';
 
 class DynamicPage extends StatefulWidget {
   static const String routeName = '/dynamic';
@@ -13,6 +19,49 @@ class DynamicPage extends StatefulWidget {
 }
 
 class _DynamicPageState extends State<DynamicPage> {
+
+  List<FLStaticSectionData> sectionList() {
+    return [
+      FLStaticSectionData(headerTitle: 'Basic', itemList: [
+        FLStaticItemData(
+            title: 'Rich Text',
+            onTap: () => Navigator.pushNamed(
+                context, DyRichTextPage.routeName)
+        ),
+        FLStaticItemData(
+            title: 'Image',
+            onTap: () => Navigator.pushNamed(
+                context, DyImagePage.routeName)
+        ),
+        FLStaticItemData(
+            title: 'Button',
+            onTap: () => Navigator.pushNamed(
+                context, DyButtonPage.routeName)
+        ),
+        FLStaticItemData(
+            title: 'Container',
+            onTap: () => Navigator.pushNamed(
+                context, ContainerEffectPage.routeName)
+        ),
+        FLStaticItemData(
+            title: 'Flex Layout',
+            onTap: () => Navigator.pushNamed(
+                context, AlignLayoutPage.routeName)
+        ),
+        FLStaticItemData(
+            title: 'Stack Layout',
+            onTap: () => Navigator.pushNamed(
+                context, StackPage.routeName)
+        ),
+        FLStaticItemData(
+            title: 'List View',
+            onTap: () => Navigator.pushNamed(
+                context, DyListPage.routeName)
+        ),
+      ]),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,49 +72,10 @@ class _DynamicPageState extends State<DynamicPage> {
       body: SafeArea(
         child: Container(
           height: double.infinity,
-          child: ListView.separated(
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return FLListTile(
-                    title: Text('Container'),
-                    onTap: () => Navigator.pushNamed(
-                        context, ContainerEffectPage.routeName),
-                  );
-                }
-                if (index == 1) {
-                  return FLListTile(
-                    title: Text('Flex Layout'),
-                    onTap: () => Navigator.pushNamed(
-                        context, AlignLayoutPage.routeName),
-                  );
-                }
-                if (index == 2) {
-                  return FLListTile(
-                    title: Text('Stack Layout'),
-                    onTap: () => Navigator.pushNamed(
-                        context, StackPage.routeName),
-                  );
-                }
-                if (index == 3) {
-                  return FLListTile(
-                    title: Text('List View'),
-                    onTap: () => Navigator.pushNamed(
-                        context, DyListPage.routeName),
-                  );
-                }
-                if (index == 4) {
-                  return FLListTile(
-                    title: Text('Rich Text'),
-                    onTap: () => Navigator.pushNamed(
-                        context, DyRichTextPage.routeName),
-                  );
-                }
-                return null;
-              },
-              separatorBuilder: (context, index) => Divider(height: 1)
-          ),
+          child: FLStaticListView(
+            shrinkWrap: true,
+            sections: sectionList(),
+          )
         ),
       )
     );
