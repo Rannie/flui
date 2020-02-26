@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
 import 'package:example/json_strings.dart';
 
-class DyButtonPage extends StatefulWidget {
-  static const String routeName = '/dy-button';
+class DyImagePage extends StatefulWidget {
+  static const String routeName = '/dy-image';
   @override
-  State<DyButtonPage> createState() => DyButtonPageState();
+  State<DyImagePage> createState() => DyImagePageState();
 }
 
-class DyButtonPageState extends State<DyButtonPage> {
+class DyImagePageState extends State<DyImagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Button'),
+        title: Text("Image"),
       ),
       body: FLDyContainer(
-        jsonObject: ButtonJson,
+        jsonObject: ImageJson,
         placeholder: CircularProgressIndicator(
           strokeWidth: 3.0,
           valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),

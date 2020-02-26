@@ -32,7 +32,6 @@ export 'package:flui/src/widgets/persistent_header.dart';
 export 'package:flui/src/dynamic/container.dart';
 export 'package:flui/src/dynamic/action/action.dart';
 export 'package:flui/src/dynamic/render_parser.dart';
-export 'package:flui/src/dynamic/cache/cache.dart';
 export 'package:flui/src/dynamic/units/unit_model.dart';
 
 // tools

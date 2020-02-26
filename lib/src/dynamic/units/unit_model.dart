@@ -6,7 +6,7 @@ import 'package:flui/src/dynamic/units/unit_constant.dart';
 part 'unit_model.g.dart';
 
 @JsonSerializable()
-/// Aciont Model
+/// Action Model
 class FLDyAction {
   FLDyAction();
 
@@ -716,7 +716,7 @@ class FLDyUnitImageProvider {
       _$FLDyUnitImageProviderFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitImageProviderToJson(this);
 
-  NetworkImage toNetworkImage() => NetworkImage(url, scale: scale);
+  NetworkImage toNetworkImage() => NetworkImage(url, scale: scale ?? 1.0);
   AssetImage toAssetImage() => AssetImage(assetName);
 }
 
