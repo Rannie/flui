@@ -129,9 +129,9 @@ class FLDyRaisedButtonUnit extends FLDyRenderUnit {
     final Widget child = resolveChild();
     final RaisedButton button = RaisedButton(
       onPressed: () => FLDyActionDispatch.dispatcher
-          .dispatchAction(rbum.pressedAction, context),
+          .dispatchAction(rbum.uniqueId, rbum.pressedAction, context),
       onLongPress: () => FLDyActionDispatch.dispatcher
-          .dispatchAction(rbum.longPressAction, context),
+          .dispatchAction(rbum.uniqueId, rbum.longPressAction, context),
       textColor: FLThemeTool.parseColor(rbum.textColor, context),
       color: FLThemeTool.parseColor(rbum.color, context),
       padding: rbum.padding?.toEdgeInsets(),
@@ -153,9 +153,9 @@ class FLDyFlatButtonUnit extends FLDyRenderUnit {
     final Widget child = resolveChild();
     final FlatButton button = FlatButton(
       onPressed: () => FLDyActionDispatch.dispatcher
-          .dispatchAction(fbum.pressedAction, context),
+          .dispatchAction(fbum.uniqueId, fbum.pressedAction, context),
       onLongPress: () => FLDyActionDispatch.dispatcher
-          .dispatchAction(fbum.longPressAction, context),
+          .dispatchAction(fbum.uniqueId, fbum.longPressAction, context),
       textColor: FLThemeTool.parseColor(fbum.textColor, context),
       color: FLThemeTool.parseColor(fbum.color, context),
       padding: fbum.padding?.toEdgeInsets(),
