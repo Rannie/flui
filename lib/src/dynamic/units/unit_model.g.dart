@@ -426,6 +426,9 @@ FLDyImageUnitModel _$FLDyImageUnitModelFromJson(Map<String, dynamic> json) {
         ? null
         : FLDyUnitImageProvider.fromJson(
             json['imageProvider'] as Map<String, dynamic>),
+    loading: json['loading'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['loading'] as Map<String, dynamic>),
     width: (json['width'] as num)?.toDouble(),
     height: (json['height'] as num)?.toDouble(),
     color: json['color'] as String,
@@ -444,6 +447,7 @@ Map<String, dynamic> _$FLDyImageUnitModelToJson(FLDyImageUnitModel instance) =>
       'flex': instance.flex,
       'positioned': instance.positioned,
       'imageProvider': instance.imageProvider,
+      'loading': instance.loading,
       'width': instance.width,
       'height': instance.height,
       'color': instance.color,

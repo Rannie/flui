@@ -392,6 +392,7 @@ class FLDyImageUnitModel extends FLDyUnitModel {
     FLDyUnitPositioned positioned,
     String flex,
     @required this.imageProvider,
+    this.loading,
     this.width,
     this.height,
     this.color,
@@ -408,7 +409,7 @@ class FLDyImageUnitModel extends FLDyUnitModel {
   );
 
   final FLDyUnitImageProvider imageProvider;
-  //TODO: add loading builder
+  final FLDyUnitModel loading;
   final double width;
   final double height;
   final String color;

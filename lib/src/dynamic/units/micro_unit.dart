@@ -84,6 +84,10 @@ class FLDyImageUnit extends FLDyRenderUnit {
     final Widget image = Image(
       image: ium.imageProvider.type == FLDyImageType.network
           ? ium.imageProvider.toNetworkImage() : ium.imageProvider.toAssetImage(),
+      loadingBuilder: ium.loading != null ?
+          (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+            return markupUnit(ium.loading);
+          } : null,
       semanticLabel: ium.semanticLabel,
       excludeFromSemantics: ium.excludeFromSemantics ?? false,
       width: ium.width,
