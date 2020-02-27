@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
-import 'package:example/json_strings.dart';
+import '../json_strings.dart';
 
 class DyButtonPage extends StatefulWidget {
   static const String routeName = '/dy-button';

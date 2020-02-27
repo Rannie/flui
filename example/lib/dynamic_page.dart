@@ -1,16 +1,12 @@
-import 'package:example/pages/dyalign_page.dart';
-import 'package:example/pages/dycontainer_page.dart';
-import 'package:example/pages/dylistview_page.dart';
-import 'package:example/pages/dyrich_text_page.dart';
-import 'package:example/pages/dystack_page.dart';
-import 'package:example/pages/dybutton_page.dart';
-import 'package:example/pages/dyimage_page.dart';
+import 'pages/dyalign_page.dart';
+import 'pages/dycontainer_page.dart';
+import 'pages/dylistview_page.dart';
+import 'pages/dyrich_text_page.dart';
+import 'pages/dystack_page.dart';
+import 'pages/dybutton_page.dart';
+import 'pages/dyimage_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
-
-import 'pages/dyalign_page.dart';
-import 'pages/dylistview_page.dart';
-import 'pages/dystack_page.dart';
 
 class DynamicPage extends StatefulWidget {
   static const String routeName = '/dynamic';

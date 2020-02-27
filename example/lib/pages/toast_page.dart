@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
-import 'package:example/util.dart';
+import '../util.dart';
 
 class ToastPage extends StatefulWidget {
   static const String routeName = '/toast';

@@ -1,5 +1,5 @@
-import 'package:example/pages/persistent_header_page.dart';
-import 'package:example/pages/static_list_page.dart';
+import 'persistent_header_page.dart';
+import 'static_list_page.dart';
 import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
