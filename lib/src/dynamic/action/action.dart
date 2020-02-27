@@ -1,8 +1,13 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flui/flui.dart';
 
 part 'action.g.dart';
+
+typedef FLDyActionHandler =
+  Function(BuildContext context, String uniqueId, List<String> args);
 
 class FLDyActionType {
   static const String builtin = 'builtin';
@@ -45,19 +50,31 @@ class FLDyActionDispatch {
   static final FLDyActionDispatch _instance = FLDyActionDispatch();
   static FLDyActionDispatch get dispatcher => _instance;
 
-  final Map _customActionMap = new Map();
+  final LinkedHashMap _customActionMap = new LinkedHashMap();
 
-  void dispatchAction(FLDyAction action, BuildContext context) {
+  void dispatchAction(String uniqueId, FLDyAction action, BuildContext context) {
     if (action == null) return;
     if (action.actionType == FLDyActionType.builtin) {
       _dispatchBuiltinAction(action, context);
     } else {
-      _dispatchCustomAction(action, context);
+      _dispatchCustomAction(uniqueId, action, context);
     }
   }
 
-  void _dispatchCustomAction(FLDyAction action, BuildContext context) {
+  void registerActionHandler(String action, FLDyActionHandler handler) {
+    assert(action != null && handler != null);
+    _customActionMap[action] = handler;
+  }
 
+  void removeActionHandler(String action) {
+    assert(action != null);
+    _customActionMap.remove(action);
+  }
+
+  void _dispatchCustomAction(String uniqueId, FLDyAction action, BuildContext context) {
+    FLDyActionHandler handler = _customActionMap[action.action];
+    if (handler == null) return;
+    handler(context, uniqueId, action.args);
   }
 
   void _dispatchBuiltinAction(FLDyAction action, BuildContext context) {
