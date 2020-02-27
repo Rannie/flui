@@ -1,4 +1,4 @@
-import 'package:example/pages/page_util.dart';
+import 'page_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
 

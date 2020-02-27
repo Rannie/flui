@@ -1,4 +1,4 @@
-import 'package:example/json_strings.dart';
+import '../json_strings.dart';
 import 'package:flui/flui.dart';
 import 'package:flutter/material.dart';
 
