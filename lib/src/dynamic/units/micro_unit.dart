@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/base_unit.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
@@ -52,9 +53,26 @@ class FLDyRichTextUnit extends FLDyRenderUnit {
       super(unitModel: unitModel);
 
   TextSpan buildTextSpan(FLDyTextSpanUnitModel spanUM, BuildContext context) {
+    GestureRecognizer gestureRecognizer;
+    if (spanUM.gesture != null) {
+      if (spanUM.gesture.onTap != null) {
+        gestureRecognizer = TapGestureRecognizer()
+          ..onTap = () {
+            FLDyActionDispatch.dispatcher
+                .dispatchAction(spanUM.uniqueId, spanUM.gesture.onTap, context);
+          };
+      } else if (spanUM.gesture.onLongPress != null) {
+        gestureRecognizer = LongPressGestureRecognizer()
+          ..onLongPress = () {
+            FLDyActionDispatch.dispatcher
+                .dispatchAction(spanUM.uniqueId, spanUM.gesture.onLongPress, context);
+          };
+      }
+    }
     return TextSpan(
       text: spanUM.text,
       style: spanUM.textStyle?.toTextStyle(context),
+      recognizer: gestureRecognizer,
       semanticsLabel: spanUM.semanticsLabel,
       children: spanUM.children?.map(
               (spanUM) => buildTextSpan(spanUM, context))?.toList()

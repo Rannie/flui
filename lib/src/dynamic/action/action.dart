@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flui/flui.dart';
 
@@ -26,6 +27,7 @@ class FLDyFrameworkAction {
   static const String infoToast = 'infoToast';
 }
 
+
 @JsonSerializable()
 /// Action Model
 class FLDyAction {
@@ -43,6 +45,19 @@ class FLDyAction {
   factory FLDyAction.fromJson(Map<String, dynamic> json) =>
       _$FLDyActionFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyActionToJson(this);
+}
+
+@JsonSerializable()
+/// Gesture Recognizer, (TapGestureRecognizer or LongPressGestureRecognizer)
+class FLDyGestureRecognizer {
+  FLDyGestureRecognizer(this.onTap, this.onLongPress);
+
+  final FLDyAction onTap;
+  final FLDyAction onLongPress;
+
+  factory FLDyGestureRecognizer.fromJson(Map<String, dynamic> json) =>
+      _$FLDyGestureRecognizerFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyGestureRecognizerToJson(this);
 }
 
 
