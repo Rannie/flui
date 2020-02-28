@@ -399,6 +399,10 @@ FLDyTextSpanUnitModel _$FLDyTextSpanUnitModelFromJson(
     textStyle: json['textStyle'] == null
         ? null
         : FLDyUnitTextStyle.fromJson(json['textStyle'] as Map<String, dynamic>),
+    gesture: json['gesture'] == null
+        ? null
+        : FLDyGestureRecognizer.fromJson(
+            json['gesture'] as Map<String, dynamic>),
     semanticsLabel: json['semanticsLabel'] as String,
   );
 }
@@ -410,6 +414,7 @@ Map<String, dynamic> _$FLDyTextSpanUnitModelToJson(
       'children': instance.children,
       'text': instance.text,
       'textStyle': instance.textStyle,
+      'gesture': instance.gesture,
       'semanticsLabel': instance.semanticsLabel,
     };
 

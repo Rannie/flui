@@ -20,3 +20,22 @@ Map<String, dynamic> _$FLDyActionToJson(FLDyAction instance) =>
       'action': instance.action,
       'args': instance.args,
     };
+
+FLDyGestureRecognizer _$FLDyGestureRecognizerFromJson(
+    Map<String, dynamic> json) {
+  return FLDyGestureRecognizer(
+    json['onTap'] == null
+        ? null
+        : FLDyAction.fromJson(json['onTap'] as Map<String, dynamic>),
+    json['onLongPress'] == null
+        ? null
+        : FLDyAction.fromJson(json['onLongPress'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$FLDyGestureRecognizerToJson(
+        FLDyGestureRecognizer instance) =>
+    <String, dynamic>{
+      'onTap': instance.onTap,
+      'onLongPress': instance.onLongPress,
+    };

@@ -367,6 +367,7 @@ class FLDyTextSpanUnitModel extends FLDyUnitModel {
     List<FLDyTextSpanUnitModel> children,
     this.text,
     this.textStyle,
+    this.gesture,
     this.semanticsLabel
   }) : super(
     uniqueId: uniqueId,
@@ -375,7 +376,7 @@ class FLDyTextSpanUnitModel extends FLDyUnitModel {
 
   final String text;
   final FLDyUnitTextStyle textStyle;
-  // TODO: add gesture recognizer
+  final FLDyGestureRecognizer gesture;
   final String semanticsLabel;
 
   factory FLDyTextSpanUnitModel.fromJson(Map<String, dynamic> json) =>
