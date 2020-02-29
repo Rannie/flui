@@ -34,6 +34,8 @@ import 'pages/dylistview_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'pages/dydemo_home_page.dart';
+import 'pages/dydemo_feeds_page.dart';
 import 'style/theme.dart';
 import 'package:flui/flui.dart';
 
@@ -163,6 +165,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           DyRichTextPage.routeName: (context) => DyRichTextPage(),
           DyButtonPage.routeName: (context) => DyButtonPage(),
           DyImagePage.routeName: (context) => DyImagePage(),
+          DyHomeDemo.routeName: (context) => DyHomeDemo(),
         },
         builder: (BuildContext context, Widget child) {
           return Directionality(
