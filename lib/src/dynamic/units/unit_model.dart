@@ -469,8 +469,8 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
     FLDyUnitAlign align,
     String flex,
     FLDyUnitModel child,
-    @required this.pressedAction,
-    this.longPressAction,
+    @required this.onPressed,
+    this.onLongPress,
     this.textColor,
     this.color,
     this.padding
@@ -483,8 +483,8 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
     child: child,
   );
 
-  final FLDyAction pressedAction;
-  final FLDyAction longPressAction;
+  final FLDyAction onPressed;
+  final FLDyAction onLongPress;
   final String textColor;
   final String color;
   final FLDyUnitEdgeInsets padding;
@@ -504,8 +504,8 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
     FLDyUnitAlign align,
     String flex,
     FLDyUnitModel child,
-    @required this.pressedAction,
-    this.longPressAction,
+    @required this.onPressed,
+    this.onLongPress,
     this.textColor,
     this.color,
     this.padding
@@ -518,8 +518,8 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
     child: child,
   );
 
-  final FLDyAction pressedAction;
-  final FLDyAction longPressAction;
+  final FLDyAction onPressed;
+  final FLDyAction onLongPress;
   final String textColor;
   final String color;
   final FLDyUnitEdgeInsets padding;

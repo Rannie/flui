@@ -5,6 +5,8 @@ import 'pages/dyrich_text_page.dart';
 import 'pages/dystack_page.dart';
 import 'pages/dybutton_page.dart';
 import 'pages/dyimage_page.dart';
+import 'pages/dydemo_home_page.dart';
+import 'pages/dydemo_feeds_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flui/flui.dart';
 
@@ -53,6 +55,13 @@ class _DynamicPageState extends State<DynamicPage> {
             title: 'List View',
             onTap: () => Navigator.pushNamed(
                 context, DyListPage.routeName)
+        ),
+      ]),
+      FLStaticSectionData(headerTitle: 'Demo', itemList: [
+        FLStaticItemData(
+            title: 'Extend GitHub',
+            onTap: () => Navigator.pushNamed(
+                context, DyHomeDemo.routeName)
         ),
       ]),
     ];

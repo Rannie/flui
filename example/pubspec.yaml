@@ -22,6 +22,7 @@ dependencies:
   event_bus: ^1.1.1
   shared_preferences: ^0.5.6+1
   url_launcher: ^5.4.1
+
   flui:
     path: ../
 
@@ -47,6 +48,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/cloud66.png
+    - assets/inspector.png
+    - assets/pullass.png
+    - assets/sentry.png
+    - assets/sider.png
+    - assets/test.png
+    - assets/backhub.png
     - assets/share_friend.png
     - assets/share_weibo.png
     - assets/avatar.jpg
@@ -96,6 +104,7 @@ flutter:
     - assets/sheet_dark.png
     - assets/list_dark.png
     - assets/iron_man.png
+    - assets/dev.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

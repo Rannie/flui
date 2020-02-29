@@ -509,12 +509,12 @@ FLDyRaisedButtonUnitModel _$FLDyRaisedButtonUnitModelFromJson(
     child: json['child'] == null
         ? null
         : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
-    pressedAction: json['pressedAction'] == null
+    onPressed: json['onPressed'] == null
         ? null
-        : FLDyAction.fromJson(json['pressedAction'] as Map<String, dynamic>),
-    longPressAction: json['longPressAction'] == null
+        : FLDyAction.fromJson(json['onPressed'] as Map<String, dynamic>),
+    onLongPress: json['onLongPress'] == null
         ? null
-        : FLDyAction.fromJson(json['longPressAction'] as Map<String, dynamic>),
+        : FLDyAction.fromJson(json['onLongPress'] as Map<String, dynamic>),
     textColor: json['textColor'] as String,
     color: json['color'] as String,
     padding: json['padding'] == null
@@ -532,8 +532,8 @@ Map<String, dynamic> _$FLDyRaisedButtonUnitModelToJson(
       'align': instance.align,
       'positioned': instance.positioned,
       'child': instance.child,
-      'pressedAction': instance.pressedAction,
-      'longPressAction': instance.longPressAction,
+      'onPressed': instance.onPressed,
+      'onLongPress': instance.onLongPress,
       'textColor': instance.textColor,
       'color': instance.color,
       'padding': instance.padding,
@@ -555,12 +555,12 @@ FLDyFlatButtonUnitModel _$FLDyFlatButtonUnitModelFromJson(
     child: json['child'] == null
         ? null
         : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
-    pressedAction: json['pressedAction'] == null
+    onPressed: json['onPressed'] == null
         ? null
-        : FLDyAction.fromJson(json['pressedAction'] as Map<String, dynamic>),
-    longPressAction: json['longPressAction'] == null
+        : FLDyAction.fromJson(json['onPressed'] as Map<String, dynamic>),
+    onLongPress: json['onLongPress'] == null
         ? null
-        : FLDyAction.fromJson(json['longPressAction'] as Map<String, dynamic>),
+        : FLDyAction.fromJson(json['onLongPress'] as Map<String, dynamic>),
     textColor: json['textColor'] as String,
     color: json['color'] as String,
     padding: json['padding'] == null
@@ -578,8 +578,8 @@ Map<String, dynamic> _$FLDyFlatButtonUnitModelToJson(
       'align': instance.align,
       'positioned': instance.positioned,
       'child': instance.child,
-      'pressedAction': instance.pressedAction,
-      'longPressAction': instance.longPressAction,
+      'onPressed': instance.onPressed,
+      'onLongPress': instance.onLongPress,
       'textColor': instance.textColor,
       'color': instance.color,
       'padding': instance.padding,
