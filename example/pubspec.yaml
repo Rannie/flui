@@ -11,7 +11,7 @@ description: The demo app of flui.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.8.0
+version: 0.9.0
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -105,6 +105,9 @@ flutter:
     - assets/list_dark.png
     - assets/iron_man.png
     - assets/dev.png
+    - assets/folder_b.png
+    - assets/folder_r.png
+    - assets/folder_y.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
