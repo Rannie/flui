@@ -30,8 +30,6 @@ class DyRichTextPageState extends State<DyRichTextPage> {
 
   @override
   Widget build(BuildContext context) {
-    final GestureDetector detector = null;
-    final InkWell inkWell = null;
     return Scaffold(
       appBar: AppBar(
         title: Text('Rich Text'),
