@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flui/src/dynamic/units/unit_model.dart';
 import 'package:flui/src/dynamic/units/base_unit.dart';
 import 'package:flui/src/common/tools.dart';
+import 'package:flui/src/dynamic/action/action.dart';
 
 /// Container unit widget
 class FLDyContainerUnit extends FLDyRenderUnit {
@@ -144,5 +145,38 @@ class FLDyListTileUnit extends FLDyRenderUnit {
       selected: ltum.selected ?? false,
     );
     return resolveSelf(widget);
+  }
+}
+
+/// InkWell unit widget
+class FLDyInkWellUnit extends FLDyRenderUnit {
+  FLDyInkWellUnit({FLDyInkWellUnitModel unitModel})
+      : assert(unitModel.runtimeType == FLDyInkWellUnitModel),
+        super(unitModel: unitModel);
+
+  @override
+  Widget build(BuildContext context) {
+    final FLDyInkWellUnitModel iwum = unitModel as FLDyInkWellUnitModel;
+    final child = resolveChild();
+    final InkWell inkWell = InkWell(
+      child: child,
+      onTap: () {
+        FLDyActionDispatch.dispatcher
+            .dispatchAction(iwum.uniqueId, iwum.onTap, context);
+      },
+      onDoubleTap: () {
+        FLDyActionDispatch.dispatcher
+            .dispatchAction(iwum.uniqueId, iwum.onDoubleTap, context);
+      },
+      onLongPress: () {
+        FLDyActionDispatch.dispatcher
+            .dispatchAction(iwum.uniqueId, iwum.onLongPress, context);
+      },
+      focusColor: FLThemeTool.parseColor(iwum.focusColor, context),
+      hoverColor: FLThemeTool.parseColor(iwum.hoverColor, context),
+      highlightColor: FLThemeTool.parseColor(iwum.highlightColor, context),
+      splashColor: FLThemeTool.parseColor(iwum.splashColor, context)
+    );
+    return resolveSelf(inkWell);
   }
 }

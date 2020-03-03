@@ -40,6 +40,8 @@ class FLDyUnitModel {
         return FLDyListViewUnitModel.fromJson(json);
       case FLDyNativeUnitName.listTile:
         return FLDyListTileUnitModel.fromJson(json);
+      case FLDyNativeUnitName.inkWell:
+        return FLDyListTileUnitModel.fromJson(json);
       case FLDyNativeUnitName.text:
         return FLDyTextUnitModel.fromJson(json);
       case FLDyNativeUnitName.richText:
@@ -255,6 +257,45 @@ class FLDyListTileUnitModel extends FLDyUnitModel {
   factory FLDyListTileUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyListTileUnitModelFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyListTileUnitModelToJson(this);
+}
+
+@JsonSerializable()
+/// InkWell
+class FLDyInkWellUnitModel extends FLDyUnitModel {
+  FLDyInkWellUnitModel({
+    String uniqueId,
+    String unitName,
+    FLDyUnitAlign align,
+    FLDyUnitPositioned positioned,
+    FLDyUnitModel child,
+    List<FLDyUnitModel> children,
+    this.onTap,
+    this.onDoubleTap,
+    this.onLongPress,
+    this.focusColor,
+    this.hoverColor,
+    this.highlightColor,
+    this.splashColor,
+  }) : super(
+    uniqueId: uniqueId,
+    unitName: unitName,
+    align: align,
+    positioned: positioned,
+    child: child,
+    children: children,
+  );
+
+  final FLDyAction onTap;
+  final FLDyAction onDoubleTap;
+  final FLDyAction onLongPress;
+  final String focusColor;
+  final String hoverColor;
+  final String highlightColor;
+  final String splashColor;
+
+  factory FLDyInkWellUnitModel.fromJson(Map<String, dynamic> json) =>
+      _$FLDyInkWellUnitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FLDyInkWellUnitModelToJson(this);
 }
 
 @JsonSerializable()

@@ -23,6 +23,8 @@ class FLDyRenderParser {
         return FLDyListViewUnit(unitModel: unitModel);
       case FLDyNativeUnitName.listTile:
         return FLDyListTileUnit(unitModel: unitModel);
+      case FLDyNativeUnitName.inkWell:
+        return FLDyInkWellUnit(unitModel: unitModel);
       case FLDyNativeUnitName.text:
         return FLDyTextUnit(unitModel: unitModel);
       case FLDyNativeUnitName.richText:

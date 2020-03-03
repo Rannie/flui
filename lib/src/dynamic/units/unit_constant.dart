@@ -7,6 +7,7 @@ class FLDyNativeUnitName {
   static const String listView = 'ListView';
   static const String stack = 'Stack';
   static const String listTile = 'ListTile';
+  static const String inkWell = 'InkWell';
   static const String text = 'Text';
   static const String richText = 'RichText';
   static const String image = 'Image';
