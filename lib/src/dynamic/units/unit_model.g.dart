@@ -289,6 +289,59 @@ Map<String, dynamic> _$FLDyListTileUnitModelToJson(
       'selected': instance.selected,
     };
 
+FLDyInkWellUnitModel _$FLDyInkWellUnitModelFromJson(Map<String, dynamic> json) {
+  return FLDyInkWellUnitModel(
+    uniqueId: json['uniqueId'] as String,
+    unitName: json['unitName'] as String,
+    align: json['align'] == null
+        ? null
+        : FLDyUnitAlign.fromJson(json['align'] as Map<String, dynamic>),
+    positioned: json['positioned'] == null
+        ? null
+        : FLDyUnitPositioned.fromJson(
+            json['positioned'] as Map<String, dynamic>),
+    child: json['child'] == null
+        ? null
+        : FLDyUnitModel.fromJson(json['child'] as Map<String, dynamic>),
+    children: (json['children'] as List)
+        ?.map((e) => e == null
+            ? null
+            : FLDyUnitModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    onTap: json['onTap'] == null
+        ? null
+        : FLDyAction.fromJson(json['onTap'] as Map<String, dynamic>),
+    onDoubleTap: json['onDoubleTap'] == null
+        ? null
+        : FLDyAction.fromJson(json['onDoubleTap'] as Map<String, dynamic>),
+    onLongPress: json['onLongPress'] == null
+        ? null
+        : FLDyAction.fromJson(json['onLongPress'] as Map<String, dynamic>),
+    focusColor: json['focusColor'] as String,
+    hoverColor: json['hoverColor'] as String,
+    highlightColor: json['highlightColor'] as String,
+    splashColor: json['splashColor'] as String,
+  );
+}
+
+Map<String, dynamic> _$FLDyInkWellUnitModelToJson(
+        FLDyInkWellUnitModel instance) =>
+    <String, dynamic>{
+      'uniqueId': instance.uniqueId,
+      'unitName': instance.unitName,
+      'align': instance.align,
+      'positioned': instance.positioned,
+      'child': instance.child,
+      'children': instance.children,
+      'onTap': instance.onTap,
+      'onDoubleTap': instance.onDoubleTap,
+      'onLongPress': instance.onLongPress,
+      'focusColor': instance.focusColor,
+      'hoverColor': instance.hoverColor,
+      'highlightColor': instance.highlightColor,
+      'splashColor': instance.splashColor,
+    };
+
 FLDySizedBoxUnitModel _$FLDySizedBoxUnitModelFromJson(
     Map<String, dynamic> json) {
   return FLDySizedBoxUnitModel(
