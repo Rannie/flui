@@ -12,7 +12,9 @@ class FLDyContainer extends StatefulWidget {
     this.placeholder,
     this.jsonObject,
   })  : assert(placeholder != null || jsonObject != null),
-        super(key: key);
+        super(key: key) {
+    FLDyLogger.logStartTime();
+  }
 
   final Widget placeholder;
   final dynamic jsonObject;
@@ -28,16 +30,23 @@ class FLDyContainerState extends State<FLDyContainer> {
   void initState() {
     super.initState();
     if (widget.jsonObject != null) {
+      FLDyLogger.logStartTime();
       FLDyUnitModel unitModel = processJsonObject(widget.jsonObject);
+      FLDyLogger.logEndTime('serialization');
       _renderContent = FLDyRenderParser.markupContent(unitModel);
     }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FLDyLogger.logEndTime('total');
+    });
   }
 
   FLDyUnitModel processJsonObject(dynamic jsonObj) {
     assert(debugJsonAndType(jsonObj));
     // convert json string to unit model
-    if (jsonObj.runtimeType == String) {
+    if (jsonObj is String) {
       jsonObj = json.decode(jsonObj);
+    } else if (jsonObj is FLDyUnitModel) {
+      return jsonObj;
     }
     return FLDyUnitModel.fromJson(jsonObj);
   }

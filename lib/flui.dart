@@ -36,3 +36,4 @@ export 'package:flui/src/dynamic/units/unit_model.dart';
 
 // tools
 export 'package:flui/src/common/tools.dart';
+export 'package:flui/src/dynamic/util/logger.dart';
