@@ -21,6 +21,7 @@ const double kStaticButtonHeight = 44;
 class FLStaticSectionData {
   const FLStaticSectionData({
     this.headerTitle,
+    this.headerTitleStyle,
     this.headerHeight,
     this.headerTitleIntent = kStaticHeaderTitleIntent,
     this.itemList,
@@ -29,6 +30,7 @@ class FLStaticSectionData {
         super();
 
   final String headerTitle;
+  final TextStyle headerTitleStyle;
   final double headerHeight;
   final double headerTitleIntent;
   final Color headerBackgroundColor;
@@ -144,7 +146,7 @@ class FLStaticListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(sectionData.headerTitle,
-                  style: TextStyle(
+                  style: sectionData.headerTitleStyle ?? TextStyle(
                       color: Colors.grey,
                       fontSize: themeData.textTheme.subhead.fontSize))
             ],
