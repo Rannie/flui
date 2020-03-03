@@ -70,7 +70,6 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
     super.didUpdateWidget(oldWidget);
     _velocity = min(1, max(0, widget.velocity));
     _space = widget.space ?? MediaQuery.of(context).size.width;
-    _restart();
   }
 
   @override
@@ -94,11 +93,6 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
       _timer.cancel();
       _timer = null;
     }
-  }
-
-  void _restart() {
-    _stop();
-    _setup();
   }
 
   void _scheduleScroll() {
