@@ -1,7 +1,7 @@
 name: flui
 description:
-  FLUI has a relatively fine granularity of widgets, which is a supplement to the kinds of Flutter widgets.
-version: 0.8.0
+  FLUI is a powerful UI framework for Google Flutter.
+version: 0.9.0
 author: Rannie <rannstudio@outlook.com>
 homepage: 'https://www.flui.xin/en/'
 repository: 'https://github.com/Rannie/flui'
