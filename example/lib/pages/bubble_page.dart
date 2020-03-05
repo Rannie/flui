@@ -140,7 +140,7 @@ class _BubblePageState extends State<BubblePage> {
             },
             onSelected: (value) => FLToast.showText(
                 text: 'Select - $value', position: FLToastPosition.bottom),
-            onCanceled: () => FLToast.showText(
+            onCancelled: () => FLToast.showText(
                 text: 'Canceled', position: FLToastPosition.bottom),
           ),
           SizedBox(height: 20),
@@ -171,7 +171,7 @@ class _BubblePageState extends State<BubblePage> {
             },
             onSelected: (value) => FLToast.showText(
                 text: 'Select - $value', position: FLToastPosition.bottom),
-            onCanceled: () => FLToast.showText(
+            onCancelled: () => FLToast.showText(
                 text: 'Canceled', position: FLToastPosition.bottom),
           ),
         ],

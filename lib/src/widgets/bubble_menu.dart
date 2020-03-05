@@ -26,7 +26,7 @@ const TextStyle _kToolbarButtonFontStyle = TextStyle(
 
 typedef FLBubbleMenuItemBuilder<T> = List<FLBubbleMenuItem<T>> Function(
     BuildContext context);
-typedef FLBubbleMenuCanceled = void Function();
+typedef FLBubbleMenuCancelled = void Function();
 typedef FLBubbleMenuItemSelected<T> = void Function(T value);
 
 enum FLBubbleMenuInteraction { tap, longPress }
@@ -36,7 +36,7 @@ class FLBubbleMenuWidget<T> extends StatefulWidget {
       {Key key,
       @required this.itemBuilder,
       this.onSelected,
-      this.onCanceled,
+      this.onCancelled,
       this.interaction = FLBubbleMenuInteraction.longPress,
       @required this.child,
       this.offset = Offset.zero})
@@ -48,7 +48,7 @@ class FLBubbleMenuWidget<T> extends StatefulWidget {
   final FLBubbleMenuInteraction interaction;
   final FLBubbleMenuItemBuilder itemBuilder;
   final FLBubbleMenuItemSelected<T> onSelected;
-  final FLBubbleMenuCanceled onCanceled;
+  final FLBubbleMenuCancelled onCancelled;
   final Widget child;
   final Offset offset;
 
@@ -75,7 +75,7 @@ class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
         .then<void>((T value) {
       if (!mounted) return null;
       if (value == null) {
-        if (widget.onCanceled != null) widget.onCanceled();
+        if (widget.onCancelled != null) widget.onCancelled();
         return null;
       }
       if (widget.onSelected != null) widget.onSelected(value);
