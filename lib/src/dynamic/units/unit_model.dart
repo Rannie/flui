@@ -266,6 +266,7 @@ class FLDyInkWellUnitModel extends FLDyUnitModel {
     String uniqueId,
     String unitName,
     FLDyUnitAlign align,
+    String flex,
     FLDyUnitPositioned positioned,
     FLDyUnitModel child,
     List<FLDyUnitModel> children,
@@ -280,6 +281,7 @@ class FLDyInkWellUnitModel extends FLDyUnitModel {
     uniqueId: uniqueId,
     unitName: unitName,
     align: align,
+    flex: flex,
     positioned: positioned,
     child: child,
     children: children,
@@ -510,6 +512,7 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
     FLDyUnitAlign align,
     String flex,
     FLDyUnitModel child,
+    List<FLDyUnitModel> children,
     @required this.onPressed,
     this.onLongPress,
     this.textColor,
@@ -522,6 +525,7 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
     align: align,
     flex: flex,
     child: child,
+    children: children
   );
 
   final FLDyAction onPressed;
@@ -545,6 +549,7 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
     FLDyUnitAlign align,
     String flex,
     FLDyUnitModel child,
+    List<FLDyUnitModel> children,
     @required this.onPressed,
     this.onLongPress,
     this.textColor,
@@ -557,6 +562,7 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
     align: align,
     flex: flex,
     child: child,
+    children: children
   );
 
   final FLDyAction onPressed;

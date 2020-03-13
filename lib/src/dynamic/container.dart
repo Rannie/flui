@@ -13,6 +13,7 @@ class FLDyContainer extends StatefulWidget {
     this.jsonObject,
   })  : assert(placeholder != null || jsonObject != null),
         super(key: key) {
+    FLDyLogger.log('initial dynamic container');
     FLDyLogger.logStartTime();
   }
 
@@ -33,7 +34,9 @@ class FLDyContainerState extends State<FLDyContainer> {
       FLDyLogger.logStartTime();
       FLDyUnitModel unitModel = processJsonObject(widget.jsonObject);
       FLDyLogger.logEndTime('serialization');
+      FLDyLogger.logStartTime();
       _renderContent = FLDyRenderParser.markupContent(unitModel);
+      FLDyLogger.logEndTime('markup content');
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FLDyLogger.logEndTime('total');
@@ -66,7 +69,6 @@ class FLDyContainerState extends State<FLDyContainer> {
 
   @override
   Widget build(BuildContext context) {
-    FLDyLogger.log('build dynamic container');
     return _renderContent ?? widget.placeholder;
   }
 }
