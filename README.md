@@ -45,7 +45,7 @@ Currently supports *v1.12.13+hotfix.8* and above.
 
 ```yaml
 dependencies:
-  flui: 0.9.0
+  flui: 0.9.1
 ```
 
 Then run `flutter pub get` to download the dependencies.

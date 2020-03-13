@@ -85,23 +85,23 @@ class FLDyListViewUnit extends FLDyRenderUnit {
     ListView listView;
     if (lvum.separatedDivider != null) {
       listView = ListView.separated(
-          itemBuilder: (BuildContext context, int index) {
-            return children[index];
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return lvum.separatedDivider.toDivider(context);
-          },
-          itemCount: children.length,
-          scrollDirection: lvum.getScrollDirection(),
-          reverse: lvum.reverse ?? false,
-          primary: lvum.primary,
-          physics: lvum.scrollPhysics?.toScrollPhysics(),
-          shrinkWrap: lvum.shrinkWrap ?? false,
-          padding: lvum.padding?.toEdgeInsets(),
-          addAutomaticKeepAlives: lvum.addAutomaticKeepAlives ?? true,
-          addRepaintBoundaries: lvum.addRepaintBoundaries ?? true,
-          addSemanticIndexes: lvum.addSemanticIndexes ?? true,
-          cacheExtent: lvum.cacheExtent,
+        itemBuilder: (BuildContext context, int index) {
+          return children[index];
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return lvum.separatedDivider.toDivider(context);
+        },
+        itemCount: children.length,
+        scrollDirection: lvum.getScrollDirection(),
+        reverse: lvum.reverse ?? false,
+        primary: lvum.primary,
+        physics: lvum.scrollPhysics?.toScrollPhysics(),
+        shrinkWrap: lvum.shrinkWrap ?? false,
+        padding: lvum.padding?.toEdgeInsets(),
+        addAutomaticKeepAlives: lvum.addAutomaticKeepAlives ?? true,
+        addRepaintBoundaries: lvum.addRepaintBoundaries ?? true,
+        addSemanticIndexes: lvum.addSemanticIndexes ?? true,
+        cacheExtent: lvum.cacheExtent,
       );
     } else {
       listView = ListView(
@@ -159,24 +159,23 @@ class FLDyInkWellUnit extends FLDyRenderUnit {
     final FLDyInkWellUnitModel iwum = unitModel as FLDyInkWellUnitModel;
     final child = resolveChild();
     final InkWell inkWell = InkWell(
-      child: child,
-      onTap: () {
-        FLDyActionDispatch.dispatcher
-            .dispatchAction(iwum.uniqueId, iwum.onTap, context);
-      },
-      onDoubleTap: () {
-        FLDyActionDispatch.dispatcher
-            .dispatchAction(iwum.uniqueId, iwum.onDoubleTap, context);
-      },
-      onLongPress: () {
-        FLDyActionDispatch.dispatcher
-            .dispatchAction(iwum.uniqueId, iwum.onLongPress, context);
-      },
-      focusColor: FLThemeTool.parseColor(iwum.focusColor, context),
-      hoverColor: FLThemeTool.parseColor(iwum.hoverColor, context),
-      highlightColor: FLThemeTool.parseColor(iwum.highlightColor, context),
-      splashColor: FLThemeTool.parseColor(iwum.splashColor, context)
-    );
+        child: child,
+        onTap: () {
+          FLDyActionDispatch.dispatcher
+              .dispatchAction(iwum.uniqueId, iwum.onTap, context);
+        },
+        onDoubleTap: () {
+          FLDyActionDispatch.dispatcher
+              .dispatchAction(iwum.uniqueId, iwum.onDoubleTap, context);
+        },
+        onLongPress: () {
+          FLDyActionDispatch.dispatcher
+              .dispatchAction(iwum.uniqueId, iwum.onLongPress, context);
+        },
+        focusColor: FLThemeTool.parseColor(iwum.focusColor, context),
+        hoverColor: FLThemeTool.parseColor(iwum.hoverColor, context),
+        highlightColor: FLThemeTool.parseColor(iwum.highlightColor, context),
+        splashColor: FLThemeTool.parseColor(iwum.splashColor, context));
     return resolveSelf(inkWell);
   }
 }

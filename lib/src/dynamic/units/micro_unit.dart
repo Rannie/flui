@@ -49,8 +49,8 @@ class FLDyTextUnit extends FLDyRenderUnit {
 /// RichText
 class FLDyRichTextUnit extends FLDyRenderUnit {
   FLDyRichTextUnit({FLDyRichTextUnitModel unitModel})
-    : assert(unitModel.runtimeType == FLDyRichTextUnitModel),
-      super(unitModel: unitModel);
+      : assert(unitModel.runtimeType == FLDyRichTextUnitModel),
+        super(unitModel: unitModel);
 
   TextSpan buildTextSpan(FLDyTextSpanUnitModel spanUM, BuildContext context) {
     GestureRecognizer gestureRecognizer;
@@ -64,19 +64,19 @@ class FLDyRichTextUnit extends FLDyRenderUnit {
       } else if (spanUM.gesture.onLongPress != null) {
         gestureRecognizer = LongPressGestureRecognizer()
           ..onLongPress = () {
-            FLDyActionDispatch.dispatcher
-                .dispatchAction(spanUM.uniqueId, spanUM.gesture.onLongPress, context);
+            FLDyActionDispatch.dispatcher.dispatchAction(
+                spanUM.uniqueId, spanUM.gesture.onLongPress, context);
           };
       }
     }
     return TextSpan(
-      text: spanUM.text,
-      style: spanUM.textStyle?.toTextStyle(context),
-      recognizer: gestureRecognizer,
-      semanticsLabel: spanUM.semanticsLabel,
-      children: spanUM.children?.map(
-              (spanUM) => buildTextSpan(spanUM, context))?.toList()
-    );
+        text: spanUM.text,
+        style: spanUM.textStyle?.toTextStyle(context),
+        recognizer: gestureRecognizer,
+        semanticsLabel: spanUM.semanticsLabel,
+        children: spanUM.children
+            ?.map((spanUM) => buildTextSpan(spanUM, context))
+            ?.toList());
   }
 
   @override
@@ -93,19 +93,22 @@ class FLDyRichTextUnit extends FLDyRenderUnit {
 /// Image
 class FLDyImageUnit extends FLDyRenderUnit {
   FLDyImageUnit({FLDyImageUnitModel unitModel})
-    : assert(unitModel.runtimeType == FLDyImageUnitModel),
-      super(unitModel: unitModel);
+      : assert(unitModel.runtimeType == FLDyImageUnitModel),
+        super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
     final FLDyImageUnitModel ium = unitModel as FLDyImageUnitModel;
     final Widget image = Image(
       image: ium.imageProvider.type == FLDyImageType.network
-          ? ium.imageProvider.toNetworkImage() : ium.imageProvider.toAssetImage(),
-      loadingBuilder: ium.loading != null ?
-          (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
-            return markupUnit(ium.loading);
-          } : null,
+          ? ium.imageProvider.toNetworkImage()
+          : ium.imageProvider.toAssetImage(),
+      loadingBuilder: ium.loading != null
+          ? (BuildContext context, Widget child,
+              ImageChunkEvent loadingProgress) {
+              return markupUnit(ium.loading);
+            }
+          : null,
       semanticLabel: ium.semanticLabel,
       excludeFromSemantics: ium.excludeFromSemantics ?? false,
       width: ium.width,
@@ -122,8 +125,8 @@ class FLDyImageUnit extends FLDyRenderUnit {
 /// Icon
 class FLDyIconUnit extends FLDyRenderUnit {
   FLDyIconUnit({FLDyIconUnitModel unitModel})
-    : assert(unitModel.runtimeType == FLDyIconUnitModel),
-      super(unitModel: unitModel);
+      : assert(unitModel.runtimeType == FLDyIconUnitModel),
+        super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
@@ -142,12 +145,13 @@ class FLDyIconUnit extends FLDyRenderUnit {
 /// RaisedButton
 class FLDyRaisedButtonUnit extends FLDyRenderUnit {
   FLDyRaisedButtonUnit({FLDyRaisedButtonUnitModel unitModel})
-    : assert(unitModel.runtimeType == FLDyRaisedButtonUnitModel),
-      super(unitModel: unitModel);
+      : assert(unitModel.runtimeType == FLDyRaisedButtonUnitModel),
+        super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
-    final FLDyRaisedButtonUnitModel rbum = unitModel as FLDyRaisedButtonUnitModel;
+    final FLDyRaisedButtonUnitModel rbum =
+        unitModel as FLDyRaisedButtonUnitModel;
     final Widget child = resolveChild();
     final RaisedButton button = RaisedButton(
       onPressed: () => FLDyActionDispatch.dispatcher
