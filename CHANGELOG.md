@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.9.0
+
+- New module [Dynamic](https://www.flui.xin/en/dynamic.html) released
+- Flutter version upgrade to `v1.12.13 + hotfix.8`
+- [Widget Documentation](https://www.flui.xin/en/widgets/button.html) Added API list
+- **FLToast** Added disappearing callback
+- **FLStaticSectionData** Added header style text style setting
+- Added **FLSliverPersistentHeaderWidget** -- a floating style list header
+- Fix **FLCupertinoActionSheet** property setting issue [#22](https://github.com/Rannie/flui/issues/22)
+- Fix **FLNoticeBar** background color setting issue [#19](https://github.com/Rannie/flui/issues/19)
+- Fix **FLMarqueeLabel** calculation during update issue [#18](https://github.com/Rannie/flui/issues/18)
+
 ## 0.8.0
 
 - Flutter version upgrade to v1.12.13 + hotfix.5

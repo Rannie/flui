@@ -10,7 +10,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 <h1 align="center">FLUI</h1>
 
 <div align="center">
-<p>A widget kit for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/flui.apk">Demo apk</a></p>
+<p>A powerful UI framework for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/app-release-0-9.apk">Demo apk</a></p>
 
 
 [![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
@@ -31,12 +31,13 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 * Comprehensive usage examples and documentation
 * Fine-grained non-stylized widgets for different types of applications
 * Supports [Dark Mode](https://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-dark_shots.png) and [RTL](https://abtfun.oss-cn-beijing.aliyuncs.com/img/2019-12-27-rtl_shots.png)
+* Dynamic rendering module -- [Dynamic](https://www.flui.xin/en/dynamic.html)
 
 ## Compatibility
 
 **FLUI** has good compatibility on multiple clients, and the framework will be developed based on Flutter Stable Channel.
 
-Currently supports *v1.12.13+hotfix.5* and above.
+Currently supports *v1.12.13+hotfix.8* and above.
 
 ## Getting Started
 
@@ -44,7 +45,7 @@ Currently supports *v1.12.13+hotfix.5* and above.
 
 ```yaml
 dependencies:
-  flui: 0.8.0
+  flui: 0.9.0
 ```
 
 Then run `flutter pub get` to download the dependencies.
@@ -83,6 +84,24 @@ FLAppBarTitle(
 - [BottomSheet](https://www.flui.xin/en/widgets/bottom-sheet.html)
 - [List](https://www.flui.xin/en/widgets/list.html)
 - [Theme](https://www.flui.xin/en/widgets/theme.html)
+
+## Dynamic
+
+![dynamic-post](https://abtfun.oss-cn-beijing.aliyuncs.com/img/2020-03-11-dynamic-poster-1.png)
+
+**FLUI-Dynamic** is a dynamic rendering module that supports rendering widgets based on json strings or objects of a specified type. For more introduction and usage, please see [Dynamic](https://www.flui.xin/en/dynamic.html)
+
+``` dart
+Widget buildDynamicWidget() {
+    return FLDyContainer(
+       jsonObject: $JSON_STRING_OR_OBJECT,
+       placeholder: CircularProgressIndicator(
+         strokeWidth: 3.0,
+         valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
+       ),
+    );
+}
+```
 
 ## Contributing
 
