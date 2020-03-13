@@ -46,7 +46,7 @@
 
 ```yaml
 dependencies:
-  flui: 0.9.0
+  flui: 0.9.1
 ```
 
 然后运行 `flutter pub get` 下载依赖。

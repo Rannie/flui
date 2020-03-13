@@ -142,9 +142,8 @@ class FLNoticeBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final Color accent = Theme.of(context).accentColor;
-    final Color barBackgroundColor = backgroundColor ?? (isDarkMode
-        ? accent.withOpacity(0.2)
-        : FLNoticeBarBackgroundColor);
+    final Color barBackgroundColor = backgroundColor ??
+        (isDarkMode ? accent.withOpacity(0.2) : FLNoticeBarBackgroundColor);
     final Color textColor = isDarkMode ? accent : FLNoticeBarTintColor;
     final TextStyle marqueeStyle = textStyle ?? TextStyle(color: textColor);
 
