@@ -54,7 +54,6 @@ class _ActionSheetPageState extends State<ActionSheetPage> {
                         builder: (BuildContext context) {
                           return FLCupertinoActionSheet(
                             style: FLCupertinoActionSheetStyle.filled,
-                            backgroundColor: Colors.blue,
                             child: _buildActionSheetContent(),
                             cancelButton: CupertinoActionSheetAction(
                               child: Text('Cancel',
