@@ -6,8 +6,8 @@ import 'package:flui/flui.dart';
 
 part 'action.g.dart';
 
-typedef FLDyActionHandler =
-  Function(BuildContext context, String uniqueId, List<String> args);
+typedef FLDyActionHandler = Function(
+    BuildContext context, String uniqueId, List<String> args);
 
 class FLDyActionType {
   static const String builtin = 'builtin';
@@ -26,8 +26,8 @@ class FLDyFrameworkAction {
   static const String infoToast = 'infoToast';
 }
 
-
 @JsonSerializable()
+
 /// Action Model
 class FLDyAction {
   FLDyAction({
@@ -37,6 +37,7 @@ class FLDyAction {
   });
 
   final String actionType;
+
   /// Builtin action use, like '@navigator.push'
   final String action;
   final List<String> args;
@@ -47,6 +48,7 @@ class FLDyAction {
 }
 
 @JsonSerializable()
+
 /// Gesture Recognizer, (TapGestureRecognizer or LongPressGestureRecognizer)
 class FLDyGestureRecognizer {
   FLDyGestureRecognizer(this.onTap, this.onLongPress);
@@ -59,14 +61,14 @@ class FLDyGestureRecognizer {
   Map<String, dynamic> toJson() => _$FLDyGestureRecognizerToJson(this);
 }
 
-
 class FLDyActionDispatch {
   static final FLDyActionDispatch _instance = FLDyActionDispatch();
   static FLDyActionDispatch get dispatcher => _instance;
 
   final LinkedHashMap _customActionMap = new LinkedHashMap();
 
-  void dispatchAction(String uniqueId, FLDyAction action, BuildContext context) {
+  void dispatchAction(
+      String uniqueId, FLDyAction action, BuildContext context) {
     if (action == null) return;
     if (action.actionType == FLDyActionType.builtin) {
       _dispatchBuiltinAction(action, context);
@@ -85,7 +87,8 @@ class FLDyActionDispatch {
     _customActionMap.remove(action);
   }
 
-  void _dispatchCustomAction(String uniqueId, FLDyAction action, BuildContext context) {
+  void _dispatchCustomAction(
+      String uniqueId, FLDyAction action, BuildContext context) {
     FLDyActionHandler handler = _customActionMap[action.action];
     if (handler == null) return;
     handler(context, uniqueId, action.args);
@@ -94,40 +97,43 @@ class FLDyActionDispatch {
   void _dispatchBuiltinAction(FLDyAction action, BuildContext context) {
     String act = action.action;
     String descriptor = act?.split('.')?.last;
-    if (act.startsWith('@navigator'))
-    {
+    if (act.startsWith('@navigator')) {
       switch (descriptor) {
-        case FLDyNavigatorAction.pushNamed: {
-          Navigator.pushNamed(context, action.args.first, arguments: action.args);
-          break;
-        }
-        case FLDyNavigatorAction.pop: {
-          Navigator.pop(context);
-          break;
-        }
+        case FLDyNavigatorAction.pushNamed:
+          {
+            Navigator.pushNamed(context, action.args.first,
+                arguments: action.args);
+            break;
+          }
+        case FLDyNavigatorAction.pop:
+          {
+            Navigator.pop(context);
+            break;
+          }
       }
-    }
-    else if (act.startsWith('@flui'))
-    {
+    } else if (act.startsWith('@flui')) {
       switch (descriptor) {
-        case FLDyFrameworkAction.textToast: {
-          FLToast.text(text: action.args.first);
-          break;
-        }
-        case FLDyFrameworkAction.infoToast: {
-          FLToast.info(text: action.args.first);
-          break;
-        }
-        case FLDyFrameworkAction.successToast: {
-          FLToast.success(text: action.args.first);
-          break;
-        }
-        case FLDyFrameworkAction.errorToast: {
-          FLToast.error(text: action.args.first);
-          break;
-        }
+        case FLDyFrameworkAction.textToast:
+          {
+            FLToast.text(text: action.args.first);
+            break;
+          }
+        case FLDyFrameworkAction.infoToast:
+          {
+            FLToast.info(text: action.args.first);
+            break;
+          }
+        case FLDyFrameworkAction.successToast:
+          {
+            FLToast.success(text: action.args.first);
+            break;
+          }
+        case FLDyFrameworkAction.errorToast:
+          {
+            FLToast.error(text: action.args.first);
+            break;
+          }
       }
     }
   }
 }
-
