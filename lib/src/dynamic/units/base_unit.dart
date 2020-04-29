@@ -68,7 +68,8 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
   Widget resolveSelf(Widget self) {
     // flex
     if (unitModel.flex != null) {
-      if (unitModel.flex == 'Expanded') self = Expanded(child: self);
+      if (unitModel.flex == 'Expanded')
+        self = Expanded(child: self);
       else if (unitModel.flex == 'Flexible') self = Flexible(child: self);
     }
     // position layout
@@ -150,8 +151,7 @@ class FLDyAlignUnit extends FLDyBaseUnit {
       return Center(
           widthFactor: align.widthFactor,
           heightFactor: align.heightFactor,
-          child: child
-      );
+          child: child);
     }
 
     final MainAxisSize mainAxisSize = align.mainAxisSize != null

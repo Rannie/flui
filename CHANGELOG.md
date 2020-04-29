@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.9.1
+
+- Fix **FLCupertinoActionSheet** background color issue [#24](https://github.com/Rannie/flui/issues/24)
+- Dynamic parameter check enhancement
+
 ## 0.9.0
 
 - New module [Dynamic](https://www.flui.xin/en/dynamic.html) released

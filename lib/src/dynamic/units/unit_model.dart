@@ -7,17 +7,18 @@ import 'package:flui/src/dynamic/action/action.dart';
 part 'unit_model.g.dart';
 
 @JsonSerializable()
+
 /// The unit model classes are responsible for storing view
 /// rendering information, bound events and bound data.
 class FLDyUnitModel {
   FLDyUnitModel(
       {this.uniqueId,
-        this.unitName,
-        this.flex,
-        this.align,
-        this.positioned,
-        this.child,
-        this.children});
+      this.unitName,
+      this.flex,
+      this.align,
+      this.positioned,
+      this.child,
+      this.children});
 
   final String uniqueId;
   final String unitName;
@@ -63,6 +64,7 @@ class FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// Container
 class FLDyContainerUnitModel extends FLDyUnitModel {
   FLDyContainerUnitModel({
@@ -95,6 +97,7 @@ class FLDyContainerUnitModel extends FLDyUnitModel {
   final String color;
   final FLDyUnitEdgeInsets padding;
   final FLDyUnitEdgeInsets margin;
+
   /// only support box decoration
   final FLDyUnitBoxDecoration decoration;
   final FLDyUnitBoxDecoration foregroundDecoration;
@@ -106,26 +109,27 @@ class FLDyContainerUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// SafeArea
 class FLDySafeAreaUnitModel extends FLDyUnitModel {
-  FLDySafeAreaUnitModel({
-    String uniqueId,
-    String unitName,
-    FLDyUnitModel child,
-    List<FLDyUnitModel> children,
-    FLDyUnitAlign align,
-    this.left,
-    this.top,
-    this.right,
-    this.bottom,
-    this.minimum,
-    this.maintainBottomViewPadding
-  }) : super(
-      uniqueId: uniqueId,
-      unitName: unitName,
-      child: child,
-      children: children,
-      align: align);
+  FLDySafeAreaUnitModel(
+      {String uniqueId,
+      String unitName,
+      FLDyUnitModel child,
+      List<FLDyUnitModel> children,
+      FLDyUnitAlign align,
+      this.left,
+      this.top,
+      this.right,
+      this.bottom,
+      this.minimum,
+      this.maintainBottomViewPadding})
+      : super(
+            uniqueId: uniqueId,
+            unitName: unitName,
+            child: child,
+            children: children,
+            align: align);
 
   final bool left;
   final bool top;
@@ -140,23 +144,24 @@ class FLDySafeAreaUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// StackView
 class FLDyStackUnitModel extends FLDyUnitModel {
-  FLDyStackUnitModel({
-    String uniqueId,
-    String unitName,
-    FLDyUnitPositioned positioned,
-    List<FLDyUnitModel> children,
-    this.alignment,
-    this.fit,
-    this.textDirection,
-    this.overflow
-  }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-    children: children,
-  );
+  FLDyStackUnitModel(
+      {String uniqueId,
+      String unitName,
+      FLDyUnitPositioned positioned,
+      List<FLDyUnitModel> children,
+      this.alignment,
+      this.fit,
+      this.textDirection,
+      this.overflow})
+      : super(
+          uniqueId: uniqueId,
+          unitName: unitName,
+          positioned: positioned,
+          children: children,
+        );
 
   final String alignment;
   final String textDirection;
@@ -167,13 +172,15 @@ class FLDyStackUnitModel extends FLDyUnitModel {
       _$FLDyStackUnitModelFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyStackUnitModelToJson(this);
 
-  AlignmentDirectional getAlignment() => flStringToAlignmentDirectional(alignment);
+  AlignmentDirectional getAlignment() =>
+      flStringToAlignmentDirectional(alignment);
   TextDirection getTextDirection() => flStringToTextDirection(textDirection);
   StackFit getStackFit() => flStringToStackFit(fit);
   Overflow getOverflow() => flStringToOverflow(overflow);
 }
 
 @JsonSerializable()
+
 /// ListView
 class FLDyListViewUnitModel extends FLDyUnitModel {
   FLDyListViewUnitModel({
@@ -195,10 +202,10 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
     this.semanticChildCount,
     this.separatedDivider,
   }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    children: children,
-    positioned: positioned);
+            uniqueId: uniqueId,
+            unitName: unitName,
+            children: children,
+            positioned: positioned);
 
   final String scrollDirection;
   final bool reverse;
@@ -219,30 +226,32 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
   Map<String, dynamic> toJson() => _$FLDyListViewUnitModelToJson(this);
 
   Axis getScrollDirection() => (scrollDirection != null)
-      ? flStringToAxis(scrollDirection) : Axis.vertical;
+      ? flStringToAxis(scrollDirection)
+      : Axis.vertical;
 }
 
 @JsonSerializable()
+
 /// ListTile
 class FLDyListTileUnitModel extends FLDyUnitModel {
-  FLDyListTileUnitModel({
-    String uniqueId,
-    String unitName,
-    FLDyUnitPositioned positioned,
-    this.leading,
-    this.title,
-    this.subtitle,
-    this.trailing,
-    this.isThreeLine,
-    this.dense,
-    this.contentPadding,
-    this.enabled,
-    this.selected
-  }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-  );
+  FLDyListTileUnitModel(
+      {String uniqueId,
+      String unitName,
+      FLDyUnitPositioned positioned,
+      this.leading,
+      this.title,
+      this.subtitle,
+      this.trailing,
+      this.isThreeLine,
+      this.dense,
+      this.contentPadding,
+      this.enabled,
+      this.selected})
+      : super(
+          uniqueId: uniqueId,
+          unitName: unitName,
+          positioned: positioned,
+        );
 
   final FLDyUnitModel leading;
   final FLDyUnitModel title;
@@ -260,6 +269,7 @@ class FLDyListTileUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// InkWell
 class FLDyInkWellUnitModel extends FLDyUnitModel {
   FLDyInkWellUnitModel({
@@ -278,14 +288,14 @@ class FLDyInkWellUnitModel extends FLDyUnitModel {
     this.highlightColor,
     this.splashColor,
   }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    align: align,
-    flex: flex,
-    positioned: positioned,
-    child: child,
-    children: children,
-  );
+          uniqueId: uniqueId,
+          unitName: unitName,
+          align: align,
+          flex: flex,
+          positioned: positioned,
+          child: child,
+          children: children,
+        );
 
   final FLDyAction onTap;
   final FLDyAction onDoubleTap;
@@ -301,6 +311,7 @@ class FLDyInkWellUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// SizedBox
 class FLDySizedBoxUnitModel extends FLDyUnitModel {
   FLDySizedBoxUnitModel({
@@ -318,9 +329,11 @@ class FLDySizedBoxUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// Text
 class FLDyTextUnitModel extends FLDyUnitModel {
-  FLDyTextUnitModel(this.text, {
+  FLDyTextUnitModel(
+    this.text, {
     String uniqueId,
     String unitName,
     FLDyUnitPositioned positioned,
@@ -334,10 +347,10 @@ class FLDyTextUnitModel extends FLDyUnitModel {
     this.semanticsLabel,
     this.textWidthBasis,
   }) : super(
-      uniqueId: uniqueId,
-      unitName: unitName,
-      positioned: positioned,
-  );
+          uniqueId: uniqueId,
+          unitName: unitName,
+          positioned: positioned,
+        );
 
   final String text;
   final FLDyUnitTextStyle textStyle;
@@ -353,14 +366,16 @@ class FLDyTextUnitModel extends FLDyUnitModel {
   factory FLDyTextUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyTextUnitModelFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyTextUnitModelToJson(this);
-  
+
   TextAlign getTextAlign() => flStringToTextAlign(textAlign);
   TextDirection getTextDirection() => flStringToTextDirection(textDirection);
   TextOverflow getTextOverflow() => flStringToTextOverflow(textOverflow);
-  TextWidthBasis getTextWidthBasis() => flStringToTextWidthBasis(textWidthBasis);
+  TextWidthBasis getTextWidthBasis() =>
+      flStringToTextWidthBasis(textWidthBasis);
 }
 
 @JsonSerializable()
+
 /// RichText
 class FLDyRichTextUnitModel extends FLDyUnitModel {
   FLDyRichTextUnitModel({
@@ -377,10 +392,10 @@ class FLDyRichTextUnitModel extends FLDyUnitModel {
     this.semanticsLabel,
     this.textWidthBasis,
   }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-  );
+          uniqueId: uniqueId,
+          unitName: unitName,
+          positioned: positioned,
+        );
 
   final FLDyTextSpanUnitModel text;
   final String textAlign;
@@ -399,23 +414,25 @@ class FLDyRichTextUnitModel extends FLDyUnitModel {
   TextAlign getTextAlign() => flStringToTextAlign(textAlign);
   TextDirection getTextDirection() => flStringToTextDirection(textDirection);
   TextOverflow getTextOverflow() => flStringToTextOverflow(textOverflow);
-  TextWidthBasis getTextWidthBasis() => flStringToTextWidthBasis(textWidthBasis);
+  TextWidthBasis getTextWidthBasis() =>
+      flStringToTextWidthBasis(textWidthBasis);
 }
 
 @JsonSerializable()
+
 /// TextSpan
 class FLDyTextSpanUnitModel extends FLDyUnitModel {
-  FLDyTextSpanUnitModel({
-    String uniqueId,
-    List<FLDyTextSpanUnitModel> children,
-    this.text,
-    this.textStyle,
-    this.gesture,
-    this.semanticsLabel
-  }) : super(
-    uniqueId: uniqueId,
-    children: children,
-  );
+  FLDyTextSpanUnitModel(
+      {String uniqueId,
+      List<FLDyTextSpanUnitModel> children,
+      this.text,
+      this.textStyle,
+      this.gesture,
+      this.semanticsLabel})
+      : super(
+          uniqueId: uniqueId,
+          children: children,
+        );
 
   final String text;
   final FLDyUnitTextStyle textStyle;
@@ -428,29 +445,29 @@ class FLDyTextSpanUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// Image
 class FLDyImageUnitModel extends FLDyUnitModel {
-  FLDyImageUnitModel({
-    String uniqueId,
-    String unitName,
-    FLDyUnitPositioned positioned,
-    String flex,
-    @required this.imageProvider,
-    this.loading,
-    this.width,
-    this.height,
-    this.color,
-    this.fit,
-    this.alignment,
-    this.imageRepeat,
-    this.semanticLabel,
-    this.excludeFromSemantics
-  }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-    flex: flex
-  );
+  FLDyImageUnitModel(
+      {String uniqueId,
+      String unitName,
+      FLDyUnitPositioned positioned,
+      String flex,
+      @required this.imageProvider,
+      this.loading,
+      this.width,
+      this.height,
+      this.color,
+      this.fit,
+      this.alignment,
+      this.imageRepeat,
+      this.semanticLabel,
+      this.excludeFromSemantics})
+      : super(
+            uniqueId: uniqueId,
+            unitName: unitName,
+            positioned: positioned,
+            flex: flex);
 
   final FLDyUnitImageProvider imageProvider;
   final FLDyUnitModel loading;
@@ -473,9 +490,11 @@ class FLDyImageUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// Icon
 class FLDyIconUnitModel extends FLDyUnitModel {
-  FLDyIconUnitModel(this.icon, {
+  FLDyIconUnitModel(
+    this.icon, {
     String uniqueId,
     String unitName,
     FLDyUnitPositioned positioned,
@@ -484,10 +503,10 @@ class FLDyIconUnitModel extends FLDyUnitModel {
     this.semanticLabel,
     this.textDirection,
   }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-  );
+          uniqueId: uniqueId,
+          unitName: unitName,
+          positioned: positioned,
+        );
 
   final FLDyUnitIconData icon;
   final double size;
@@ -503,30 +522,30 @@ class FLDyIconUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// RaisedButton
 class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
-  FLDyRaisedButtonUnitModel({
-    String uniqueId,
-    String unitName,
-    FLDyUnitPositioned positioned,
-    FLDyUnitAlign align,
-    String flex,
-    FLDyUnitModel child,
-    List<FLDyUnitModel> children,
-    @required this.onPressed,
-    this.onLongPress,
-    this.textColor,
-    this.color,
-    this.padding
-  }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-    align: align,
-    flex: flex,
-    child: child,
-    children: children
-  );
+  FLDyRaisedButtonUnitModel(
+      {String uniqueId,
+      String unitName,
+      FLDyUnitPositioned positioned,
+      FLDyUnitAlign align,
+      String flex,
+      FLDyUnitModel child,
+      List<FLDyUnitModel> children,
+      @required this.onPressed,
+      this.onLongPress,
+      this.textColor,
+      this.color,
+      this.padding})
+      : super(
+            uniqueId: uniqueId,
+            unitName: unitName,
+            positioned: positioned,
+            align: align,
+            flex: flex,
+            child: child,
+            children: children);
 
   final FLDyAction onPressed;
   final FLDyAction onLongPress;
@@ -540,30 +559,30 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// RaisedButton
 class FLDyFlatButtonUnitModel extends FLDyUnitModel {
-  FLDyFlatButtonUnitModel({
-    String uniqueId,
-    String unitName,
-    FLDyUnitPositioned positioned,
-    FLDyUnitAlign align,
-    String flex,
-    FLDyUnitModel child,
-    List<FLDyUnitModel> children,
-    @required this.onPressed,
-    this.onLongPress,
-    this.textColor,
-    this.color,
-    this.padding
-  }) : super(
-    uniqueId: uniqueId,
-    unitName: unitName,
-    positioned: positioned,
-    align: align,
-    flex: flex,
-    child: child,
-    children: children
-  );
+  FLDyFlatButtonUnitModel(
+      {String uniqueId,
+      String unitName,
+      FLDyUnitPositioned positioned,
+      FLDyUnitAlign align,
+      String flex,
+      FLDyUnitModel child,
+      List<FLDyUnitModel> children,
+      @required this.onPressed,
+      this.onLongPress,
+      this.textColor,
+      this.color,
+      this.padding})
+      : super(
+            uniqueId: uniqueId,
+            unitName: unitName,
+            positioned: positioned,
+            align: align,
+            flex: flex,
+            child: child,
+            children: children);
 
   final FLDyAction onPressed;
   final FLDyAction onLongPress;
@@ -577,9 +596,11 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
 }
 
 @JsonSerializable()
+
 /// IconData
 class FLDyUnitIconData {
-  FLDyUnitIconData(this.codePoint, this.fontFamily, this.fontPackage, this.matchTextDirection);
+  FLDyUnitIconData(this.codePoint, this.fontFamily, this.fontPackage,
+      this.matchTextDirection);
 
   final int codePoint;
   final String fontFamily;
@@ -591,16 +612,15 @@ class FLDyUnitIconData {
   Map<String, dynamic> toJson() => _$FLDyUnitIconDataToJson(this);
 
   IconData toIconData() {
-    return IconData(
-        codePoint,
+    return IconData(codePoint,
         fontFamily: fontFamily,
         fontPackage: fontPackage,
-        matchTextDirection: matchTextDirection ?? false
-    );
+        matchTextDirection: matchTextDirection ?? false);
   }
 }
 
 @JsonSerializable()
+
 /// TextStyle
 class FLDyUnitTextStyle {
   FLDyUnitTextStyle(
@@ -619,8 +639,7 @@ class FLDyUnitTextStyle {
       this.textDecorations,
       this.decorationColor,
       this.decorationStyle,
-      this.decorationThickness
-  );
+      this.decorationThickness);
 
   final String themeStyle;
   final bool inherit;
@@ -649,32 +668,34 @@ class FLDyUnitTextStyle {
 
     final TextDecoration textDecoration = textDecorations != null
         ? TextDecoration.combine(textDecorations.map((decStr) {
-          return flStringToTextDecoration(decStr);
-        }).toList()) : null;
+            return flStringToTextDecoration(decStr);
+          }).toList())
+        : null;
     return TextStyle(
-      inherit: inherit ?? true,
-      color: FLThemeTool.parseColor(color, context),
-      backgroundColor: FLThemeTool.parseColor(backgroundColor, context),
-      fontFamily: fontFamily,
-      fontSize: fontSize,
-      fontWeight: flStringToFontWeight(fontWeight),
-      fontStyle: flStringToFontStyle(fontStyle),
-      letterSpacing: letterSpacing,
-      wordSpacing: wordSpacing,
-      textBaseline: flStringToTextBaseline(textBaseline),
-      height: height,
-      decoration: textDecoration,
-      decorationColor: FLThemeTool.parseColor(decorationColor, context),
-      decorationStyle: flStringToTextDecorationStyle(decorationStyle),
-      decorationThickness: decorationThickness
-    );
+        inherit: inherit ?? true,
+        color: FLThemeTool.parseColor(color, context),
+        backgroundColor: FLThemeTool.parseColor(backgroundColor, context),
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+        fontWeight: flStringToFontWeight(fontWeight),
+        fontStyle: flStringToFontStyle(fontStyle),
+        letterSpacing: letterSpacing,
+        wordSpacing: wordSpacing,
+        textBaseline: flStringToTextBaseline(textBaseline),
+        height: height,
+        decoration: textDecoration,
+        decorationColor: FLThemeTool.parseColor(decorationColor, context),
+        decorationStyle: flStringToTextDecorationStyle(decorationStyle),
+        decorationThickness: decorationThickness);
   }
 }
 
 @JsonSerializable()
+
 /// Divider
 class FLDyUnitDivider {
-  FLDyUnitDivider(this.height, this.thickness, this.indent, this.endIndent, this.color);
+  FLDyUnitDivider(
+      this.height, this.thickness, this.indent, this.endIndent, this.color);
 
   final double height;
   final double thickness;
@@ -687,15 +708,16 @@ class FLDyUnitDivider {
   Map<String, dynamic> toJson() => _$FLDyUnitDividerToJson(this);
 
   Divider toDivider(BuildContext context) => Divider(
-    height: height,
-    thickness: thickness,
-    indent: indent,
-    endIndent: endIndent,
-    color: FLThemeTool.parseColor(color, context),
-  );
+        height: height,
+        thickness: thickness,
+        indent: indent,
+        endIndent: endIndent,
+        color: FLThemeTool.parseColor(color, context),
+      );
 }
 
 @JsonSerializable()
+
 /// ScrollPhysics
 class FLDyUnitScrollPhysics {
   FLDyUnitScrollPhysics(this.type);
@@ -708,18 +730,22 @@ class FLDyUnitScrollPhysics {
 
   ScrollPhysics toScrollPhysics() {
     switch (type) {
-      case FLDyScrollPhysicsType.bouncing: return BouncingScrollPhysics();
-      case FLDyScrollPhysicsType.clamping: return ClampingScrollPhysics();
+      case FLDyScrollPhysicsType.bouncing:
+        return BouncingScrollPhysics();
+      case FLDyScrollPhysicsType.clamping:
+        return ClampingScrollPhysics();
       case FLDyScrollPhysicsType.alwaysScrollable:
         return AlwaysScrollableScrollPhysics();
       case FLDyScrollPhysicsType.neverScrollable:
         return NeverScrollableScrollPhysics();
-      default: return null;
+      default:
+        return null;
     }
   }
 }
 
 @JsonSerializable()
+
 /// EdgeInsets
 class FLDyUnitEdgeInsets {
   FLDyUnitEdgeInsets(this.left, this.top, this.right, this.bottom, this.all);
@@ -735,19 +761,26 @@ class FLDyUnitEdgeInsets {
   Map<String, dynamic> toJson() => _$FLDyUnitEdgeInsetsToJson(this);
 
   EdgeInsets toEdgeInsets() {
-    if (all != null) return EdgeInsets.all(all);
-    else return EdgeInsets.fromLTRB(left ?? 0, top ?? 0, right ?? 0, bottom ?? 0);
+    if (all != null)
+      return EdgeInsets.all(all);
+    else
+      return EdgeInsets.fromLTRB(left ?? 0, top ?? 0, right ?? 0, bottom ?? 0);
   }
 }
 
 @JsonSerializable()
+
 /// ImageProvider
 class FLDyUnitImageProvider {
-  FLDyUnitImageProvider(this.type, this.url, this.assetName, { this.scale = 1.0 });
+  FLDyUnitImageProvider(this.type, this.url, this.assetName,
+      {this.scale = 1.0});
+
   /// network, assets
   final String type;
+
   /// network network use
   final String url;
+
   /// asset image use
   final String assetName;
   final double scale;
@@ -761,9 +794,11 @@ class FLDyUnitImageProvider {
 }
 
 @JsonSerializable()
+
 /// DecorationImage
 class FLDyUnitDecorationImage {
-  FLDyUnitDecorationImage(this.imageProvider, this.fit, this.alignment, this.imageRepeat);
+  FLDyUnitDecorationImage(
+      this.imageProvider, this.fit, this.alignment, this.imageRepeat);
 
   final FLDyUnitImageProvider imageProvider;
   final String fit;
@@ -775,17 +810,18 @@ class FLDyUnitDecorationImage {
   Map<String, dynamic> toJson() => _$FLDyUnitDecorationImageToJson(this);
 
   DecorationImage toDecorationImage() => DecorationImage(
-    image: (imageProvider.type == FLDyImageType.network
-        ? imageProvider.toNetworkImage() : imageProvider.toAssetImage()),
-    fit: flStringToBoxFit(fit),
-    alignment: flStringtoAlignment(alignment) ?? Alignment.center,
-    repeat: flStringToImageRepeat(imageRepeat)
-  );
+      image: (imageProvider.type == FLDyImageType.network
+          ? imageProvider.toNetworkImage()
+          : imageProvider.toAssetImage()),
+      fit: flStringToBoxFit(fit),
+      alignment: flStringtoAlignment(alignment) ?? Alignment.center,
+      repeat: flStringToImageRepeat(imageRepeat));
 }
 
 @JsonSerializable()
 class FLDyUnitBoxConstraints {
-  FLDyUnitBoxConstraints(this.minWidth, this.maxWidth, this.minHeight, this.maxHeight);
+  FLDyUnitBoxConstraints(
+      this.minWidth, this.maxWidth, this.minHeight, this.maxHeight);
 
   final double minWidth;
   final double maxWidth;
@@ -797,23 +833,18 @@ class FLDyUnitBoxConstraints {
   Map<String, dynamic> toJson() => _$FLDyUnitBoxConstraintsToJson(this);
 
   BoxConstraints toBoxConstraints() => BoxConstraints(
-    minWidth: minWidth,
-    maxWidth: maxWidth,
-    minHeight: minHeight,
-    maxHeight: maxHeight
-  );
+      minWidth: minWidth,
+      maxWidth: maxWidth,
+      minHeight: minHeight,
+      maxHeight: maxHeight);
 }
 
 @JsonSerializable()
+
 /// BoxDecoration
 class FLDyUnitBoxDecoration {
-  FLDyUnitBoxDecoration(
-      this.color,
-      this.image,
-      this.border,
-      this.borderRadius,
-      this.boxShadow,
-      this.shape);
+  FLDyUnitBoxDecoration(this.color, this.image, this.border, this.borderRadius,
+      this.boxShadow, this.shape);
 
   final String color;
   final FLDyUnitDecorationImage image;
@@ -827,21 +858,24 @@ class FLDyUnitBoxDecoration {
   Map<String, dynamic> toJson() => _$FLDyUnitBoxDecorationToJson(this);
 
   BoxDecoration toBoxDecoration(BuildContext context) => BoxDecoration(
-    color: FLThemeTool.parseColor(color, context),
-    image: image?.toDecorationImage(),
-    border: border?.toBorder(context),
-    borderRadius: borderRadius?.toBorderRadius(),
-    boxShadow: boxShadow!= null
-        ? boxShadow.map((FLDyUnitBoxShadow shadow)
-            => shadow.toBoxShadow(context)).toList() : null,
-    shape: flStringToBoxShape(shape) ?? BoxShape.rectangle
-  );
+      color: FLThemeTool.parseColor(color, context),
+      image: image?.toDecorationImage(),
+      border: border?.toBorder(context),
+      borderRadius: borderRadius?.toBorderRadius(),
+      boxShadow: boxShadow != null
+          ? boxShadow
+              .map((FLDyUnitBoxShadow shadow) => shadow.toBoxShadow(context))
+              .toList()
+          : null,
+      shape: flStringToBoxShape(shape) ?? BoxShape.rectangle);
 }
 
 @JsonSerializable()
+
 /// BoxShadow
 class FLDyUnitBoxShadow {
-  FLDyUnitBoxShadow(this.color, this.offset, this.blurRadius, this.spreadRadius);
+  FLDyUnitBoxShadow(
+      this.color, this.offset, this.blurRadius, this.spreadRadius);
 
   final String color;
   final FLDyUnitOffset offset;
@@ -855,15 +889,16 @@ class FLDyUnitBoxShadow {
   BoxShadow toBoxShadow(BuildContext context) {
     final shadowColor = FLThemeTool.parseColor(color, context);
     return BoxShadow(
-        color: shadowColor ?? const Color(0xFF000000),
-        offset: offset?.toOffset(),
-        blurRadius: blurRadius ?? 0.0,
-        spreadRadius: spreadRadius ?? 0.0,
+      color: shadowColor ?? const Color(0xFF000000),
+      offset: offset?.toOffset(),
+      blurRadius: blurRadius ?? 0.0,
+      spreadRadius: spreadRadius ?? 0.0,
     );
   }
 }
 
 @JsonSerializable()
+
 /// Offset
 class FLDyUnitOffset {
   FLDyUnitOffset(this.dx, this.dy);
@@ -879,9 +914,11 @@ class FLDyUnitOffset {
 }
 
 @JsonSerializable()
+
 /// BorderRadius
 class FLDyUnitBorderRadius {
   FLDyUnitBorderRadius(this.radius);
+
   /// all radius value
   final double radius;
 
@@ -893,6 +930,7 @@ class FLDyUnitBorderRadius {
 }
 
 @JsonSerializable()
+
 /// Border
 class FLDyUnitBorder {
   FLDyUnitBorder(this.color, this.width, this.style);
@@ -908,11 +946,11 @@ class FLDyUnitBorder {
   Border toBorder(BuildContext context) => Border.all(
       color: FLThemeTool.parseColor(color, context) ?? Color(0xFF000000),
       width: width ?? 1,
-      style: flStringToBorderStyle(style) ?? BorderStyle.solid
-  );
+      style: flStringToBorderStyle(style) ?? BorderStyle.solid);
 }
 
 @JsonSerializable()
+
 /// Align
 class FLDyUnitAlign {
   FLDyUnitAlign(
@@ -922,8 +960,7 @@ class FLDyUnitAlign {
       this.crossAxisAlignment,
       this.alignment,
       this.widthFactor,
-      this.heightFactor
-  );
+      this.heightFactor);
 
   final String type;
   final String mainAxisSize;
@@ -941,10 +978,11 @@ class FLDyUnitAlign {
 }
 
 @JsonSerializable()
+
 /// Positioned
 class FLDyUnitPositioned {
-  FLDyUnitPositioned(this.left, this.top, this.right, this.bottom,
-      this.width, this.height);
+  FLDyUnitPositioned(
+      this.left, this.top, this.right, this.bottom, this.width, this.height);
 
   final double left;
   final double top;
@@ -957,4 +995,3 @@ class FLDyUnitPositioned {
       _$FLDyUnitPositionedFromJson(json);
   Map<String, dynamic> toJson() => _$FLDyUnitPositionedToJson(this);
 }
-

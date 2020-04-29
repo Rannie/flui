@@ -146,9 +146,10 @@ class FLStaticListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(sectionData.headerTitle,
-                  style: sectionData.headerTitleStyle ?? TextStyle(
-                      color: Colors.grey,
-                      fontSize: themeData.textTheme.subhead.fontSize))
+                  style: sectionData.headerTitleStyle ??
+                      TextStyle(
+                          color: Colors.grey,
+                          fontSize: themeData.textTheme.subhead.fontSize))
             ],
           );
     final EdgeInsetsGeometry padding = sectionData.headerTitleIntent != null
