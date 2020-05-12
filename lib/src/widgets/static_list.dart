@@ -149,7 +149,7 @@ class FLStaticListView extends StatelessWidget {
                   style: sectionData.headerTitleStyle ??
                       TextStyle(
                           color: Colors.grey,
-                          fontSize: themeData.textTheme.subhead.fontSize))
+                          fontSize: themeData.textTheme.subtitle1.fontSize))
             ],
           );
     final EdgeInsetsGeometry padding = sectionData.headerTitleIntent != null
@@ -230,7 +230,7 @@ class FLStaticListView extends StatelessWidget {
                 Text(itemData.accessoryString,
                     style: TextStyle(
                         color: Colors.grey,
-                        fontSize: themeData.textTheme.subhead.fontSize)),
+                        fontSize: themeData.textTheme.subtitle1.fontSize)),
                 icon
               ],
             );
