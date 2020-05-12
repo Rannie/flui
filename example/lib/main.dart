@@ -151,7 +151,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ToastPage.routeName: (context) => ToastPage(),
           BubblePage.routeName: (context) => BubblePage(),
           AvatarPage.routeName: (context) => AvatarPage(),
-          InputPage.routeName: (context) => InputPage(),
           CountStepperPage.routeName: (context) => CountStepperPage(),
           PersistentHeaderPage.routeName: (context) => PersistentHeaderPage(),
           ListPage.routeName: (context) => ListPage(),
