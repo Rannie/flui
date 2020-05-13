@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.9.2
+
+- Adjust material design semantics
+- (**Breaking**) Adjust the usage of FLToastProvider, related issue [#29](https://github.com/Rannie/flui/issues/29), [#32](https://github.com/Rannie/flui/issues/32)
+
 ## 0.9.1
 
 - Fix **FLCupertinoActionSheet** background color issue [#24](https://github.com/Rannie/flui/issues/24)
