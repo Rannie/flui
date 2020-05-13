@@ -75,10 +75,9 @@ class FLDyContainerState extends State<FLDyContainer> {
 
 bool debugJsonAndType(dynamic jsonObj) {
   if (jsonObj == null) return false;
-  if (jsonObj.runtimeType != Map
-      && jsonObj.runtimeType != String
-      && jsonObj.runtimeType != FLDyUnitModel)
-  {
+  if (jsonObj.runtimeType != Map &&
+      jsonObj.runtimeType != String &&
+      jsonObj.runtimeType != FLDyUnitModel) {
     throw FlutterError(
         '[FLUI Dyanmic]: need a valid parameter object (json / json string / FLDyUnitModel)');
   }

@@ -13,7 +13,7 @@ jobs:
       # Include the flutter action
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '1.12.13+hotfix.5'
+          flutter-version: '1.17.0'
       # Get flutter packages
       - run: flutter pub get
       # Build :D

@@ -126,9 +126,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         position: _defaults.position,
         textDirection: Util.textDirection);
 
-    return FLToastProvider(
-      defaults: toastDefaults,
-      child: MaterialApp(
+    return MaterialApp(
         title: 'FLUI',
         debugShowCheckedModeBanner: false,
         themeMode: themeMode,
@@ -153,7 +151,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ToastPage.routeName: (context) => ToastPage(),
           BubblePage.routeName: (context) => BubblePage(),
           AvatarPage.routeName: (context) => AvatarPage(),
-          InputPage.routeName: (context) => InputPage(),
           CountStepperPage.routeName: (context) => CountStepperPage(),
           PersistentHeaderPage.routeName: (context) => PersistentHeaderPage(),
           ListPage.routeName: (context) => ListPage(),
@@ -169,12 +166,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           DyDetailDemo.routeName: (context) => DyDetailDemo()
         },
         builder: (BuildContext context, Widget child) {
-          return Directionality(
-            textDirection: Util.textDirection,
-            child: child,
+          return FLToastProvider(
+              defaults: toastDefaults,
+              child: Directionality(
+                textDirection: Util.textDirection,
+                child: child,
+              )
           );
         },
-      ),
     );
   }
 }

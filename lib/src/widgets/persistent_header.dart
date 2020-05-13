@@ -114,6 +114,7 @@ class FLSliverPersistentHeaderWidgetElement extends RenderObjectElement {
 
   @override
   void forgetChild(Element child) {
+    super.forgetChild(child);
     if (child == _header) _header = null;
     if (child == _content) _content = null;
   }
@@ -195,6 +196,7 @@ class _FLPersistentHeaderLayoutBuilderElement extends RenderObjectElement {
 
   @override
   void forgetChild(Element child) {
+    super.forgetChild(child);
     assert(child == _child);
     _child = null;
   }
