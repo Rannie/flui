@@ -10,7 +10,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 <h1 align="center">FLUI</h1>
 
 <div align="center">
-<p>A powerful UI framework for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/app-release-0-9.apk">Demo apk</a></p>
+<p>A powerful UI framework for Google Flutter <a href="https://github.com/Rannie/Rannie.github.io/raw/master/app-release-0-9-2.apk">Demo apk</a></p>
 
 
 [![pub package](https://img.shields.io/pub/v/flui.svg)](https://pub.dev/packages/flui) 
@@ -37,7 +37,7 @@ English | [简体中文](https://github.com/Rannie/flui/blob/master/README-zh_CN
 
 **FLUI** has good compatibility on multiple clients, and the framework will be developed based on Flutter Stable Channel.
 
-Currently supports *v1.12.13+hotfix.8* and above.
+Currently supports *v1.17.0* .
 
 ## Getting Started
 
@@ -45,14 +45,14 @@ Currently supports *v1.12.13+hotfix.8* and above.
 
 ```yaml
 dependencies:
-  flui: 0.9.1
+  flui: 0.9.2
 ```
 
 Then run `flutter pub get` to download the dependencies.
 
 #### Usage
 
-After the dependency installation is completed, you can directly import the widget.
+After the dependency installed, you can directly import the widget.
 
 ```dart
 import 'package:flui/flui.dart';

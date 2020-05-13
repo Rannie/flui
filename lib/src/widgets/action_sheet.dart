@@ -102,8 +102,8 @@ class FLCupertinoActionSheet extends StatelessWidget {
     BorderRadius radius = this.borderRadius ??
         (_isRound() ? BorderRadius.circular(_kCornerRadius) : null);
     final Widget blurContent = _wrapWithBackground(
-        backgroundColor:
-            CupertinoDynamicColor.resolve(backgroundColor ?? _kBackgroundColor, context),
+        backgroundColor: CupertinoDynamicColor.resolve(
+            backgroundColor ?? _kBackgroundColor, context),
         updateSystemUiOverlay: true,
         child: CupertinoScrollbar(
           child: SingleChildScrollView(

@@ -515,7 +515,7 @@ class _FLToastViewState extends State<_FLToastView>
     if (widget.text != null) {
       children.add(Text(widget.text,
           textAlign: TextAlign.center,
-          style: TextStyle(color: widget.color, fontSize: 17)));
+          style: TextStyle(color: widget.color, fontSize: 17, decoration: TextDecoration.none)));
     }
 
     return AbsorbPointer(

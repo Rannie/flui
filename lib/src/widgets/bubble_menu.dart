@@ -112,6 +112,9 @@ Future<T> showBubbleMenu<T>({
       break;
     case TargetPlatform.android:
     case TargetPlatform.fuchsia:
+    case TargetPlatform.linux:
+    case TargetPlatform.macOS:
+    case TargetPlatform.windows:
       label = semanticLabel ?? MaterialLocalizations.of(context).popupMenuLabel;
   }
 

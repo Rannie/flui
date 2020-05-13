@@ -37,7 +37,7 @@
 
 **FLUI** 在多端具有良好的兼容性，框架会一直基于 *Flutter Stable Channel* 开发。
 
-目前支持 *v1.12.13+hotfix.8* 及以上版本。
+目前支持 *v1.17* 及以上。
 
 
 ## 快速上手
@@ -46,7 +46,7 @@
 
 ```yaml
 dependencies:
-  flui: 0.9.1
+  flui: 0.9.2
 ```
 
 然后运行 `flutter pub get` 下载依赖。
