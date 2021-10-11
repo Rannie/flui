@@ -1,29 +1,30 @@
 import 'dart:math';
 
-import 'bubble_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'bubble_menu.dart';
 
 final _kCopyValue = Random();
 
 class FLCopyableLabel extends StatelessWidget {
   FLCopyableLabel(
-      {Key key,
-      @required this.copyData,
+      {Key? key,
+      required this.copyData,
       this.showMenu = false,
-      @required this.child,
+      required this.child,
       this.afterCopyCallback})
       : super(key: key);
 
   final String copyData;
   final bool showMenu;
   final Widget child;
-  final VoidCallback afterCopyCallback;
+  final VoidCallback? afterCopyCallback;
 
   void _performCopyAction() {
     Clipboard.setData(ClipboardData(text: copyData));
-    if (this.afterCopyCallback != null) this.afterCopyCallback();
+    if (afterCopyCallback != null) afterCopyCallback!();
   }
 
   Widget _buildGestureWidget() {
@@ -38,7 +39,7 @@ class FLCopyableLabel extends StatelessWidget {
     if (showMenu) {
       return FLBubbleMenuWidget(
           child: child,
-          onSelected: (value) {
+          onSelected: (dynamic value) {
             if (value == _kCopyValue) {
               _performCopyAction();
             }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-const Color _kDefaultImageHighlightColor = const Color(0X40FFFFFF);
+const Color _kDefaultImageHighlightColor = Color(0X40FFFFFF);
 
 class FLImage extends StatefulWidget {
   FLImage({
-    Key key,
-    @required this.image,
+    Key? key,
+    required this.image,
     this.highlightImage,
     this.borderRadius,
     this.width,
@@ -20,31 +20,30 @@ class FLImage extends StatefulWidget {
     this.splashColor,
     this.highlightColor,
     this.onPressed,
-  })  : assert(image != null),
-        super(key: key);
+  })  : super(key: key);
 
   final ImageProvider image;
-  final ImageProvider highlightImage;
-  final BorderRadius borderRadius;
-  final double width;
-  final double height;
-  final BoxFit fit;
-  final ImageLoadingBuilder loadingBuilder;
-  final ImageFrameBuilder frameBuilder;
+  final ImageProvider? highlightImage;
+  final BorderRadius? borderRadius;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
+  final ImageLoadingBuilder? loadingBuilder;
+  final ImageFrameBuilder? frameBuilder;
   final AlignmentGeometry alignment;
   final ImageRepeat imageRepeat;
-  final BlendMode colorBlendMode;
+  final BlendMode? colorBlendMode;
   final FilterQuality filterQuality;
-  final Color splashColor;
-  final Color highlightColor;
-  final VoidCallback onPressed;
+  final Color? splashColor;
+  final Color? highlightColor;
+  final VoidCallback? onPressed;
 
   @override
   State<FLImage> createState() => _FLImageState();
 }
 
 class _FLImageState extends State<FLImage> {
-  ImageProvider _contentImage;
+  ImageProvider? _contentImage;
 
   @override
   void initState() {
@@ -79,7 +78,7 @@ class _FLImageState extends State<FLImage> {
           children: <Widget>[
             Positioned.fill(
                 child: Image(
-              image: _contentImage,
+              image: _contentImage!,
               width: widget.width,
               height: widget.height,
               fit: widget.fit,

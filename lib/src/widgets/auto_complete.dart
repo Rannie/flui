@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-typedef Widget FLAutoCompleteItemBuilder<T>(BuildContext context, T suggestion);
+typedef FLAutoCompleteItemBuilder<T> = Widget Function(BuildContext context, T suggestion);
 
 class FLAutoComplete<T> extends StatefulWidget {
   /// must same as the child's focus node;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
-  final ValueChanged<T> onSelectedSuggestion;
+  final ValueChanged<T>? onSelectedSuggestion;
 
   /// hide suggestions overlay automatically after select suggestion.
   /// default is true.
@@ -22,16 +22,14 @@ class FLAutoComplete<T> extends StatefulWidget {
   final Widget child;
 
   FLAutoComplete(
-      {Key key,
+      {Key? key,
       this.focusNode,
       this.onSelectedSuggestion,
       this.hideAfterSelection = true,
       this.hideWhenUnfocus = true,
-      @required this.itemBuilder,
-      @required this.child})
-      : assert(itemBuilder != null),
-        assert(child != null),
-        super(key: key);
+      required this.itemBuilder,
+      required this.child})
+      : super(key: key);
 
   @override
   State<FLAutoComplete> createState() => FLAutoCompleteState();
@@ -39,8 +37,8 @@ class FLAutoComplete<T> extends StatefulWidget {
 
 class FLAutoCompleteState<T> extends State<FLAutoComplete> {
   final LayerLink _layerLink = LayerLink();
-  OverlayEntry _suggestionsEntry;
-  List<T> _suggestionList;
+  OverlayEntry? _suggestionsEntry;
+  late List<T> _suggestionList;
   bool _display = false;
 
   @override
@@ -54,7 +52,7 @@ class FLAutoCompleteState<T> extends State<FLAutoComplete> {
 
     if (widget.focusNode == null) return;
 
-    if (!widget.focusNode.hasFocus) {
+    if (!widget.focusNode!.hasFocus) {
       hideAutoComplete();
     }
   }
@@ -62,7 +60,7 @@ class FLAutoCompleteState<T> extends State<FLAutoComplete> {
   /// show suggestions overlay with data source.
   /// if suggestions is empty
   void updateSuggestionList(List<T> suggestions) {
-    if (suggestions == null || suggestions.isEmpty) {
+    if (suggestions.isEmpty) {
       hideAutoComplete();
       return;
     }
@@ -107,17 +105,17 @@ class FLAutoCompleteState<T> extends State<FLAutoComplete> {
           ),
         );
       });
-      Overlay.of(context).insert(_suggestionsEntry);
+      Overlay.of(context)!.insert(_suggestionsEntry!);
       _display = true;
     } else {
-      _suggestionsEntry.markNeedsBuild();
+      _suggestionsEntry!.markNeedsBuild();
     }
   }
 
   void hideAutoComplete() {
     if (!_display) return;
 
-    _suggestionsEntry.remove();
+    _suggestionsEntry!.remove();
     _suggestionsEntry = null;
     _display = false;
   }

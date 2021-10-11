@@ -8,9 +8,9 @@ part of 'action.dart';
 
 FLDyAction _$FLDyActionFromJson(Map<String, dynamic> json) {
   return FLDyAction(
-    actionType: json['actionType'] as String,
-    action: json['action'] as String,
-    args: (json['args'] as List)?.map((e) => e as String)?.toList(),
+    actionType: json['actionType'] as String?,
+    action: json['action'] as String?,
+    args: (json['args'] as List?)?.map((e) => e as String).toList(),
   );
 }
 

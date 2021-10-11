@@ -55,7 +55,7 @@ Then run `flutter pub get` to download the dependencies.
 After the dependency installed, you can directly import the widget.
 
 ```dart
-import 'package:flui/flui.dart';
+import 'package:flui/flui_nullsafety.dart';
 
 // in somewhere
 FLAppBarTitle(

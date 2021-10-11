@@ -2,7 +2,7 @@ class FLDyLogger {
   static bool _enabled = true;
   static void disableLogger() => _enabled = false;
 
-  static List<int> _timeQueue = [];
+  static final List<int> _timeQueue = [];
 
   static void log(String msg) {
     assert(() {
