@@ -15,15 +15,18 @@ const double _kDefaultFloatingSize = 17;
 const Color _kDefaultBackgroundColor = Color.fromRGBO(242, 243, 245, 1);
 
 class FLCountStepper extends StatefulWidget {
-  FLCountStepper({
-    Key? key,
-    required this.controller,
-    this.onChanged,
-    this.disabled = false,
-    this.disableInput = true,
-    this.inputWidth = _kDefaultInputWidth,
-    this.actionColor,
-  })  : super(key: key);
+  FLCountStepper(
+      {Key? key,
+      required this.controller,
+      this.onChanged,
+      this.disabled = false,
+      this.disableInput = true,
+      this.inputWidth = _kDefaultInputWidth,
+      this.actionColor,
+      this.iconFontSize, this.textAndInputHeight,
+
+      })
+      : super(key: key);
 
   /// the controller of count values
   final FLCountStepperController controller;
@@ -42,6 +45,12 @@ class FLCountStepper extends StatefulWidget {
 
   /// default is Theme.of(context).primaryColor
   final Color? actionColor;
+
+  /// 图标icon的字体大小
+  final double? iconFontSize;
+
+  /// 文本显示的高度和输入框的高度
+  final double? textAndInputHeight;
 
   @override
   State<FLCountStepper> createState() => _FLCountStepperState();
@@ -154,29 +163,28 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final ThemeData themeData = Theme.of(context);
     final Brightness brightness = themeData.brightness;
     final bool isDarkMode = brightness == Brightness.dark;
-    final Color buttonIconColor = widget.actionColor ?? (isDarkMode
-        ? Colors.white
-        : themeData.primaryColor);
-    final Color inputBackgroundColor =
-        isDarkMode ? Colors.transparent : _kDefaultBackgroundColor;
+    final Color buttonIconColor =
+        widget.actionColor ?? (isDarkMode ? Colors.white : themeData.primaryColor);
+    final Color inputBackgroundColor = isDarkMode ? Colors.transparent : _kDefaultBackgroundColor;
 
     final Widget minusButton = Container(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
-      child: FlatButton(
-        padding: EdgeInsets.zero,
-        child: Icon(Icons.remove,
-            size:
-                _kDefaultEleSize), //Text('-', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
-        textColor: buttonIconColor,
+      child: TextButton(
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(EdgeInsets.zero),
+            textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
+        child: Icon(Icons.remove, size: widget.iconFontSize ?? _kDefaultEleSize),
+        //Text('-', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
       ),
     );
 
     final Widget input = Container(
       width: widget.inputWidth,
-      height: _kDefaultInputHeight,
-      padding: EdgeInsets.only(left: 3), // resolve text center issue
+      height:widget.textAndInputHeight ?? _kDefaultInputHeight,
+      padding: EdgeInsets.only(left: 3),
+      // resolve text center issue
       decoration: BoxDecoration(
         color: inputBackgroundColor,
         borderRadius: BorderRadius.circular(3),
@@ -189,7 +197,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
         enabled: !widget.disableInput,
         keyboardType: TextInputType.number,
         inputFormatters: [
-          WhitelistingTextInputFormatter(RegExp("[-0-9]")),
+          FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
         ],
         decoration: InputDecoration(
@@ -203,12 +211,12 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final Widget addButton = Container(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
-      child: FlatButton(
-        padding: EdgeInsets.zero,
-        child: Icon(Icons.add,
-            size:
-                _kDefaultEleSize), //Text('+', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
-        textColor: buttonIconColor,
+      child: TextButton(
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(EdgeInsets.zero),
+            textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
+        child: Icon(Icons.add, size: widget.iconFontSize ?? _kDefaultEleSize),
+        //Text('+', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
         onPressed: _addEnabled ? _handleAddPressed : null,
       ),
     );
@@ -216,12 +224,12 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final double inset = 3;
     return Container(
       width: 2 * (_kDefaultButtonSize + inset) + widget.inputWidth,
-      height: _kDefaultInputHeight,
+      height: widget.textAndInputHeight ?? _kDefaultInputHeight,
       child: Stack(
         children: <Widget>[
           Positioned(
             left: 0,
-            top: (_kDefaultInputHeight - _kDefaultButtonSize) / 2,
+            top: ((widget.textAndInputHeight ?? _kDefaultInputHeight) - _kDefaultButtonSize) / 2,
             child: minusButton,
           ),
           Positioned(
@@ -231,7 +239,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
           ),
           Positioned(
             left: _kDefaultButtonSize + widget.inputWidth + 2 * inset,
-            top: (_kDefaultInputHeight - _kDefaultButtonSize) / 2,
+            top: ((widget.textAndInputHeight ?? _kDefaultInputHeight) - _kDefaultButtonSize) / 2,
             child: addButton,
           )
         ],
@@ -264,8 +272,7 @@ class _FLFloatingAnimationWrapper extends StatefulWidget {
   State<StatefulWidget> createState() => _FLFloatingAnimationWrapperState();
 }
 
-class _FLFloatingAnimationWrapperState
-    extends State<_FLFloatingAnimationWrapper> {
+class _FLFloatingAnimationWrapperState extends State<_FLFloatingAnimationWrapper> {
   late Animation<double> rotateAnim;
   late Animation<double> transRightAnim;
 
@@ -317,7 +324,7 @@ class FLFloatingCountStepper extends StatefulWidget {
     this.labelWidth = _kDefaultFloatingTextWidth,
     this.labelTextStyle,
     this.actionColor,
-  })  : assert(controller != null && controller.min == 0),
+  })  : assert(controller.min == 0),
         super(key: key);
 
   /// the controller of count values
@@ -345,7 +352,7 @@ class FLFloatingCountStepper extends StatefulWidget {
 class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
     with TickerProviderStateMixin {
   late FLCountStepperController _controller;
-  TextEditingController _inputController = TextEditingController();
+  final TextEditingController _inputController = TextEditingController();
   late bool _minusEnabled;
   late bool _addEnabled;
   AnimationController? _animationController;
@@ -356,8 +363,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
     // setup count step controllers
     _assembleCountStepper();
     // setup animation controller
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
   }
 
   @override
@@ -414,7 +420,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
   void _syncValueAndInput() {
     if (_controller.value!.compareTo(num.parse(_inputController.text)) != 0) {
       String text = _inputController.value.text;
-      if (text == null || text.trim().length == 0) {
+      if (text.trim().length == 0) {
         num regVal = math.min(_controller.max, math.max(0, _controller.min));
         text = '$regVal';
       }
@@ -467,9 +473,11 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
       width: _kDefaultFloatingButtonSize,
       height: _kDefaultFloatingButtonSize,
       controller: _animationController,
-      child: FlatButton(
-        padding: EdgeInsets.zero,
-        shape: CircleBorder(side: BorderSide(color: tintColor)),
+      child: TextButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
+          shape: MaterialStateProperty.all(CircleBorder(side: BorderSide(color: tintColor)))
+        ),
         child: Icon(Icons.remove, size: _kDefaultEleSize, color: tintColor),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
       ),
@@ -485,19 +493,20 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
         child: Center(
           child: Text(
             _inputController.value.text,
-            style: widget.labelTextStyle ??
-                TextStyle(fontSize: _kDefaultFloatingSize),
+            style: widget.labelTextStyle ?? TextStyle(fontSize: _kDefaultFloatingSize),
           ),
         ));
 
     final Widget addButton = Container(
       width: _kDefaultFloatingButtonSize,
       height: _kDefaultFloatingButtonSize,
-      child: RaisedButton(
-        padding: EdgeInsets.zero,
-        shape: CircleBorder(),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
+          shape: MaterialStateProperty.all(CircleBorder()),
+          backgroundColor: MaterialStateProperty.all(tintColor)
+        ),
         child: Icon(Icons.add, size: _kDefaultEleSize, color: Colors.white),
-        color: tintColor,
         onPressed: _addEnabled ? _handleAddPressed : null,
       ),
     );
@@ -535,6 +544,7 @@ class FLCountStepperController extends ValueNotifier<int?> {
   final int step;
 
   num get number => value!;
+
   set number(num newNum) {
     if (newNum > max) newNum = max;
     if (newNum < min) newNum = min;
