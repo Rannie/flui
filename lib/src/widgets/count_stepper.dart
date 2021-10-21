@@ -198,7 +198,6 @@ class _FLCountStepperState extends State<FLCountStepper> {
       child: TextField(
         onChanged: widget.onChangeWithInput,
         controller: _inputController,
-        textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(fontSize: _kDefaultFontSize),
         onTap: (){
