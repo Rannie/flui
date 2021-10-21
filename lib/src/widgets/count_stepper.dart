@@ -23,7 +23,7 @@ class FLCountStepper extends StatefulWidget {
       this.disableInput = true,
       this.inputWidth = _kDefaultInputWidth,
       this.actionColor,
-      this.iconFontSize, this.textAndInputHeight,
+      this.iconFontSize, this.textAndInputHeight, this.inputOnTap,
 
       })
       : super(key: key);
@@ -51,6 +51,9 @@ class FLCountStepper extends StatefulWidget {
 
   /// 文本显示的高度和输入框的高度
   final double? textAndInputHeight;
+
+  /// 输入框被点击的回调
+  final VoidCallback? inputOnTap;
 
   @override
   State<FLCountStepper> createState() => _FLCountStepperState();
@@ -194,8 +197,10 @@ class _FLCountStepperState extends State<FLCountStepper> {
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(fontSize: _kDefaultFontSize),
+        onTap: widget.inputOnTap,
         enabled: !widget.disableInput,
         keyboardType: TextInputType.number,
+        keyboardAppearance:Brightness.light ,
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
