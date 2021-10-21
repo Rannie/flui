@@ -24,7 +24,7 @@ class FLCountStepper extends StatefulWidget {
       this.inputWidth = _kDefaultInputWidth,
       this.actionColor,
       this.iconFontSize, this.textAndInputHeight, this.inputOnTap,
-
+    this.onChangeWithInput
       })
       : super(key: key);
 
@@ -33,6 +33,9 @@ class FLCountStepper extends StatefulWidget {
 
   /// value changed callback
   final ValueChanged<num>? onChanged;
+
+  /// 当输入框的数字被改变时
+  final ValueChanged<String>? onChangeWithInput;
 
   /// disable step button
   final bool disabled;
@@ -193,6 +196,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
         borderRadius: BorderRadius.circular(3),
       ),
       child: TextField(
+        onChanged: widget.onChangeWithInput,
         controller: _inputController,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
