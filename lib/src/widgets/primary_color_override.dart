@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class FLPrimaryColorOverride extends StatelessWidget {
-  FLPrimaryColorOverride({Key key, this.color, @required this.child})
-      : assert(child != null),
-        super(key: key);
+  FLPrimaryColorOverride({Key? key, this.color, required this.child})
+      : super(key: key);
 
-  final Color color;
+  final Color? color;
   final Widget child;
 
   @override

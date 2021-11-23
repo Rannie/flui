@@ -28,28 +28,27 @@ enum FLCupertinoActionSheetStyle { roundedCard, filled }
 
 /// Don't use [showCupertinoModalPopup], in iOS it will blur the content,
 /// related issue: https://bugs.chromium.org/p/skia/issues/detail?id=7898
-Future<T> showFLBottomSheet<T>(
-    {@required BuildContext context, @required WidgetBuilder builder}) {
+Future<T?> showFLBottomSheet<T>(
+    {required BuildContext context, required WidgetBuilder builder}) {
   return showModalBottomSheet(
       context: context, builder: builder, backgroundColor: Colors.transparent);
 }
 
 class FLCupertinoActionSheet extends StatelessWidget {
   FLCupertinoActionSheet(
-      {Key key,
+      {Key? key,
       this.backgroundColor,
       this.style = FLCupertinoActionSheetStyle.roundedCard,
       this.borderRadius,
-      @required this.child,
+      required this.child,
       this.cancelButton})
-      : assert(child != null),
-        super(key: key);
+      : super(key: key);
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Widget child;
 
   /// Customized border radius, both two styles use this value first.
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
   /// The style of the action sheet, currently support
   /// [FLCupertinoActionSheetStyle.roundedCard] & [FLCupertinoActionSheetStyle.filled].
@@ -60,27 +59,27 @@ class FLCupertinoActionSheet extends StatelessWidget {
   /// actions.
   ///
   /// Typically this is an [CupertinoActionSheetAction] widget.
-  final CupertinoActionSheetAction cancelButton;
+  final CupertinoActionSheetAction? cancelButton;
 
   bool _isRound() {
     return style == FLCupertinoActionSheetStyle.roundedCard;
   }
 
   Widget _wrapWithBackground({
-    Color backgroundColor,
-    Widget child,
+    Color? backgroundColor,
+    Widget? child,
     bool updateSystemUiOverlay = true,
   }) {
-    Widget result = child;
+    Widget? result = child;
     if (updateSystemUiOverlay) {
-      final bool darkBackground = backgroundColor.computeLuminance() < 0.179;
+      final bool darkBackground = backgroundColor!.computeLuminance() < 0.179;
       final SystemUiOverlayStyle overlayStyle = darkBackground
           ? SystemUiOverlayStyle.light
           : SystemUiOverlayStyle.dark;
       result = AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         sized: true,
-        child: result,
+        child: result!,
       );
     }
     final DecoratedBox childWithBackground = DecoratedBox(
@@ -99,7 +98,7 @@ class FLCupertinoActionSheet extends StatelessWidget {
   }
 
   Widget _buildMainContent(BuildContext context) {
-    BorderRadius radius = this.borderRadius ??
+    BorderRadius? radius = borderRadius ??
         (_isRound() ? BorderRadius.circular(_kCornerRadius) : null);
     final Widget blurContent = _wrapWithBackground(
         backgroundColor: CupertinoDynamicColor.resolve(
@@ -181,10 +180,10 @@ class FLCupertinoActionSheet extends StatelessWidget {
 
 class _FLCupertinoActionSheetCancelButton extends StatefulWidget {
   const _FLCupertinoActionSheetCancelButton(
-      {Key key, this.child, this.isRound = true})
+      {Key? key, this.child, this.isRound = true})
       : super(key: key);
 
-  final Widget child;
+  final Widget? child;
   final bool isRound;
 
   @override
@@ -194,7 +193,7 @@ class _FLCupertinoActionSheetCancelButton extends StatefulWidget {
 
 class _FLCupertinoActionSheetCancelButtonState
     extends State<_FLCupertinoActionSheetCancelButton> {
-  CupertinoDynamicColor _backgroundColor;
+  late CupertinoDynamicColor _backgroundColor;
 
   @override
   void initState() {
@@ -205,27 +204,27 @@ class _FLCupertinoActionSheetCancelButtonState
   void _onTapDown(TapDownDetails event) {
     setState(() {
       _backgroundColor =
-          CupertinoDynamicColor.resolve(_kCancelPressedColor, context);
+          CupertinoDynamicColor.resolve(_kCancelPressedColor, context) as CupertinoDynamicColor;
     });
   }
 
   void _onTapUp(TapUpDetails event) {
     setState(() {
       _backgroundColor =
-          CupertinoDynamicColor.resolve(_backgroundColor, context);
+          CupertinoDynamicColor.resolve(_backgroundColor, context) as CupertinoDynamicColor;
     });
   }
 
   void _onTapCancel() {
     setState(() {
       _backgroundColor =
-          CupertinoDynamicColor.resolve(_backgroundColor, context);
+          CupertinoDynamicColor.resolve(_backgroundColor, context) as CupertinoDynamicColor;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius =
+    BorderRadius? borderRadius =
         widget.isRound ? BorderRadius.circular(_kCornerRadius) : null;
     return GestureDetector(
       excludeFromSemantics: true,

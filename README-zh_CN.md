@@ -56,7 +56,7 @@ dependencies:
 依赖安装完成后直接引入组件。
 
 ```dart
-import 'package:flui/flui.dart';
+import 'package:flui/flui_nullsafety.dart';
 
 // in somewhere
 FLAppBarTitle(

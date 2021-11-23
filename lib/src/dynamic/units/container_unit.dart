@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flui/src/dynamic/units/unit_model.dart';
-import 'package:flui/src/dynamic/units/base_unit.dart';
-import 'package:flui/src/common/tools.dart';
-import 'package:flui/src/dynamic/action/action.dart';
+
+import '../../../flui_nullsafety.dart';
+import 'base_unit.dart';
 
 /// Container unit widget
 class FLDyContainerUnit extends FLDyRenderUnit {
-  FLDyContainerUnit({FLDyContainerUnitModel unitModel})
+  FLDyContainerUnit({required FLDyContainerUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyContainerUnitModel),
         super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
     final FLDyContainerUnitModel cum = unitModel as FLDyContainerUnitModel;
-    final Widget child = resolveChild();
+    final Widget? child = resolveChild();
     final Widget self = Container(
       width: cum.width,
       height: cum.height,
@@ -31,14 +30,14 @@ class FLDyContainerUnit extends FLDyRenderUnit {
 
 /// SafeArea unit widget
 class FLDySafeAreaUnit extends FLDyRenderUnit {
-  FLDySafeAreaUnit({FLDySafeAreaUnitModel unitModel})
+  FLDySafeAreaUnit({required FLDySafeAreaUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDySafeAreaUnitModel),
         super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
     final FLDySafeAreaUnitModel saum = unitModel as FLDySafeAreaUnitModel;
-    final Widget child = resolveChild();
+    final Widget child = resolveChild()!;
     return SafeArea(
       left: saum.left ?? true,
       top: saum.top ?? true,
@@ -53,20 +52,20 @@ class FLDySafeAreaUnit extends FLDyRenderUnit {
 
 /// Stack unit widget
 class FLDyStackUnit extends FLDyRenderUnit {
-  FLDyStackUnit({FLDyStackUnitModel unitModel})
+  FLDyStackUnit({required FLDyStackUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyStackUnitModel),
         super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
     final FLDyStackUnitModel sum = unitModel as FLDyStackUnitModel;
-    final List<Widget> children = markupUnits(sum.children);
+    final List<Widget?> children = markupUnits(sum.children!);
     final Widget self = Stack(
       alignment: sum.getAlignment() ?? AlignmentDirectional.topStart,
       textDirection: sum.getTextDirection(),
       fit: sum.getStackFit() ?? StackFit.loose,
-      overflow: sum.getOverflow() ?? Overflow.clip,
-      children: children,
+      clipBehavior: sum.getOverflow() ?? Clip.antiAlias,
+      children: children as List<Widget>,
     );
     return resolveSelf(self);
   }
@@ -74,25 +73,25 @@ class FLDyStackUnit extends FLDyRenderUnit {
 
 /// ListView unit widget
 class FLDyListViewUnit extends FLDyRenderUnit {
-  FLDyListViewUnit({FLDyListViewUnitModel unitModel})
+  FLDyListViewUnit({required FLDyListViewUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyListViewUnitModel),
         super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
     final FLDyListViewUnitModel lvum = unitModel as FLDyListViewUnitModel;
-    final List<Widget> children = markupUnits(lvum.children);
+    final List<Widget?> children = markupUnits(lvum.children!);
     ListView listView;
     if (lvum.separatedDivider != null) {
       listView = ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return children[index];
+          return children[index]!;
         },
         separatorBuilder: (BuildContext context, int index) {
-          return lvum.separatedDivider.toDivider(context);
+          return lvum.separatedDivider!.toDivider(context);
         },
         itemCount: children.length,
-        scrollDirection: lvum.getScrollDirection(),
+        scrollDirection: lvum.getScrollDirection()!,
         reverse: lvum.reverse ?? false,
         primary: lvum.primary,
         physics: lvum.scrollPhysics?.toScrollPhysics(),
@@ -105,7 +104,7 @@ class FLDyListViewUnit extends FLDyRenderUnit {
       );
     } else {
       listView = ListView(
-        scrollDirection: lvum.getScrollDirection(),
+        scrollDirection: lvum.getScrollDirection()!,
         reverse: lvum.reverse ?? false,
         primary: lvum.primary,
         physics: lvum.scrollPhysics?.toScrollPhysics(),
@@ -117,7 +116,7 @@ class FLDyListViewUnit extends FLDyRenderUnit {
         addSemanticIndexes: lvum.addSemanticIndexes ?? true,
         cacheExtent: lvum.cacheExtent,
         semanticChildCount: lvum.semanticChildCount,
-        children: children,
+        children: children as List<Widget>,
       );
     }
     return resolveSelf(listView);
@@ -126,7 +125,7 @@ class FLDyListViewUnit extends FLDyRenderUnit {
 
 /// ListTile unit widget
 class FLDyListTileUnit extends FLDyRenderUnit {
-  FLDyListTileUnit({FLDyListTileUnitModel unitModel})
+  FLDyListTileUnit({required FLDyListTileUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyListTileUnitModel),
         super(unitModel: unitModel);
 
@@ -134,10 +133,10 @@ class FLDyListTileUnit extends FLDyRenderUnit {
   Widget build(BuildContext context) {
     final FLDyListTileUnitModel ltum = unitModel as FLDyListTileUnitModel;
     final widget = ListTile(
-      leading: ltum.leading != null ? markupUnit(ltum.leading) : null,
-      title: ltum.title != null ? markupUnit(ltum.title) : null,
-      subtitle: ltum.subtitle != null ? markupUnit(ltum.subtitle) : null,
-      trailing: ltum.trailing != null ? markupUnit(ltum.trailing) : null,
+      leading: ltum.leading != null ? markupUnit(ltum.leading!) : null,
+      title: ltum.title != null ? markupUnit(ltum.title!) : null,
+      subtitle: ltum.subtitle != null ? markupUnit(ltum.subtitle!) : null,
+      trailing: ltum.trailing != null ? markupUnit(ltum.trailing!) : null,
       isThreeLine: ltum.isThreeLine ?? false,
       dense: ltum.dense,
       contentPadding: ltum.contentPadding?.toEdgeInsets(),
@@ -150,7 +149,7 @@ class FLDyListTileUnit extends FLDyRenderUnit {
 
 /// InkWell unit widget
 class FLDyInkWellUnit extends FLDyRenderUnit {
-  FLDyInkWellUnit({FLDyInkWellUnitModel unitModel})
+  FLDyInkWellUnit({required FLDyInkWellUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyInkWellUnitModel),
         super(unitModel: unitModel);
 

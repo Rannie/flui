@@ -1,23 +1,24 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+
 import 'persistent_header_constraints.dart';
 
 class FLRenderPersistentHeaderLayoutBuilder extends RenderBox
     with RenderObjectWithChildMixin<RenderBox> {
   FLRenderPersistentHeaderLayoutBuilder({
-    LayoutCallback<FLPersistentHeaderConstraints> callback,
+    LayoutCallback<FLPersistentHeaderConstraints>? callback,
   }) : _callback = callback;
 
-  LayoutCallback<FLPersistentHeaderConstraints> _callback;
-  LayoutCallback<FLPersistentHeaderConstraints> get callback => _callback;
-  set callback(LayoutCallback<FLPersistentHeaderConstraints> value) {
+  LayoutCallback<FLPersistentHeaderConstraints>? _callback;
+  LayoutCallback<FLPersistentHeaderConstraints>? get callback => _callback;
+  set callback(LayoutCallback<FLPersistentHeaderConstraints>? value) {
     if (value == _callback) return;
     _callback = value;
     markNeedsLayout();
   }
 
   @override
-  FLPersistentHeaderConstraints get constraints => super.constraints;
+  FLPersistentHeaderConstraints get constraints => super.constraints as FLPersistentHeaderConstraints;
 
   bool _debugThrowIfNotCheckingIntrinsics() {
     assert(() {
@@ -59,22 +60,22 @@ class FLRenderPersistentHeaderLayoutBuilder extends RenderBox
   @override
   void performLayout() {
     assert(callback != null);
-    invokeLayoutCallback(callback);
+    invokeLayoutCallback(callback!);
     if (child != null) {
-      child.layout(constraints, parentUsesSize: true);
-      size = constraints.constrain(child.size);
+      child!.layout(constraints, parentUsesSize: true);
+      size = constraints.constrain(child!.size);
     } else {
       size = constraints.biggest;
     }
   }
 
   @override
-  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     return child?.hitTest(result, position: position) ?? false;
   }
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    if (child != null) context.paintChild(child, offset);
+    if (child != null) context.paintChild(child!, offset);
   }
 }

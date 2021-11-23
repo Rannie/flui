@@ -1,8 +1,0 @@
-app_identifier("com.ran.flui") # The bundle identifier of your app
-apple_id("18622218653@163.com") # Your Apple email address
-
-itc_team_id("2216075") # App Store Connect Team ID
-team_id("Y59S585TRM") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile

@@ -16,8 +16,8 @@ enum FLAppBarPosition {
 
 class FLAppBarTitle extends StatelessWidget {
   FLAppBarTitle(
-      {Key key,
-      @required this.title,
+      {Key? key,
+      required this.title,
       this.titleStyle,
       this.subtitle,
       this.subtitleStyle,
@@ -26,30 +26,27 @@ class FLAppBarTitle extends StatelessWidget {
       this.loadingPosition = FLAppBarPosition.left,
       this.customAccessoryWidget,
       this.accessoryPosition = FLAppBarPosition.right})
-      : assert(title != null),
-        super(key: key);
+      : super(key: key);
 
   final String title;
-  final TextStyle titleStyle;
-  final String subtitle;
-  final TextStyle subtitleStyle;
+  final TextStyle? titleStyle;
+  final String? subtitle;
+  final TextStyle? subtitleStyle;
   final bool showLoading;
   final FLAppBarTitleLayout layout;
   final FLAppBarPosition loadingPosition;
-  final Widget customAccessoryWidget;
+  final Widget? customAccessoryWidget;
   final FLAppBarPosition accessoryPosition;
 
   Widget _buildTitles() {
     List<Widget> titles = [];
-    if (title != null) {
-      double tSize = layout == FLAppBarTitleLayout.horizontal
-          ? _kDefaultTitleSize
-          : _kDefaultVerticalTitleSize;
-      TextStyle tStyle =
-          titleStyle ?? TextStyle(fontWeight: FontWeight.bold, fontSize: tSize);
-      Text titleWidget = Text(title, style: tStyle);
-      titles.add(titleWidget);
-    }
+    double tSize = layout == FLAppBarTitleLayout.horizontal
+        ? _kDefaultTitleSize
+        : _kDefaultVerticalTitleSize;
+    TextStyle tStyle =
+        titleStyle ?? TextStyle(fontWeight: FontWeight.bold, fontSize: tSize);
+    Text titleWidget = Text(title, style: tStyle);
+    titles.add(titleWidget);
 
     if (subtitle != null) {
       Widget inset = layout == FLAppBarTitleLayout.horizontal
@@ -62,7 +59,7 @@ class FLAppBarTitle extends StatelessWidget {
           : _kDefaultVerticalSubtitleSize;
       TextStyle sStyle = subtitleStyle ??
           TextStyle(fontWeight: FontWeight.w300, fontSize: sSize);
-      Text subtitleWidget = Text(subtitle, style: sStyle);
+      Text subtitleWidget = Text(subtitle!, style: sStyle);
       titles.add(subtitleWidget);
     }
 
@@ -76,7 +73,7 @@ class FLAppBarTitle extends StatelessWidget {
     }
   }
 
-  Widget _buildLoadingIndicator(Color tintColor) {
+  Widget _buildLoadingIndicator(Color? tintColor) {
     return Transform.scale(
         scale: 0.4,
         child: CircularProgressIndicator(
@@ -85,7 +82,7 @@ class FLAppBarTitle extends StatelessWidget {
         ));
   }
 
-  _widgetInsetsAdd(List<Widget> list, Widget widget) {
+  _widgetInsetsAdd(List<Widget?> list, Widget? widget) {
     if (list.length > 0) {
       list.add(SizedBox(width: 3));
     }
@@ -96,8 +93,8 @@ class FLAppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget titleWidget = _buildTitles();
     ThemeData themeData = Theme.of(context);
-    final Color tintColor = themeData.appBarTheme.textTheme?.headline6?.color ??
-        themeData.primaryTextTheme.headline6.color;
+    final Color? tintColor = themeData.appBarTheme.toolbarTextStyle?.color ??
+        themeData.primaryTextTheme.headline6!.color;
     List<Widget> children = [];
 
     // build left

@@ -57,7 +57,7 @@ class FLThemeTextStyles {
 }
 
 class FLThemeTool {
-  static Color parseColor(String colorStr, BuildContext ctx) {
+  static Color? parseColor(String? colorStr, BuildContext ctx) {
     if (colorStr == null) return null;
     if (colorStr.startsWith('@theme')) {
       // built in theme pattern like '@theme.primaryColor'.
@@ -71,7 +71,7 @@ class FLThemeTool {
         case FLThemeColors.primaryColorDark:
           return theme.primaryColorDark;
         case FLThemeColors.accentColor:
-          return theme.accentColor;
+          return theme.colorScheme.secondary;
         case FLThemeColors.canvasColor:
           return theme.canvasColor;
         case FLThemeColors.scaffoldBackgroundColor:
@@ -99,11 +99,11 @@ class FLThemeTool {
         case FLThemeColors.secondaryHeaderColor:
           return theme.secondaryHeaderColor;
         case FLThemeColors.textSelectionColor:
-          return theme.textSelectionColor;
+          return theme.textSelectionTheme.selectionColor;
         case FLThemeColors.cursorColor:
-          return theme.cursorColor;
+          return theme.textSelectionTheme.cursorColor;
         case FLThemeColors.textSelectionHandleColor:
-          return theme.textSelectionHandleColor;
+          return theme.textSelectionTheme.selectionHandleColor;
         case FLThemeColors.backgroundColor:
           return theme.backgroundColor;
         case FLThemeColors.dialogBackgroundColor:
@@ -120,11 +120,11 @@ class FLThemeTool {
           return null;
       }
     } else {
-      return Color(num.parse(colorStr));
+      return Color(num.parse(colorStr) as int);
     }
   }
 
-  static TextStyle parseTextStyle(String themeStyle, BuildContext ctx) {
+  static TextStyle? parseTextStyle(String themeStyle, BuildContext ctx) {
     if (themeStyle.startsWith('@textTheme')) {
       var descriptor = themeStyle.split('.').last;
       TextTheme textTheme = Theme.of(ctx).textTheme;

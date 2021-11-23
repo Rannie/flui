@@ -1,0 +1,68 @@
+analyzer:
+  strong-mode:
+    implicit-dynamic: true
+  errors:
+    todo: ignore
+  exclude:
+    - lib/generated
+    - lib/l10n
+    - lib/generated_plugin_registrant.dart
+  enable-experiment:
+    - nonfunction-type-aliases
+
+linter:
+  rules:
+    - camel_case_types
+    - camel_case_extensions
+    - library_names
+    - file_names
+    - library_prefixes
+    - curly_braces_in_flow_control_structures
+    - non_constant_identifier_names
+    - constant_identifier_names # prefer
+    - directives_ordering
+
+
+    # DOCUMENTATION
+    - slash_for_doc_comments
+    - package_api_docs # prefer
+    #    - public_member_api_docs # prefer
+
+
+    # USAGE
+    - implementation_imports
+    - avoid_relative_lib_imports # prefer
+    - prefer_relative_imports # prefer
+    - prefer_adjacent_string_concatenation
+    - unnecessary_brace_in_string_interps # avoid
+    - prefer_iterable_whereType
+    - unnecessary_lambdas
+    - prefer_equal_for_default_values
+    - avoid_init_to_null
+    #   - unnecessary_getters_setters
+    - unnecessary_this
+    - prefer_initializing_formals
+    - type_init_formals
+    - empty_constructor_bodies
+    - unnecessary_new
+    - unnecessary_const
+    - avoid_catching_errors
+    - use_rethrow_when_possible
+    - prefer_interpolation_to_compose_strings # prefer
+    - prefer_collection_literals
+    - prefer_function_declarations_over_variables
+
+
+    # DESIGN
+    - use_to_and_as_if_applicable # prefer
+    - one_member_abstracts # avoid
+    - prefer_final_fields # prefer
+    - avoid_setters_without_getters
+    - avoid_private_typedef_functions # prefer
+    - hash_and_equals
+    - avoid_null_checks_in_equality_operators
+    - prefer_mixin
+    #    - use_setters_to_change_properties
+    - type_annotate_public_apis # prefer
+    - prefer_generic_function_type_aliases
+

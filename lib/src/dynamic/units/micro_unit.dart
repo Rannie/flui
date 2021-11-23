@@ -1,14 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flui/src/dynamic/units/base_unit.dart';
-import 'package:flui/src/dynamic/units/unit_model.dart';
-import 'package:flui/src/dynamic/units/unit_constant.dart';
-import 'package:flui/src/common/tools.dart';
-import 'package:flui/src/dynamic/action/action.dart';
+
+import '../../../flui_nullsafety.dart';
+import 'base_unit.dart';
+import 'unit_constant.dart';
 
 /// SizedBox
 class FLDySizedBoxUnit extends FLDyRenderUnit {
-  FLDySizedBoxUnit({FLDySizedBoxUnitModel unitModel})
+  FLDySizedBoxUnit({required FLDySizedBoxUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDySizedBoxUnitModel),
         super(unitModel: unitModel);
 
@@ -23,7 +22,7 @@ class FLDySizedBoxUnit extends FLDyRenderUnit {
 
 /// Text
 class FLDyTextUnit extends FLDyRenderUnit {
-  FLDyTextUnit({FLDyTextUnitModel unitModel})
+  FLDyTextUnit({required FLDyTextUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyTextUnitModel),
         super(unitModel: unitModel);
 
@@ -31,7 +30,7 @@ class FLDyTextUnit extends FLDyRenderUnit {
   Widget build(BuildContext context) {
     final FLDyTextUnitModel tum = unitModel as FLDyTextUnitModel;
     final Widget textWidget = Text(
-      tum.text,
+      tum.text!,
       style: tum.textStyle?.toTextStyle(context),
       textAlign: tum.getTextAlign(),
       textDirection: tum.getTextDirection(),
@@ -48,24 +47,24 @@ class FLDyTextUnit extends FLDyRenderUnit {
 
 /// RichText
 class FLDyRichTextUnit extends FLDyRenderUnit {
-  FLDyRichTextUnit({FLDyRichTextUnitModel unitModel})
+  FLDyRichTextUnit({required FLDyRichTextUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyRichTextUnitModel),
         super(unitModel: unitModel);
 
   TextSpan buildTextSpan(FLDyTextSpanUnitModel spanUM, BuildContext context) {
-    GestureRecognizer gestureRecognizer;
+    GestureRecognizer? gestureRecognizer;
     if (spanUM.gesture != null) {
-      if (spanUM.gesture.onTap != null) {
+      if (spanUM.gesture!.onTap != null) {
         gestureRecognizer = TapGestureRecognizer()
           ..onTap = () {
             FLDyActionDispatch.dispatcher
-                .dispatchAction(spanUM.uniqueId, spanUM.gesture.onTap, context);
+                .dispatchAction(spanUM.uniqueId, spanUM.gesture!.onTap, context);
           };
-      } else if (spanUM.gesture.onLongPress != null) {
+      } else if (spanUM.gesture!.onLongPress != null) {
         gestureRecognizer = LongPressGestureRecognizer()
           ..onLongPress = () {
             FLDyActionDispatch.dispatcher.dispatchAction(
-                spanUM.uniqueId, spanUM.gesture.onLongPress, context);
+                spanUM.uniqueId, spanUM.gesture!.onLongPress, context);
           };
       }
     }
@@ -75,14 +74,14 @@ class FLDyRichTextUnit extends FLDyRenderUnit {
         recognizer: gestureRecognizer,
         semanticsLabel: spanUM.semanticsLabel,
         children: spanUM.children
-            ?.map((spanUM) => buildTextSpan(spanUM, context))
-            ?.toList());
+            ?.map((spanUM) => buildTextSpan(spanUM as FLDyTextSpanUnitModel, context))
+            .toList());
   }
 
   @override
   Widget build(BuildContext context) {
     final FLDyRichTextUnitModel rtum = unitModel as FLDyRichTextUnitModel;
-    final textSpan = buildTextSpan(rtum.text, context);
+    final textSpan = buildTextSpan(rtum.text!, context);
     final Widget richText = RichText(
       text: textSpan,
     );
@@ -92,7 +91,7 @@ class FLDyRichTextUnit extends FLDyRenderUnit {
 
 /// Image
 class FLDyImageUnit extends FLDyRenderUnit {
-  FLDyImageUnit({FLDyImageUnitModel unitModel})
+  FLDyImageUnit({required FLDyImageUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyImageUnitModel),
         super(unitModel: unitModel);
 
@@ -100,13 +99,13 @@ class FLDyImageUnit extends FLDyRenderUnit {
   Widget build(BuildContext context) {
     final FLDyImageUnitModel ium = unitModel as FLDyImageUnitModel;
     final Widget image = Image(
-      image: ium.imageProvider.type == FLDyImageType.network
-          ? ium.imageProvider.toNetworkImage()
-          : ium.imageProvider.toAssetImage(),
+      image: (ium.imageProvider!.type == FLDyImageType.network
+          ? ium.imageProvider!.toNetworkImage()
+          : ium.imageProvider!.toAssetImage()) as ImageProvider<Object>,
       loadingBuilder: ium.loading != null
           ? (BuildContext context, Widget child,
-              ImageChunkEvent loadingProgress) {
-              return markupUnit(ium.loading);
+              ImageChunkEvent? loadingProgress) {
+              return markupUnit(ium.loading!)!;
             }
           : null,
       semanticLabel: ium.semanticLabel,
@@ -124,7 +123,7 @@ class FLDyImageUnit extends FLDyRenderUnit {
 
 /// Icon
 class FLDyIconUnit extends FLDyRenderUnit {
-  FLDyIconUnit({FLDyIconUnitModel unitModel})
+  FLDyIconUnit({required FLDyIconUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyIconUnitModel),
         super(unitModel: unitModel);
 
@@ -132,7 +131,7 @@ class FLDyIconUnit extends FLDyRenderUnit {
   Widget build(BuildContext context) {
     final FLDyIconUnitModel ium = unitModel as FLDyIconUnitModel;
     final Icon icon = Icon(
-      ium.icon.toIconData(),
+      ium.icon!.toIconData(),
       size: ium.size,
       color: FLThemeTool.parseColor(ium.color, context),
       semanticLabel: ium.semanticLabel,
@@ -144,7 +143,7 @@ class FLDyIconUnit extends FLDyRenderUnit {
 
 /// RaisedButton
 class FLDyRaisedButtonUnit extends FLDyRenderUnit {
-  FLDyRaisedButtonUnit({FLDyRaisedButtonUnitModel unitModel})
+  FLDyRaisedButtonUnit({required FLDyRaisedButtonUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyRaisedButtonUnitModel),
         super(unitModel: unitModel);
 
@@ -152,7 +151,7 @@ class FLDyRaisedButtonUnit extends FLDyRenderUnit {
   Widget build(BuildContext context) {
     final FLDyRaisedButtonUnitModel rbum =
         unitModel as FLDyRaisedButtonUnitModel;
-    final Widget child = resolveChild();
+    final Widget? child = resolveChild();
     final RaisedButton button = RaisedButton(
       onPressed: () => FLDyActionDispatch.dispatcher
           .dispatchAction(rbum.uniqueId, rbum.onPressed, context),
@@ -169,14 +168,14 @@ class FLDyRaisedButtonUnit extends FLDyRenderUnit {
 
 /// FlatButton
 class FLDyFlatButtonUnit extends FLDyRenderUnit {
-  FLDyFlatButtonUnit({FLDyFlatButtonUnitModel unitModel})
+  FLDyFlatButtonUnit({required FLDyFlatButtonUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyFlatButtonUnitModel),
         super(unitModel: unitModel);
 
   @override
   Widget build(BuildContext context) {
     final FLDyFlatButtonUnitModel fbum = unitModel as FLDyFlatButtonUnitModel;
-    final Widget child = resolveChild();
+    final Widget child = resolveChild()!;
     final FlatButton button = FlatButton(
       onPressed: () => FLDyActionDispatch.dispatcher
           .dispatchAction(fbum.uniqueId, fbum.onPressed, context),

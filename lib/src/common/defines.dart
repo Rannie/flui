@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum FLPosition { top, left, bottom, right }
 
 extension ThemeFluiExt on Theme {
-  static FLThemeData get fluiThemeData {
+  static FLThemeData? get fluiThemeData {
     return null;
   }
 
@@ -12,7 +12,7 @@ extension ThemeFluiExt on Theme {
 }
 
 class FLThemeData {
-  static FLThemeData get sharedThemeData {
+  static FLThemeData? get sharedThemeData {
     return null;
   }
 }

@@ -8,7 +8,7 @@ const Color _kDefaultDetailColorLight =
 
 class FLEmptyContainer extends StatefulWidget {
   FLEmptyContainer({
-    Key key,
+    Key? key,
     this.backgroundColor,
     this.customLoadingWidget,
     this.showLoading = false,
@@ -21,28 +21,28 @@ class FLEmptyContainer extends StatefulWidget {
     this.actionButton,
   }) : super(key: key);
 
-  final Color backgroundColor;
-  final Widget customLoadingWidget;
+  final Color? backgroundColor;
+  final Widget? customLoadingWidget;
 
   /// show loading or not, default is false.
   /// if [showLoading] is true & no custom loading widget, it will show a [CircularProgressIndicator].
   final bool showLoading;
-  final Image image;
-  final String title;
-  final TextStyle titleStyle;
-  final String detailText;
-  final TextStyle detailTextStyle;
+  final Image? image;
+  final String? title;
+  final TextStyle? titleStyle;
+  final String? detailText;
+  final TextStyle? detailTextStyle;
   final double space;
 
   /// custom action button
-  final Widget actionButton;
+  final Widget? actionButton;
 
   @override
   State<FLEmptyContainer> createState() => FLEmptyContainerState();
 }
 
 class FLEmptyContainerState extends State<FLEmptyContainer> {
-  void _addChildAndSpacingIfNeeded(List<Widget> list, Widget newChild) {
+  void _addChildAndSpacingIfNeeded(List<Widget?> list, Widget? newChild) {
     if (list.length > 0) {
       list.add(SizedBox(height: widget.space));
     }
@@ -69,25 +69,25 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
       _addChildAndSpacingIfNeeded(children, widget.image);
     }
 
-    if (widget.title != null && widget.title.isNotEmpty) {
+    if (widget.title != null && widget.title!.isNotEmpty) {
       TextStyle textStyle = widget.titleStyle ??
           TextStyle(
               fontSize: 16.0,
               color:
                   isDarkMode ? _kDefaultTitleColorLight : _kDefaultTitleColor);
       Widget title =
-          Text(widget.title, style: textStyle, textAlign: TextAlign.center);
+          Text(widget.title!, style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, title);
     }
 
-    if (widget.detailText != null && widget.detailText.isNotEmpty) {
+    if (widget.detailText != null && widget.detailText!.isNotEmpty) {
       TextStyle textStyle = widget.detailTextStyle ??
           TextStyle(
               fontSize: 14.0,
               color: isDarkMode
                   ? _kDefaultDetailColorLight
                   : _kDefaultDetailColor);
-      Widget detailText = Text(widget.detailText,
+      Widget detailText = Text(widget.detailText!,
           style: textStyle, textAlign: TextAlign.center);
       _addChildAndSpacingIfNeeded(children, detailText);
     }

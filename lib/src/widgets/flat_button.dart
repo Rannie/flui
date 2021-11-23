@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flui/src/common/defines.dart';
+
+import '../../flui_nullsafety.dart';
 
 class FLFlatButton extends StatelessWidget {
   const FLFlatButton(
-      {Key key,
-      @required this.onPressed,
+      {Key? key,
+      required this.onPressed,
       this.onHighlightChanged,
       this.textTheme,
       this.textColor,
@@ -22,32 +23,32 @@ class FLFlatButton extends StatelessWidget {
       this.materialTapTargetSize,
       this.focusNode,
       this.expanded = false,
-      @required this.child})
+      required this.child})
       : super(key: key);
 
-  final VoidCallback onPressed;
-  final ValueChanged<bool> onHighlightChanged;
-  final ButtonTextTheme textTheme;
-  final Color textColor;
-  final Color disabledTextColor;
-  final Color color;
-  final Color disabledColor;
-  final Color focusColor;
-  final Color hoverColor;
-  final Color highlightColor;
-  final Color splashColor;
-  final Brightness colorBrightness;
-  final EdgeInsetsGeometry padding;
-  final ShapeBorder shape;
-  final Clip clipBehavior;
-  final FocusNode focusNode;
-  final MaterialTapTargetSize materialTapTargetSize;
+  final VoidCallback? onPressed;
+  final ValueChanged<bool>? onHighlightChanged;
+  final ButtonTextTheme? textTheme;
+  final Color? textColor;
+  final Color? disabledTextColor;
+  final Color? color;
+  final Color? disabledColor;
+  final Color? focusColor;
+  final Color? hoverColor;
+  final Color? highlightColor;
+  final Color? splashColor;
+  final Brightness? colorBrightness;
+  final EdgeInsetsGeometry? padding;
+  final ShapeBorder? shape;
+  final Clip? clipBehavior;
+  final FocusNode? focusNode;
+  final MaterialTapTargetSize? materialTapTargetSize;
   final bool expanded;
-  final Widget child;
+  final Widget? child;
 
   factory FLFlatButton.icon({
     Key key,
-    @required VoidCallback onPressed,
+    required VoidCallback onPressed,
     ValueChanged<bool> onHighlightChanged,
     ButtonTextTheme textTheme,
     Color textColor,
@@ -66,8 +67,8 @@ class FLFlatButton extends StatelessWidget {
     MaterialTapTargetSize materialTapTargetSize,
     FLPosition iconPosition,
     double spacing,
-    @required Widget icon,
-    @required Widget label,
+    required Widget icon,
+    required Widget label,
   }) = _FLFlatButtonWithIcon;
 
   @override
@@ -77,11 +78,11 @@ class FLFlatButton extends StatelessWidget {
             direction: Axis.horizontal,
             children: <Widget>[
               Expanded(
-                child: child,
+                child: child!,
               )
             ],
           )
-        : child;
+        : child!;
 
     return FlatButton(
         onPressed: onPressed,
@@ -108,28 +109,28 @@ class FLFlatButton extends StatelessWidget {
 class _FLFlatButtonWithIcon extends FLFlatButton
     with MaterialButtonWithIconMixin {
   _FLFlatButtonWithIcon({
-    Key key,
-    @required VoidCallback onPressed,
-    ValueChanged<bool> onHighlightChanged,
-    ButtonTextTheme textTheme,
-    Color textColor,
-    Color disabledTextColor,
-    Color color,
-    Color disabledColor,
-    Color hoverColor,
-    Color focusColor,
-    Color highlightColor,
-    Color splashColor,
-    Brightness colorBrightness,
-    EdgeInsetsGeometry padding,
-    ShapeBorder shape,
-    Clip clipBehavior,
-    FocusNode focusNode,
-    MaterialTapTargetSize materialTapTargetSize,
+    Key? key,
+    required VoidCallback onPressed,
+    ValueChanged<bool>? onHighlightChanged,
+    ButtonTextTheme? textTheme,
+    Color? textColor,
+    Color? disabledTextColor,
+    Color? color,
+    Color? disabledColor,
+    Color? hoverColor,
+    Color? focusColor,
+    Color? highlightColor,
+    Color? splashColor,
+    Brightness? colorBrightness,
+    EdgeInsetsGeometry? padding,
+    ShapeBorder? shape,
+    Clip? clipBehavior,
+    FocusNode? focusNode,
+    MaterialTapTargetSize? materialTapTargetSize,
     this.iconPosition,
     this.spacing,
-    @required this.icon,
-    @required this.label,
+    required this.icon,
+    required this.label,
   }) : super(
             key: key,
             onPressed: onPressed,
@@ -151,8 +152,8 @@ class _FLFlatButtonWithIcon extends FLFlatButton
             materialTapTargetSize: materialTapTargetSize,
             child: null);
 
-  final FLPosition iconPosition;
-  final double spacing;
+  final FLPosition? iconPosition;
+  final double? spacing;
   final Widget icon;
   final Widget label;
 

@@ -1,21 +1,21 @@
-name: flui
+name: flui_nullsafety
 description:
   FLUI is a powerful UI framework for Google Flutter. Including widgets kit and useful modules.
-version: 0.9.2
+version: 2.0.0
 homepage: 'https://www.flui.xin/en/'
 repository: 'https://github.com/Rannie/flui'
 documentation: 'https://www.flui.xin/en/widgets/button.html'
 environment:
-  sdk: '>=2.6.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
-  json_annotation: ^3.0.1
+  json_annotation: ^4.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^4.1.1
-  build_runner: ^1.7.3
-  json_serializable: ^3.2.5
+  mockito: ^5.0.16
+  build_runner: ^2.1.4
+  json_serializable: ^5.0.2
 flutter:
   uses-material-design: true

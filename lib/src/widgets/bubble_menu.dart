@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
 import 'bubble.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 300);
@@ -33,22 +34,19 @@ enum FLBubbleMenuInteraction { tap, longPress }
 
 class FLBubbleMenuWidget<T> extends StatefulWidget {
   FLBubbleMenuWidget(
-      {Key key,
-      @required this.itemBuilder,
+      {Key? key,
+      required this.itemBuilder,
       this.onSelected,
       this.onCancelled,
       this.interaction = FLBubbleMenuInteraction.longPress,
-      @required this.child,
+      required this.child,
       this.offset = Offset.zero})
-      : assert(itemBuilder != null),
-        assert(child != null),
-        assert(offset != null),
-        super(key: key);
+      : super(key: key);
 
   final FLBubbleMenuInteraction interaction;
   final FLBubbleMenuItemBuilder itemBuilder;
-  final FLBubbleMenuItemSelected<T> onSelected;
-  final FLBubbleMenuCancelled onCancelled;
+  final FLBubbleMenuItemSelected<T>? onSelected;
+  final FLBubbleMenuCancelled? onCancelled;
   final Widget child;
   final Offset offset;
 
@@ -58,8 +56,8 @@ class FLBubbleMenuWidget<T> extends StatefulWidget {
 
 class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
   void showButtonMenu() {
-    final RenderBox button = context.findRenderObject();
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
     final RelativeRect position = RelativeRect.fromRect(
         Rect.fromPoints(
           button.localToGlobal(widget.offset, ancestor: overlay),
@@ -71,14 +69,14 @@ class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
     showBubbleMenu<T>(
             context: context,
             position: position,
-            items: widget.itemBuilder(context))
-        .then<void>((T value) {
+            items: widget.itemBuilder(context) as List<FLBubbleMenuItem<T>>)
+        .then<void>((T? value) {
       if (!mounted) return null;
       if (value == null) {
-        if (widget.onCancelled != null) widget.onCancelled();
+        if (widget.onCancelled != null) widget.onCancelled!();
         return null;
       }
-      if (widget.onSelected != null) widget.onSelected(value);
+      if (widget.onSelected != null) widget.onSelected!(value);
     });
   }
 
@@ -95,17 +93,14 @@ class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
   }
 }
 
-Future<T> showBubbleMenu<T>({
-  @required BuildContext context,
-  @required RelativeRect position,
-  @required List<FLBubbleMenuItem<T>> items,
-  String semanticLabel,
+Future<T?> showBubbleMenu<T>({
+  required BuildContext context,
+  required RelativeRect position,
+  required List<FLBubbleMenuItem<T>> items,
+  String? semanticLabel,
 }) {
-  assert(context != null);
-  assert(position != null);
-  assert(items != null && items.isNotEmpty);
   assert(debugCheckHasMaterialLocalizations(context));
-  String label = semanticLabel;
+  String? label = semanticLabel;
   switch (defaultTargetPlatform) {
     case TargetPlatform.iOS:
       label = semanticLabel;
@@ -129,7 +124,7 @@ Future<T> showBubbleMenu<T>({
 }
 
 class FLBubbleMenuItem<T> {
-  FLBubbleMenuItem({@required this.text, @required this.value});
+  FLBubbleMenuItem({required this.text, required this.value});
 
   final String text;
   final T value;
@@ -137,29 +132,29 @@ class FLBubbleMenuItem<T> {
 
 class _FLBubbleMenu<T> extends StatelessWidget {
   _FLBubbleMenu(
-      {Key key,
+      {Key? key,
       this.route,
       this.semanticLabel,
       this.from = FLBubbleFrom.bottom,
-      @required this.items})
+      required this.items})
       : super(key: key);
 
-  final _FLBubblePopupRoute route;
-  final String semanticLabel;
+  final _FLBubblePopupRoute? route;
+  final String? semanticLabel;
   final FLBubbleFrom from;
-  final List<FLBubbleMenuItem> items;
+  final List<FLBubbleMenuItem>? items;
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final List<Widget> children = <Widget>[];
-    for (int i = 0; i < route.items.length; i += 1) {
+    for (int i = 0; i < route!.items!.length; i += 1) {
       final CurvedAnimation opacity = CurvedAnimation(
-          parent: route.animation, curve: Interval(0.0, 1.0 / 3.0));
-      FLBubbleMenuItem item = route.items[i];
+          parent: route!.animation!, curve: Interval(0.0, 1.0 / 3.0));
+      FLBubbleMenuItem item = route!.items![i];
       Widget itemWidget = _buildMenuButton(context, item, isDarkMode);
       children.add(_transitionWrapper(itemWidget, opacity));
-      if (i != route.items.length - 1) {
+      if (i != route!.items!.length - 1) {
         children.add(_transitionWrapper(_divider(isDarkMode), opacity));
       }
     }
@@ -193,10 +188,10 @@ class _FLBubbleMenu<T> extends StatelessWidget {
     );
 
     return AnimatedBuilder(
-      animation: route.animation,
-      builder: (BuildContext context, Widget child) {
+      animation: route!.animation!,
+      builder: (BuildContext context, Widget? child) {
         return Opacity(
-          opacity: opacity.evaluate(route.animation),
+          opacity: opacity.evaluate(route!.animation!),
           child: Material(
             color: Colors.transparent,
             child: child,
@@ -238,34 +233,36 @@ class _FLBubbleMenu<T> extends StatelessWidget {
 class _FLBubbleMenuRouteLayoutDelegate extends SingleChildLayoutDelegate {
   _FLBubbleMenuRouteLayoutDelegate({this.position, this.from});
 
-  final RelativeRect position;
-  final FLBubbleFrom from; // only support top/bottom
+  final RelativeRect? position;
+  final FLBubbleFrom? from; // only support top/bottom
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     return BoxConstraints.loose(constraints.biggest -
-        const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0));
+        const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0) as Size);
   }
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
     // vertical position
     double y = (from == FLBubbleFrom.bottom)
-        ? position.top - childSize.height
-        : size.height - position.bottom;
+        ? position!.top - childSize.height
+        : size.height - position!.bottom;
     // horizontal position
-    double pW = size.width - position.right - position.left;
-    double x = position.left + (pW - childSize.width) / 2;
+    double pW = size.width - position!.right - position!.left;
+    double x = position!.left + (pW - childSize.width) / 2;
     // check horizontal edge
-    if (x < _kMenuScreenPadding)
+    if (x < _kMenuScreenPadding) {
       x = _kMenuScreenPadding;
-    else if (x + childSize.width > size.width - _kMenuScreenPadding)
+    } else if (x + childSize.width > size.width - _kMenuScreenPadding) {
       x = size.width - childSize.width - _kMenuScreenPadding;
+    }
     // vertical
-    if (y < _kMenuScreenPadding)
+    if (y < _kMenuScreenPadding) {
       y = _kMenuScreenPadding;
-    else if (y + childSize.height > size.height - _kMenuScreenPadding)
+    } else if (y + childSize.height > size.height - _kMenuScreenPadding) {
       y = size.height - childSize.height - _kMenuScreenPadding;
+    }
 
     return Offset(x, y);
   }
@@ -284,9 +281,9 @@ class _FLBubblePopupRoute<T> extends PopupRoute<T> {
     this.semanticLabel,
   });
 
-  final RelativeRect position;
-  final List<FLBubbleMenuItem<T>> items;
-  final String semanticLabel;
+  final RelativeRect? position;
+  final List<FLBubbleMenuItem<T>>? items;
+  final String? semanticLabel;
 
   @override
   Animation<double> createAnimation() {
@@ -303,16 +300,16 @@ class _FLBubblePopupRoute<T> extends PopupRoute<T> {
   bool get barrierDismissible => true;
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  final String barrierLabel;
+  final String? barrierLabel;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
     // triangle direction
-    FLBubbleFrom from = _determineBubbleFrom(position);
+    FLBubbleFrom from = _determineBubbleFrom(position!);
     // retrieve menu
     Widget menu = _FLBubbleMenu<T>(
       route: this,

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 class FLPinCodeTextField extends StatefulWidget {
   FLPinCodeTextField(
-      {Key key,
+      {Key? key,
       this.pinLength = 6,
       this.controller,
       this.focusNode,
@@ -22,36 +22,36 @@ class FLPinCodeTextField extends StatefulWidget {
         super(key: key);
 
   final int pinLength;
-  final TextEditingController controller;
-  final FocusNode focusNode;
-  final InputDecoration decoration;
-  final TextStyle textStyle;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final InputDecoration? decoration;
+  final TextStyle? textStyle;
   final bool autofocus;
   final bool obscure;
-  final ValueChanged<String> onChanged;
-  final VoidCallback onEditingComplete;
-  final ValueChanged<String> onSubmitted;
-  final bool enabled;
-  final double boxWidth;
-  final double boxHeight;
-  final double minSpace;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onSubmitted;
+  final bool? enabled;
+  final double? boxWidth;
+  final double? boxHeight;
+  final double? minSpace;
 
   @override
   State<FLPinCodeTextField> createState() => _FLPinCodeTextFieldState();
 }
 
 class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
-  TextEditingController _controller;
-  TextEditingController get _effectiveController =>
+  TextEditingController? _controller;
+  TextEditingController? get _effectiveController =>
       widget.controller ?? _controller;
 
-  FocusNode _focusNode;
+  FocusNode? _focusNode;
   FocusNode get _effectiveFocusNode =>
       widget.focusNode ?? (_focusNode ??= FocusNode());
 
-  List<TextEditingController> _editingControllerList =
+  final List<TextEditingController> _editingControllerList =
       <TextEditingController>[];
-  List<FocusNode> _focusNodeList = <FocusNode>[];
+  final List<FocusNode> _focusNodeList = <FocusNode>[];
 
   @override
   void initState() {
@@ -63,9 +63,9 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
 
   @override
   void didUpdateWidget(FLPinCodeTextField oldWidget) {
-    if (widget.controller == null && oldWidget.controller != null)
-      _controller = TextEditingController.fromValue(oldWidget.controller.value);
-    else if (widget.controller != null && oldWidget.controller == null) {
+    if (widget.controller == null && oldWidget.controller != null) {
+      _controller = TextEditingController.fromValue(oldWidget.controller!.value);
+    } else if (widget.controller != null && oldWidget.controller == null) {
       _controller = null;
     }
 
@@ -104,14 +104,14 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
   String _fullText() {
     String text = '';
     _editingControllerList.forEach((TextEditingController controller) {
-      text += controller.text ?? '';
+      text += controller.text;
     });
     return text;
   }
 
   void _popText() {
     String totalText = _fullText();
-    _effectiveController.text = totalText;
+    _effectiveController!.text = totalText;
     widget.onChanged?.call(totalText);
   }
 
@@ -231,7 +231,7 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
 /// detect backspace related issue: https://github.com/flutter/flutter/issues/14809
 class _FLTraceDeleteTextField extends StatefulWidget {
   _FLTraceDeleteTextField(
-      {Key key,
+      {Key? key,
       this.controller,
       this.focusNode,
       this.decoration,
@@ -249,21 +249,21 @@ class _FLTraceDeleteTextField extends StatefulWidget {
       this.enabled})
       : super(key: key);
 
-  final TextEditingController controller;
-  final FocusNode focusNode;
-  final InputDecoration decoration;
-  final TextInputType keyboardType;
-  final TextInputAction textInputAction;
-  final TextStyle textStyle;
-  final TextAlign textAlign;
-  final bool autofocus;
-  final bool obscure;
-  final ValueChanged<String> onChanged;
-  final VoidCallback onEditingComplete;
-  final ValueChanged<String> onSubmitted;
-  final VoidCallback onDeleted;
-  final List<TextInputFormatter> inputFormatters;
-  final bool enabled;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final InputDecoration? decoration;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final TextStyle? textStyle;
+  final TextAlign? textAlign;
+  final bool? autofocus;
+  final bool? obscure;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onSubmitted;
+  final VoidCallback? onDeleted;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool? enabled;
 
   @override
   State<_FLTraceDeleteTextField> createState() =>
@@ -271,8 +271,8 @@ class _FLTraceDeleteTextField extends StatefulWidget {
 }
 
 class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
-  FocusNode get _effectiveFocusNode => widget.focusNode;
-  TextEditingController _controller = TextEditingController();
+  FocusNode? get _effectiveFocusNode => widget.focusNode;
+  final TextEditingController _controller = TextEditingController();
   final String _sign = '.';
   final String _nullString = '';
 
@@ -289,8 +289,8 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
   @override
   void initState() {
     super.initState();
-    _effectiveFocusNode.addListener(() {
-      if (_effectiveFocusNode.hasFocus) {
+    _effectiveFocusNode!.addListener(() {
+      if (_effectiveFocusNode!.hasFocus) {
         if (_userValue) _userValue = false;
 
         _clearControllerState();
@@ -299,7 +299,7 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
   }
 
   void _clearControllerState() {
-    widget.controller.text = _nullString;
+    widget.controller!.text = _nullString;
     _controller
       ..text = _sign
       ..selection = TextSelection.collapsed(offset: _controller.text.length);
@@ -315,19 +315,19 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
 
   void _setText(String text) {
     _controller.text = text;
-    widget.controller.text = text;
+    widget.controller!.text = text;
   }
 
   @override
   void dispose() {
     _effectiveFocusNode?.dispose();
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle =
+    TextStyle? textStyle =
         !_userValue ? TextStyle(color: Colors.transparent) : widget.textStyle;
     return TextField(
       controller: _controller,
@@ -336,12 +336,12 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       style: textStyle,
-      autofocus: widget.autofocus,
-      obscureText: widget.obscure,
-      textAlign: widget.textAlign,
+      autofocus: widget.autofocus!,
+      obscureText: widget.obscure!,
+      textAlign: widget.textAlign!,
       textAlignVertical: TextAlignVertical.center,
       inputFormatters: [
-        WhitelistingTextInputFormatter(RegExp("[.0-9]")),
+        FilteringTextInputFormatter.allow(RegExp("[.0-9]")),
         LengthLimitingTextInputFormatter(2)
       ],
       showCursor: false,
@@ -370,9 +370,9 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
       onEditingComplete: widget.onEditingComplete,
       onSubmitted: (text) {
         if (_validPopText()) {
-          widget.onSubmitted(text);
+          widget.onSubmitted!(text);
         } else {
-          widget.onSubmitted(_nullString);
+          widget.onSubmitted!(_nullString);
         }
       },
       enabled: widget.enabled,

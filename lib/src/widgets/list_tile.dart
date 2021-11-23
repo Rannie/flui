@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// just handle gesture to change background color.
 class FLListTile extends StatelessWidget {
   FLListTile({
-    Key key,
+    Key? key,
     this.leading,
     this.title,
     this.subtitle,
@@ -19,18 +19,18 @@ class FLListTile extends StatelessWidget {
     this.backgroundColor,
   }) : super(key: key);
 
-  final Widget leading;
-  final Widget title;
-  final Widget subtitle;
-  final Widget trailing;
+  final Widget? leading;
+  final Widget? title;
+  final Widget? subtitle;
+  final Widget? trailing;
   final bool isThreeLine;
-  final bool dense;
-  final EdgeInsetsGeometry contentPadding;
+  final bool? dense;
+  final EdgeInsetsGeometry? contentPadding;
   final bool enabled;
-  final GestureTapCallback onTap;
-  final GestureLongPressCallback onLongPress;
+  final GestureTapCallback? onTap;
+  final GestureLongPressCallback? onLongPress;
   final bool selected;
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   Widget build(BuildContext context) {
     return Material(

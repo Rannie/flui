@@ -158,8 +158,8 @@ class FLDyAlignmentDirectionalType {
   static const String bottomEnd = 'bottomEnd';
 }
 
-AlignmentDirectional flStringToAlignmentDirectional(
-    String alignmentDirectional) {
+AlignmentDirectional? flStringToAlignmentDirectional(
+    String? alignmentDirectional) {
   switch (alignmentDirectional) {
     case FLDyAlignmentDirectionalType.topStart:
       return AlignmentDirectional.topStart;
@@ -184,18 +184,18 @@ AlignmentDirectional flStringToAlignmentDirectional(
   }
 }
 
-Overflow flStringToOverflow(String overflow) {
+Clip? flStringToOverflow(String? overflow) {
   switch (overflow) {
     case FLDyOverflowType.visible:
-      return Overflow.visible;
+      return Clip.none;
     case FLDyOverflowType.clip:
-      return Overflow.clip;
+      return Clip.antiAlias;
     default:
       return null;
   }
 }
 
-StackFit flStringToStackFit(String stackFit) {
+StackFit? flStringToStackFit(String? stackFit) {
   switch (stackFit) {
     case FLDyStackFitType.loose:
       return StackFit.loose;
@@ -208,7 +208,7 @@ StackFit flStringToStackFit(String stackFit) {
   }
 }
 
-Alignment flStringtoAlignment(String alignment) {
+Alignment? flStringtoAlignment(String? alignment) {
   switch (alignment) {
     case FLDyAlignmentType.topLeft:
       return Alignment.topLeft;
@@ -233,7 +233,7 @@ Alignment flStringtoAlignment(String alignment) {
   }
 }
 
-TextWidthBasis flStringToTextWidthBasis(String textWidthBasis) {
+TextWidthBasis? flStringToTextWidthBasis(String? textWidthBasis) {
   switch (textWidthBasis) {
     case FLDyTextWidthBasisType.parent:
       return TextWidthBasis.parent;
@@ -244,7 +244,7 @@ TextWidthBasis flStringToTextWidthBasis(String textWidthBasis) {
   }
 }
 
-TextOverflow flStringToTextOverflow(String textOverflow) {
+TextOverflow? flStringToTextOverflow(String? textOverflow) {
   switch (textOverflow) {
     case FLDyTextOverflowType.clip:
       return TextOverflow.clip;
@@ -259,7 +259,7 @@ TextOverflow flStringToTextOverflow(String textOverflow) {
   }
 }
 
-TextDirection flStringToTextDirection(String textDirection) {
+TextDirection? flStringToTextDirection(String? textDirection) {
   switch (textDirection) {
     case FLDyTextDirectionType.rtl:
       return TextDirection.rtl;
@@ -270,7 +270,7 @@ TextDirection flStringToTextDirection(String textDirection) {
   }
 }
 
-TextAlign flStringToTextAlign(String textAlign) {
+TextAlign? flStringToTextAlign(String? textAlign) {
   switch (textAlign) {
     case FLDyTextAlignType.left:
       return TextAlign.left;
@@ -289,7 +289,7 @@ TextAlign flStringToTextAlign(String textAlign) {
   }
 }
 
-TextDecorationStyle flStringToTextDecorationStyle(String decorationStyle) {
+TextDecorationStyle? flStringToTextDecorationStyle(String? decorationStyle) {
   switch (decorationStyle) {
     case FLDyTextDecorationStyleType.solid:
       return TextDecorationStyle.solid;
@@ -306,7 +306,7 @@ TextDecorationStyle flStringToTextDecorationStyle(String decorationStyle) {
   }
 }
 
-TextDecoration flStringToTextDecoration(String decoration) {
+TextDecoration? flStringToTextDecoration(String decoration) {
   switch (decoration) {
     case FLDyTextDecorationType.none:
       return TextDecoration.none;
@@ -321,7 +321,7 @@ TextDecoration flStringToTextDecoration(String decoration) {
   }
 }
 
-TextBaseline flStringToTextBaseline(String textBaseline) {
+TextBaseline? flStringToTextBaseline(String? textBaseline) {
   switch (textBaseline) {
     case FLDyTextBaselineType.alphabetic:
       return TextBaseline.alphabetic;
@@ -332,7 +332,7 @@ TextBaseline flStringToTextBaseline(String textBaseline) {
   }
 }
 
-FontStyle flStringToFontStyle(String fontStyle) {
+FontStyle? flStringToFontStyle(String? fontStyle) {
   switch (fontStyle) {
     case FLDyFontStyleType.nomral:
       return FontStyle.normal;
@@ -343,7 +343,7 @@ FontStyle flStringToFontStyle(String fontStyle) {
   }
 }
 
-FontWeight flStringToFontWeight(String fontWeight) {
+FontWeight? flStringToFontWeight(String? fontWeight) {
   switch (fontWeight) {
     case FLDyFontWeightType.normal:
       return FontWeight.normal;
@@ -354,7 +354,7 @@ FontWeight flStringToFontWeight(String fontWeight) {
   }
 }
 
-Axis flStringToAxis(String axis) {
+Axis? flStringToAxis(String? axis) {
   switch (axis) {
     case FLDyAxisType.horizontal:
       return Axis.horizontal;
@@ -365,7 +365,7 @@ Axis flStringToAxis(String axis) {
   }
 }
 
-BoxShape flStringToBoxShape(String shape) {
+BoxShape? flStringToBoxShape(String? shape) {
   switch (shape) {
     case FLDyBoxShapeType.rectangle:
       return BoxShape.rectangle;
@@ -376,8 +376,8 @@ BoxShape flStringToBoxShape(String shape) {
   }
 }
 
-BoxFit flStringToBoxFit(String fit) {
-  BoxFit boxFit;
+BoxFit? flStringToBoxFit(String? fit) {
+  BoxFit? boxFit;
   switch (fit) {
     case FLDyBoxFitType.fill:
       boxFit = BoxFit.fill;
@@ -404,8 +404,8 @@ BoxFit flStringToBoxFit(String fit) {
   return boxFit;
 }
 
-ImageRepeat flStringToImageRepeat(String imageRepeat) {
-  ImageRepeat ir;
+ImageRepeat? flStringToImageRepeat(String? imageRepeat) {
+  ImageRepeat? ir;
   switch (imageRepeat) {
     case FLDyImageRepeatType.noRepeat:
       ir = ImageRepeat.noRepeat;
@@ -423,7 +423,7 @@ ImageRepeat flStringToImageRepeat(String imageRepeat) {
   return ir;
 }
 
-BorderStyle flStringToBorderStyle(String style) {
+BorderStyle? flStringToBorderStyle(String? style) {
   switch (style) {
     case FLDyBorderStyleType.none:
       return BorderStyle.none;

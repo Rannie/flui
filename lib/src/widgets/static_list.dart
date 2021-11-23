@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flui/src/widgets/flat_button.dart';
-import 'package:flui/src/widgets/list_tile.dart';
+
+import '../../flui_nullsafety.dart';
 
 enum FLStaticListCellType { normal, button, customization }
 
@@ -29,12 +29,12 @@ class FLStaticSectionData {
   })  : assert(itemList != null && itemList.length > 0),
         super();
 
-  final String headerTitle;
-  final TextStyle headerTitleStyle;
-  final double headerHeight;
+  final String? headerTitle;
+  final TextStyle? headerTitleStyle;
+  final double? headerHeight;
   final double headerTitleIntent;
   final Color headerBackgroundColor;
-  final List<FLStaticItemData> itemList;
+  final List<FLStaticItemData>? itemList;
 }
 
 class FLStaticItemData {
@@ -89,48 +89,48 @@ class FLStaticItemData {
 
   final FLStaticListCellType cellType;
 
-  final Widget leading;
-  final String title;
-  final TextStyle titleStyle;
-  final String subtitle;
-  final TextStyle subtitleStyle;
+  final Widget? leading;
+  final String? title;
+  final TextStyle? titleStyle;
+  final String? subtitle;
+  final TextStyle? subtitleStyle;
   final FLStaticListCellAccessoryType accessoryType;
-  final String accessoryString;
-  final Widget customTrailing;
-  final Color cellColor;
-  final VoidCallback onTap;
+  final String? accessoryString;
+  final Widget? customTrailing;
+  final Color? cellColor;
+  final VoidCallback? onTap;
   final bool selected;
   final bool accItemValue;
-  final ValueChanged<bool> onChanged;
+  final ValueChanged<bool?>? onChanged;
 
-  final String buttonTitle;
-  final Color buttonColor;
-  final Color buttonTitleColor;
-  final VoidCallback onButtonPressed;
+  final String? buttonTitle;
+  final Color? buttonColor;
+  final Color? buttonTitleColor;
+  final VoidCallback? onButtonPressed;
 
-  final Widget customizeContent;
+  final Widget? customizeContent;
 }
 
 class FLStaticListView extends StatelessWidget {
   const FLStaticListView({
-    Key key,
+    Key? key,
     this.shrinkWrap,
     this.padding,
     this.separatorBuilder,
-    @required this.sections,
-  })  : assert(sections != null && sections.length > 0),
+    required this.sections,
+  })  : assert(sections.length > 0),
         super(key: key);
 
-  final bool shrinkWrap;
-  final EdgeInsetsGeometry padding;
-  final IndexedWidgetBuilder separatorBuilder;
+  final bool? shrinkWrap;
+  final EdgeInsetsGeometry? padding;
+  final IndexedWidgetBuilder? separatorBuilder;
   final List<FLStaticSectionData> sections;
 
   int _preCalItemCount() {
     int count = sections.length;
     for (int i = 0; i < sections.length; i += 1) {
       FLStaticSectionData sectionData = sections[i];
-      int itemCount = sectionData.itemList.length;
+      int itemCount = sectionData.itemList!.length;
       count += itemCount;
     }
     return count;
@@ -139,24 +139,22 @@ class FLStaticListView extends StatelessWidget {
   Widget _buildSectionHeader(FLStaticSectionData sectionData,
       ThemeData themeData, BuildContext context) {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final Widget titleWidget = sectionData.headerTitle == null
+    final Widget? titleWidget = sectionData.headerTitle == null
         ? null
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(sectionData.headerTitle,
+              Text(sectionData.headerTitle!,
                   style: sectionData.headerTitleStyle ??
                       TextStyle(
                           color: Colors.grey,
-                          fontSize: themeData.textTheme.subtitle1.fontSize))
+                          fontSize: themeData.textTheme.subtitle1!.fontSize))
             ],
           );
-    final EdgeInsetsGeometry padding = sectionData.headerTitleIntent != null
-        ? (isRtl
-            ? EdgeInsets.only(right: sectionData.headerTitleIntent)
-            : EdgeInsets.only(left: sectionData.headerTitleIntent))
-        : EdgeInsets.zero;
+    final EdgeInsetsGeometry padding = isRtl
+        ? EdgeInsets.only(right: sectionData.headerTitleIntent)
+        : EdgeInsets.only(left: sectionData.headerTitleIntent);
     final headerHeight = sectionData.headerHeight ??
         (sectionData.headerTitle != null
             ? kStaticHeaderHeight
@@ -170,14 +168,14 @@ class FLStaticListView extends StatelessWidget {
   }
 
   Widget _buildItemCell(FLStaticItemData itemData, ThemeData themeData) {
-    final Text titleText = itemData.title == null
+    final Text? titleText = itemData.title == null
         ? null
-        : Text(itemData.title, style: itemData.titleStyle);
-    final Text subtitleText = itemData.subtitle == null
+        : Text(itemData.title!, style: itemData.titleStyle);
+    final Text? subtitleText = itemData.subtitle == null
         ? null
-        : Text(itemData.subtitle, style: itemData.subtitleStyle);
-    final Widget accesssoryWidget = _getAccessoryWidget(itemData, themeData);
-    final Widget trailingWidget = accesssoryWidget ?? itemData.customTrailing;
+        : Text(itemData.subtitle!, style: itemData.subtitleStyle);
+    final Widget? accesssoryWidget = _getAccessoryWidget(itemData, themeData);
+    final Widget? trailingWidget = accesssoryWidget ?? itemData.customTrailing;
     return FLListTile(
       backgroundColor: itemData.cellColor ?? Colors.transparent,
       leading: itemData.leading,
@@ -196,14 +194,14 @@ class FLStaticListView extends StatelessWidget {
       child: FLFlatButton(
         color: itemData.buttonColor,
         textColor: itemData.buttonTitleColor,
-        child: Text(itemData.buttonTitle, textAlign: TextAlign.center),
+        child: Text(itemData.buttonTitle!, textAlign: TextAlign.center),
         onPressed: itemData.onButtonPressed,
         expanded: true,
       ),
     );
   }
 
-  Widget _getAccessoryWidget(FLStaticItemData itemData, ThemeData themeData) {
+  Widget? _getAccessoryWidget(FLStaticItemData itemData, ThemeData themeData) {
     switch (itemData.accessoryType) {
       case FLStaticListCellAccessoryType.accCheckmark:
         return Row(
@@ -221,16 +219,16 @@ class FLStaticListView extends StatelessWidget {
             child: Icon(Icons.navigate_next),
           );
           if (itemData.accessoryString != null &&
-              itemData.accessoryString.length > 0) {
+              itemData.accessoryString!.length > 0) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(itemData.accessoryString,
+                Text(itemData.accessoryString!,
                     style: TextStyle(
                         color: Colors.grey,
-                        fontSize: themeData.textTheme.subtitle1.fontSize)),
+                        fontSize: themeData.textTheme.subtitle1!.fontSize)),
                 icon
               ],
             );
@@ -250,7 +248,6 @@ class FLStaticListView extends StatelessWidget {
       case FLStaticListCellAccessoryType.accNone:
       default:
         return null;
-        break;
     }
   }
 
@@ -264,16 +261,16 @@ class FLStaticListView extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildCells(ThemeData themeData, BuildContext context) {
-    final List<Widget> cellList = [];
+  List<Widget?> _buildCells(ThemeData themeData, BuildContext context) {
+    final List<Widget?> cellList = [];
     for (FLStaticSectionData sectionData in sections) {
       // add header
       Widget sectionHeader =
           _buildSectionHeader(sectionData, themeData, context);
       cellList.add(sectionHeader);
       // add section cells
-      for (FLStaticItemData itemData in sectionData.itemList) {
-        Widget itemCell;
+      for (FLStaticItemData itemData in sectionData.itemList!) {
+        Widget? itemCell;
         if (itemData.cellType == FLStaticListCellType.normal) {
           itemCell = _buildItemCell(itemData, themeData);
         } else if (itemData.cellType == FLStaticListCellType.button) {
@@ -284,8 +281,8 @@ class FLStaticListView extends StatelessWidget {
         }
         // add last cell's bottom divider
         if (sectionData == sections.last &&
-            itemData == sectionData.itemList.last) {
-          itemCell = _appendCellSeparator(itemCell, themeData);
+            itemData == sectionData.itemList!.last) {
+          itemCell = _appendCellSeparator(itemCell!, themeData);
         }
 
         cellList.add(itemCell);
@@ -302,14 +299,14 @@ class FLStaticListView extends StatelessWidget {
         (BuildContext context, int index) {
           return Divider(color: sepColor, height: 1);
         };
-    final List<Widget> cells = _buildCells(themeData, context);
+    final List<Widget?> cells = _buildCells(themeData, context);
     return Container(
       color: kStaticBackgroundColor,
       child: ListView.separated(
-          shrinkWrap: shrinkWrap,
+          shrinkWrap: shrinkWrap!,
           padding: padding,
           itemBuilder: (BuildContext context, int index) {
-            return cells[index];
+            return cells[index]!;
           },
           separatorBuilder: sepBuilder,
           itemCount: _preCalItemCount()),
