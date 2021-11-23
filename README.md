@@ -1,14 +1,19 @@
 <p align="center">
- <a href="https://flutter.dev/docs/get-started/install/windows"><img src="https://badgen.net/badge/flutter/v2.5.2/red" /></a>
-
- 
+ <a href="https://pub.dev/packages/flui_nullsafety"><img src="https://badgen.net/badge/flui_nullsafety/v2.0.0/blue" /></a>
+ <a href="https://flutter.dev/docs/get-started/install/windows"><img src="https://badgen.net/badge/Flutter/v2.5.3/red" /></a>
 </p>
 
-<p align="center">
+插件已经上传到pub仓库： https://pub.dev/packages/flui_nullsafety
+
+
+直接引入
+
+```dart
+flui_nullsafety: ^2.0.0
+```
+
+
 我只是把它升级到了空安全版本,如果有其他问题请到原作者仓库
-
-
-</p>
 
 * 原仓库地址 [https://github.com/Rannie/flui](https://github.com/Rannie/flui)
 
