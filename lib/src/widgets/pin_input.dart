@@ -341,7 +341,7 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
       textAlign: widget.textAlign,
       textAlignVertical: TextAlignVertical.center,
       inputFormatters: [
-        WhitelistingTextInputFormatter(RegExp("[.0-9]")),
+        FilteringTextInputFormatter(RegExp("[.0-9]")),
         LengthLimitingTextInputFormatter(2)
       ],
       showCursor: false,
