@@ -189,7 +189,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
         enabled: !widget.disableInput,
         keyboardType: TextInputType.number,
         inputFormatters: [
-          WhitelistingTextInputFormatter(RegExp("[-0-9]")),
+          FilteringTextInputFormatter(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
         ],
         decoration: InputDecoration(
