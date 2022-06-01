@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-const Color _kDefaultTitleColor = const Color.fromARGB(255, 93, 100, 110);
-const Color _kDefaultTitleColorLight = const Color.fromARGB(255, 247, 247, 247);
-const Color _kDefaultDetailColor = const Color.fromARGB(255, 133, 140, 150);
+const Color _kDefaultTitleColor = Color.fromARGB(255, 93, 100, 110);
+const Color _kDefaultTitleColorLight = Color.fromARGB(255, 247, 247, 247);
+const Color _kDefaultDetailColor = Color.fromARGB(255, 133, 140, 150);
 const Color _kDefaultDetailColorLight =
-    const Color.fromARGB(255, 218, 218, 218);
+    Color.fromARGB(255, 218, 218, 218);
 
 class FLEmptyContainer extends StatefulWidget {
   FLEmptyContainer({
@@ -60,7 +60,7 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
     if (widget.customLoadingWidget == null && widget.showLoading) {
       Widget loading = CircularProgressIndicator(
         strokeWidth: 3.0,
-        valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
+        valueColor: AlwaysStoppedAnimation(Theme.of(context).colorScheme.secondary),
       );
       _addChildAndSpacingIfNeeded(children, loading);
     }

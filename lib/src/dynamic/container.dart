@@ -37,7 +37,7 @@ class FLDyContainerState extends State<FLDyContainer> {
       _renderContent = FLDyRenderParser.markupContent(unitModel);
       FLDyLogger.logEndTime('markup content');
     }
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       FLDyLogger.logEndTime('total');
     });
   }

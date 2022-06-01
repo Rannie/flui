@@ -152,14 +152,18 @@ class FLDyRaisedButtonUnit extends FLDyRenderUnit {
     final FLDyRaisedButtonUnitModel rbum =
         unitModel as FLDyRaisedButtonUnitModel;
     final Widget? child = resolveChild();
-    final RaisedButton button = RaisedButton(
+    final ElevatedButton button = ElevatedButton(
       onPressed: () => FLDyActionDispatch.dispatcher
           .dispatchAction(rbum.uniqueId, rbum.onPressed, context),
       onLongPress: () => FLDyActionDispatch.dispatcher
           .dispatchAction(rbum.uniqueId, rbum.onLongPress, context),
-      textColor: FLThemeTool.parseColor(rbum.textColor, context),
-      color: FLThemeTool.parseColor(rbum.color, context),
-      padding: rbum.padding?.toEdgeInsets(),
+      style: ButtonStyle(
+        textStyle: MaterialStateProperty.all(TextStyle(
+          color: FLThemeTool.parseColor(rbum.textColor, context),
+        )),
+        backgroundColor: MaterialStateProperty.all(FLThemeTool.parseColor(rbum.color, context)),
+        padding: MaterialStateProperty.all(rbum.padding?.toEdgeInsets())
+      ),
       child: child,
     );
     return resolveSelf(button);
@@ -176,15 +180,19 @@ class FLDyFlatButtonUnit extends FLDyRenderUnit {
   Widget build(BuildContext context) {
     final FLDyFlatButtonUnitModel fbum = unitModel as FLDyFlatButtonUnitModel;
     final Widget child = resolveChild()!;
-    final FlatButton button = FlatButton(
+    final TextButton button = TextButton(
       onPressed: () => FLDyActionDispatch.dispatcher
           .dispatchAction(fbum.uniqueId, fbum.onPressed, context),
       onLongPress: () => FLDyActionDispatch.dispatcher
           .dispatchAction(fbum.uniqueId, fbum.onLongPress, context),
-      textColor: FLThemeTool.parseColor(fbum.textColor, context),
-      color: FLThemeTool.parseColor(fbum.color, context),
-      padding: fbum.padding?.toEdgeInsets(),
       child: child,
+      style: ButtonStyle(
+          textStyle: MaterialStateProperty.all(TextStyle(
+            color: FLThemeTool.parseColor(fbum.textColor, context),
+          )),
+          backgroundColor: MaterialStateProperty.all(FLThemeTool.parseColor(fbum.color, context)),
+          padding: MaterialStateProperty.all(fbum.padding?.toEdgeInsets())
+      ),
     );
     return resolveSelf(button);
   }

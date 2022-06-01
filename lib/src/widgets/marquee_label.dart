@@ -78,7 +78,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
   }
 
   void _setup() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.delay != null) {
         Future.delayed(widget.delay!, _scheduleScroll);
       } else {

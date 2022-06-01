@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:ui' as ui;
 
-import 'package:flutter/animation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -61,7 +60,7 @@ class _FLToastProviderState extends State<FLToastProvider> {
   @override
   void initState() {
     super.initState();
-    GestureBinding.instance!.pointerRouter.addGlobalRoute(_handlePointerEvent);
+    GestureBinding.instance.pointerRouter.addGlobalRoute(_handlePointerEvent);
   }
 
   void _handlePointerEvent(PointerEvent event) {
@@ -77,7 +76,7 @@ class _FLToastProviderState extends State<FLToastProvider> {
   @override
   void dispose() {
     _contextMap.remove(this);
-    GestureBinding.instance!.pointerRouter
+    GestureBinding.instance.pointerRouter
         .removeGlobalRoute(_handlePointerEvent);
     super.dispose();
   }
@@ -419,7 +418,7 @@ class _FLToastViewState extends State<_FLToastView>
         reverseDuration: _fadeOutDuration,
         vsync: this)
       ..addStatusListener(_handleStatusChanged);
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     _show();
   }
 
@@ -479,7 +478,7 @@ class _FLToastViewState extends State<_FLToastView>
     _showTimer?.cancel();
     _showTimer = null;
     _controller.dispose();
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

@@ -1,4 +1,5 @@
-
+## 3.0.0
+* 升级到flutter3.0
 
 # Change Log
 
