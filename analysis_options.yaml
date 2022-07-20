@@ -7,8 +7,6 @@ analyzer:
     - lib/generated
     - lib/l10n
     - lib/generated_plugin_registrant.dart
-  enable-experiment:
-    - nonfunction-type-aliases
 
 linter:
   rules:

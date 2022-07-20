@@ -14,6 +14,15 @@ const double _kDefaultFloatingSize = 17;
 
 const Color _kDefaultBackgroundColor = Color.fromRGBO(242, 243, 245, 1);
 
+///焦点回调
+/// [hasFocus] - 是否存在焦点
+/// [value] - 编辑框里面当前的值
+typedef FocusNodeHandle = void Function(bool hasFocus,dynamic value,FocusNode focusNode);
+
+/// 自定义渲染组件
+/// [callMethod] - 点击回调事件
+typedef CustomButtonRender = Widget Function(Function callMethod);
+
 class FLCountStepper extends StatefulWidget {
   FLCountStepper(
       {Key? key,
@@ -23,9 +32,13 @@ class FLCountStepper extends StatefulWidget {
       this.disableInput = true,
       this.inputWidth = _kDefaultInputWidth,
       this.actionColor,
-      this.iconFontSize, this.textAndInputHeight, this.inputOnTap,
-    this.onChangeWithInput
-      })
+      this.iconFontSize,
+      this.textAndInputHeight,
+      this.inputOnTap,
+      this.focusNodeHandle,
+      this.onChangeWithInput,
+      this.minButtonRender,
+      this.addButtonRender})
       : super(key: key);
 
   /// the controller of count values
@@ -58,6 +71,16 @@ class FLCountStepper extends StatefulWidget {
   /// 输入框被点击的回调
   final ValueChanged<TextEditingController>? inputOnTap;
 
+  ///当输入框失去或者获得焦点事件
+  final FocusNodeHandle? focusNodeHandle;
+
+
+  ///加购自定义渲染button
+  final CustomButtonRender? addButtonRender;
+
+  //减购自定义button
+  final CustomButtonRender? minButtonRender;
+
   @override
   State<FLCountStepper> createState() => _FLCountStepperState();
 }
@@ -68,17 +91,24 @@ class _FLCountStepperState extends State<FLCountStepper> {
   late bool _minusEnabled;
   late bool _addEnabled;
   int? _maxLength;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _assembleCountStepper();
+    _focusNode.addListener(_addFocusNodeListing);
   }
 
   @override
   void didUpdateWidget(FLCountStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
     _assembleCountStepper();
+  }
+
+  //添加失去焦点事件监听
+  void _addFocusNodeListing() {
+    widget.focusNodeHandle?.call(_focusNode.hasFocus,_inputController.text,_focusNode);
   }
 
   void _assembleCountStepper() {
@@ -96,6 +126,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _inputController.value = TextEditingValue(text: '$number');
   }
 
+  //减数量
   void _handleMinusPressed() {
     _resignFocus();
     _syncValueAndInput();
@@ -146,7 +177,6 @@ class _FLCountStepperState extends State<FLCountStepper> {
   void _handleInputComplete() {
     _resignFocus();
     _syncValueAndInput();
-
     num curValue = _controller.number;
     _inputController.value = TextEditingValue(text: '$curValue');
     _updateEnableStates();
@@ -158,6 +188,8 @@ class _FLCountStepperState extends State<FLCountStepper> {
 
   @override
   void dispose() {
+    _focusNode.removeListener(_addFocusNodeListing);
+    _focusNode.dispose();
     _controller.dispose();
     _inputController.dispose();
     super.dispose();
@@ -169,17 +201,15 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final ThemeData themeData = Theme.of(context);
     final Brightness brightness = themeData.brightness;
     final bool isDarkMode = brightness == Brightness.dark;
-    final Color buttonIconColor =
-        widget.actionColor ?? (isDarkMode ? Colors.white : themeData.primaryColor);
+    final Color buttonIconColor = widget.actionColor ?? (isDarkMode ? Colors.white : themeData.primaryColor);
     final Color inputBackgroundColor = isDarkMode ? Colors.transparent : _kDefaultBackgroundColor;
 
     final Widget minusButton = Container(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
       child: TextButton(
-        style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
+        style:
+            ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
         child: Icon(Icons.remove, size: widget.iconFontSize ?? _kDefaultEleSize),
         //Text('-', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
@@ -188,7 +218,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
 
     final Widget input = Container(
       width: widget.inputWidth,
-      height:widget.textAndInputHeight ?? _kDefaultInputHeight,
+      height: widget.textAndInputHeight ?? _kDefaultInputHeight,
       padding: EdgeInsets.only(left: 3),
       // resolve text center issue
       decoration: BoxDecoration(
@@ -200,12 +230,14 @@ class _FLCountStepperState extends State<FLCountStepper> {
         controller: _inputController,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(fontSize: _kDefaultFontSize),
-        onTap: (){
+        textAlign: TextAlign.center,
+        focusNode: _focusNode,
+        onTap: () {
           widget.inputOnTap?.call(_inputController);
         },
         enabled: !widget.disableInput,
         keyboardType: TextInputType.number,
-        keyboardAppearance:Brightness.light ,
+        keyboardAppearance: Brightness.light,
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
@@ -222,9 +254,8 @@ class _FLCountStepperState extends State<FLCountStepper> {
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
       child: TextButton(
-        style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
+        style:
+            ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
         child: Icon(Icons.add, size: widget.iconFontSize ?? _kDefaultEleSize),
         //Text('+', textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
         onPressed: _addEnabled ? _handleAddPressed : null,
@@ -240,7 +271,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
           Positioned(
             left: 0,
             top: ((widget.textAndInputHeight ?? _kDefaultInputHeight) - _kDefaultButtonSize) / 2,
-            child: minusButton,
+            child:widget.minButtonRender?.call(_handleMinusPressed) ?? minusButton,
           ),
           Positioned(
             top: 0,
@@ -250,7 +281,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
           Positioned(
             left: _kDefaultButtonSize + widget.inputWidth + 2 * inset,
             top: ((widget.textAndInputHeight ?? _kDefaultInputHeight) - _kDefaultButtonSize) / 2,
-            child: addButton,
+            child: widget.addButtonRender?.call(_handleAddPressed) ?? addButton,
           )
         ],
       ),
@@ -359,8 +390,7 @@ class FLFloatingCountStepper extends StatefulWidget {
   State<FLFloatingCountStepper> createState() => _FLFloatingCountStepperState();
 }
 
-class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
-    with TickerProviderStateMixin {
+class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with TickerProviderStateMixin {
   late FLCountStepperController _controller;
   final TextEditingController _inputController = TextEditingController();
   late bool _minusEnabled;
@@ -485,9 +515,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
       controller: _animationController,
       child: TextButton(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(EdgeInsets.zero),
-          shape: MaterialStateProperty.all(CircleBorder(side: BorderSide(color: tintColor)))
-        ),
+            padding: MaterialStateProperty.all(EdgeInsets.zero), shape: MaterialStateProperty.all(CircleBorder(side: BorderSide(color: tintColor)))),
         child: Icon(Icons.remove, size: _kDefaultEleSize, color: tintColor),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
       ),
@@ -512,10 +540,9 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper>
       height: _kDefaultFloatingButtonSize,
       child: ElevatedButton(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(EdgeInsets.zero),
-          shape: MaterialStateProperty.all(CircleBorder()),
-          backgroundColor: MaterialStateProperty.all(tintColor)
-        ),
+            padding: MaterialStateProperty.all(EdgeInsets.zero),
+            shape: MaterialStateProperty.all(CircleBorder()),
+            backgroundColor: MaterialStateProperty.all(tintColor)),
         child: Icon(Icons.add, size: _kDefaultEleSize, color: Colors.white),
         onPressed: _addEnabled ? _handleAddPressed : null,
       ),
