@@ -17,7 +17,7 @@ const Color _kDefaultBackgroundColor = Color.fromRGBO(242, 243, 245, 1);
 ///焦点回调
 /// [hasFocus] - 是否存在焦点
 /// [value] - 编辑框里面当前的值
-typedef FocusNodeHandle = void Function(bool hasFocus,dynamic value,FocusNode focusNode);
+typedef FocusNodeHandle = void Function(bool hasFocus, dynamic value, FocusNode focusNode);
 
 /// 自定义渲染组件
 /// [callMethod] - 点击回调事件
@@ -74,7 +74,6 @@ class FLCountStepper extends StatefulWidget {
   ///当输入框失去或者获得焦点事件
   final FocusNodeHandle? focusNodeHandle;
 
-
   ///加购自定义渲染button
   final CustomButtonRender? addButtonRender;
 
@@ -103,12 +102,15 @@ class _FLCountStepperState extends State<FLCountStepper> {
   @override
   void didUpdateWidget(FLCountStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _assembleCountStepper();
+    if(widget.controller != oldWidget.controller){
+      _assembleCountStepper();
+    }
+
   }
 
   //添加失去焦点事件监听
   void _addFocusNodeListing() {
-    widget.focusNodeHandle?.call(_focusNode.hasFocus,_inputController.text,_focusNode);
+    widget.focusNodeHandle?.call(_focusNode.hasFocus, _inputController.text, _focusNode);
   }
 
   void _assembleCountStepper() {
@@ -117,8 +119,9 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _inputController.value = TextEditingValue(text: '$number');
     _minusEnabled = !(widget.disabled || _controller.isMin());
     _addEnabled = !(widget.disabled || _controller.isMax());
-
-    _controller.addListener(_onStepperValueChanged);
+    if (mounted) {
+      _controller.addListener(_onStepperValueChanged);
+    }
   }
 
   void _onStepperValueChanged() {
@@ -271,7 +274,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
           Positioned(
             left: 0,
             top: ((widget.textAndInputHeight ?? _kDefaultInputHeight) - _kDefaultButtonSize) / 2,
-            child:widget.minButtonRender?.call(_handleMinusPressed) ?? minusButton,
+            child: widget.minButtonRender?.call(_handleMinusPressed) ?? minusButton,
           ),
           Positioned(
             top: 0,
