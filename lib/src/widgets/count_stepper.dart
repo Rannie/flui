@@ -17,11 +17,14 @@ const Color _kDefaultBackgroundColor = Color.fromRGBO(242, 243, 245, 1);
 ///焦点回调
 /// [hasFocus] - 是否存在焦点
 /// [value] - 编辑框里面当前的值
-typedef FocusNodeHandle = void Function(bool hasFocus, dynamic value, FocusNode focusNode);
+typedef FocusNodeHandle = void Function(bool hasFocus, int value, FocusNode focusNode,TextEditingController controller);
 
 /// 自定义渲染组件
 /// [callMethod] - 点击回调事件
 typedef CustomButtonRender = Widget Function(Function callMethod);
+
+///值改变回调
+typedef ValueChangeHandle = void Function(int value, TextEditingController controller);
 
 class FLCountStepper extends StatefulWidget {
   FLCountStepper(
@@ -38,7 +41,7 @@ class FLCountStepper extends StatefulWidget {
       this.focusNodeHandle,
       this.onChangeWithInput,
       this.minButtonRender,
-      this.addButtonRender})
+      this.addButtonRender,this.initValue})
       : super(key: key);
 
   /// the controller of count values
@@ -48,7 +51,7 @@ class FLCountStepper extends StatefulWidget {
   final ValueChanged<num>? onChanged;
 
   /// 当输入框的数字被改变时
-  final ValueChanged<String>? onChangeWithInput;
+  final ValueChangeHandle? onChangeWithInput;
 
   /// disable step button
   final bool disabled;
@@ -67,6 +70,9 @@ class FLCountStepper extends StatefulWidget {
 
   /// 文本显示的高度和输入框的高度
   final double? textAndInputHeight;
+
+  ///初始值
+  final String? initValue;
 
   /// 输入框被点击的回调
   final ValueChanged<TextEditingController>? inputOnTap;
@@ -102,21 +108,24 @@ class _FLCountStepperState extends State<FLCountStepper> {
   @override
   void didUpdateWidget(FLCountStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if(widget.controller != oldWidget.controller){
+    if (widget.controller != oldWidget.controller) {
       _assembleCountStepper();
     }
-
   }
 
   //添加失去焦点事件监听
   void _addFocusNodeListing() {
-    widget.focusNodeHandle?.call(_focusNode.hasFocus, _inputController.text, _focusNode);
+    final v = _inputController.text;
+    final val = v.isEmpty ? 0 : int.parse(v);
+    widget.focusNodeHandle?.call(_focusNode.hasFocus, val, _focusNode,_inputController);
   }
 
   void _assembleCountStepper() {
     _controller = widget.controller;
     int? number = _controller.value;
-    _inputController.value = TextEditingValue(text: '$number');
+    _inputController.value = TextEditingValue(text: '$number',selection: TextSelection.fromPosition(TextPosition(
+        affinity: TextAffinity.downstream,
+        offset: '$number'.length)));
     _minusEnabled = !(widget.disabled || _controller.isMin());
     _addEnabled = !(widget.disabled || _controller.isMax());
     if (mounted) {
@@ -126,7 +135,9 @@ class _FLCountStepperState extends State<FLCountStepper> {
 
   void _onStepperValueChanged() {
     num number = _controller.number;
-    _inputController.value = TextEditingValue(text: '$number');
+    _inputController.value = TextEditingValue(text: '$number',selection: TextSelection.fromPosition(TextPosition(
+    affinity: TextAffinity.downstream,
+    offset: '$number'.length)));
   }
 
   //减数量
@@ -181,7 +192,9 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _resignFocus();
     _syncValueAndInput();
     num curValue = _controller.number;
-    _inputController.value = TextEditingValue(text: '$curValue');
+    _inputController.value = TextEditingValue(text: '$curValue', selection: TextSelection.fromPosition(TextPosition(
+        affinity: TextAffinity.downstream,
+        offset: '$curValue'.length)));
     _updateEnableStates();
 
     if (widget.onChanged != null) {
@@ -229,18 +242,20 @@ class _FLCountStepperState extends State<FLCountStepper> {
         borderRadius: BorderRadius.circular(3),
       ),
       child: TextField(
-        onChanged: widget.onChangeWithInput,
+        onChanged: (v) {
+          final nV = v.isEmpty ? 0 : int.parse(v);
+          widget.onChangeWithInput?.call(nV, _inputController);
+        },
         controller: _inputController,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(fontSize: _kDefaultFontSize),
-        textAlign: TextAlign.center,
         focusNode: _focusNode,
+        textAlign: TextAlign.center,
         onTap: () {
           widget.inputOnTap?.call(_inputController);
         },
         enabled: !widget.disableInput,
         keyboardType: TextInputType.number,
-        keyboardAppearance: Brightness.light,
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
