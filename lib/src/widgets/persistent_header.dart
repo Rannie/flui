@@ -28,7 +28,7 @@ class FLPersistentHeaderState {
   }
 
   @override
-  int get hashCode => hashValues(scrollPercentage, pinning);
+  int get hashCode => Object.hash(scrollPercentage, pinning);
 }
 
 class FLSliverPersistentHeaderWidget extends RenderObjectWidget {
