@@ -1,3 +1,8 @@
+# 3.3.1
+
+* 步进器新增`valueInterceptor` 数量拦截器函数
+* 步进器新增`logglevel` 日志等级属性
+
 ## 3.3.0
 
 * 升级到flutter3.3.0
