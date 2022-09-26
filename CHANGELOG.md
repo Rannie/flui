@@ -1,3 +1,7 @@
+# 3.3.2
+
+* 步进器添加`focusNode`属性
+
 # 3.3.1
 
 * 步进器新增`valueInterceptor` 数量拦截器函数

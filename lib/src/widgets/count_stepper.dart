@@ -50,7 +50,7 @@ class FLCountStepper extends StatefulWidget {
       this.addButtonRender,
       this.initValue,
       this.valueInterceptor,
-      this.loggerLevel = CountStepperLoggerLevel.enable })
+      this.loggerLevel = CountStepperLoggerLevel.enable,this.focusNode})
       : super(key: key);
 
   /// the controller of count values
@@ -100,6 +100,9 @@ class FLCountStepper extends StatefulWidget {
 
   //开启日志设置
   final CountStepperLoggerLevel? loggerLevel;
+
+
+  final FocusNode? focusNode;
   @override
   State<FLCountStepper> createState() => _FLCountStepperState();
 }
@@ -110,7 +113,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
   late bool _minusEnabled;
   late bool _addEnabled;
   int? _maxLength;
-  final FocusNode _focusNode = FocusNode();
+  late final FocusNode _focusNode = widget.focusNode ?? FocusNode();
 
   @override
   void initState() {
