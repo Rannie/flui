@@ -1,3 +1,9 @@
+# 3.3.3
+
+
+* 移除步进器的`focusNode`属性
+* 添加`focusNodeEvent`参数
+
 # 3.3.2
 
 * 步进器添加`focusNode`属性

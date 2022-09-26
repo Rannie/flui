@@ -32,7 +32,10 @@ typedef CustomButtonRender = Widget Function(Function callMethod);
 ///值改变回调
 typedef ValueChangeHandle = void Function(int value, TextEditingController controller);
 
-class FLCountStepper extends StatefulWidget {
+///[FocusNode]的添加和删除的回调事件
+typedef FocusNodeEvent = void Function(bool isRemove,FocusNode focusNode);
+
+class FLCountStepper<T> extends StatefulWidget {
   FLCountStepper(
       {Key? key,
       required this.controller,
@@ -50,7 +53,7 @@ class FLCountStepper extends StatefulWidget {
       this.addButtonRender,
       this.initValue,
       this.valueInterceptor,
-      this.loggerLevel = CountStepperLoggerLevel.enable,this.focusNode})
+      this.loggerLevel = CountStepperLoggerLevel.enable,required this.value,this.focusNodeEvent})
       : super(key: key);
 
   /// the controller of count values
@@ -101,8 +104,11 @@ class FLCountStepper extends StatefulWidget {
   //开启日志设置
   final CountStepperLoggerLevel? loggerLevel;
 
+  ///item的值,也可以理解为模型
+  final T value;
 
-  final FocusNode? focusNode;
+  final FocusNodeEvent? focusNodeEvent;
+
   @override
   State<FLCountStepper> createState() => _FLCountStepperState();
 }
@@ -113,13 +119,15 @@ class _FLCountStepperState extends State<FLCountStepper> {
   late bool _minusEnabled;
   late bool _addEnabled;
   int? _maxLength;
-  late final FocusNode _focusNode = widget.focusNode ?? FocusNode();
+  final FocusNode _focusNode =  FocusNode();
 
   @override
   void initState() {
     super.initState();
     _assembleCountStepper();
     _focusNode.addListener(_addFocusNodeListing);
+    widget.focusNodeEvent?.call(false,_focusNode);
+
   }
 
   @override
@@ -244,9 +252,10 @@ class _FLCountStepperState extends State<FLCountStepper> {
 
   @override
   void dispose() {
-    _focusNode.removeListener(_addFocusNodeListing);
-    _focusNode.dispose();
-    _controller.dispose();
+    widget.focusNodeEvent?.call(true,_focusNode);
+      _focusNode.removeListener(_addFocusNodeListing);
+      _focusNode.dispose();
+      _controller.dispose();
     _inputController.dispose();
     super.dispose();
   }
