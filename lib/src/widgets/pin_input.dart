@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class FLPinCodeTextField extends StatefulWidget {
-  FLPinCodeTextField(
+  const FLPinCodeTextField(
       {Key? key,
       this.pinLength = 6,
       this.controller,
@@ -84,11 +84,11 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
   }
 
   void _unfocus() {
-    _focusNodeList.forEach((FocusNode focusNode) {
+    for (var focusNode in _focusNodeList) {
       if (focusNode.hasFocus) {
         focusNode.unfocus();
       }
-    });
+    }
     _effectiveFocusNode.unfocus();
   }
 
@@ -103,9 +103,9 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
 
   String _fullText() {
     String text = '';
-    _editingControllerList.forEach((TextEditingController controller) {
+    for (var controller in _editingControllerList) {
       text += controller.text;
-    });
+    }
     return text;
   }
 
@@ -116,10 +116,10 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
   }
 
   void _uninstallEditControllers() {
-    _editingControllerList.forEach((TextEditingController controller) {
+    for (var controller in _editingControllerList) {
       controller.removeListener(_popText);
       controller.dispose();
-    });
+    }
     _editingControllerList.clear();
   }
 
@@ -134,9 +134,9 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
 
   void _checkFocusStatus() {
     bool hasFocus = false;
-    _focusNodeList.forEach((FocusNode focusNode) {
+    for (var focusNode in _focusNodeList) {
       hasFocus |= focusNode.hasFocus;
-    });
+    }
 
     if (hasFocus && !_effectiveFocusNode.hasFocus) {
       _effectiveFocusNode.requestFocus();
@@ -184,7 +184,7 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
       FocusNode focusNode = _focusNodeList[i];
       TextEditingController editingController = _editingControllerList[i];
       children.add(
-        Container(
+        SizedBox(
           width: widget.boxWidth,
           height: widget.boxHeight,
           child: _FLTraceDeleteTextField(
@@ -230,7 +230,7 @@ class _FLPinCodeTextFieldState extends State<FLPinCodeTextField> {
 
 /// detect backspace related issue: https://github.com/flutter/flutter/issues/14809
 class _FLTraceDeleteTextField extends StatefulWidget {
-  _FLTraceDeleteTextField(
+  const _FLTraceDeleteTextField(
       {Key? key,
       this.controller,
       this.focusNode,
@@ -328,7 +328,7 @@ class _FLTraceDeleteTextFieldState extends State<_FLTraceDeleteTextField> {
   @override
   Widget build(BuildContext context) {
     TextStyle? textStyle =
-        !_userValue ? TextStyle(color: Colors.transparent) : widget.textStyle;
+        !_userValue ? const TextStyle(color: Colors.transparent) : widget.textStyle;
     return TextField(
       controller: _controller,
       focusNode: widget.focusNode,

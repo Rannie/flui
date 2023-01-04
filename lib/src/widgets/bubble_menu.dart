@@ -33,7 +33,7 @@ typedef FLBubbleMenuItemSelected<T> = void Function(T value);
 enum FLBubbleMenuInteraction { tap, longPress }
 
 class FLBubbleMenuWidget<T> extends StatefulWidget {
-  FLBubbleMenuWidget(
+  const FLBubbleMenuWidget(
       {Key? key,
       required this.itemBuilder,
       this.onSelected,
@@ -51,10 +51,10 @@ class FLBubbleMenuWidget<T> extends StatefulWidget {
   final Offset offset;
 
   @override
-  _FLBubbleMenuWidgetState<T> createState() => _FLBubbleMenuWidgetState();
+  FLBubbleMenuWidgetState<T> createState() => FLBubbleMenuWidgetState();
 }
 
-class _FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
+class FLBubbleMenuWidgetState<T> extends State<FLBubbleMenuWidget<T>> {
   void showButtonMenu() {
     final RenderBox button = context.findRenderObject() as RenderBox;
     final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
@@ -131,7 +131,7 @@ class FLBubbleMenuItem<T> {
 }
 
 class _FLBubbleMenu<T> extends StatelessWidget {
-  _FLBubbleMenu(
+  const _FLBubbleMenu(
       {Key? key,
       this.route,
       this.semanticLabel,
@@ -150,7 +150,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < route!.items!.length; i += 1) {
       final CurvedAnimation opacity = CurvedAnimation(
-          parent: route!.animation!, curve: Interval(0.0, 1.0 / 3.0));
+          parent: route!.animation!, curve: const Interval(0.0, 1.0 / 3.0));
       FLBubbleMenuItem item = route!.items![i];
       Widget itemWidget = _buildMenuButton(context, item, isDarkMode);
       children.add(_transitionWrapper(itemWidget, opacity));
@@ -208,7 +208,6 @@ class _FLBubbleMenu<T> extends StatelessWidget {
         ? _kToolbarButtonFontStyle.copyWith(color: Colors.black)
         : _kToolbarButtonFontStyle;
     return CupertinoButton(
-      child: Text(menuItem.text, style: textStyle),
       minSize: _kMenuButtonMinHeight,
       padding: _kMenuButtonPadding,
       borderRadius: null,
@@ -216,6 +215,7 @@ class _FLBubbleMenu<T> extends StatelessWidget {
       onPressed: () {
         Navigator.pop(context, menuItem.value);
       },
+      child: Text(menuItem.text, style: textStyle),
     );
   }
 

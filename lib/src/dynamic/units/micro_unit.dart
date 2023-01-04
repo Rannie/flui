@@ -7,10 +7,11 @@ import 'unit_constant.dart';
 
 /// SizedBox
 class FLDySizedBoxUnit extends FLDyRenderUnit {
-  FLDySizedBoxUnit({required FLDySizedBoxUnitModel unitModel})
+  FLDySizedBoxUnit({super.key, required FLDySizedBoxUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDySizedBoxUnitModel),
         super(unitModel: unitModel);
 
+  @override
   Widget build(BuildContext context) {
     FLDySizedBoxUnitModel sbum = unitModel as FLDySizedBoxUnitModel;
     return SizedBox(
@@ -22,7 +23,7 @@ class FLDySizedBoxUnit extends FLDyRenderUnit {
 
 /// Text
 class FLDyTextUnit extends FLDyRenderUnit {
-  FLDyTextUnit({required FLDyTextUnitModel unitModel})
+  FLDyTextUnit({super.key, required FLDyTextUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyTextUnitModel),
         super(unitModel: unitModel);
 
@@ -47,7 +48,7 @@ class FLDyTextUnit extends FLDyRenderUnit {
 
 /// RichText
 class FLDyRichTextUnit extends FLDyRenderUnit {
-  FLDyRichTextUnit({required FLDyRichTextUnitModel unitModel})
+  FLDyRichTextUnit({super.key, required FLDyRichTextUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyRichTextUnitModel),
         super(unitModel: unitModel);
 
@@ -91,7 +92,7 @@ class FLDyRichTextUnit extends FLDyRenderUnit {
 
 /// Image
 class FLDyImageUnit extends FLDyRenderUnit {
-  FLDyImageUnit({required FLDyImageUnitModel unitModel})
+  FLDyImageUnit({super.key, required FLDyImageUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyImageUnitModel),
         super(unitModel: unitModel);
 
@@ -123,7 +124,7 @@ class FLDyImageUnit extends FLDyRenderUnit {
 
 /// Icon
 class FLDyIconUnit extends FLDyRenderUnit {
-  FLDyIconUnit({required FLDyIconUnitModel unitModel})
+  FLDyIconUnit({super.key, required FLDyIconUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyIconUnitModel),
         super(unitModel: unitModel);
 
@@ -143,7 +144,7 @@ class FLDyIconUnit extends FLDyRenderUnit {
 
 /// RaisedButton
 class FLDyRaisedButtonUnit extends FLDyRenderUnit {
-  FLDyRaisedButtonUnit({required FLDyRaisedButtonUnitModel unitModel})
+  FLDyRaisedButtonUnit({super.key, required FLDyRaisedButtonUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyRaisedButtonUnitModel),
         super(unitModel: unitModel);
 
@@ -172,7 +173,7 @@ class FLDyRaisedButtonUnit extends FLDyRenderUnit {
 
 /// FlatButton
 class FLDyFlatButtonUnit extends FLDyRenderUnit {
-  FLDyFlatButtonUnit({required FLDyFlatButtonUnitModel unitModel})
+  FLDyFlatButtonUnit({super.key, required FLDyFlatButtonUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyFlatButtonUnitModel),
         super(unitModel: unitModel);
 
@@ -185,7 +186,6 @@ class FLDyFlatButtonUnit extends FLDyRenderUnit {
           .dispatchAction(fbum.uniqueId, fbum.onPressed, context),
       onLongPress: () => FLDyActionDispatch.dispatcher
           .dispatchAction(fbum.uniqueId, fbum.onLongPress, context),
-      child: child,
       style: ButtonStyle(
           textStyle: MaterialStateProperty.all(TextStyle(
             color: FLThemeTool.parseColor(fbum.textColor, context),
@@ -193,6 +193,7 @@ class FLDyFlatButtonUnit extends FLDyRenderUnit {
           backgroundColor: MaterialStateProperty.all(FLThemeTool.parseColor(fbum.color, context)),
           padding: MaterialStateProperty.all(fbum.padding?.toEdgeInsets())
       ),
+      child: child,
     );
     return resolveSelf(button);
   }

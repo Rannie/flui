@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 abstract class FLGradientButton extends StatelessWidget {
-  FLGradientButton(
+  const FLGradientButton(
       {Key? key,
       this.child,
       required this.onPressed,
@@ -44,7 +44,7 @@ abstract class FLGradientButton extends StatelessWidget {
   final List<Color>? colors;
   final List<double>? stops;
 
-  factory FLGradientButton.linear(
+  const factory FLGradientButton.linear(
       {Key key,
       required VoidCallback onPressed,
       ButtonTextTheme textTheme,
@@ -69,7 +69,7 @@ abstract class FLGradientButton extends StatelessWidget {
       TileMode tileMode}) = _FLLinearGradientButton;
 
   /// shape of []
-  factory FLGradientButton.sweep(
+  const factory FLGradientButton.sweep(
       {Key key,
       required VoidCallback onPressed,
       ButtonTextTheme textTheme,
@@ -94,7 +94,7 @@ abstract class FLGradientButton extends StatelessWidget {
       double endAngle,
       TileMode tileMode}) = _FLSweepGradientButton;
 
-  factory FLGradientButton.radial(
+  const factory FLGradientButton.radial(
       {Key key,
       required VoidCallback onPressed,
       ButtonTextTheme textTheme,
@@ -122,7 +122,7 @@ abstract class FLGradientButton extends StatelessWidget {
 }
 
 class _FLLinearGradientButton extends FLGradientButton {
-  _FLLinearGradientButton(
+  const _FLLinearGradientButton(
       {Key? key,
       required VoidCallback onPressed,
       ButtonTextTheme? textTheme,
@@ -184,7 +184,7 @@ class _FLLinearGradientButton extends FLGradientButton {
 }
 
 class _FLSweepGradientButton extends FLGradientButton {
-  _FLSweepGradientButton(
+  const _FLSweepGradientButton(
       {Key? key,
       required VoidCallback onPressed,
       ButtonTextTheme? textTheme,
@@ -248,7 +248,7 @@ class _FLSweepGradientButton extends FLGradientButton {
 }
 
 class _FLRadialGradientButton extends FLGradientButton {
-  _FLRadialGradientButton(
+  const _FLRadialGradientButton(
       {Key? key,
       required VoidCallback onPressed,
       ButtonTextTheme? textTheme,
@@ -316,7 +316,7 @@ class _FLRadialGradientButton extends FLGradientButton {
 }
 
 class _FLRawGradientButton extends MaterialButton {
-  _FLRawGradientButton({
+  const _FLRawGradientButton({
     Key? key,
     required VoidCallback onPressed,
     ButtonTextTheme? textTheme,

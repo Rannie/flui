@@ -4,12 +4,14 @@ import '../../../flui_nullsafety.dart';
 import 'unit_constant.dart';
 
 abstract class FLDyBaseUnit extends StatelessWidget {
+  const FLDyBaseUnit({super.key});
+
   @override
   Widget build(BuildContext context) => Container();
 }
 
 abstract class FLDyRenderUnit extends FLDyBaseUnit {
-  FLDyRenderUnit({required this.unitModel}) : super();
+  const FLDyRenderUnit({super.key, required this.unitModel});
 
   final FLDyUnitModel unitModel;
 
@@ -17,7 +19,7 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
 
   // subclass override
   @override
-  Widget build(BuildContext context) => Container();
+  Widget build(BuildContext context) => const SizedBox();
 
   // mark up single unit
   Widget? markupUnit(FLDyUnitModel unitModel) =>
@@ -26,9 +28,9 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
   // mark up unit list
   List<Widget?> markupUnits(List<FLDyUnitModel> unitModels) {
     List<Widget?> children = [];
-    unitModels.forEach((FLDyUnitModel unitModel) {
+    for (var unitModel in unitModels) {
       children.add(markupUnit(unitModel));
-    });
+    }
     return children;
   }
 
@@ -91,7 +93,7 @@ abstract class FLDyRenderUnit extends FLDyBaseUnit {
 }
 
 class FLDyAlignUnit extends FLDyBaseUnit {
-  FLDyAlignUnit({required this.align, this.child, this.children});
+  const FLDyAlignUnit({super.key, required this.align, this.child, this.children});
 
   final FLDyUnitAlign align;
   final Widget? child;

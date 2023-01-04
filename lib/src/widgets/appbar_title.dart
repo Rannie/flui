@@ -15,7 +15,7 @@ enum FLAppBarPosition {
 }
 
 class FLAppBarTitle extends StatelessWidget {
-  FLAppBarTitle(
+  const FLAppBarTitle(
       {Key? key,
       required this.title,
       this.titleStyle,
@@ -50,8 +50,8 @@ class FLAppBarTitle extends StatelessWidget {
 
     if (subtitle != null) {
       Widget inset = layout == FLAppBarTitleLayout.horizontal
-          ? SizedBox(width: 5)
-          : SizedBox(height: 3);
+          ? const SizedBox(width: 5)
+          : const SizedBox(height: 3);
       titles.add(inset);
 
       double sSize = layout == FLAppBarTitleLayout.horizontal
@@ -67,8 +67,8 @@ class FLAppBarTitle extends StatelessWidget {
       return Row(mainAxisSize: MainAxisSize.min, children: titles);
     } else {
       return Column(
-        children: titles,
         mainAxisAlignment: MainAxisAlignment.center,
+        children: titles,
       );
     }
   }
@@ -83,8 +83,8 @@ class FLAppBarTitle extends StatelessWidget {
   }
 
   _widgetInsetsAdd(List<Widget?> list, Widget? widget) {
-    if (list.length > 0) {
-      list.add(SizedBox(width: 3));
+    if (list.isNotEmpty) {
+      list.add(const SizedBox(width: 3));
     }
     list.add(widget);
   }

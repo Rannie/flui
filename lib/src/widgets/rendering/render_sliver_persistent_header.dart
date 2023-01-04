@@ -120,7 +120,7 @@ class FLRenderSliverPersistentHeader extends RenderSliver
     if (header != null) {
       header!.layout(
           FLPersistentHeaderConstraints(
-            state: _oldState ?? FLPersistentHeaderState(0.0, false),
+            state: _oldState ?? const FLPersistentHeaderState(0.0, false),
             boxConstraints: constraints.asBoxConstraints(),
           ),
           parentUsesSize: true);

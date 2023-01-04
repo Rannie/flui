@@ -10,7 +10,7 @@ const double _kBadgeSize = 18;
 const double _kDefaultRadius = -1;
 
 class FLBadge extends StatefulWidget {
-  FLBadge(
+  const FLBadge(
       {Key? key,
       this.color = Colors.red,
       this.shape = FLBadgeShape.circle,
@@ -68,7 +68,7 @@ class FLBadgeState extends State<FLBadge> {
             ),
           );
 
-    var left, right, top, bottom;
+    double? left, right, top, bottom;
     double offset = size / 3;
     Alignment alignment;
     if (widget.position == FLBadgePosition.topRight) {

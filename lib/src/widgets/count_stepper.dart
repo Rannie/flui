@@ -36,7 +36,7 @@ typedef ValueChangeHandle = void Function(int value, TextEditingController contr
 typedef FocusNodeEvent = void Function(bool isRemove,FocusNode focusNode);
 
 class FLCountStepper<T> extends StatefulWidget {
-  FLCountStepper(
+  const FLCountStepper(
       {Key? key,
       required this.controller,
       this.onChanged,
@@ -195,7 +195,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
   ///如果返回true则继续执行余下步骤
   bool _syncValueAndInput(CountStepperActionType actionType) {
     String text = _inputController.value.text;
-    if (text.trim().length == 0) {
+    if (text.trim().isEmpty) {
       num regVal = math.min(_controller.max, math.max(0, _controller.min));
       text = '$regVal';
     }
@@ -269,21 +269,21 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final Color buttonIconColor = widget.actionColor ?? (isDarkMode ? Colors.white : themeData.primaryColor);
     final Color inputBackgroundColor = isDarkMode ? Colors.transparent : _kDefaultBackgroundColor;
 
-    final Widget minusButton = Container(
+    final Widget minusButton = SizedBox(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
       child: TextButton(
         style:
             ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
-        child: Icon(Icons.remove, size: widget.iconFontSize ?? _kDefaultEleSize),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
+        child: Icon(Icons.remove, size: widget.iconFontSize ?? _kDefaultEleSize),
       ),
     );
 
     final Widget input = Container(
       width: widget.inputWidth,
       height: widget.textAndInputHeight ?? _kDefaultInputHeight,
-      padding: EdgeInsets.only(left: 3),
+      padding: const EdgeInsets.only(left: 3),
       // resolve text center issue
       decoration: BoxDecoration(
         color: inputBackgroundColor,
@@ -296,7 +296,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
         },
         controller: _inputController,
         textAlignVertical: TextAlignVertical.center,
-        style: TextStyle(fontSize: _kDefaultFontSize),
+        style: const TextStyle(fontSize: _kDefaultFontSize),
         focusNode: _focusNode,
         textAlign: TextAlign.center,
         onTap: () {
@@ -308,7 +308,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
           FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
         ],
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 0),
         ),
@@ -318,19 +318,19 @@ class _FLCountStepperState extends State<FLCountStepper> {
 
 
     /// + 按钮
-    final Widget addButton = Container(
+    final Widget addButton = SizedBox(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
       child: TextButton(
         style:
             ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
-        child: Icon(Icons.add, size: widget.iconFontSize ?? _kDefaultEleSize),
         onPressed: _addEnabled ? _handleAddPressed : null,
+        child: Icon(Icons.add, size: widget.iconFontSize ?? _kDefaultEleSize),
       ),
     );
 
-    final double inset = 3;
-    return Container(
+    const double inset = 3;
+    return SizedBox(
       width: 2 * (_kDefaultButtonSize + inset) + widget.inputWidth,
       height: widget.textAndInputHeight ?? _kDefaultInputHeight,
       child: Stack(
@@ -357,7 +357,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
 }
 
 class _FLFloatingAnimationWrapper extends StatefulWidget {
-  _FLFloatingAnimationWrapper({
+  const _FLFloatingAnimationWrapper({
     Key? key,
     required this.controller,
     required this.child,
@@ -409,7 +409,7 @@ class _FLFloatingAnimationWrapperState extends State<_FLFloatingAnimationWrapper
             left: transRightAnim.value,
             child: RotationTransition(
               turns: rotateAnim,
-              child: Container(
+              child: SizedBox(
                 width: widget.width,
                 height: widget.height,
                 child: child,
@@ -470,7 +470,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
     // setup count step controllers
     _assembleCountStepper();
     // setup animation controller
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 250));
   }
 
   @override
@@ -527,7 +527,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
   void _syncValueAndInput() {
     if (_controller.value!.compareTo(num.parse(_inputController.text)) != 0) {
       String text = _inputController.value.text;
-      if (text.trim().length == 0) {
+      if (text.trim().isEmpty) {
         num regVal = math.min(_controller.max, math.max(0, _controller.min));
         text = '$regVal';
       }
@@ -548,16 +548,16 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
     }
   }
 
-  Future<Null> _playMinusAnim() async {
+  Future<void> _playMinusAnim() async {
     try {
       await _animationController!.forward().orCancel;
-    } on TickerCanceled {}
+    } on TickerCanceled catch(_){}
   }
 
-  Future<Null> _reversMinusAnim() async {
+  Future<void> _reversMinusAnim() async {
     try {
-      await _animationController!.reverse().orCancel;
-    } on TickerCanceled {}
+      await _animationController?.reverse().orCancel;
+    } on TickerCanceled catch(_){}
   }
 
   @override
@@ -572,7 +572,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final Color tintColor = widget.actionColor ?? themeData.primaryColor;
-    final double inset = 3;
+    const double inset = 3;
 
     final Widget minusButtonWrapper = _FLFloatingAnimationWrapper(
       marginTop: (_kDefaultInputHeight - _kDefaultFloatingButtonSize) / 2,
@@ -583,8 +583,8 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
       child: TextButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all(EdgeInsets.zero), shape: MaterialStateProperty.all(CircleBorder(side: BorderSide(color: tintColor)))),
-        child: Icon(Icons.remove, size: _kDefaultEleSize, color: tintColor),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
+        child: Icon(Icons.remove, size: _kDefaultEleSize, color: tintColor),
       ),
     );
 
@@ -598,24 +598,24 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
         child: Center(
           child: Text(
             _inputController.value.text,
-            style: widget.labelTextStyle ?? TextStyle(fontSize: _kDefaultFloatingSize),
+            style: widget.labelTextStyle ?? const TextStyle(fontSize: _kDefaultFloatingSize),
           ),
         ));
 
-    final Widget addButton = Container(
+    final Widget addButton = SizedBox(
       width: _kDefaultFloatingButtonSize,
       height: _kDefaultFloatingButtonSize,
       child: ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all(EdgeInsets.zero),
-            shape: MaterialStateProperty.all(CircleBorder()),
+            shape: MaterialStateProperty.all(const CircleBorder()),
             backgroundColor: MaterialStateProperty.all(tintColor)),
-        child: Icon(Icons.add, size: _kDefaultEleSize, color: Colors.white),
         onPressed: _addEnabled ? _handleAddPressed : null,
+        child: const Icon(Icons.add, size: _kDefaultEleSize, color: Colors.white),
       ),
     );
 
-    return Container(
+    return SizedBox(
       width: 2 * (_kDefaultFloatingButtonSize + inset) + widget.labelWidth,
       height: _kDefaultInputHeight,
       child: Stack(

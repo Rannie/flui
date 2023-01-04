@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const Color _kDefaultImageHighlightColor = Color(0X40FFFFFF);
 
 class FLImage extends StatefulWidget {
-  FLImage({
+  const FLImage({
     Key? key,
     required this.image,
     this.highlightImage,
@@ -71,7 +71,7 @@ class _FLImageState extends State<FLImage> {
         widget.highlightColor ?? _kDefaultImageHighlightColor;
     return ClipRRect(
       borderRadius: widget.borderRadius,
-      child: Container(
+      child: SizedBox(
         width: widget.width,
         height: widget.height,
         child: Stack(

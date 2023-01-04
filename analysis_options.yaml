@@ -1,12 +1,16 @@
+include: package:flutter_lints/flutter.yaml
 analyzer:
   strong-mode:
     implicit-dynamic: true
   errors:
     todo: ignore
+    invalid_annotation_target: ignore
   exclude:
     - lib/generated
     - lib/l10n
     - lib/generated_plugin_registrant.dart
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
 
 linter:
   rules:
@@ -19,13 +23,10 @@ linter:
     - non_constant_identifier_names
     - constant_identifier_names # prefer
     - directives_ordering
-
-
     # DOCUMENTATION
     - slash_for_doc_comments
     - package_api_docs # prefer
     #    - public_member_api_docs # prefer
-
 
     # USAGE
     - implementation_imports
@@ -50,12 +51,11 @@ linter:
     - prefer_collection_literals
     - prefer_function_declarations_over_variables
 
-
     # DESIGN
     - use_to_and_as_if_applicable # prefer
     - one_member_abstracts # avoid
     - prefer_final_fields # prefer
-    - avoid_setters_without_getters
+    # - avoid_setters_without_getters
     - avoid_private_typedef_functions # prefer
     - hash_and_equals
     - avoid_null_checks_in_equality_operators
@@ -64,3 +64,21 @@ linter:
     - type_annotate_public_apis # prefer
     - prefer_generic_function_type_aliases
 
+dart_code_metrics:
+  anti-patterns:
+    - long-method
+    - long-parameter-list
+  metrics:
+    cyclomatic-complexity: 20
+    maximum-nesting-level: 5
+    number-of-parameters: 4
+    source-lines-of-code: 50
+  metrics-exclude:
+    - test/**
+  rules:
+    - newline-before-return
+    - no-boolean-literal-compare
+    - no-empty-block
+    - prefer-trailing-comma
+    - prefer-conditional-expressions
+    - no-equal-then-else

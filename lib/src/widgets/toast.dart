@@ -45,7 +45,7 @@ class FLToastDefaults {
 }
 
 class FLToastProvider extends StatefulWidget {
-  FLToastProvider(
+  const FLToastProvider(
       {Key? key, this.defaults = const FLToastDefaults(), required this.child})
       : super(key: key);
 
@@ -193,10 +193,10 @@ class FLToast {
 LinkedHashMap<_FLToastProviderState, BuildContext> _contextMap =
     LinkedHashMap();
 final _FLToastManager _toastManager = _FLToastManager._();
-final EdgeInsetsGeometry _padding =
-    const EdgeInsets.symmetric(horizontal: 20, vertical: 13);
-final double _iconSize = 36.0;
-final double _toastMarginHorizontal = 10;
+const EdgeInsetsGeometry _padding =
+    EdgeInsets.symmetric(horizontal: 20, vertical: 13);
+const double _iconSize = 36.0;
+const double _toastMarginHorizontal = 10;
 
 enum _FLToastType { text, loading, success, error, info, custom }
 
@@ -301,10 +301,10 @@ class _FLToastManager {
 
   final Map<GlobalKey<_FLToastViewState>, _FLToastPack> _toastMap = {};
 
-  bool hasShowingToast() => _toastMap.length > 0;
+  bool hasShowingToast() => _toastMap.isNotEmpty;
 
   void dismissAllToast({bool immediately = false}) {
-    if (_toastMap.length == 0) {
+    if (_toastMap.isEmpty) {
       return;
     }
 
@@ -361,7 +361,7 @@ class _FLToastDefaultsWidget extends InheritedWidget {
 }
 
 class _FLToastView extends StatefulWidget {
-  _FLToastView(
+  const _FLToastView(
       {Key? key,
       this.text,
       this.padding,
@@ -500,14 +500,14 @@ class _FLToastViewState extends State<_FLToastView>
     if (widget.slotWidget != null) {
       children.add(widget.slotWidget!);
       if (widget.text != null) {
-        children.add(SizedBox(height: 8.0));
+        children.add(const SizedBox(height: 8.0));
       }
     }
     // custom slot builder
     if (widget.slotBuilder != null) {
       children.add(widget.slotBuilder!(context));
       if (widget.text != null) {
-        children.add(SizedBox(height: 8.0));
+        children.add(const SizedBox(height: 8.0));
       }
     }
     // add text

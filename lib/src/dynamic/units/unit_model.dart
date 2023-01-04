@@ -105,6 +105,7 @@ class FLDyContainerUnitModel extends FLDyUnitModel {
 
   factory FLDyContainerUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyContainerUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyContainerUnitModelToJson(this);
 }
 
@@ -140,6 +141,7 @@ class FLDySafeAreaUnitModel extends FLDyUnitModel {
 
   factory FLDySafeAreaUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDySafeAreaUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDySafeAreaUnitModelToJson(this);
 }
 
@@ -170,6 +172,7 @@ class FLDyStackUnitModel extends FLDyUnitModel {
 
   factory FLDyStackUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyStackUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyStackUnitModelToJson(this);
 
   AlignmentDirectional? getAlignment() =>
@@ -223,6 +226,7 @@ class FLDyListViewUnitModel extends FLDyUnitModel {
 
   factory FLDyListViewUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyListViewUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyListViewUnitModelToJson(this);
 
   Axis? getScrollDirection() => (scrollDirection != null)
@@ -265,6 +269,7 @@ class FLDyListTileUnitModel extends FLDyUnitModel {
 
   factory FLDyListTileUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyListTileUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyListTileUnitModelToJson(this);
 }
 
@@ -307,6 +312,7 @@ class FLDyInkWellUnitModel extends FLDyUnitModel {
 
   factory FLDyInkWellUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyInkWellUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyInkWellUnitModelToJson(this);
 }
 
@@ -325,6 +331,7 @@ class FLDySizedBoxUnitModel extends FLDyUnitModel {
 
   factory FLDySizedBoxUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDySizedBoxUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDySizedBoxUnitModelToJson(this);
 }
 
@@ -365,6 +372,7 @@ class FLDyTextUnitModel extends FLDyUnitModel {
 
   factory FLDyTextUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyTextUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyTextUnitModelToJson(this);
 
   TextAlign? getTextAlign() => flStringToTextAlign(textAlign);
@@ -409,6 +417,7 @@ class FLDyRichTextUnitModel extends FLDyUnitModel {
 
   factory FLDyRichTextUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyRichTextUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyRichTextUnitModelToJson(this);
 
   TextAlign? getTextAlign() => flStringToTextAlign(textAlign);
@@ -441,6 +450,7 @@ class FLDyTextSpanUnitModel extends FLDyUnitModel {
 
   factory FLDyTextSpanUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyTextSpanUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyTextSpanUnitModelToJson(this);
 }
 
@@ -482,6 +492,7 @@ class FLDyImageUnitModel extends FLDyUnitModel {
 
   factory FLDyImageUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyImageUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyImageUnitModelToJson(this);
 
   BoxFit? getBoxFit() => flStringToBoxFit(fit);
@@ -516,6 +527,7 @@ class FLDyIconUnitModel extends FLDyUnitModel {
 
   factory FLDyIconUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyIconUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyIconUnitModelToJson(this);
 
   TextDirection? getTextDirection() => flStringToTextDirection(textDirection);
@@ -555,6 +567,7 @@ class FLDyRaisedButtonUnitModel extends FLDyUnitModel {
 
   factory FLDyRaisedButtonUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyRaisedButtonUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyRaisedButtonUnitModelToJson(this);
 }
 
@@ -592,6 +605,7 @@ class FLDyFlatButtonUnitModel extends FLDyUnitModel {
 
   factory FLDyFlatButtonUnitModel.fromJson(Map<String, dynamic> json) =>
       _$FLDyFlatButtonUnitModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FLDyFlatButtonUnitModelToJson(this);
 }
 
@@ -730,13 +744,13 @@ class FLDyUnitScrollPhysics {
   ScrollPhysics? toScrollPhysics() {
     switch (type) {
       case FLDyScrollPhysicsType.bouncing:
-        return BouncingScrollPhysics();
+        return const BouncingScrollPhysics();
       case FLDyScrollPhysicsType.clamping:
-        return ClampingScrollPhysics();
+        return const ClampingScrollPhysics();
       case FLDyScrollPhysicsType.alwaysScrollable:
-        return AlwaysScrollableScrollPhysics();
+        return const AlwaysScrollableScrollPhysics();
       case FLDyScrollPhysicsType.neverScrollable:
-        return NeverScrollableScrollPhysics();
+        return const NeverScrollableScrollPhysics();
       default:
         return null;
     }
@@ -944,7 +958,7 @@ class FLDyUnitBorder {
   Map<String, dynamic> toJson() => _$FLDyUnitBorderToJson(this);
 
   Border toBorder(BuildContext context) => Border.all(
-      color: FLThemeTool.parseColor(color, context) ?? Color(0xFF000000),
+      color: FLThemeTool.parseColor(color, context) ?? const Color(0xFF000000),
       width: width ?? 1,
       style: flStringToBorderStyle(style) ?? BorderStyle.solid);
 }

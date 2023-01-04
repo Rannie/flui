@@ -6,7 +6,7 @@ const _kScaleHeight = 36;
 const _kScaleFactor = 0.4;
 
 class FLLoadingButton extends StatefulWidget {
-  FLLoadingButton({
+  const FLLoadingButton({
     Key? key,
     this.child,
     required this.onPressed,

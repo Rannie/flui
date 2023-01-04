@@ -8,7 +8,7 @@ import 'bubble_menu.dart';
 final _kCopyValue = Random();
 
 class FLCopyableLabel extends StatelessWidget {
-  FLCopyableLabel(
+  const FLCopyableLabel(
       {Key? key,
       required this.copyData,
       this.showMenu = false,

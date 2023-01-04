@@ -1,6 +1,6 @@
 <p align="center">
  <a href="https://pub.dev/packages/flui_nullsafety"><img src="https://badgen.net/badge/flui_nullsafety/v2.0.0/blue" /></a>
- <a href="https://flutter.dev/docs/get-started/install/windows"><img src="https://badgen.net/badge/Flutter/v3.3.4/red" /></a>
+ <a href="https://flutter.dev/docs/get-started/install/windows"><img src="https://badgen.net/badge/Flutter/v3.3.10/red" /></a>
 </p>
 
 插件已经上传到pub仓库： https://pub.dev/packages/flui_nullsafety

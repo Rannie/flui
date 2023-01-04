@@ -5,7 +5,7 @@ import 'base_unit.dart';
 
 /// Container unit widget
 class FLDyContainerUnit extends FLDyRenderUnit {
-  FLDyContainerUnit({required FLDyContainerUnitModel unitModel})
+  FLDyContainerUnit({super.key, required FLDyContainerUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyContainerUnitModel),
         super(unitModel: unitModel);
 
@@ -30,7 +30,7 @@ class FLDyContainerUnit extends FLDyRenderUnit {
 
 /// SafeArea unit widget
 class FLDySafeAreaUnit extends FLDyRenderUnit {
-  FLDySafeAreaUnit({required FLDySafeAreaUnitModel unitModel})
+  FLDySafeAreaUnit({super.key, required FLDySafeAreaUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDySafeAreaUnitModel),
         super(unitModel: unitModel);
 
@@ -52,7 +52,7 @@ class FLDySafeAreaUnit extends FLDyRenderUnit {
 
 /// Stack unit widget
 class FLDyStackUnit extends FLDyRenderUnit {
-  FLDyStackUnit({required FLDyStackUnitModel unitModel})
+  FLDyStackUnit({super.key, required FLDyStackUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyStackUnitModel),
         super(unitModel: unitModel);
 
@@ -73,7 +73,7 @@ class FLDyStackUnit extends FLDyRenderUnit {
 
 /// ListView unit widget
 class FLDyListViewUnit extends FLDyRenderUnit {
-  FLDyListViewUnit({required FLDyListViewUnitModel unitModel})
+  FLDyListViewUnit({super.key, required FLDyListViewUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyListViewUnitModel),
         super(unitModel: unitModel);
 
@@ -125,7 +125,7 @@ class FLDyListViewUnit extends FLDyRenderUnit {
 
 /// ListTile unit widget
 class FLDyListTileUnit extends FLDyRenderUnit {
-  FLDyListTileUnit({required FLDyListTileUnitModel unitModel})
+  FLDyListTileUnit({super.key, required FLDyListTileUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyListTileUnitModel),
         super(unitModel: unitModel);
 
@@ -149,7 +149,7 @@ class FLDyListTileUnit extends FLDyRenderUnit {
 
 /// InkWell unit widget
 class FLDyInkWellUnit extends FLDyRenderUnit {
-  FLDyInkWellUnit({required FLDyInkWellUnitModel unitModel})
+  FLDyInkWellUnit({super.key, required FLDyInkWellUnitModel unitModel})
       : assert(unitModel.runtimeType == FLDyInkWellUnitModel),
         super(unitModel: unitModel);
 
@@ -158,7 +158,6 @@ class FLDyInkWellUnit extends FLDyRenderUnit {
     final FLDyInkWellUnitModel iwum = unitModel as FLDyInkWellUnitModel;
     final child = resolveChild();
     final InkWell inkWell = InkWell(
-        child: child,
         onTap: () {
           FLDyActionDispatch.dispatcher
               .dispatchAction(iwum.uniqueId, iwum.onTap, context);
@@ -174,7 +173,8 @@ class FLDyInkWellUnit extends FLDyRenderUnit {
         focusColor: FLThemeTool.parseColor(iwum.focusColor, context),
         hoverColor: FLThemeTool.parseColor(iwum.hoverColor, context),
         highlightColor: FLThemeTool.parseColor(iwum.highlightColor, context),
-        splashColor: FLThemeTool.parseColor(iwum.splashColor, context));
+        splashColor: FLThemeTool.parseColor(iwum.splashColor, context),
+        child: child);
     return resolveSelf(inkWell);
   }
 }

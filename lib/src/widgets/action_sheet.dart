@@ -35,7 +35,7 @@ Future<T?> showFLBottomSheet<T>(
 }
 
 class FLCupertinoActionSheet extends StatelessWidget {
-  FLCupertinoActionSheet(
+  const FLCupertinoActionSheet(
       {Key? key,
       this.backgroundColor,
       this.style = FLCupertinoActionSheetStyle.roundedCard,
@@ -142,10 +142,10 @@ class FLCupertinoActionSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EdgeInsets margin = _isRound()
-        ? EdgeInsets.symmetric(
+        ? const EdgeInsets.symmetric(
             horizontal: _kEdgeHorizontalPadding,
             vertical: _kEdgeVerticalPadding)
-        : EdgeInsets.only(top: _kEdgeVerticalPadding);
+        : const EdgeInsets.only(top: _kEdgeVerticalPadding);
     List<Widget> children = <Widget>[];
     children.add(_buildMainContent(context));
 
@@ -169,9 +169,9 @@ class FLCupertinoActionSheet extends StatelessWidget {
             width: preferWidth,
             margin: margin,
             child: Column(
-              children: children,
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: children,
             )),
       ),
     );

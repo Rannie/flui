@@ -8,7 +8,7 @@ const Color FLNoticeBarBackgroundColor = Color(0xFFFEFCEC);
 typedef FLNoticeBarItemBuilder = Widget Function(BuildContext context);
 
 class FLNoticeBar extends StatelessWidget {
-  FLNoticeBar({
+  const FLNoticeBar({
     Key? key,
     this.backgroundColor,
     this.textStyle,
@@ -40,7 +40,7 @@ class FLNoticeBar extends StatelessWidget {
     velocity ??= 0.4;
     loop ??= true;
     height ??= FLMarqueeDefaultHeight;
-    padding ??= EdgeInsets.symmetric(horizontal: 10);
+    padding ??= const EdgeInsets.symmetric(horizontal: 10);
 
     Widget prefixBuilder(BuildContext context) {
       final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -53,7 +53,7 @@ class FLNoticeBar extends StatelessWidget {
         size: size,
         color: textColor,
       );
-    };
+    }
 
     return FLNoticeBar(
       key: key,
@@ -89,7 +89,7 @@ class FLNoticeBar extends StatelessWidget {
     velocity ??= 0.4;
     loop ??= true;
     height ??= FLMarqueeDefaultHeight;
-    padding ??= EdgeInsets.symmetric(horizontal: 10);
+    padding ??= const EdgeInsets.symmetric(horizontal: 10);
 
     Widget suffixBuilder(BuildContext context) {
       final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -105,7 +105,7 @@ class FLNoticeBar extends StatelessWidget {
           color: textColor,
         ),
       );
-    };
+    }
 
     return FLNoticeBar(
       key: key,
@@ -150,7 +150,7 @@ class FLNoticeBar extends StatelessWidget {
 
     if (prefixBuilder != null) {
       children.add(prefixBuilder!(context));
-      children.add(SizedBox(width: 5));
+      children.add(const SizedBox(width: 5));
     }
 
     children.add(Expanded(
@@ -166,7 +166,7 @@ class FLNoticeBar extends StatelessWidget {
     ));
 
     if (suffixBuilder != null) {
-      children.add(SizedBox(width: 5));
+      children.add(const SizedBox(width: 5));
       children.add(suffixBuilder!(context));
     }
 

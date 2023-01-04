@@ -7,7 +7,6 @@ class FLDyLogger {
   static void log(String msg) {
     assert(() {
       if (!_enabled) return true;
-      print('[FLUI Dynamic] $msg');
       return true;
     }());
   }
@@ -15,7 +14,6 @@ class FLDyLogger {
   static void error(String msg) {
     assert(() {
       if (!_enabled) return true;
-      print('[FLUI Dynamic] ERROR: $msg');
       return true;
     }());
   }

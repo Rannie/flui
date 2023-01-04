@@ -7,7 +7,7 @@ const Color _kDefaultDetailColorLight =
     Color.fromARGB(255, 218, 218, 218);
 
 class FLEmptyContainer extends StatefulWidget {
-  FLEmptyContainer({
+  const FLEmptyContainer({
     Key? key,
     this.backgroundColor,
     this.customLoadingWidget,
@@ -43,7 +43,7 @@ class FLEmptyContainer extends StatefulWidget {
 
 class FLEmptyContainerState extends State<FLEmptyContainer> {
   void _addChildAndSpacingIfNeeded(List<Widget?> list, Widget? newChild) {
-    if (list.length > 0) {
+    if (list.isNotEmpty) {
       list.add(SizedBox(height: widget.space));
     }
     list.add(newChild);
@@ -98,7 +98,7 @@ class FLEmptyContainerState extends State<FLEmptyContainer> {
 
     return Container(
         color: widget.backgroundColor,
-        padding: EdgeInsets.all(40.0),
+        padding: const EdgeInsets.all(40.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -21,7 +21,7 @@ class FLAutoComplete<T> extends StatefulWidget {
   /// complete widget, such as a TextField.
   final Widget child;
 
-  FLAutoComplete(
+  const FLAutoComplete(
       {Key? key,
       this.focusNode,
       this.onSelectedSuggestion,

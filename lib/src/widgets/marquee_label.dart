@@ -8,7 +8,7 @@ const double _kDefaultDistance = 8.0;
 const int _kTimerGap = 100;
 
 class FLMarqueeLabel extends StatefulWidget {
-  FLMarqueeLabel(
+  const FLMarqueeLabel(
       {Key? key,
       required this.text,
       this.style,
@@ -108,7 +108,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
           'FLMarqueeLabel\'s text width add space value must greater than widget\'s width'));
     }
 
-    _timer = Timer.periodic(Duration(milliseconds: _kTimerGap), (_) {
+    _timer = Timer.periodic(const Duration(milliseconds: _kTimerGap), (_) {
       double pixels = _scrollController.position.pixels;
       if (pixels + moveOffset >= textWidth + _space!) {
         if (widget.loop == true) {
@@ -124,7 +124,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
       }
 
       _scrollController.animateTo(_pos,
-          duration: Duration(milliseconds: _kTimerGap), curve: Curves.linear);
+          duration: const Duration(milliseconds: _kTimerGap), curve: Curves.linear);
     });
   }
 
@@ -155,7 +155,7 @@ class _FLMarqueeLabelState extends State<FLMarqueeLabel>
         key: _listViewKey,
         scrollDirection: Axis.horizontal,
         controller: _scrollController,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: children,
       ),
     );

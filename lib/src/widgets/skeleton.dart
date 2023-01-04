@@ -5,7 +5,7 @@ const int _kDefaultMS = 1000;
 enum FLSkeletonAnimationType { shimmer, stretch }
 
 class FLSkeleton extends StatefulWidget {
-  FLSkeleton(
+  const FLSkeleton(
       {Key? key,
       this.shape,
       this.padding,

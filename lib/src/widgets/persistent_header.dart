@@ -32,7 +32,7 @@ class FLPersistentHeaderState {
 }
 
 class FLSliverPersistentHeaderWidget extends RenderObjectWidget {
-  FLSliverPersistentHeaderWidget({
+  const FLSliverPersistentHeaderWidget({
     Key? key,
     this.header,
     this.content,
@@ -157,7 +157,7 @@ typedef FLPersistentHeaderLayoutWidgetBuilder = Widget Function(
     BuildContext context, FLPersistentHeaderConstraints constraints);
 
 class FLPersistentHeaderLayoutBuilder extends RenderObjectWidget {
-  FLPersistentHeaderLayoutBuilder({
+  const FLPersistentHeaderLayoutBuilder({
     Key? key,
     required this.builder,
   })  : super(key: key);

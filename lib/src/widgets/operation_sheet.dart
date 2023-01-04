@@ -15,7 +15,7 @@ const CupertinoDynamicColor _kTextColor = CupertinoDynamicColor.withBrightness(
 
 /// The operation sheet is based on [FLCupertinoActionSheet].
 class FLCupertinoOperationSheet extends StatelessWidget {
-  FLCupertinoOperationSheet({
+  const FLCupertinoOperationSheet({
     Key? key,
     this.borderRadius,
     this.sheetStyle,
@@ -39,7 +39,7 @@ class FLCupertinoOperationSheet extends StatelessWidget {
     // add header
     if (header != null) {
       children.add(header);
-      children.add(Divider(height: 1));
+      children.add(const Divider(height: 1));
     }
     // add items
     int sectionCount = itemList.length;
@@ -48,21 +48,21 @@ class FLCupertinoOperationSheet extends StatelessWidget {
       Widget section = _buildSection(list as List<FLCupertinoOperationSheetItem>);
       children.add(section);
       if (i != sectionCount - 1) {
-        children.add(Divider(height: 1));
+        children.add(const Divider(height: 1));
       }
     }
     return children;
   }
 
   Widget _buildSection(List<FLCupertinoOperationSheetItem> list) {
-    return Container(
+    return SizedBox(
       height: _kSectionHeight,
       child: GridView(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             vertical: _kSectionInsetVertical,
             horizontal: _kSectionInsetVertical),
         scrollDirection: Axis.horizontal,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
             mainAxisSpacing: _kItemSpacing,
             childAspectRatio: 6 / 5),
@@ -78,18 +78,16 @@ class FLCupertinoOperationSheet extends StatelessWidget {
         borderRadius: borderRadius,
         backgroundColor: backgroundColor,
         cancelButton: cancelButton,
-        child: Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: _buildAllSections() as List<Widget>,
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _buildAllSections() as List<Widget>,
         ));
   }
 }
 
 class FLCupertinoOperationSheetItem extends StatelessWidget {
-  FLCupertinoOperationSheetItem({
+  const FLCupertinoOperationSheetItem({
     Key? key,
     this.imagePath,
     this.highlightImagePath,
@@ -120,7 +118,7 @@ class FLCupertinoOperationSheetItem extends StatelessWidget {
           fit: BoxFit.fill,
           onPressed: onPressed,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(

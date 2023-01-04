@@ -11,7 +11,7 @@ const BorderRadius _kBubbleBorderRadius =
 enum FLBubbleFrom { bottom, top, left, right }
 
 class FLBubble extends StatelessWidget {
-  FLBubble(
+  const FLBubble(
       {Key? key,
       this.backgroundColor = CupertinoColors.white,
       this.from = FLBubbleFrom.bottom,
@@ -26,14 +26,14 @@ class FLBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FLBubbleFrom _from = from;
+    FLBubbleFrom fromValue = from;
     final TextDirection textDirection = Directionality.of(context);
     final bool isRtl = textDirection == TextDirection.rtl;
     final bool isHorizontal =
-        (_from == FLBubbleFrom.left || _from == FLBubbleFrom.right);
+        (fromValue == FLBubbleFrom.left || fromValue == FLBubbleFrom.right);
     if (isRtl && isHorizontal) {
-      _from =
-          _from == FLBubbleFrom.left ? FLBubbleFrom.right : FLBubbleFrom.left;
+      fromValue =
+      fromValue == FLBubbleFrom.left ? FLBubbleFrom.right : FLBubbleFrom.left;
     }
     // triangle
     final Size triangleSize =
@@ -42,7 +42,7 @@ class FLBubble extends StatelessWidget {
       size: triangleSize,
       child: CustomPaint(
         painter:
-            _FLBubbleNotchPainter(pos: _from, backgroundColor: backgroundColor),
+            _FLBubbleNotchPainter(pos: fromValue, backgroundColor: backgroundColor),
       ),
     );
     // main rect

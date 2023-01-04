@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class FLAvatar extends StatelessWidget {
-  FLAvatar(
+  const FLAvatar(
       {Key? key,
       this.image,
       this.color,
