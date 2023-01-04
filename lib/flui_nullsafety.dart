@@ -30,3 +30,6 @@ export 'package:flui_nullsafety/src/widgets/pin_input.dart';
 export 'package:flui_nullsafety/src/widgets/primary_color_override.dart';
 export 'package:flui_nullsafety/src/widgets/skeleton.dart';
 export 'package:flui_nullsafety/src/widgets/toast.dart';
+
+export 'src/widgets/flat_button.dart';
+export 'src/widgets/static_list.dart';
