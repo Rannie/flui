@@ -283,7 +283,6 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final Widget input = Container(
       width: widget.inputWidth,
       height: widget.textAndInputHeight ?? _kDefaultInputHeight,
-      padding: const EdgeInsets.only(left: 3),
       // resolve text center issue
       decoration: BoxDecoration(
         color: inputBackgroundColor,
