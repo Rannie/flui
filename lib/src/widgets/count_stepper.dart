@@ -5,20 +5,19 @@ import 'package:flutter/services.dart';
 
 const double _kDefaultInputWidth = 40;
 const double _kDefaultFloatingTextWidth = 35;
-const double _kDefaultInputHeight = 35;
+const double _kDefaultInputHeight = 40;
 const double _kDefaultEleSize = 18;
 const double _kDefaultButtonSize = 30;
 const double _kDefaultFloatingButtonSize = 25;
 const double _kDefaultFontSize = 16;
 const double _kDefaultFloatingSize = 17;
 
-const Color _kDefaultBackgroundColor = Color.fromRGBO(242, 243, 245, 1);
 
 ///是否执行数量更改,数量拦截器,当返回false的时候,则不执行数量修改,true则执行数量更改
 ///当返回false的时候,不会进入onChanged回调
 ///[value] - 将要修改的数量
 ///[actionType] - 操作类型,有三种 [CountStepperActionType] ,加,减,自定义输入
-typedef DoChangeInterceptor = bool Function(int value,CountStepperActionType actionType);
+typedef DoChangeInterceptor = bool Function(int value, CountStepperActionType actionType);
 
 ///焦点回调
 /// [hasFocus] - 是否存在焦点
@@ -33,7 +32,7 @@ typedef CustomButtonRender = Widget Function(Function callMethod);
 typedef ValueChangeHandle = void Function(int value, TextEditingController controller);
 
 ///[FocusNode]的添加和删除的回调事件
-typedef FocusNodeEvent = void Function(bool isRemove,FocusNode focusNode);
+typedef FocusNodeEvent = void Function(bool isRemove, FocusNode focusNode);
 
 class FLCountStepper<T> extends StatefulWidget {
   const FLCountStepper(
@@ -53,7 +52,9 @@ class FLCountStepper<T> extends StatefulWidget {
       this.addButtonRender,
       this.initValue,
       this.valueInterceptor,
-      this.loggerLevel = CountStepperLoggerLevel.enable,required this.value,this.focusNodeEvent})
+      this.loggerLevel = CountStepperLoggerLevel.enable,
+      required this.value,
+      this.focusNodeEvent})
       : super(key: key);
 
   /// the controller of count values
@@ -119,15 +120,14 @@ class _FLCountStepperState extends State<FLCountStepper> {
   late bool _minusEnabled;
   late bool _addEnabled;
   int? _maxLength;
-  final FocusNode _focusNode =  FocusNode();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _assembleCountStepper();
     _focusNode.addListener(_addFocusNodeListing);
-    widget.focusNodeEvent?.call(false,_focusNode);
-
+    widget.focusNodeEvent?.call(false, _focusNode);
   }
 
   @override
@@ -148,8 +148,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
   void _assembleCountStepper() {
     _controller = widget.controller;
     int? number = _controller.value;
-    _inputController.value = TextEditingValue(
-        text: '$number', selection: TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$number'.length)));
+    _inputController.value = TextEditingValue(text: '$number', selection: TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$number'.length)));
     _minusEnabled = !(widget.disabled || _controller.isMin());
     _addEnabled = !(widget.disabled || _controller.isMax());
     if (mounted) {
@@ -159,8 +158,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
 
   void _onStepperValueChanged() {
     num number = _controller.number;
-    _inputController.value = TextEditingValue(
-        text: '$number', selection: TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$number'.length)));
+    _inputController.value = TextEditingValue(text: '$number', selection: TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$number'.length)));
   }
 
   ///减数量
@@ -168,7 +166,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
     _showLog('执行 - 操作');
     _resignFocus();
     final isGo = _syncValueAndInput(CountStepperActionType.reduce);
-    if(isGo){
+    if (isGo) {
       _controller.minus();
       _updateEnableStates();
 
@@ -182,8 +180,8 @@ class _FLCountStepperState extends State<FLCountStepper> {
   void _handleAddPressed() {
     _showLog('执行 + 操作');
     _resignFocus();
-    final isGo =  _syncValueAndInput(CountStepperActionType.add);
-    if(isGo){
+    final isGo = _syncValueAndInput(CountStepperActionType.add);
+    if (isGo) {
       _controller.add();
       _updateEnableStates();
       if (widget.onChanged != null) {
@@ -200,17 +198,17 @@ class _FLCountStepperState extends State<FLCountStepper> {
       text = '$regVal';
     }
 
-    _showLog('修改文本内容:$text  >>>>是否满足条件:${_controller.value!.compareTo(num.parse(text)) != 0}');
+    // _showLog('修改文本内容:$text  >>>>是否满足条件:${_controller.value!.compareTo(num.parse(text)) != 0}');
     if (_controller.value!.compareTo(num.parse(text)) != 0) {
-      final isGo = widget.valueInterceptor?.call(int.parse(text),actionType) ?? true;
+      final isGo = widget.valueInterceptor?.call(int.parse(text), actionType) ?? true;
       _showLog('执行拦截器,是否放行? :$isGo');
-      if(isGo){
+      if (isGo) {
         _controller.number = num.parse(text);
         return true;
       }
     }
-    final isGo = widget.valueInterceptor?.call(int.parse(text),actionType) ?? true;
-    _showLog('执行拦截器,是否放行? :$isGo');
+    final isGo = widget.valueInterceptor?.call(int.parse(text), actionType) ?? true;
+    // _showLog('执行拦截器,是否放行? :$isGo');
     return isGo;
   }
 
@@ -231,31 +229,29 @@ class _FLCountStepperState extends State<FLCountStepper> {
   void _handleInputComplete() {
     _resignFocus();
     final isOk = _syncValueAndInput(CountStepperActionType.customInput);
-    if(isOk){
+    if (isOk) {
       num curValue = _controller.number;
-      _inputController.value = TextEditingValue(
-          text: '$curValue', selection: TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$curValue'.length)));
+      _inputController.value = TextEditingValue(text: '$curValue', selection: TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$curValue'.length)));
       _updateEnableStates();
 
       if (widget.onChanged != null) {
         widget.onChanged!(_controller.number);
       }
     }
-
   }
 
   void _showLog(dynamic msg) {
-    if(widget.loggerLevel == CountStepperLoggerLevel.enable){
+    if (widget.loggerLevel == CountStepperLoggerLevel.enable) {
       debugPrint(msg);
     }
   }
 
   @override
   void dispose() {
-    widget.focusNodeEvent?.call(true,_focusNode);
-      _focusNode.removeListener(_addFocusNodeListing);
-      _focusNode.dispose();
-      _controller.dispose();
+    widget.focusNodeEvent?.call(true, _focusNode);
+    _focusNode.removeListener(_addFocusNodeListing);
+    _focusNode.dispose();
+    _controller.dispose();
     _inputController.dispose();
     super.dispose();
   }
@@ -263,18 +259,12 @@ class _FLCountStepperState extends State<FLCountStepper> {
   @override
   Widget build(BuildContext context) {
     _maxLength = (widget.inputWidth / 10).floor() - 1;
-    final ThemeData themeData = Theme.of(context);
-    final Brightness brightness = themeData.brightness;
-    final bool isDarkMode = brightness == Brightness.dark;
-    final Color buttonIconColor = widget.actionColor ?? (isDarkMode ? Colors.white : themeData.primaryColor);
-    final Color inputBackgroundColor = isDarkMode ? Colors.transparent : _kDefaultBackgroundColor;
 
     final Widget minusButton = SizedBox(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
       child: TextButton(
-        style:
-            ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
+        style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: widget.actionColor))),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
         child: Icon(Icons.remove, size: widget.iconFontSize ?? _kDefaultEleSize),
       ),
@@ -283,11 +273,6 @@ class _FLCountStepperState extends State<FLCountStepper> {
     final Widget input = Container(
       width: widget.inputWidth,
       height: widget.textAndInputHeight ?? _kDefaultInputHeight,
-      // resolve text center issue
-      decoration: BoxDecoration(
-        color: inputBackgroundColor,
-        borderRadius: BorderRadius.circular(3),
-      ),
       child: TextField(
         onChanged: (v) {
           final nV = v.isEmpty ? 0 : int.parse(v);
@@ -307,22 +292,22 @@ class _FLCountStepperState extends State<FLCountStepper> {
           FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
         ],
+
         decoration: const InputDecoration(
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 0),
+          isCollapsed: true,
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
         ),
         onEditingComplete: _handleInputComplete,
       ),
     );
-
 
     /// + 按钮
     final Widget addButton = SizedBox(
       width: _kDefaultButtonSize,
       height: _kDefaultButtonSize,
       child: TextButton(
-        style:
-            ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: buttonIconColor))),
+        style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), textStyle: MaterialStateProperty.all(TextStyle(color: widget.actionColor))),
         onPressed: _addEnabled ? _handleAddPressed : null,
         child: Icon(Icons.add, size: widget.iconFontSize ?? _kDefaultEleSize),
       ),
@@ -550,13 +535,13 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
   Future<void> _playMinusAnim() async {
     try {
       await _animationController!.forward().orCancel;
-    } on TickerCanceled catch(_){}
+    } on TickerCanceled catch (_) {}
   }
 
   Future<void> _reversMinusAnim() async {
     try {
       await _animationController?.reverse().orCancel;
-    } on TickerCanceled catch(_){}
+    } on TickerCanceled catch (_) {}
   }
 
   @override
@@ -580,8 +565,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
       height: _kDefaultFloatingButtonSize,
       controller: _animationController,
       child: TextButton(
-        style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero), shape: MaterialStateProperty.all(CircleBorder(side: BorderSide(color: tintColor)))),
+        style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), shape: MaterialStateProperty.all(CircleBorder(side: BorderSide(color: tintColor)))),
         onPressed: _minusEnabled ? _handleMinusPressed : null,
         child: Icon(Icons.remove, size: _kDefaultEleSize, color: tintColor),
       ),
@@ -605,10 +589,7 @@ class _FLFloatingCountStepperState extends State<FLFloatingCountStepper> with Ti
       width: _kDefaultFloatingButtonSize,
       height: _kDefaultFloatingButtonSize,
       child: ElevatedButton(
-        style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            shape: MaterialStateProperty.all(const CircleBorder()),
-            backgroundColor: MaterialStateProperty.all(tintColor)),
+        style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), shape: MaterialStateProperty.all(const CircleBorder()), backgroundColor: MaterialStateProperty.all(tintColor)),
         onPressed: _addEnabled ? _handleAddPressed : null,
         child: const Icon(Icons.add, size: _kDefaultEleSize, color: Colors.white),
       ),
@@ -676,10 +657,7 @@ class FLCountStepperController extends ValueNotifier<int?> {
   }
 }
 
-enum CountStepperLoggerLevel{
-  enable,
-  disable
-}
+enum CountStepperLoggerLevel { enable, disable }
 
 enum CountStepperActionType {
   //加操作
