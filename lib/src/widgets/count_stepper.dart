@@ -13,6 +13,9 @@ const double _kDefaultFontSize = 16;
 const double _kDefaultFloatingSize = 17;
 
 
+typedef InputWidgetWrapper = Widget Function(Widget inputWidget);
+
+
 ///是否执行数量更改,数量拦截器,当返回false的时候,则不执行数量修改,true则执行数量更改
 ///当返回false的时候,不会进入onChanged回调
 ///[value] - 将要修改的数量
@@ -54,7 +57,7 @@ class FLCountStepper<T> extends StatefulWidget {
       this.valueInterceptor,
       this.loggerLevel = CountStepperLoggerLevel.enable,
       required this.value,
-      this.focusNodeEvent})
+      this.focusNodeEvent,this.inputWidgetWrapper})
       : super(key: key);
 
   /// the controller of count values
@@ -65,6 +68,8 @@ class FLCountStepper<T> extends StatefulWidget {
 
   /// 当输入框的数字被改变时
   final ValueChangeHandle? onChangeWithInput;
+
+  final InputWidgetWrapper? inputWidgetWrapper;
 
   /// disable step button
   final bool disabled;
@@ -270,7 +275,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
       ),
     );
 
-    final Widget input = Container(
+    final Widget input = SizedBox(
       width: widget.inputWidth,
       height: widget.textAndInputHeight ?? _kDefaultInputHeight,
       child: TextField(
@@ -327,7 +332,7 @@ class _FLCountStepperState extends State<FLCountStepper> {
           Positioned(
             top: 0,
             left: _kDefaultButtonSize + inset,
-            child: input,
+            child: widget.inputWidgetWrapper?.call(input) ?? input,
           ),
           Positioned(
             left: _kDefaultButtonSize + widget.inputWidth + 2 * inset,
