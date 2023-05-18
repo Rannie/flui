@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:ui' as ui;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -252,7 +251,7 @@ Function _showToast(String text,
     _toastManager.dismissAllToast(immediately: true);
   }
 
-  Overlay.of(context)!.insert(entry);
+  Overlay.of(context).insert(entry);
   _toastManager.addToast(_FLToastPack(key: key, entry: entry));
   SemanticsService.tooltip(text);
 
@@ -484,7 +483,7 @@ class _FLToastViewState extends State<_FLToastView>
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQueryData = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQueryData = MediaQueryData.fromView(View.of(context));
     final double marginTop = widget.topOffset! + mediaQueryData.padding.top;
     final double marginBottom =
         widget.bottomOffset! + mediaQueryData.padding.bottom;

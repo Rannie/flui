@@ -1,7 +1,5 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
-  strong-mode:
-    implicit-dynamic: true
   errors:
     todo: ignore
     invalid_annotation_target: ignore
@@ -36,7 +34,6 @@ linter:
     - unnecessary_brace_in_string_interps # avoid
     - prefer_iterable_whereType
     - unnecessary_lambdas
-    - prefer_equal_for_default_values
     - avoid_init_to_null
     #   - unnecessary_getters_setters
     - unnecessary_this

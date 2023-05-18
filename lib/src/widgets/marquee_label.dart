@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-const double FLMarqueeDefaultHeight = 36;
+const double flMarqueeDefaultHeight = 36;
 const double _kDefaultDistance = 8.0;
 const int _kTimerGap = 100;
 
@@ -15,7 +15,7 @@ class FLMarqueeLabel extends StatefulWidget {
       this.space,
       this.velocity = 0.4,
       this.loop = true,
-      this.height = FLMarqueeDefaultHeight,
+      this.height = flMarqueeDefaultHeight,
       this.padding,
       this.delay,
       this.backgroundColor = Colors.transparent})

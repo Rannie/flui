@@ -297,9 +297,10 @@ class _FLCountStepperState extends State<FLCountStepper> {
           FilteringTextInputFormatter.allow(RegExp("[-0-9]")),
           LengthLimitingTextInputFormatter(_maxLength),
         ],
-
         decoration: const InputDecoration(
-          border: InputBorder.none,
+          border: UnderlineInputBorder(borderSide: BorderSide.none),
+          disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
           isCollapsed: true,
           contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
         ),

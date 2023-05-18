@@ -131,7 +131,7 @@ class FLStaticListView extends StatelessWidget {
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[Text(sectionData.headerTitle ?? '', style: sectionData.headerTitleStyle ?? TextStyle(color: Colors.grey, fontSize: themeData.textTheme.subtitle1?.fontSize))],
+            children: <Widget>[Text(sectionData.headerTitle ?? '', style: sectionData.headerTitleStyle ?? TextStyle(color: Colors.grey, fontSize: themeData.textTheme.titleMedium?.fontSize))],
           );
     final EdgeInsetsGeometry padding = (isRtl ? EdgeInsets.only(right: sectionData.headerTitleIntent) : EdgeInsets.only(left: sectionData.headerTitleIntent));
     final headerHeight = sectionData.headerHeight ?? (sectionData.headerTitle != null ? kStaticHeaderHeight : kStaticHeaderHeightNormal);
@@ -176,9 +176,9 @@ class FLStaticListView extends StatelessWidget {
   Widget? _getAccessoryWidget(FLStaticItemData itemData, ThemeData themeData) {
     switch (itemData.accessoryType) {
       case FLStaticListCellAccessoryType.accCheckmark:
-        return Row(
+        return const Row(
           mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
+          children: <Widget>[
             Icon(Icons.check),
             SizedBox(width: 6), // align right side
           ],
@@ -194,7 +194,7 @@ class FLStaticListView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[Text(itemData.accessoryString ?? '', style: TextStyle(color: Colors.grey, fontSize: themeData.textTheme.subtitle1?.fontSize)), icon],
+              children: <Widget>[Text(itemData.accessoryString ?? '', style: TextStyle(color: Colors.grey, fontSize: themeData.textTheme.titleMedium?.fontSize)), icon],
             );
           }
           return icon;

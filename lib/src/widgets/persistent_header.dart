@@ -136,7 +136,6 @@ class FLSliverPersistentHeaderWidgetElement extends RenderObjectElement {
 
   @override
   void insertRenderObjectChild(covariant RenderObject child, covariant Object? slot) {
-    super.insertRenderObjectChild(child, slot);
     final FLRenderSliverPersistentHeader renderObject = this.renderObject as FLRenderSliverPersistentHeader;
     if (slot == 0) renderObject.header = child as RenderBox?;
     if (slot == 1) renderObject.content = child as RenderSliver?;
@@ -145,11 +144,15 @@ class FLSliverPersistentHeaderWidgetElement extends RenderObjectElement {
 
   @override
   void moveRenderObjectChild(covariant RenderObject child, covariant Object? oldSlot, covariant Object? newSlot) {
-    super.moveRenderObjectChild(child, oldSlot, newSlot);
     final FLRenderSliverPersistentHeader renderObject = this.renderObject as FLRenderSliverPersistentHeader;
     if (renderObject.header == child) renderObject.header = null;
     if (renderObject.content == child) renderObject.content = null;
     assert(renderObject == this.renderObject);
+  }
+
+  @override
+  void removeRenderObjectChild(covariant RenderObject child, covariant Object? slot) {
+
   }
 }
 
@@ -250,7 +253,6 @@ class _FLPersistentHeaderLayoutBuilderElement extends RenderObjectElement {
 
   @override
   void insertRenderObjectChild(covariant RenderObject child, covariant Object? slot) {
-    super.insertRenderObjectChild(child, slot);
     final RenderObjectWithChildMixin<RenderObject> renderObject =
         this.renderObject;
     assert(slot == null);
@@ -262,12 +264,15 @@ class _FLPersistentHeaderLayoutBuilderElement extends RenderObjectElement {
 
   @override
   void moveRenderObjectChild(covariant RenderObject child, covariant Object? oldSlot, covariant Object? newSlot) {
-    super.moveRenderObjectChild(child, oldSlot, newSlot);
     final FLRenderPersistentHeaderLayoutBuilder renderObject =
         this.renderObject;
     assert(renderObject.child == child);
     renderObject.child = null;
     assert(renderObject == this.renderObject);
+  }
+
+  @override
+  void removeRenderObjectChild(covariant RenderObject child, covariant Object? slot) {
   }
 }
 

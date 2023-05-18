@@ -105,7 +105,7 @@ class FLAutoCompleteState<T> extends State<FLAutoComplete> {
           ),
         );
       });
-      Overlay.of(context)!.insert(_suggestionsEntry!);
+      Overlay.of(context).insert(_suggestionsEntry!);
       _display = true;
     } else {
       _suggestionsEntry!.markNeedsBuild();

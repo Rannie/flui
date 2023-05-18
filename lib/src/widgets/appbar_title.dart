@@ -94,7 +94,7 @@ class FLAppBarTitle extends StatelessWidget {
     final Widget titleWidget = _buildTitles();
     ThemeData themeData = Theme.of(context);
     final Color? tintColor = themeData.appBarTheme.toolbarTextStyle?.color ??
-        themeData.primaryTextTheme.headline6!.color;
+        themeData.primaryTextTheme.titleLarge!.color;
     List<Widget> children = [];
 
     // build left
